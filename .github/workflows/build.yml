@@ -1,0 +1,51 @@
+name: Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Generate version based on current date and time
+      id: generate_version
+      shell: pwsh
+      run: |
+        Set-TimeZone -Id "China Standard Time" -PassThru
+        $date = Get-Date
+        $year = $date.Year.ToString().Substring(2)
+        $month = $date.Month.ToString("0")
+        $day = $date.Day.ToString("0")
+        $hour = $date.Hour.ToString("0")
+        $minute = $date.Minute.ToString("0")
+        $version = "$year.$month.$day.$hour$minute"
+        echo "Version: $version"
+        echo $PSVersionTable
+        echo $GITHUB_OUTPUT
+        echo "version=$version" >> $env:GITHUB_OUTPUT
+
+    - name: Install NSIS
+      uses: repolevedavaj/install-nsis@v1
+      with:
+        nsis-version: 3.09
+
+    - name: Build XROSC
+      shell: cmd
+      env:
+        GITHUB_WORKFLOW_VERSION: ${{ steps.generate_version.outputs.version }}
+      run: |
+        cmd /c build.bat
+
+    - name: Create Release and Upload Asset
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: v${{ steps.generate_version.outputs.version }}
+        name: v${{ steps.generate_version.outputs.version }}
+        draft: false
+        prerelease: true
+        generate_release_notes: true
+        token: ${{ secrets.MY_TOKEN }}
+        files: osc.exe
