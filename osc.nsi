@@ -7,8 +7,8 @@
 !define PRODUCT_VERSION "${CUSTOM_VERSION}"
 
 ; 实测不压固实更小
-# ; SetCompressor lzma
-# ; SetCompressorDictSize 32
+SetCompressor lzma
+SetCompressorDictSize 32
 
 ; ------ MUI 现代界面定义 (1.67 版本以上兼容) ------
 !include "MUI.nsh"
