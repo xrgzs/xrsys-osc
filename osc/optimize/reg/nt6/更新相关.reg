@@ -1,0 +1,38 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;更新相关
+;删除策略
+;[-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate]
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate]
+;禁用-Windows 更新不包括驱动程序
+"ExcludeWUDriversInQualityUpdate"=-
+;未配置-更新通知显示功能
+"SetUpdateNotificationLevel"=-
+;未配置-指定更新通知显示选项
+;0: 默认 OS Windows 更新通知
+;1: 禁止所有通知, 不包括重启警告
+;2: 禁止所有通知, 包括重启警告
+"UpdateNotificationLevel"=-
+;将Windows Update自动更新调整为从不检查（不推荐）
+;"AUOptions"=dword:00000001
+;"NoAutoUpdate"=dword:00000001
+;将Windows Update自动更新调整为自动安装更新（推荐）
+;"AUOptions"=-
+;"NoAutoUpdate"=-
+
+;传递优化
+;关闭-允许从其他电脑下载
+;[HKEY_USERS\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Settings]
+;0: 关闭
+;1: 开启, 允许我本地网络上的电脑
+;3: 开启, 允许我本地网络上的电脑和 Internet 上的电脑
+;"DownloadMode"=dword:00000000
+;"DownloadModeProvider"=dword:00000008
+
+
+;Windows更新不包括恶意软件删除工具
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\MRT]
+"DontOfferThroughWUAU"=dword:00000001

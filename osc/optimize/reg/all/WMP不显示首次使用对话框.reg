@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;应用程序相关
+;Windows Media Player不显示首次使用对话框
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsMediaPlayer]
+"GroupPrivacyAcceptance"=dword:00000001

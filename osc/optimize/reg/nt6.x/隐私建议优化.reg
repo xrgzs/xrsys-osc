@@ -1,0 +1,152 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;隐私
+;关闭-允许应用使用广告 ID , 以便基于你的应用活动投放你更感兴趣的广告
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo]
+"Enabled"=dword:00000000
+
+;关闭-允许网站通过访问我的语言列表来提供本地相关内容
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\International]
+"AcceptLanguage"=-
+[HKEY_CURRENT_USER\Control Panel\International\User Profile]
+"HttpAcceptLanguageOptOut"=dword:00000001
+
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+;关闭-允许 Windows 跟踪应用启动, 以改进开始和搜索结果
+"Start_TrackProgs"=dword:00000000
+;Alt+Tab不显示Edge中的选项卡
+"MultiTaskingAltTabFilter"=dword:00000003
+
+;关闭-剪贴板历史记录
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Clipboard]
+"EnableClipboardHistory"=dword:00000000
+
+;关闭-搜索历史记录
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\SearchSettings]
+"IsDeviceSearchHistoryEnabled"=dword:00000000
+
+;诊断与反馈
+;安全性-诊断数据
+;0: 安全性
+;1: 基本
+;2: 增强
+;3: 完整
+;[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection]
+;"AllowTelemetry"=dword:00000000
+
+;关闭-量身定制的体验
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Privacy]
+"TailoredExperiencesWithDiagnosticDataEnabled"=dword:00000000
+
+;关闭-查看诊断数据
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack\EventTranscriptKey]
+"EnableEventTranscript"=dword:00000000
+
+;从不-反馈频率
+[HKEY_CURRENT_USER\Software\Microsoft\Siuf\Rules]
+"NumberOfSIUFInPeriod"=dword:00000000
+
+
+;禁止开始菜单显示建议
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager]
+"SystemPaneSuggestionsEnabled"=dword:00000000
+"SoftLandingEnabled"=dword:00000000
+
+;启用-关闭文件历史记录
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\FileHistory]
+"Disabled"=dword:00000001
+
+[HKEY_CURRENT_USER\Software\Classes\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager]
+;禁用-允许内容传递
+"ContentDeliveryAllowed"=dword:00000000
+;禁用-功能管理
+"FeatureManagementEnabled"=dword:00000000
+;禁用-预安装OEM应用
+"OemPreInstalledAppsEnabled"=dword:00000000
+;禁用-预安装应用
+"PreInstalledAppsEnabled"=dword:00000000
+;禁用-始终预安装应用
+"PreInstalledAppsEverEnabled"=dword:00000000
+;禁用-静默安装推广应用
+"SilentInstalledAppsEnabled"=dword:00000000
+;禁用-显示 Windows 使用技巧
+"SoftLandingEnabled"=dword:00000000
+;禁用-系统窗格建议
+"SystemPaneSuggestionsEnabled"=dword:00000000
+;禁用-时间线建议
+"SubscribedContent-353698Enabled"=dword:00000000
+;禁用-时间线建议
+"SubscribedContent-353698Enabled"=dword:00000000
+
+;通知和操作
+
+;关闭-在锁屏界面上显示通知
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings]
+"NOC_GLOBAL_SETTING_ALLOW_TOASTS_ABOVE_LOCK"=dword:00000000
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\PushNotifications]
+"LockScreenToastEnabled"=dword:00000000
+
+;关闭-在锁屏界面上显示提醒和 VoIP 来电
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings]
+"NOC_GLOBAL_SETTING_ALLOW_CRITICAL_TOASTS_ABOVE_LOCK"=dword:00000000
+
+;开启-获取来自应用和其他发送者的通知
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\PushNotifications]
+"ToastEnabled"=dword:00000001
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager]
+;关闭-更新后向我显示"欢迎使用 Windows"体验, 并在我登录时突出显示新增内容和建议的内容
+"SubscribedContent-310093Enabled"=dword:00000000
+;关闭-在使用 Windows 时获取提示, 技巧和建议
+"SubscribedContent-338389Enabled"=dword:00000000
+;关闭-?
+"SubscribedContent-338387Enabled"=dword:00000000
+
+;关闭-活动历史记录
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System]
+"EnableActivityFeed"=dword:00000000
+"PublishUserActivities"=dword:00000000
+"UploadUserActivities"=dword:00000000
+
+;关闭允许网站通过访问我的语言列表来提供本地相关内容
+[HKEY_CURRENT_USER\Control Panel\International\User Profile]
+"HttpAcceptLanguageOptOut"=dword:00000001
+
+;关闭收集语言和书写习惯
+[HKEY_CURRENT_USER\Software\Microsoft\InputPersonalization\TrainedDataStore]
+"HarvestContacts"=dword:00000000
+[HKEY_CURRENT_USER\Software\Microsoft\Personalization\Settings]
+"AcceptedPrivacyPolicy"=dword:00000000
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Language]
+"Enabled"=dword:00000000
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer]
+;启用新版切换窗口样式
+"AltTabSettings"=dword:00000000
+;桌面和任务栏在一个单独的进程中运行	
+;"DesktopProcess"=dword:00000001
+;隐藏快速访问
+"HubMode"=dword:00000000
+;去除"快捷方式"字样的后缀
+"link"=hex:00,00,00,00
+;多选文件正常显示右键菜单
+;"MultipleInvokePromptMinimum"=dword:00000064
+;关闭快速访问显示最近文件夹
+"ShowFrequent"=dword:00000000
+;关闭快速访问显示最近文件
+"ShowRecent"=dword:00000000
+;不显示来自 Office.com 的文件
+"ShowCloudFilesInQuickAccess"=dword:00000000
+
+;禁用并重置广告ID
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo]
+"Enabled"=dword:00000000
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo]
+"Enabled"=dword:00000000
+
+;禁止Tips和消费者体验
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CloudContent]
+"DisableSoftLanding"=dword:00000001
+"DisableWindowsConsumerFeatures"=dword:00000001

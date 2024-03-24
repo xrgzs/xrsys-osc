@@ -1,0 +1,13 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;资源管理器相关
+;资源管理器隐私优化
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer]
+;关闭-在"快速访问"中显示最近使用的文件
+"ShowRecent"=dword:00000000
+;关闭-在"快速访问"中显示常用文件夹
+"ShowFrequent"=dword:00000000
+;关闭-在"快速访问"中显示最近使用的文件
+"ShowRecent"=dword:00000000
+

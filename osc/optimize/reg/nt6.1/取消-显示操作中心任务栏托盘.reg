@@ -1,0 +1,10 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;任务栏相关
+;取消-显示操作中心任务栏托盘
+[HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\Explorer]
+"DisableNotificationCenter"=dword:00000001
+
+[HKEY_USERS\.DEFAULT\SOFTWARE\Policies\Microsoft\Windows\Explorer]
+"DisableNotificationCenter"=dword:00000001

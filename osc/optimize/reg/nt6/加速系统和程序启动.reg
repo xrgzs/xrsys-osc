@@ -1,0 +1,5 @@
+Windows Registry Editor Version 5.00
+
+;加速系统和程序启动
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Serialize]
+"Startupdelayinmsec"=dword:00000000

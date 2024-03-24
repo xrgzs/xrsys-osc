@@ -1,0 +1,17 @@
+Windows Registry Editor Version 5.00
+
+;设置IE搜索引擎
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Internet Explorer\SearchScopes]
+"DefaultScope"="{0633EE93-D776-472f-A0FF-E1416B8B2E3A}"
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\SearchScopes\{64AF4D11-6492-4C25-B014-B6C6CEE3B0C5}]
+"Codepage"=dword:0000fde9
+"DisplayName"="百度"
+"FaviconURL"="http://www.baidu.com/favicon.ico"
+"URL"="http://www.baidu.com/s?wd={searchTerms}&ie=utf-8"
+"SuggestionsURL_JSON"="http://suggestion.baidu.com/su?wd={searchTerms}&action=opensearch&ie=utf-8&from=ie8"
+"ShowSearchSuggestions"=dword:00000001
+
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Internet Explorer\SearchScopes]
+"DefaultScope"="{64AF4D11-6492-4C25-B014-B6C6CEE3B0C5}"
+

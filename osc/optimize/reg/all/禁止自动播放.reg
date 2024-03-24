@@ -1,0 +1,6 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;½ûÖ¹×Ô¶¯²¥·Å
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers]
+"DisableAutoplay"=dword:00000001

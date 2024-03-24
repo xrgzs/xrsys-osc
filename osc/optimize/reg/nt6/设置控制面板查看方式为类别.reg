@@ -1,0 +1,6 @@
+Windows Registry Editor Version 5.00
+
+;设置控制面板查看方式为"类别"
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel]
+"AllItemsIconView"=dword:00000000
+"StartupPage"=dword:00000000

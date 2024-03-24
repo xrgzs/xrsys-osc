@@ -1,0 +1,8 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;微软拼音: 词库和自学习
+
+;开启-从云中获取候选词
+[HKEY_CURRENT_USER\Software\Microsoft\InputMethod\Settings\CHS]
+"Enable Cloud Candidate"=dword:00000001

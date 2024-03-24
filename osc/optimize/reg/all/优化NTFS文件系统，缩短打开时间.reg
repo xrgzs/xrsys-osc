@@ -1,0 +1,5 @@
+Windows Registry Editor Version 5.00
+
+;优化NTFS文件系统，缩短打开时间
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem]
+"NtfsDisableLastAccessUpdate"=dword:00000001

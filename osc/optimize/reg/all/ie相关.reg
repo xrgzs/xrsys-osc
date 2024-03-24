@@ -1,0 +1,82 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;ie相关
+
+;不保存安全区域信息
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments]
+"SaveZoneInformation"=dword:00000001
+
+[HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments]
+"SaveZoneInformation"=dword:00000001
+
+;下载数10
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings]
+"MaxConnectionsPer1_0Server"=dword:0000000a
+"MaxConnectionsPerServer"=dword:0000000a
+
+[HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Internet Settings]
+"MaxConnectionsPer1_0Server"=dword:0000000a
+"MaxConnectionsPerServer"=dword:0000000a
+
+;工具栏锁定
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Toolbar]
+"Locked"=dword:00000001
+
+[HKEY_USERS\.DEFAULT\Software\Microsoft\Internet Explorer\Toolbar]
+"Locked"=dword:00000001
+
+;阻止IE首次运行向导
+[HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Internet Explorer\Main]
+"DisableFirstRunCustomize"=dword:00000001
+"RunOnceHasShown"=dword:00000001
+"RunOnceComplete"=dword:00000001
+
+[HKEY_CURRENT_USER\Software\Policies\Microsoft\Internet Explorer\Main]
+"DisableFirstRunCustomize"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Internet Explorer\Main]
+"DisableFirstRunCustomize"=dword:00000001
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main]
+"DisableFirstRunCustomize"=dword:00000001
+
+[HKEY_USERS\.DEFAULT\Software\Microsoft\Internet Explorer\Main]
+"DisableFirstRunCustomize"=dword:00000001
+
+;禁用IE建议网站
+[HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Internet Explorer\Suggested Sites]
+"Enabled"=dword:00000000
+
+[HKEY_CURRENT_USER\Software\Policies\Microsoft\Internet Explorer\Suggested Sites]
+"Enabled"=dword:00000000
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Suggested Sites]
+"Enabled"=dword:00000000
+
+[HKEY_USERS\.DEFAULT\Software\Microsoft\Internet Explorer\Suggested Sites]
+"Enabled"=dword:00000000
+
+;阻止和删除IE网页快讯
+[HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Internet Explorer\Feeds]
+"DisableAddRemove"=dword:00000001
+
+[HKEY_CURRENT_USER\Software\Policies\Microsoft\Internet Explorer\Feeds]
+"DisableAddRemove"=dword:00000001
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Feeds]
+"DisableAddRemove"=dword:00000001
+
+[HKEY_USERS\.DEFAULT\Software\Microsoft\Internet Explorer\Feeds]
+"DisableAddRemove"=dword:00000001
+
+;从不进行拨号连接〔避免弹窗〕
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Internet Settings]
+"EnableAutodial"=dword:00000000
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings]
+"EnableAutodial"=dword:00000000
+
+;IE显示收藏夹
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\MINIE]
+"LinksBandEnabled"=dword:00000001

@@ -1,0 +1,12 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;资源管理器相关
+;显示隐藏文件及所有文件扩展名
+[HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"Hidden"=dword:00000001
+"HideFileExt"=dword:00000000
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"Hidden"=dword:00000001
+"HideFileExt"=dword:00000000

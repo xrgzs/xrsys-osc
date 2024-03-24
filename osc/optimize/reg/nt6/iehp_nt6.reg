@@ -1,0 +1,34 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;ie相关
+;锁定主页
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main]
+"Start Page"="https://www.baidu.com/"
+"Default_Search_URL"="https://www.baidu.com/"
+"Default_Page_URL"="https://www.baidu.com/"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\MAIN]
+"Start Page"="https://www.baidu.com/"
+"Default_Search_URL"="https://www.baidu.com/"
+"Default_Page_URL"="https://www.baidu.com/"
+"First Home Page"="https://www.baidu.com/"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Internet Explorer\MAIN]
+"Start Page"="https://www.baidu.com/"
+"Default_Search_URL"="https://www.baidu.com/"
+"Default_Page_URL"="https://www.baidu.com/"
+"First Home Page"="https://www.baidu.com/"
+
+[HKEY_USERS\.DEFAULT\Software\Microsoft\Internet Explorer\Main]
+"Start Page"="https://www.baidu.com/"
+"Default_Search_URL"="https://www.baidu.com/"
+"Default_Page_URL"="https://www.baidu.com/"
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\SearchScopes\{B2D17A31-2642-4D03-9D1F-ABD3BE1DCC4E}]
+"DisplayName"="百度"
+"URL"="https://www.baidu.com/baidu?wd={searchTerms}&ie=utf-8"
+"OSDFileURL"="http://www.ieaddons.com/cn/DownloadHandler.ashx?ResourceId=857"
+"SuggestionsURL_JSON"="http://suggestion.baidu.com/su?wd={searchTerms}&action=opensearch&ie=utf-8&from=ie8"
+"SortIndex"=dword:00000001

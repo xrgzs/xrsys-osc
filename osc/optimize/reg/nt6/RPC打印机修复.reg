@@ -1,0 +1,10 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;²¹¶¡
+;RPC´òÓ¡»úÐÞ¸´
+[HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Print]
+"RpcAuthnLevelPrivacyEnabled"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers\PointAndPrint]
+"RestrictDriverInstallationToAdministrators"=dword:00000000

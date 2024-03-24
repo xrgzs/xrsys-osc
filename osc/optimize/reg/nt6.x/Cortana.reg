@@ -1,0 +1,16 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;Cortana
+;对 Cortana 说话
+;关闭-让 Cortana 响应"你好小娜"
+[HKEY_CURRENT_USER\Software\Microsoft\Speech_OneCore\Preferences]
+"VoiceActivationOn"=dword:00000000
+
+;关闭-当我按 Windows 微标键 + C 时, 让 Cortana (小娜)等着听我的命令
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Search]
+"VoiceShortcut"=dword:00000000
+
+;关闭-即使在设备锁定时仍可使用 Cortana
+[HKEY_CURRENT_USER\Software\Microsoft\Speech_OneCore\Preferences]
+"VoiceActivationEnableAboveLockscreen"=dword:00000000

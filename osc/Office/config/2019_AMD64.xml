@@ -1,0 +1,25 @@
+<Configuration>
+  <Add OfficeClientEdition="64" Channel="PerpetualVL2019">
+    <Product ID="ProPlus2019Volume" PIDKEY="NMMKJ-6RK4F-KMJVX-8D9MJ-6MWKP">
+      <Language ID="zh-cn" />
+      <ExcludeApp ID="Groove" />
+      <ExcludeApp ID="Lync" />
+      <ExcludeApp ID="OneDrive" />
+      <!--  <ExcludeApp ID="OneNote" /> -->
+      <!--  <ExcludeApp ID="Outlook" /> -->
+      <ExcludeApp ID="Publisher" />
+    </Product>
+  </Add>
+  <Display Level="Full" AcceptEULA="TRUE" />  
+
+  <Property Name="FORCEAPPSHUTDOWN" Value="TRUE"/> 
+  
+  <Updates Enabled="FALSE" />
+  
+  <!--  <RemoveMSI All="True" /> -->
+
+  <!--  <Display Level="None" AcceptEULA="TRUE" />  -->
+
+  <!--  <Property Name="AUTOACTIVATE" Value="1" />  -->
+
+</Configuration>

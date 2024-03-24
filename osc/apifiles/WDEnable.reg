@@ -1,0 +1,24 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WdBoot]
+"Start"=dword:00000002 
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\wscsvc]
+"Start"=dword:00000002 
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WdFilter]
+"Start"=dword:00000002 
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WdNisDrv]
+"Start"=dword:00000002 
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WdNisSvc]
+"Start"=dword:00000002 
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WinDefend]
+"Start"=dword:00000002 
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\SecurityHealthService]
+"Start"=dword:00000002 
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender]

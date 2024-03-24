@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;资源管理器相关
+;打开文件资源管理器时打开此电脑
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"LaunchTo"=dword:00000001

@@ -1,0 +1,17 @@
+Windows Registry Editor Version 5.00
+
+;启用来宾登录
+;[HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\LanmanWorkstation]
+;"AllowInsecureGuestAuth"=dword:00000001
+
+;关闭默认共享
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters]
+"AutoShareServer"=dword:00000000
+"AutoShareWks"=dword:00000000
+
+;取消远程协助
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Remote Assistance]
+"fAllowToGetHelp"=dword:00000000
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Remote Assistance]
+"fAllowToGetHelp"=dword:00000000
+

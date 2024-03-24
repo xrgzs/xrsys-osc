@@ -1,0 +1,8 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;取消游戏里“下载有关已安装游戏的技巧和信息”和“收集最近玩过的游戏信息”
+[HKEY_CURRENT_USER\Software\Classes\Local Settings\Software\Microsoft\Windows\GameUX]
+"FirstRunDialogLaunched"=dword:00000001
+"DownLoadGameInfo"=dword:00000000
+"ListRecentlyPlayed"=dword:00000000

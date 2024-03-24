@@ -1,0 +1,10 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;资源管理器相关
+;隐藏语言栏上的帮助按钮
+[HKEY_CURRENT_USER\Software\Microsoft\CTF\LangBar\ItemState\{ED9D5450-EBE6-4255-8289-F8A31E687228}]
+"DemoteLevel"=dword:00000003
+
+[HKEY_USERS\.DEFAULT\Software\Microsoft\CTF\LangBar\ItemState\{ED9D5450-EBE6-4255-8289-F8A31E687228}]
+"DemoteLevel"=dword:00000003

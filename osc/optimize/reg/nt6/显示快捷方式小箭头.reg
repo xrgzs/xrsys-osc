@@ -1,0 +1,10 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;资源管理器相关
+;显示快捷方式小箭头
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons]
+"29"=-
+
+[HKEY_CLASSES_ROOT\lnkfile]
+"lnkfile"=""

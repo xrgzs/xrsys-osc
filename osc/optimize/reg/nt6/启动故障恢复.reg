@@ -1,0 +1,9 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;资源管理器相关
+;启动故障恢复-取消系统失败三项：将事件写入系统日志；自动重新启动；写入调试信息
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\CrashControl]
+"AutoReboot"=dword:00000001
+"CrashDumpEnabled"=dword:00000001
+"LogEvent"=dword:00000001

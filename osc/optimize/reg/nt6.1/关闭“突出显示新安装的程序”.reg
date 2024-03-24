@@ -1,0 +1,6 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;关闭“突出显示新安装的程序”
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"Start_NotifyNewApps"=dword:00000000

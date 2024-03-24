@@ -1,0 +1,14 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;系统: 系统还原
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore]
+启用-关闭配置
+"DisableConfig"=-
+;启用-关闭系统还原
+"DisableSR"=-
+
+
+;关闭系统还原
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore]
+"RPSessionInterval"=dword:00000000

@@ -1,0 +1,6 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;开始菜单显示运行
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"Start_ShowRun"=dword:00000001

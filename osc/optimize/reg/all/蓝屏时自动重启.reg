@@ -1,0 +1,8 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;蓝屏时自动重启
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\CrashControl]
+"AutoReboot"=dword:00000001
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl]
+"AutoReboot"=dword:00000001

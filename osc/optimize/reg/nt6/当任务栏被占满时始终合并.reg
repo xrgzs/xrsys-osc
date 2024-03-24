@@ -1,0 +1,11 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;任务栏相关
+
+;当任务栏被占满时始终合并
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"TaskbarGlomLevel"=dword:00000000
+
+[HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"TaskbarGlomLevel"=dword:00000000

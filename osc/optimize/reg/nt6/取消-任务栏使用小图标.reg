@@ -1,0 +1,11 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;任务栏相关
+
+;取消-任务栏使用小图标
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"TaskbarSmallIcons"=dword:00000000
+
+[HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"TaskbarSmallIcons"=dword:00000000

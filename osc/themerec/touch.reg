@@ -1,0 +1,31 @@
+Windows Registry Editor Version 5.00
+
+;未连接键盘时显示触摸键盘
+[HKEY_CURRENT_USER\Software\Microsoft\TabletTip\1.7]
+"EnableDesktopModeAutoInvoke"=dword:00000001
+"TipbandDesiredVisibility"=dword:00000001
+
+;触摸屏优化
+;修改Friction数值，建议5（滑动阻力设定，数值越小阻力越小，，同样对metro界面有效，但对IE浏览器没有影响）
+;修改Bouncing数值（是否启用橡皮筋效果），0为关闭，1为启用，建议关闭，节省CPU占用。
+;修改TouchMode_DtapDist, TouchModeN_DtapTime,
+;TouchModeN_HoldTime_Animation,
+;TouchModeN_HoldTime_BeforeAnimation以上参数数值全部为1（
+;加快长按右键弹出，对于复制粘贴党尤其有用）
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Wisp\Touch]
+"Bouncing"=dword:00000000
+"Friction"=dword:00000005
+"Inertia"=dword:00000001
+"TouchMode_hold"=dword:00000001
+"TouchModeN_DtapDist"=dword:00000001
+"TouchModeN_DtapTime"=dword:00000001
+"TouchModeN_HoldTime_Animation"=dword:00000001
+"TouchModeN_HoldTime_BeforeAnimation"=dword:00000001
+"TouchUI"=dword:00000000
+
+;Latency,SampleTime参数数值为2（原为8），缩短触摸屏对操作的响应时间，
+;实现手指在哪对象就在哪（警告：数值不要太低，可适当调高）。
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\TouchPrediction]
+"Latency"=dword:00000002
+"SampleTime"=dword:00000002
+"UseHWTimeStamp"=dword:00000001

@@ -1,0 +1,47 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;Windows 更新: 高级选项
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings]
+;关闭-自动下载更新, 即使通过按流量计费的数据连接也是如此(可能会收费)
+"AllowAutoWindowsUpdateDownloadOverMeteredNetwork"=dword:00000000
+;关闭-在你的电脑需要重启以完成更新时显示提示
+"RestartNotificationsAllowed2"=dword:00000000
+;打开-暂停更新 (暂停至 9999 年 12 月 31 日)
+;"PauseFeatureUpdatesStartTime"="9999-12-30T23:59:59Z"
+;"PauseQualityUpdatesStartTime"="9999-12-30T23:59:59Z"
+;"PauseUpdatesExpiryTime"="9999-12-30T23:59:59Z"
+;"PauseFeatureUpdatesEndTime"="9999-12-30T23:59:59Z"
+;"PauseQualityUpdatesEndTime"="9999-12-30T23:59:59Z"
+;暂停Windows更新至2042-07-07
+"FlightSettingsMaxPauseDays"=dword:00001b58
+"PauseFeatureUpdatesStartTime"="2023-05-08T09:59:52Z"
+"PauseFeatureUpdatesEndTime"="2042-07-07T09:59:52Z"
+"PauseQualityUpdatesStartTime"="2023-05-08T09:59:52Z"
+"PauseQualityUpdatesEndTime"="2042-07-07T09:59:52Z"
+"PauseUpdatesStartTime"="2023-05-08T09:59:52Z"
+"PauseUpdatesExpiryTime"="2042-07-07T09:59:52Z"
+
+
+
+;传递优化
+;关闭-允许从其他电脑下载
+[HKEY_USERS\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Settings]
+;0: 关闭
+;1: 开启, 允许我本地网络上的电脑
+;3: 开启, 允许我本地网络上的电脑和 Internet 上的电脑
+"DownloadMode"=dword:00000000
+"DownloadModeProvider"=dword:00000008
+
+;关闭传递优化;该功能可以把下载的更新文件发送到局域网其他电脑上，没什么大作用。
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Settings]
+"DownloadMode"="0"
+
+;关闭自动更新地图
+[HKEY_LOCAL_MACHINE\SYSTEM\Maps]
+"AutoUpdateEnabled"=dword:00000000
+
+
+
+
+

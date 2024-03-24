@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;资源管理器相关
+;收起资源管理器功能区
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Ribbon]
+"MinimizedStateTabletModeOff"=dword:00000001

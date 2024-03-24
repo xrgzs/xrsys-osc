@@ -1,0 +1,10 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;flash中国版去除广告
+
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\miniconfig]
+"ueip"="0"
+"tips_times"="60"
+"mini_count"="60"
+"next_open_interval"="60"

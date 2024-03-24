@@ -1,0 +1,9 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;忽略未签名的驱动提示
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Restrictions]
+"AllowAdminInstall"=dword:00000001
+
+[HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows NT\Driver Signing]
+"BehaviorOnFailedVerify"=dword:00000000

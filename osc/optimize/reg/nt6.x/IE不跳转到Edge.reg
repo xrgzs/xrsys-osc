@@ -1,0 +1,10 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;ie相关
+
+;IE不跳转到Edge
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Ext\CLSID]
+"{1FD49718-1D00-4B19-AF5F-070AF6D5D54C}"="0"
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Policies\Ext\CLSID]
+"{1FD49718-1D00-4B19-AF5F-070AF6D5D54C}"="0"

@@ -1,0 +1,30 @@
+<Configuration Product="ProPlus">
+
+	<Display Level="Basic" CompletionNotice="no" SuppressModal="yes" NoCancel="Yes" AcceptEula="yes" />
+	
+	<!-- <Logging Type="standard" Path="%temp%" Template="Microsoft Office Professional Plus Setup(*).txt" /> -->
+	
+	<PIDKEY Value="DBXYDTF47746YM4W74MH6YDQ8" />
+
+	<!-- <USERNAME Value="Customer" /> -->
+	
+	<!-- <COMPANYNAME Value="MyCompany" /> -->
+	
+	<!-- <INSTALLLOCATION Value="%programfiles%\Microsoft Office" /> -->
+	
+	<!-- <LIS CACHEACTION="CacheOnly" /> -->
+	
+	<!-- <SOURCELIST Value="\\server1\share\Office12;\\server2\share\Office12" /> -->
+	
+	<!-- <DistributionPoint Location="\\server\share\Office12" /> -->
+	
+	<OptionState Id="XDOCSFiles" State="absent" Children="force" />
+	<!-- <OptionState Id="OUTLOOKFiles" State="absent" Children="force" /> -->
+	<OptionState Id="PubPrimary" State="absent" Children="force" />
+	<OptionState Id="IMEMain_2052" State="absent" Children="force" />
+	
+	<Setting Id="Reboot" Value="Never" />
+    
+	<!-- <Command Path="msiexec.exe" Args="/i \\server\share\my.msi" QuietArg="/q" ChainPosition="after" Execute="install" /> -->
+
+</Configuration>

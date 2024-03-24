@@ -1,0 +1,10 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;资源管理器相关
+;桌面图标
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Bags\1\Desktop]
+;桌面图标自动排列
+"FFlags"=dword:40200225
+;桌面图标中等大小
+"IconSize"=dword:00000030

@@ -1,0 +1,12 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;资源管理器相关
+;将语言栏隐藏到任务栏
+[HKEY_CURRENT_USER\Software\Microsoft\CTF\LangBar]
+"ShowStatus"=dword:00000004
+"ExtraIconsOnMinimized"=dword:00000000
+
+[HKEY_USERS\.DEFAULT\Software\Microsoft\CTF\LangBar]
+"ShowStatus"=dword:00000004
+"ExtraIconsOnMinimized"=dword:00000000

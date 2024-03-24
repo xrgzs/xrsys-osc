@@ -1,0 +1,39 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WdBoot]
+"Start"=dword:00000004 
+
+;惹不起
+;[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\wscsvc]
+;"Start"=dword:00000004 
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WdFilter]
+"Start"=dword:00000004 
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WdNisDrv]
+"Start"=dword:00000004 
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WdNisSvc]
+"Start"=dword:00000004 
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WinDefend]
+"Start"=dword:00000004 
+
+;惹不起
+;[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\SecurityHealthService]
+;"Start"=dword:00000004 
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender]
+"DisableAntiSpyware"=dword:00000001
+"DisableAntiVirus"=dword:00000001 
+"AllowFastServiceStartup"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection]
+"DisableRealtimeMonitoring"=dword:00000001
+"DisableIOAVProtection"=dword:00000001
+"DisableOnAccessProtection"=dword:00000001
+"DisableBehaviorMonitoring"=dword:00000001
+"DisableScanOnRealtimeEnable"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+"WindowsDefender"=-

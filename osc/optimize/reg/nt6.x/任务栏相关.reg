@@ -1,0 +1,96 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;任务栏相关
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+;开启-锁定任务栏
+"TaskbarSizeMove"=dword:00000000
+;开启-在平板模式下自动隐藏任务栏
+;"TaskbarAutoHideInTabletMode"=dword:00000001
+;关闭-使用小任务栏按钮
+"TaskbarSmallIcons"=dword:00000000
+;关闭-显示桌面按钮预览桌面
+;"DisablePreviewDesktop"=dword:00000001
+;关闭-右键单击开始按钮时, 在菜单中将命令提示符替换为PowerShell
+;"DontUsePowerShellOnWinX"=dword:00000001
+;关闭-在任务栏按钮上显示角标
+;"TaskbarBadges"=dword:00000000
+;始终合并按钮-合并任务栏按钮 (0始终合并按钮, 1任务栏已满时, 2从不)
+"TaskbarGlomLevel"=dword:00000000
+;隐藏Windows10_1903任务栏小娜按钮, 显示(1)，隐藏(0)
+"ShowCortanaButton"=dword:00000000
+;显示任务栏“任务视图”按钮
+"ShowTaskViewButton"=dword:00000001
+;Win11-隐藏小组件
+"TaskbarDa"=dword:00000000
+;Win11-隐藏聊天
+"TaskbarMn"=dword:00000000
+
+;关闭-在桌面模式下自动隐藏任务栏
+;[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3]
+;"Settings"=hex:30,00,00,00,fe,ff,ff,ff,02,00,00,00,03,00,00,00,9b,00,00,00,28,\
+;  00,00,00,00,00,00,00,76,03,00,00,b6,06,00,00,9e,03,00,00,60,00,00,00,01,00,\
+;  00,00
+;;开启-在桌面模式下自动隐藏任务栏
+;[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3]
+;"Settings"=hex:30,00,00,00,fe,ff,ff,ff,03,00,00,00,03,00,00,00,9b,00,00,00,28,\
+;  00,00,00,00,00,00,00,76,03,00,00,b6,06,00,00,9e,03,00,00,60,00,00,00,01,00,\
+;  00,00
+
+;选择哪些图标显示在任务栏上
+
+;关闭-通知区域始终显示所有图标
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer]
+"EnableAutoTray"=dword:00000001
+
+
+;人脉
+
+;关闭-在任务栏上显示人脉
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People]
+"PeopleBand"=dword:00000000
+"HidePeopleBar"=dword:00000001
+
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People\ContactPanel]
+
+
+;显示操作中心任务栏托盘
+[HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\Explorer]
+"DisableNotificationCenter"=-
+
+[HKEY_USERS\.DEFAULT\SOFTWARE\Policies\Microsoft\Windows\Explorer]
+"DisableNotificationCenter"=-
+
+;任务栏禁用安全图标
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+"SecurityHealth"=-
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run]
+"SecurityHealth"=-
+
+
+;任务栏搜索:显示搜索图标(1), 显示搜索框(2)，隐藏(0)
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Search]
+"SearchboxTaskbarMode"=dword:00000001
+
+[HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\Explorer]
+;恢复显示通知中心
+"DisableNotificationCenter"=dword:00000000
+;禁用任务栏搜索推荐
+"DisableSearchBoxSuggestions"=dword:00000001
+
+;禁用“资讯和兴趣”
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds]
+"ShellFeedsTaskbarViewMode"=dword:00000002
+"ShellFeedsTaskbarOpenOnHover"=dword:00000000
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Internet Explorer\Feed Discovery]
+"Enabled"=dword:00000000
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Internet Explorer\Feeds]
+"DisableAddRemove"=dword:00000001
+"BackgroundSyncStatus"=dword:00000000
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Internet Explorer\FlipAhead]
+"Enabled"=dword:00000000
+
+;关闭任务栏时钟精确到秒
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"ShowSecondsInSystemClock"=dword:00000000

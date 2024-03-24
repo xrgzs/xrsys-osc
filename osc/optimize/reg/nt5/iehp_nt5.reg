@@ -1,0 +1,24 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;ie相关
+;锁定主页
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\MAIN]
+"Start Page"="http://www.baidu.com/"
+"Default_Search_URL"="http://www.baidu.com/"
+"Default_Page_URL"="http://www.baidu.com/"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Internet Explorer\MAIN]
+"Start Page"="http://www.baidu.com/"
+"Default_Search_URL"="http://www.baidu.com/"
+"Default_Page_URL"="http://www.baidu.com/"
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main]
+"Start Page"="http://www.baidu.com/"
+"Default_Search_URL"="http://www.baidu.com/"
+"Default_Page_URL"="http://www.baidu.com/"
+
+[HKEY_USERS\.DEFAULT\Software\Microsoft\Internet Explorer\Main]
+"Start Page"="http://www.baidu.com/"
+"Default_Search_URL"="http://www.baidu.com/"
+"Default_Page_URL"="http://www.baidu.com/"

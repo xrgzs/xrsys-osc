@@ -1,0 +1,6 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge]
+"SuppressUnsupportedOSWarning"=dword:00000001
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome]
+"SuppressUnsupportedOSWarning"=dword:00000001

@@ -1,0 +1,84 @@
+Windows Registry Editor Version 5.00
+
+;运行的程序痕迹
+;[-HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Compatibility Assistant\Store]
+;[-HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Compatibility Assistant\Persisted]
+;[-HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers]
+;[-HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers]
+
+[-HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\WordWheelQuery]
+
+[-HKEY_CURRENT_USER\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\MuiCache]
+
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\ShellNoRoam\MUICache]
+
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32]
+
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs]
+
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU]
+
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\StreamMRU]
+
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\TrayNotify]
+
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\TypedPaths]
+
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist]
+
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\WordWheelQuery]
+
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Search\JumplistData]
+
+;清理连接过的网络
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Signatures\Unmanaged]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Signatures\Unmanaged]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles]
+
+;删除启动项
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run]
+"MicrosoftEdgeAutoLaunch_98769996E24836F99EC8617644423B4C"=-
+"OneDriveSetup"=-
+"OneDrive"=-
+"Wechat"=-
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+"DrvCeo"=-
+"XRSYSAPI"=-
+
+;清除封装软件产生的垃圾
+[-HKEY_LOCAL_MACHINE\SOFTWARE\UjyPE]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\UjyGHOTOESD]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\UjyQii]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\NTLite]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\EasySysprep5]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\EasySysprep4]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\EasyDrv7]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\WanDrv]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\SysCeo]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\SysCeo]
+
+[-HKEY_CURRENT_USER\Software\OfficeToolPlus]
+
+[-HKEY_CURRENT_USER\Software\RuanMei]
+
+[-HKEY_CURRENT_USER\Software\Piriform]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Piriform]
+
+[-HKEY_CURRENT_USER\Software\HiBit Uninstaller]
+
+[-HKEY_CURRENT_USER\Software\WinRAR SFX]

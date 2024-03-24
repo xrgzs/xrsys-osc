@@ -1,0 +1,18 @@
+Windows Registry Editor Version 5.00
+
+;===============================================================
+;UAC调整为从不通知
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+"PromptOnSecureDesktop"=dword:00000000
+"ConsentPromptBehaviorAdmin"=dword:00000000
+"EnableLUA"=dword:00000000
+
+;关闭UAC通知
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Security Center]
+"UacDisableNotify"=dword:00000001
+
+
+;关闭用于内置管理员帐户的管理员批准模式，仅Win8需要开启
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+;"FilterAdministratorToken"=dword:00000001 仅Win8需要开启
+"FilterAdministratorToken"=-
