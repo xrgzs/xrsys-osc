@@ -1,3 +1,4 @@
+﻿Unicode true
 ; 安装程序初始定义常量
 !define PRODUCT_NAME "潇然系统优化工具"
 !define PRODUCT_DESC "潇然系统优化工具"
