@@ -1,37 +1,37 @@
-; °²×°³ÌĞò³õÊ¼¶¨Òå³£Á¿
-!define PRODUCT_NAME "äìÈ»ÏµÍ³ÓÅ»¯¹¤¾ß"
-!define PRODUCT_DESC "Optimize System Configurations"
+; å®‰è£…ç¨‹åºåˆå§‹å®šä¹‰å¸¸é‡
+!define PRODUCT_NAME "æ½‡ç„¶ç³»ç»Ÿä¼˜åŒ–å·¥å…·"
+!define PRODUCT_DESC "æ½‡ç„¶ç³»ç»Ÿä¼˜åŒ–å·¥å…·"
 ; !define /date PRODUCT_VERSION "2.24.%m.%d"
 !define PRODUCT_PUBLISHER "Xiaoran Studio"
 !define PRODUCT_WEB_SITE "https://xrgzs.github.io/"
 !define PRODUCT_VERSION "${CUSTOM_VERSION}"
 
-; Êµ²â²»Ñ¹¹ÌÊµ¸üĞ¡
+; å®æµ‹ä¸å‹å›ºå®æ›´å°
 SetCompressor lzma
 SetCompressorDictSize 32
 
-; ------ MUI ÏÖ´ú½çÃæ¶¨Òå (1.67 °æ±¾ÒÔÉÏ¼æÈİ) ------
+; ------ MUI ç°ä»£ç•Œé¢å®šä¹‰ (1.67 ç‰ˆæœ¬ä»¥ä¸Šå…¼å®¹) ------
 !include "MUI.nsh"
 
-; MUI Ô¤¶¨Òå³£Á¿
+; MUI é¢„å®šä¹‰å¸¸é‡
 !define MUI_ABORTWARNING
 !define MUI_ICON ".\osc.ico"
 
-; »¶Ó­Ò³Ãæ
+; æ¬¢è¿é¡µé¢
 ; !insertmacro MUI_PAGE_WELCOME
 ; Components page
 ; !insertmacro MUI_PAGE_COMPONENTS
-; °²×°¹ı³ÌÒ³Ãæ
+; å®‰è£…è¿‡ç¨‹é¡µé¢
 !insertmacro MUI_PAGE_INSTFILES
-; °²×°Íê³ÉÒ³Ãæ
+; å®‰è£…å®Œæˆé¡µé¢
 ; !insertmacro MUI_PAGE_FINISH
 
-; °²×°½çÃæ°üº¬µÄÓïÑÔÉèÖÃ
+; å®‰è£…ç•Œé¢åŒ…å«çš„è¯­è¨€è®¾ç½®
 !insertmacro MUI_LANGUAGE "SimpChinese"
 
-; °²×°Ô¤ÊÍ·ÅÎÄ¼ş
+; å®‰è£…é¢„é‡Šæ”¾æ–‡ä»¶
 !insertmacro MUI_RESERVEFILE_INSTALLOPTIONS
-; ------ MUI ÏÖ´ú½çÃæ¶¨Òå½áÊø ------
+; ------ MUI ç°ä»£ç•Œé¢å®šä¹‰ç»“æŸ ------
 
 Name "${PRODUCT_NAME} V${PRODUCT_VERSION}"
 OutFile "osc.exe"
@@ -40,26 +40,26 @@ ShowInstDetails show
 BrandingText "${PRODUCT_NAME} V${PRODUCT_VERSION}"
 
 ; info of installer execute file
-VIProductVersion "${PRODUCT_VERSION}" ;°æ±¾ºÅ£¬¸ñÊ½Îª X.X.X.X (ÈôÊ¹ÓÃÔò±¾Ìõ±ØĞë)
-VIAddVersionKey FileDescription "${PRODUCT_DESC}" ;ÎÄ¼şÃèÊö(±ê×¼ĞÅÏ¢)
-VIAddVersionKey FileVersion "${PRODUCT_VERSION}" ;ÎÄ¼ş°æ±¾(±ê×¼ĞÅÏ¢)
-VIAddVersionKey ProductName "${PRODUCT_NAME} V${PRODUCT_VERSION}" ;²úÆ·Ãû³Æ
-VIAddVersionKey ProductVersion "${PRODUCT_VERSION}" ;²úÆ·°æ±¾
-VIAddVersionKey Comments "${PRODUCT_NAME} V${PRODUCT_VERSION}" ;±¸×¢
-VIAddVersionKey CompanyName "${PRODUCT_PUBLISHER}" ;¹«Ë¾Ãû
-VIAddVersionKey LegalCopyright "Copyright @ 2024 ${PRODUCT_PUBLISHER}. All Rights Reserved." ;ºÏ·¨°æÈ¨
-VIAddVersionKey InternalName "${PRODUCT_NAME}" ;ÄÚ²¿Ãû³Æ
-VIAddVersionKey LegalTrademarks "${PRODUCT_PUBLISHER}" ;ºÏ·¨ÉÌ±ê ;
-VIAddVersionKey OriginalFilename "osc.exe" ;Ô´ÎÄ¼şÃû
-VIAddVersionKey PrivateBuild "XRSYS" ;¸öÈËÄÚ²¿°æ±¾ËµÃ÷
-VIAddVersionKey SpecialBuild "NSIS" ;ÌØÊâÄÚ²¿°æ±¾ËµÃ÷
+VIProductVersion "${PRODUCT_VERSION}" ;ç‰ˆæœ¬å·ï¼Œæ ¼å¼ä¸º X.X.X.X (è‹¥ä½¿ç”¨åˆ™æœ¬æ¡å¿…é¡»)
+VIAddVersionKey FileDescription "${PRODUCT_DESC}" ;æ–‡ä»¶æè¿°(æ ‡å‡†ä¿¡æ¯)
+VIAddVersionKey FileVersion "${PRODUCT_VERSION}" ;æ–‡ä»¶ç‰ˆæœ¬(æ ‡å‡†ä¿¡æ¯)
+VIAddVersionKey ProductName "${PRODUCT_NAME} V${PRODUCT_VERSION}" ;äº§å“åç§°
+VIAddVersionKey ProductVersion "${PRODUCT_VERSION}" ;äº§å“ç‰ˆæœ¬
+VIAddVersionKey Comments "${PRODUCT_NAME} V${PRODUCT_VERSION}" ;å¤‡æ³¨
+VIAddVersionKey CompanyName "${PRODUCT_PUBLISHER}" ;å…¬å¸å
+VIAddVersionKey LegalCopyright "Copyright @ 2024 ${PRODUCT_PUBLISHER}. All Rights Reserved." ;åˆæ³•ç‰ˆæƒ
+VIAddVersionKey InternalName "${PRODUCT_NAME}" ;å†…éƒ¨åç§°
+VIAddVersionKey LegalTrademarks "${PRODUCT_PUBLISHER}" ;åˆæ³•å•†æ ‡ ;
+VIAddVersionKey OriginalFilename "osc.exe" ;æºæ–‡ä»¶å
+VIAddVersionKey PrivateBuild "XRSYS" ;ä¸ªäººå†…éƒ¨ç‰ˆæœ¬è¯´æ˜
+VIAddVersionKey SpecialBuild "NSIS" ;ç‰¹æ®Šå†…éƒ¨ç‰ˆæœ¬è¯´æ˜
 
 Section "XROSC" SEC01
   SetOutPath "$INSTDIR"
   SetOverwrite on
-  DetailPrint "½âÑ¹Ïà¹ØÊı¾İ..."
+  DetailPrint "è§£å‹ç›¸å…³æ•°æ®..."
   File /r ".\osc\*.*"
-  DetailPrint "ÔËĞĞOSCÖ÷³ÌĞò..."
+  DetailPrint "è¿è¡ŒOSCä¸»ç¨‹åº..."
   ExecShellWait "open" "$INSTDIR\osc.bat" SW_SHOWMINIMIZED
 SectionEnd
 

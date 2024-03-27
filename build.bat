@@ -78,10 +78,8 @@ curl.exe -L https://file.uhsea.com/2403/a2e2d81f11eec83da97313b2adbc9b8672.exe -
 
 :build
 rem use github env version first
-if defined GITHUB_WORKFLOW_VERSION (
-  "C:\Program Files (x86)\NSIS\makensis.exe" /V4 /DCUSTOM_VERSION=%GITHUB_WORKFLOW_VERSION% "osc.nsi" || exit
-) else (
-  "C:\Program Files (x86)\NSIS\makensis.exe" /V4 "osc.nsi" || exit
+if not defined GITHUB_WORKFLOW_VERSION (
+  set GITHUB_WORKFLOW_VERSION=2.0.0.0
 )
-
+"C:\Program Files (x86)\NSIS\makensis.exe" /V4 /DCUSTOM_VERSION=%GITHUB_WORKFLOW_VERSION% "osc.nsi" || exit
 exit
