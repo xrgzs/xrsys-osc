@@ -32,14 +32,14 @@ mkdir "%SystemDrive%\Windows\Setup"
 mkdir "%SystemDrive%\Windows\Setup\Run"
 echo successful>"%SystemDrive%\Windows\Setup\oscrunstate.txt"
 
-:oscapifiles
-rem 为api提供文件
-if exist "%SystemDrive%\Windows\Setup\Set\needoscapifiles.txt" (
-    mkdir ..\apifiles
-    copy /y apifiles ..\apifiles
-    del /f /q "%SystemDrive%\Windows\Setup\Set\needoscapifiles.txt"
-    goto endoff
-)
+@rem :oscapifiles
+@rem rem 为api提供文件
+@rem if exist "%SystemDrive%\Windows\Setup\Set\needoscapifiles.txt" (
+@rem     mkdir ..\apifiles
+@rem     copy /y apifiles ..\apifiles
+@rem     del /f /q "%SystemDrive%\Windows\Setup\Set\needoscapifiles.txt"
+@rem     goto endoff
+@rem )
 
 :checkenv_generalize
 rem 检测是否在部署阶段中运行
