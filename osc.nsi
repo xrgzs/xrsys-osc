@@ -1,7 +1,7 @@
 ﻿Unicode true
 ; 安装程序初始定义常量
-!define PRODUCT_NAME "潇然系统优化工具"
-!define PRODUCT_DESC "潇然系统优化工具"
+!define PRODUCT_NAME "潇然系统"
+!define PRODUCT_DESC "潇然系统"
 ; !define /date PRODUCT_VERSION "3.24.%m.%d"
 !define PRODUCT_PUBLISHER "Xiaoran Studio"
 !define PRODUCT_WEB_SITE "https://xrgzs.github.io/"
@@ -61,7 +61,7 @@ VIAddVersionKey PrivateBuild "XRSYS" ;个人内部版本说明
 VIAddVersionKey SpecialBuild "NSIS" ;特殊内部版本说明
 
 
-Section /o "XRAPI1" XRAPI1
+Section /o "潇然系统部署接口-部署前" XRAPI1
   ${If} ${FileExists} "$INSTDIR\xrsysstepapifiles.flag"
     DetailPrint "APIFILES已经解压，跳过此操作！"
   ${Else}
@@ -86,7 +86,7 @@ Section /o "XRAPI1" XRAPI1
   ${EndIf}
 SectionEnd
 
-Section /o "XRAPI2" XRAPI2
+Section /o "潇然系统部署接口-部署中" XRAPI2
   ${If} ${FileExists} "$INSTDIR\xrsysstepapi2.flag"
     DetailPrint "API2已经执行，跳过此操作！"
   ${Else}
@@ -100,7 +100,7 @@ Section /o "XRAPI2" XRAPI2
 	${EndIf}
 SectionEnd
 
-Section /o "XRAPI3" XRAPI3
+Section /o "潇然系统部署接口-部署后" XRAPI3
   ${If} ${FileExists} "$INSTDIR\xrsysstepapi3.flag"
     DetailPrint "API3已经执行，跳过此操作！"
   ${Else}
@@ -114,7 +114,7 @@ Section /o "XRAPI3" XRAPI3
 	${EndIf}
 SectionEnd
 
-Section /o "XRAPI4" XRAPI4
+Section /o "潇然系统部署接口-登录时" XRAPI4
   ${If} ${FileExists} "$INSTDIR\xrsysstepapi4.flag"
     DetailPrint "API4已经执行，跳过此操作！"
   ${Else}
@@ -128,7 +128,7 @@ Section /o "XRAPI4" XRAPI4
 	${EndIf}
 SectionEnd
 
-Section /o "XRAPI5" XRAPI5
+Section /o "潇然系统部署接口-进桌面" XRAPI5
   ${If} ${FileExists} "$INSTDIR\xrsysstepapi5.flag"
     DetailPrint "API5已经执行，跳过此操作！"
   ${Else}
@@ -138,17 +138,17 @@ Section /o "XRAPI5" XRAPI5
 	  SetOverwrite try
 	  DetailPrint "解压并执行API5..."
 	  File ".\api\api.bat"
-		ExecShellWait "open" "$OUTDIR\api.bat" "/5" SW_SHOWMINIMIZED
+		ExecShellWait "open" "$OUTDIR\api.bat" "/5" SW_HIDE
 	${EndIf}
 SectionEnd
 
-Section "XROSC" XROSC
+Section "潇然系统优化工具" XROSC
   SetOutPath "$INSTDIR\osc"
   SetOverwrite try
   DetailPrint "解压相关OSC数据..."
   File /r ".\osc\*.*"
   DetailPrint "运行OSC主程序..."
-  ExecShellWait "open" "$INSTDIR\osc\osc.bat" SW_SHOWMINIMIZED
+  ExecShellWait "open" "$INSTDIR\osc\osc.bat" SW_HIDE
 SectionEnd
 
 Section -Post
