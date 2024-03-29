@@ -35,7 +35,7 @@ if not exist "%SystemDrive%\Windows\System32\vcamp120.dll" ( set /A i=i+1 )
 if %i% GEQ 2 (
     if exist MSVBCRT.AIO.exe (
         echo [OSC]正在应用VC运行库 by Dreamcast...>"%systemdrive%\Windows\Setup\wallname.txt"
-        start /wait MSVBCRT.AIO.exe /SP- /VERYSILENT /SUPPRESSMSGBOXES /NOCLOSEAPPLICATIONS /NORESTARTAPPLICATIONS /NORESTART /COMPONENTS="vbvc567,vc2005,vc2008,vc2010,vc2012,vc2013,vc2019,vc2022,uc10,vstor"
+        start /wait MSVBCRT.AIO.exe /SP- /SUPPRESSMSGBOXES /NORESTART /COMPONENTS="vbvc567,vc2005,vc2008,vc2010,vc2012,vc2013,vc2019,vc2022,uc10,vstor"
         del /f /q MSVBCRT.AIO.exe
     )
     if exist VC.exe (
