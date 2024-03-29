@@ -1,6 +1,7 @@
 chcp 936 > nul
 setlocal EnableDelayedExpansion
 @echo off
+title 潇然系统优化组件 XRSYS-OSC
 cd /d "%~dp0"
 set aria="%~dp0aria2c.exe" --check-certificate=false --save-not-found=false --always-resume=false --auto-save-interval=10 --auto-file-renaming=false --allow-overwrite=true -c
 set dmi="%~dp0apifiles\DMI.exe"
@@ -70,7 +71,7 @@ rem 创建runonce自删清理脚本...
 if %osver% GEQ 2 (
 	copy /y runonce.bat "%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Startup\"
 )
-if not exist "%SystemDrive%\Windows\Setup\Set\api.exe" (
+if not exist "%SystemDrive%\Windows\Setup\Set\xrsysstepapi5.flag" (
     if exist apifiles\waller.exe (
         start "" "apifiles\waller.exe"
     )
