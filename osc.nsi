@@ -1,7 +1,7 @@
 ﻿Unicode true
 ; 安装程序初始定义常量
 !define PRODUCT_NAME "潇然系统"
-!define PRODUCT_DESC "潇然系统"
+!define PRODUCT_DESC "潇然系统优化组件"
 ; !define /date PRODUCT_VERSION "3.24.%m.%d"
 !define PRODUCT_PUBLISHER "Xiaoran Studio"
 !define PRODUCT_WEB_SITE "https://xrgzs.github.io/"
@@ -148,7 +148,7 @@ Section "潇然系统优化工具" XROSC
   DetailPrint "解压相关OSC数据..."
   File /r ".\osc\*.*"
   DetailPrint "运行OSC主程序..."
-  ExecShellWait "open" "$INSTDIR\osc\osc.bat" SW_HIDE
+  nsExec::ExecToLog "$INSTDIR\osc\osc.bat"
 SectionEnd
 
 Section -Post

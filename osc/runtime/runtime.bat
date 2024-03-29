@@ -33,6 +33,11 @@ if not exist "%SystemDrive%\Windows\System32\msvcr120.dll" ( set /A i=i+1 )
 if not exist "%SystemDrive%\Windows\System32\vcamp120.dll" ( set /A i=i+1 )
 @rem if %osver% equ 1 ( set i=0 )
 if %i% GEQ 2 (
+    if exist MSVCRedist.AIO.exe (
+        echo [OSC]正在应用VC运行库 by XRSYS...>"%systemdrive%\Windows\Setup\wallname.txt"
+        start /wait MSVCRedist.AIO.exe /S
+        del /f /q MSVCRedist.AIO.exe
+    )
     if exist MSVBCRT.AIO.exe (
         echo [OSC]正在应用VC运行库 by Dreamcast...>"%systemdrive%\Windows\Setup\wallname.txt"
         start /wait MSVBCRT.AIO.exe /SP- /SILENT /SUPPRESSMSGBOXES /NORESTART /COMPONENTS="vbvc567,vc2005,vc2008,vc2010,vc2012,vc2013,vc2019,vc2022,uc10,vstor"
