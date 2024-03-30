@@ -19,7 +19,7 @@ curl.exe -sSL https://file.uhsea.com/2403/49bcd9129f345d002933e31d4a60df24BU.dll
 rem DMI-table decoder by GNU v2.10
 curl.exe -sSL https://file.uhsea.com/2403/660e7e160669d06fbcb2771dc684091929.exe -o osc\apifiles\DMI.exe || exit
 rem Special purpose, not describable
-curl.exe -sSL https://file.uhsea.com/2403/5b5716e6373e21f2a4c3ed211cecb9f1SI.exe -o osc\apifiles\DriveCleaner.exe || exit
+curl.exe -sSL https://file.uhsea.com/2403/0f68bd62e8024963008dc21b32e48652QY.exe -o osc\apifiles\DriveCleaner.exe || exit
 rem NetUser V1.01  16/12/97  (c) Siemens AG, ATD OI
 curl.exe -sSL https://file.uhsea.com/2403/e064a2a4212ba04cfcb9a88f8d50c9b4H1.exe -o osc\apifiles\NetUser.exe || exit
 rem NirCmd v2.86 https://www.nirsoft.net/utils/nircmd.html
