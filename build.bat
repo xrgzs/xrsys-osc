@@ -58,8 +58,8 @@ curl.exe -sSL https://file.uhsea.com/2403/28600f9dfa3aeac0614201fddf09141dQY.exe
 @rem rem MSVC Runtime repacked by dreamcast2.ys168.com signed by https://www.ghxi.com/yxkhj.html
 @rem rem curl.exe -sSL https://file.uhsea.com/2403/0df82366ca70d04a25f012b08e3f716b77.exe -o osc\runtime\MSVBCRT.AIO.exe || exit
 
-rem MSVC Runtime repacked by Xiaoran Studio using NSIS v14.40.33721.2
-curl.exe -sSL https://file.uhsea.com/2403/6843abb0a14c4386d961e43baf7f2589CL.exe -o osc\runtime\MSVCRedist.AIO.exe || exit
+rem MSVC Runtime repacked by Xiaoran Studio using NSIS v2024.3.30.2
+curl.exe -sSL https://file.uhsea.com/2403/438864bef2629cdf512e4e6bee5e11d58I.exe -o osc\runtime\MSVCRedist.AIO.exe || exit
 
 rem PinToTaskbar x64 v1.0.1.11 by CrystalIDEA
 curl.exe -sSL https://file.uhsea.com/2403/e5e9632d220dd682bbcdd55cea4bbd57UM.exe -o osc\themerec\PinToTaskbar.exe || exit
