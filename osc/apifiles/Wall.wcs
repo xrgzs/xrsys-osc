@@ -10,21 +10,24 @@ ENVI Name=系统正在安装/部署/优化中，请勿操作电脑！
 WRIT "%SystemDrive%\Windows\Setup\wallname.txt",$1,%Name%
 
 // 读取外置壁纸
-IFEX ! "%SystemDrive%\Windows\Setup\Set\BG.jpg",FILE "%SystemDrive%\Windows\Setup\Set\BG.jpg"=>wall.jpg
+IFEX "%SystemDrive%\Windows\Setup\Set\BG.jpg" ,FILE "%SystemDrive%\Windows\Setup\Set\BG.jpg"=>wall.jpg
+IFEX ! "wall.jpg" ,FILE "%SystemDrive%\Windows\Web\Wallpaper\Windows\img0.jpg"=>wall.jpg
 
 // 主窗口，启动！
 CALL WIN1
 
-_SUB WIN1,L0T0W%ScrW%H%ScrH%,潇然系统部署背景插件,,,-#:,,-ntab -nfocus -na
+_SUB WIN1,L0T0W%ScrW%H%ScrH%,潇然系统部署背景插件,,,#:,,-ntab -nfocus -na -trap
     // ENVI @this.Enable=0
     ENVI @this.Font=12:微软雅黑
     CALL DRAW
     TIME ,3000,CALL 任务栏监控
     TIME ,5000,CALL 刷新分辨率
-    TIME ,1000,CALL 刷新标题
+    TIME ,500,CALL 刷新标题
 _END
 
 _SUB DRAW
+    ENVI 任务栏=关
+    CALL 隐藏任务栏
     // 设置窗口位置以满屏显示
     ENVI @this.POS=0:0:%ScrW%:%ScrH%:1
     
@@ -36,6 +39,10 @@ _SUB DRAW
     // 任务标题
     ENVI @LABE1.*del=
     LABE -center -trans LABE1,L0T30W%ScrW%H30,%Name%,,0xffffff,24,
+
+    // 任务副标题
+    ENVI @LABE2.*del=
+    LABE -center -trans LABE2,L0T72W%ScrW%H30,%Name%,,0xffffff,14,
 
     
     // 进度条
@@ -53,7 +60,7 @@ _SUB WBTN
     ENVI 任务栏=关
     CALL 隐藏任务栏
     ENVI @BKG.Visible=1
-    IFEX ! %SystemDrive%\Windows\Setup\Set\osc\aria2c.exe,
+    IFEX ! "%SystemDrive%\Windows\Setup\Set\" ,
     {
         // 关闭按钮
         CALC 关=%ScrW%-51-51
@@ -86,7 +93,7 @@ _SUB SYSINFO
     CALC 快捷左=%ScrW%-90
     CALC 快捷上=%ScrH%-90
     
-    ITEM ,L%快捷左%T%快捷上%W40H40,,EXEC PECMD KILL -gui,TASKMGR.EXE#0
+    ITEM ,L%快捷左%T%快捷上%W40H40,,EXEC TASKMGR.EXE,TASKMGR.EXE#0
     CALC 快捷上=%快捷上%-10-48
     
     ITEM ,L%快捷左%T%快捷上%W40H40,,EXEC CMD.EXE,CMD.EXE#0
@@ -166,13 +173,21 @@ _SUB 任务栏监控
 _END
 
 _SUB 隐藏任务栏
-    find --class:Shell_TrayWnd --wid*@ &TASKBAR,
-    MSTR* TASKBARid=<2>%&TASKBAR%
-    ENVI @@visible=%TASKBARid%:0
+    find --class:Shell_TrayWnd --wid* &TASKBARID,
+    ENVI @@visible=%&TASKBARID%:0
+    SET &FUXWID=0
+    FIND --class:FirstUXWndClass --wid* &FUXWID,
+    IFEX |%&FUXWID%<>0,
+    {
+        FIND --wid*@%&FUXWID% &FUXWS
+        MSTR FUXT=<8>%&FUXWS%
+        ENVI @@visible=%&FUXWID%:0
+        IFEX |%LABE2%<>%FUXT%,ENVI @LABE2=%FUXT%
+    }
 _END
+
 _SUB 显示任务栏
-    find --class:Shell_TrayWnd --wid*@ &TASKBAR,
-    MSTR* TASKBARid=<2>%&TASKBAR%
-    ENVI @@visible=%TASKBARid%:1
+    find --class:Shell_TrayWnd --wid* &TASKBARID,
+    ENVI @@visible=%&TASKBARID%:1
 _END
 
