@@ -72,9 +72,7 @@ if %osver% GEQ 2 (
 	copy /y runonce.bat "%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Startup\"
 )
 if not exist "%SystemDrive%\Windows\Setup\Set\xrsysstepapi5.flag" (
-    if exist apifiles\waller.exe (
-        start "" "apifiles\waller.exe"
-    )
+    start "" "%~dp0apifiles\PECMD.exe" LOAD "%~dp0apifiles\Wall.wcs"
 )
 taskkill /f /im explorer.exe
 
@@ -397,8 +395,6 @@ taskkill /f /im explorer.exe
 echo successfuldel>"%SystemDrive%\Windows\Setup\oscstate.txt"
 if not exist "%SystemDrive%\Windows\Setup\Set\api.exe" (
     echo exit>"%systemdrive%\Windows\Setup\wallname.txt"
-    taskkill /f /im waller.exe
-    taskkill /f /im wall.exe
     shutdown /r /t 5 /c "系统部署完成，重启后生效（OSC）"
 )
 if exist selfdel.bat start /wait /min selfdel.bat

@@ -57,7 +57,7 @@ rem if %osver% EQU 2 (
 rem     %pecmd% DISP
 rem )
 mkdir "%SystemDrive%\Windows\Setup"
-start "" "%~dp0apifiles\waller.exe"
+start "" "%~dp0apifiles\PECMD.exe" LOAD "%~dp0apifiles\Wall.wcs"
 for %%a in (C D E F G H) do (
     move /y "%%a:\zjsoft*.txt" "%SystemDrive%\Windows\Setup"
     move /y "%%a:\xrok*.txt" "%SystemDrive%\Windows\Setup"
@@ -341,8 +341,6 @@ if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
     )
 )
 echo exit>"%systemdrive%\Windows\Setup\wallname.txt"
-taskkill /f /im waller.exe
-taskkill /f /im wall.exe
 goto end
 
 :dls
@@ -374,7 +372,7 @@ goto end
 :jzm
 title 桌面环境系统处理（请勿关闭此窗口）
 taskkill /f /im explorer.exe
-start "" "%~dp0apifiles\waller.exe"
+start "" "%~dp0apifiles\PECMD.exe" LOAD "%~dp0apifiles\Wall.wcs"
 echo [API]正在进行桌面环境系统处理...>"%systemdrive%\Windows\Setup\wallname.txt"
 echo win8-11系统APPX、WD、WU驱动处理
 if %osver% GEQ 3 (
@@ -515,8 +513,6 @@ echo 清理残留
 taskkill /f /im explorer.exe
 regedit /s "%~dp0apifiles\cleanup.reg"
 echo exit>"%systemdrive%\Windows\Setup\wallname.txt"
-taskkill /f /im waller.exe
-taskkill /f /im wall.exe
 if exist "%~dp0apifiles\selfdel.bat" start "" "%~dp0apifiles\selfdel.bat"
 shutdown /r /t 5 /c "系统部署完成，重启后生效（API）"
 goto end

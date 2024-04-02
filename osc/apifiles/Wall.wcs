@@ -1,0 +1,170 @@
+﻿// ===============================================================================
+//                           潇然系统部署背景插件 PECMD 版
+// ===============================================================================
+
+
+TEAM ENVI^ ENVIMODE=1| ENVI^ FORCELOCAL=1
+
+// 获取分辨率
+SCRN ScrW,ScrH
+
+// 重设标题
+ENVI Name=系统正在安装/部署/优化中，请勿操作电脑！
+WRIT "%SystemDrive%\Windows\Setup\wallname.txt",$1,%Name%
+
+// 读取外置壁纸
+IFEX ! "%SystemDrive%\Windows\Setup\Set\BG.jpg",FILE "%SystemDrive%\Windows\Setup\Set\BG.jpg"=>wall.jpg
+
+// 读取镜像状态
+REGI .HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\State\ImageState,ImageState
+
+// 根据镜像状态设置主窗口参数
+ENVI %WIN1FORM%=-#
+IFEX |%ImageState%=IMAGE_STATE_COMPLETE,ENVI %WIN1FORM%=-#:
+
+// 主窗口，启动！
+CALL WIN1
+
+_SUB WIN1,L0T0W%ScrW%H%ScrH%,潇然系统部署背景插件,,,-#:,,-ntab -nfocus -na
+    // ENVI @this.Enable=0
+    ENVI @this.Font=12:微软雅黑
+    CALL DRAW
+    TIME ,5000,CALL 刷新分辨率
+    TIME ,1000,CALL 刷新标题
+_END
+
+
+_SUB DRAW
+    // 重绘窗口
+    ENVI @this.POS=0:0:%ScrW%:%ScrH%:1
+
+    // 背景图片
+    ENVI @BKG.*del=
+    IMAG BKG,W%ScrW%H%ScrH%,wall.jpg,
+    ENVI @BKG.Enable=0
+    
+    // 任务标题
+    LABE -center -trans LABE1,L0T30W%ScrW%H30,%Name%,,0xffffff,24,
+    
+    // 进度条
+    // CALC 进度条上=%ScrH%-16
+    // PBAR ,L0T%进度条上%W%ScrW%H16,75,
+    
+    IFEX |%ImageState%=IMAGE_STATE_COMPLETE,CALL WBTN
+    CALL SYSINFO
+_END
+
+_SUB WBTN
+    // 隐藏任务栏
+    find --class:Shell_TrayWnd --wid*@ &任务栏,
+    MSTR* id=<2>%&任务栏%
+    ENVI @@visible=%id%:0   //隐藏
+
+    // 关闭按钮
+    CALC 关=%ScrW%-51-51
+    ENVI @关.*del=
+    LABE -center -vcenter 关,L%关%T1W50H30,×,KILL \,0xffffff#0xf0f0f0#0xffffff#0x0000cd,16:宋体
+
+    // 隐藏按钮
+    CALC 隐=%ScrW%-51
+    ENVI @隐.*del=
+    LABE -center -vcenter -trans 隐,L%隐%T1W50H30,-,CALL WBTN_trans,0xffffff#0xf0f0f0#0xffffff#0xd2d2d2,16:宋体
+_END
+
+_SUB WBTN_trans
+    MESS~ 此功能目前仅供测试，\n\n可能会导致程序崩溃，\n\n请勿反复使用！ @显示桌面
+    
+    // 删除图片
+    ENVI @BKG.*del=
+    
+    // 恢复任务栏
+    find --class:Shell_TrayWnd --wid*@ &任务栏,
+    MSTR* id=<2>%&任务栏%
+    ENVI @@visible=%id%:1
+    // 恢复隐藏按钮
+    CALC 隐=%ScrW%-51
+    ENVI @隐.*del=
+    LABE -center -vcenter 隐,L%隐%T1W50H30,■,CALL DRAW,0xffffff#0xf0f0f0##0xd2d2d2,16:宋体
+_END
+
+_SUB SYSINFO
+    // 快捷按钮
+    CALC 快捷左=%ScrW%-90
+    CALC 快捷上=%ScrH%-90
+    
+    ITEM ,L%快捷左%T%快捷上%W40H40,,EXEC PECMD KILL -gui,TASKMGR.EXE#0
+    CALC 快捷上=%快捷上%-10-48
+    
+    ITEM ,L%快捷左%T%快捷上%W40H40,,EXEC CMD.EXE,CMD.EXE#0
+    CALC 快捷上=%快捷上%-10-48
+    
+    ITEM ,L%快捷左%T%快捷上%W40H40,,EXEC MMC COMPMGMT.MSC,MMC.EXE#0
+    CALC 快捷上=%快捷上%-10-48
+    
+    ITEM ,L%快捷左%T%快捷上%W40H40,截图,EXEC PECMD SCRN -gui,SnippingTool.exe#0
+    CALC 快捷上=%快捷上%-10-48
+    
+    
+    // 信息区域
+    CALC 信息左=90
+    CALC 信息上=%ScrH%-90-210
+
+    REGI .HKLM\SYSTEM\ControlSet001\Control\ComputerName\ComputerName\ComputerName,计算机名
+    LABE -left -trans ,L%信息左%T%信息上%W500H20,计算机名：%计算机名%,,0xffffff,14
+    CALC 信息上=%信息上%+30
+    
+    REGI .HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProductName,版本
+    REGI .HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\DisplayVersion,版本号
+    REGI .HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\PROCESSOR_ARCHITECTURE,系统类型
+    LABE -left -trans ,L%信息左%T%信息上%W500H20,版本：%版本% %版本号% %系统类型%,,0xffffff,14
+    CALC 信息上=%信息上%+30
+
+    REGI .HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BuildLabEx,内部版本
+    LABE -left -trans ,L%信息左%T%信息上%W500H20,内部版本：%内部版本%,,0xffffff,14
+    CALC 信息上=%信息上%+30
+
+    REGI .HKLM\HARDWARE\DESCRIPTION\System\CentralProcessor\0\ProcessorNameString,处理器
+    LABE -left -trans ,L%信息左%T%信息上%W500H20,处理器：%处理器%,,0xffffff,14
+    CALC 信息上=%信息上%+30
+    
+    TEAM FIND MEM=?,内存|CALC 内存=%内存%/1024#2
+    TEAM FIND %SystemDrive%\=?,系统盘|CALC 系统盘=%系统盘%/1024^3#2
+
+    LABE -left -trans ,L%信息左%T%信息上%W500H20,内存：%内存% GB    系统盘(%SystemDrive%)可用：%系统盘% GB,,0xffffff,14
+    CALC 信息上=%信息上%+30
+    
+    REGI .HKLM\HARDWARE\DESCRIPTION\System\BIOS\BaseBoardManufacturer,主板厂商
+    LABE -left -trans ,L%信息左%T%信息上%W500H20,主板厂商：%主板厂商%,,0xffffff,14
+    CALC 信息上=%信息上%+30
+    
+    REGI .HKLM\HARDWARE\DESCRIPTION\System\BIOS\BaseBoardProduct,主板型号
+    LABE -left -trans ,L%信息左%T%信息上%W500H20,主板型号：%主板型号%,,0xffffff,14
+    CALC 信息上=%信息上%+30
+    
+    LABE -left -trans ,L%信息左%T%信息上%W500H20,分辨率：%ScrW% × %ScrH%,,0xffffff,14
+    CALC 信息上=%信息上%+30
+    
+    //LABE -left -trans ,L10T10W500H20,计算最终高度：%信息上%,,0xffffff,14
+_END
+
+_SUB 刷新分辨率
+    SCRN ScrWnew,ScrHnew
+    IFEX [#%ScrW%<>%ScrWnew% | #%ScrH%<>%ScrHnew%],
+    {
+        ENVI ScrW=%ScrWnew%
+        ENVI ScrH=%ScrHnew%
+        CALL DRAW
+        WAIT 1000
+    }
+_END
+
+_SUB 刷新标题
+    READ "%SystemDrive%\Windows\Setup\wallname.txt",1,NameNew
+    IFEX |%NameNew%<>%Name%,
+    {
+        ENVI Name=%NameNew%
+        ENVI @LABE1=%Name%
+    }
+    IFEX |%NameNew%=exit,EXIT FILE
+_END
+

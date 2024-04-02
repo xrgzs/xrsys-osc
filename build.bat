@@ -30,9 +30,6 @@ rem PECMD (support xpx86)
 curl.exe -sSL https://file.uhsea.com/2403/d980423f7b70300b7b825650bc30cdbfIR.exe -o osc\apifiles\PECMD.exe || exit
 rem SystemRestore tool by hp
 curl.exe -sSL https://file.uhsea.com/2403/ca1e5c28b2637b556dff75d0043a2504FF.exe -o osc\apifiles\srtool.exe || exit
-rem Deploying wallpaper (deprecated, need to be replace in another way)
-curl.exe -sSL https://file.uhsea.com/2403/19d6324930e94b1a17d0be592e26ad97GE.exe -o osc\apifiles\waller.exe || exit
-curl.exe -sSL https://file.uhsea.com/2403/06ba4e1e2830ad660395601917eaaf48KF.exe -o osc\apifiles\wall.exe || exit
 rem Wbox - Ver. 1.11 - Message box for batch - (c) 2011-2013, Horst Schaeffer
 curl.exe -sSL https://file.uhsea.com/2403/2f59ebbab5b524bd242bfd83a1845c64D9.exe -o osc\apifiles\Wbox.exe || exit
 rem Winput Ver. 1.42 (c) 2007-2018, Horst Schaeffer
