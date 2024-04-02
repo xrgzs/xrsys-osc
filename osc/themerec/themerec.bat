@@ -34,7 +34,7 @@ if exist "%SystemDrive%\Windows\Resources\Themes\Light.theme" (
 taskkill /F /IM SystemSettings.exe
 del /f /q "%LOCALAPPDATA%\Microsoft\Windows\Themes\Custom.theme"
 timeout -t 5 2>nul || ping 127.0.0.1 -n 5 >nul
-taskkill /f /im explorer.exe & start explorer.exe
+taskkill /f /im explorer.exe && start explorer.exe
 goto setwall
 
 :setwall
