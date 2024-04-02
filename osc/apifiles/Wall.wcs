@@ -51,6 +51,7 @@ _END
 
 _SUB WBTN
     ENVI 任务栏=关
+    CALL 隐藏任务栏
     ENVI @BKG.Visible=1
     IFEX ! %SystemDrive%\Windows\Setup\Set\osc\aria2c.exe,
     {
@@ -94,7 +95,7 @@ _SUB SYSINFO
     ITEM ,L%快捷左%T%快捷上%W40H40,,EXEC MMC COMPMGMT.MSC,MMC.EXE#0
     CALC 快捷上=%快捷上%-10-48
     
-    ITEM ,L%快捷左%T%快捷上%W40H40,截图,EXEC PECMD SCRN -gui,SnippingTool.exe#0
+    ITEM ,L%快捷左%T%快捷上%W40H40,,EXEC PECMD SCRN -gui,SnippingTool.exe#0
     CALC 快捷上=%快捷上%-10-48
     
     
