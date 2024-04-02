@@ -16,7 +16,7 @@ IFEX ! "wall.jpg" ,FILE "%SystemDrive%\Windows\Web\Wallpaper\Windows\img0.jpg"=>
 // 主窗口，启动！
 CALL WIN1
 
-_SUB WIN1,L0T0W%ScrW%H%ScrH%,潇然系统部署背景插件,,,#:,,-ntab -nfocus -na -trap
+_SUB WIN1,L0T0W%ScrW%H%ScrH%,潇然系统部署背景插件,,imageres.dll#22,#:,,-ntab -nfocus -na -trap
     // ENVI @this.Enable=0
     ENVI @this.Font=12:微软雅黑
     CALL DRAW
@@ -42,7 +42,7 @@ _SUB DRAW
 
     // 任务副标题
     ENVI @LABE2.*del=
-    LABE -center -trans LABE2,L0T72W%ScrW%H30,%Name%,,0xffffff,14,
+    LABE -center -trans LABE2,L0T80W%ScrW%H30,%Name%,,0xffffff,14,
 
     
     // 进度条
@@ -102,7 +102,7 @@ _SUB SYSINFO
     ITEM ,L%快捷左%T%快捷上%W40H40,,EXEC MMC COMPMGMT.MSC,MMC.EXE#0
     CALC 快捷上=%快捷上%-10-48
     
-    ITEM ,L%快捷左%T%快捷上%W40H40,,EXEC PECMD SCRN -gui,SnippingTool.exe#0
+    ITEM ,L%快捷左%T%快捷上%W40H40,,EXEC PECMD SCRN -gui,shell32.dll#139
     CALC 快捷上=%快捷上%-10-48
     
     
