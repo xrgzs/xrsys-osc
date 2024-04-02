@@ -2,9 +2,6 @@
 //                           潇然系统部署背景插件 PECMD 版
 // ===============================================================================
 
-
-TEAM ENVI^ ENVIMODE=1| ENVI^ FORCELOCAL=1
-
 // 获取分辨率
 SCRN ScrW,ScrH
 
@@ -15,13 +12,6 @@ WRIT "%SystemDrive%\Windows\Setup\wallname.txt",$1,%Name%
 // 读取外置壁纸
 IFEX ! "%SystemDrive%\Windows\Setup\Set\BG.jpg",FILE "%SystemDrive%\Windows\Setup\Set\BG.jpg"=>wall.jpg
 
-// 读取镜像状态
-REGI .HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\State\ImageState,ImageState
-
-// 根据镜像状态设置主窗口参数
-ENVI %WIN1FORM%=-#
-IFEX |%ImageState%=IMAGE_STATE_COMPLETE,ENVI %WIN1FORM%=-#:
-
 // 主窗口，启动！
 CALL WIN1
 
@@ -29,41 +19,46 @@ _SUB WIN1,L0T0W%ScrW%H%ScrH%,潇然系统部署背景插件,,,-#:,,-ntab -nfocus
     // ENVI @this.Enable=0
     ENVI @this.Font=12:微软雅黑
     CALL DRAW
+    TIME ,3000,CALL 任务栏监控
     TIME ,5000,CALL 刷新分辨率
     TIME ,1000,CALL 刷新标题
 _END
 
-
 _SUB DRAW
-    // 重绘窗口
+    // 设置窗口位置以满屏显示
     ENVI @this.POS=0:0:%ScrW%:%ScrH%:1
-
+    
     // 背景图片
     ENVI @BKG.*del=
     IMAG BKG,W%ScrW%H%ScrH%,wall.jpg,
     ENVI @BKG.Enable=0
     
     // 任务标题
+    ENVI @LABE1.*del=
     LABE -center -trans LABE1,L0T30W%ScrW%H30,%Name%,,0xffffff,24,
+
     
     // 进度条
     // CALC 进度条上=%ScrH%-16
     // PBAR ,L0T%进度条上%W%ScrW%H16,75,
     
-    IFEX |%ImageState%=IMAGE_STATE_COMPLETE,CALL WBTN
     CALL SYSINFO
+    // 读取镜像状态
+    REGI .HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\State\ImageState,ImageState
+    IFEX |%ImageState%=IMAGE_STATE_COMPLETE,CALL WBTN
+
 _END
 
 _SUB WBTN
-    // 隐藏任务栏
-    find --class:Shell_TrayWnd --wid*@ &任务栏,
-    MSTR* id=<2>%&任务栏%
-    ENVI @@visible=%id%:0   //隐藏
-
-    // 关闭按钮
-    CALC 关=%ScrW%-51-51
-    ENVI @关.*del=
-    LABE -center -vcenter 关,L%关%T1W50H30,×,KILL \,0xffffff#0xf0f0f0#0xffffff#0x0000cd,16:宋体
+    ENVI 任务栏=关
+    ENVI @BKG.Visible=1
+    IFEX ! %SystemDrive%\Windows\Setup\Set\osc\aria2c.exe,
+    {
+        // 关闭按钮
+        CALC 关=%ScrW%-51-51
+        ENVI @关.*del=
+        LABE -center -vcenter 关,L%关%T1W50H30,×,KILL \,0xffffff#0xf0f0f0#0xffffff#0x0000cd,16:宋体
+    }
 
     // 隐藏按钮
     CALC 隐=%ScrW%-51
@@ -72,19 +67,17 @@ _SUB WBTN
 _END
 
 _SUB WBTN_trans
-    MESS~ 此功能目前仅供测试，\n\n可能会导致程序崩溃，\n\n请勿反复使用！ @显示桌面
-    
+
     // 删除图片
-    ENVI @BKG.*del=
+    ENVI @BKG.Visible=0
     
-    // 恢复任务栏
-    find --class:Shell_TrayWnd --wid*@ &任务栏,
-    MSTR* id=<2>%&任务栏%
-    ENVI @@visible=%id%:1
+    ENVI 任务栏=开
+    CALL 显示任务栏
+    
     // 恢复隐藏按钮
     CALC 隐=%ScrW%-51
     ENVI @隐.*del=
-    LABE -center -vcenter 隐,L%隐%T1W50H30,■,CALL DRAW,0xffffff#0xf0f0f0##0xd2d2d2,16:宋体
+    LABE -center -vcenter 隐,L%隐%T1W50H30,■,CALL WBTN,0xffffff#0xf0f0f0##0xd2d2d2,16:宋体
 _END
 
 _SUB SYSINFO
@@ -151,10 +144,8 @@ _SUB 刷新分辨率
     SCRN ScrWnew,ScrHnew
     IFEX [#%ScrW%<>%ScrWnew% | #%ScrH%<>%ScrHnew%],
     {
-        ENVI ScrW=%ScrWnew%
-        ENVI ScrH=%ScrHnew%
-        CALL DRAW
-        WAIT 1000
+        EXEC PECMD LOAD wall.wcs
+        KILL \
     }
 _END
 
@@ -166,5 +157,21 @@ _SUB 刷新标题
         ENVI @LABE1=%Name%
     }
     IFEX |%NameNew%=exit,EXIT FILE
+_END
+
+_SUB 任务栏监控
+    IFEX |%任务栏%=开,CALL 显示任务栏
+    IFEX |%任务栏%=关,CALL 隐藏任务栏
+_END
+
+_SUB 隐藏任务栏
+    find --class:Shell_TrayWnd --wid*@ &TASKBAR,
+    MSTR* TASKBARid=<2>%&TASKBAR%
+    ENVI @@visible=%TASKBARid%:0
+_END
+_SUB 显示任务栏
+    find --class:Shell_TrayWnd --wid*@ &TASKBAR,
+    MSTR* TASKBARid=<2>%&TASKBAR%
+    ENVI @@visible=%TASKBARid%:1
 _END
 

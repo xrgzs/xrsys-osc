@@ -126,8 +126,6 @@ if exist "optimize\start.bat" (
 :themerec
 echo [OSC]正在恢复系统主题...>"%systemdrive%\Windows\Setup\wallname.txt"
 if exist "themerec\themerec.bat" echo y | start "" /wait /min "themerec\themerec.bat"
-taskkill /f /im explorer.exe
-
 
 :changepcname
 echo 修改机器号
