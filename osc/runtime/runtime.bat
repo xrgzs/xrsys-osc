@@ -7,7 +7,6 @@ if exist "%SystemDrive%\WINDOWS\Setup\xrsysnoruntime.txt" exit
 @rem     goto flash
 @rem )
 :vc
-taskkill /f /im explorer.exe
 set i=0
 if not exist "%SystemDrive%\Windows\System32\d3dcompiler_33.dll" ( set /A i=i+1 )
 if not exist "%SystemDrive%\Windows\System32\d3dcompiler_36.dll" ( set /A i=i+1 )
@@ -57,7 +56,6 @@ if %i% GEQ 2 (
     )
 )
 :flash
-taskkill /f /im explorer.exe
 set i=0
 if not exist "%SystemDrive%\Windows\System32\Macromed\Flash\NPSWF.dll" ( set /A i=i+1 )
 if not exist "%SystemDrive%\Windows\System32\Macromed\Flash\pepflashplayer.dll" ( set /A i=i+1 )

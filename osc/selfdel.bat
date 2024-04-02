@@ -16,8 +16,6 @@ rem self kill
 taskkill /f /im "优化系统.exe"
 taskkill /f /im "osc.exe"
 taskkill /f /im "oscLoader.exe"
-taskkill /f /im "waller.exe"
-taskkill /f /im "wall.exe"
 
 rem delete desktop icons which is installed by accident and do not use anymore
 rem delete third party system tools...
@@ -153,7 +151,6 @@ rem create tag log file...
 echo successfuldel>"%SystemDrive%\Windows\Setup\oscstate.txt"
 
 rem cleanup system trashes
-taskkill /f /im explorer.exe
 if exist "%~dp0apifiles\cleanup.reg" regedit /s "%~dp0apifiles\cleanup.reg"
 del /f /s /q "%APPDATA%\Microsoft\Windows\Recent\*.lnk"
 rd /s /q "%APPDATA%\Microsoft\Windows\Network Shortcuts"

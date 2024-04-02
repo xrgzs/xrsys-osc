@@ -3,7 +3,7 @@ powershell -window minimized -command "" >nul
 @echo off
 chcp 936 > nul
 title 清理部署残留（第二次进桌面）...
-tasklist | find /i "waller.exe" && exit
+tasklist | find /i "PECMD.exe" && exit
 type "%SystemDrive%\Windows\Setup\oscstate.txt" | find /i "successfuldel" || exit
 
 rem delete desktop icons which is installed by accident and do not use anymore

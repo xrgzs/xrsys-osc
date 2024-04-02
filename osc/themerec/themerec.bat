@@ -33,9 +33,8 @@ if exist "%SystemDrive%\Windows\Resources\Themes\Light.theme" (
 )
 taskkill /F /IM SystemSettings.exe
 del /f /q "%LOCALAPPDATA%\Microsoft\Windows\Themes\Custom.theme"
-rem ping 127.0.0.1 -n 5 >nul
-rem taskkill /f /im explorer.exe & start explorer.exe
-taskkill /f /im explorer.exe
+timeout -t 5 2>nul || ping 127.0.0.1 -n 5 >nul
+taskkill /f /im explorer.exe & start explorer.exe
 goto setwall
 
 :setwall
@@ -48,19 +47,16 @@ if exist wallpaper.jpg (
         reg add "hkcu\control panel\desktop" /f /v "wallpaper" /d "%SystemDrive%\Windows\Version.jpg"
         reg add "hkcu\control panel\desktop" /f /v "WallpaperStyle" /d "10"
         RunDll32.exe USER32.DLL,UpdatePerUserSystemParameters
-        taskkill /f /im explorer.exe
     )
 )
 reg delete "HKCU\Control Panel\Desktop" /f /v "Wallpaper.PECMD"
 exit
 
 :iwb
-start explorer.exe
 if exist "%ProgramW6432%" (
     PinToTaskbar.exe /pin "%SystemDrive%\Windows\System32\osk.exe"
 ) else (
     %PECMD% PINT "%SystemDrive%\Windows\System32\osk.exe",TaskBand
 )
 regedit /s touch.reg
-taskkill /f /im explorer.exe
 goto :EOF

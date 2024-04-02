@@ -1,5 +1,4 @@
 chcp 936 > nul
-taskkill /f /im explorer.exe
 cd /d "%~dp0"
 
 :yr
@@ -202,12 +201,9 @@ if %osver% GEQ 4 (
 )
 
 echo 刷新组策略
-taskkill /f /im explorer.exe
 start /min gpupdate /force
-taskkill /f /im explorer.exe
-
 echo [OSC]正在优化浏览器配置...>"%systemdrive%\Windows\Setup\wallname.txt"
 if exist "FUCKBrowserConfig.bat" start "" /wait /min "FUCKBrowserConfig.bat"
 if exist "bookmarks.exe" start "" /wait /min "bookmarks.exe"
-taskkill /f /im explorer.exe
+start explorer.exe
 exit

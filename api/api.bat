@@ -371,7 +371,6 @@ goto end
 
 :jzm
 title 桌面环境系统处理（请勿关闭此窗口）
-taskkill /f /im explorer.exe
 start "" "%~dp0apifiles\PECMD.exe" LOAD "%~dp0apifiles\Wall.wcs"
 echo [API]正在进行桌面环境系统处理...>"%systemdrive%\Windows\Setup\wallname.txt"
 echo win8-11系统APPX、WD、WU驱动处理
@@ -416,7 +415,6 @@ if %osver% GEQ 3 (
     @REM bcdedit /set {current} bootmenupolicy standard
 )
 
-taskkill /f /im explorer.exe
 
 echo 删除残留的系统启动项
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /f /v "XRSYSAPI"
@@ -431,45 +429,37 @@ reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v legaln
 
 cd /d "%~dp0"
 echo Run
-taskkill /f /im explorer.exe
 for %%a in (Run\*.exe) do (
     echo [API]正在桌面环境下应用%%a...>"%systemdrive%\Windows\Setup\wallname.txt"
     start "" /wait "%%a" /S
     del /f /q "%%a"
-    taskkill /f /im explorer.exe
 )
 for %%a in (Run\*.msi) do (
     echo [API]正在桌面环境下应用%%a...>"%systemdrive%\Windows\Setup\wallname.txt"
     start "" /wait "%%a" /passive /qb-! /norestart
     del /f /q "%%a"
-    taskkill /f /im explorer.exe
 )
 for %%a in (Run\*.reg) do (
     echo [API]正在桌面环境下应用%%a...>"%systemdrive%\Windows\Setup\wallname.txt"
     regedit /s "%%a"
     del /f /q "%%a"
 )
-taskkill /f /im explorer.exe
 echo [API]正在应用DIY接口api5_jzm.bat...>"%systemdrive%\Windows\Setup\wallname.txt"
 if exist api5_jzm.bat call api5_jzm.bat
-taskkill /f /im explorer.exe
 if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
     for %%a in (C D E F G H) do (
         if exist "%%a:\Xiaoran\API\api5_jzm.bat" (
             echo y | start "" /max /wait "%%a:\Xiaoran\API\api5_jzm.bat"
         )
-        taskkill /f /im explorer.exe
         for %%b in (%%a:\Xiaoran\API\Run\*.exe) do (
             echo [API]正在桌面环境下应用%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
             start "" /wait "%%b" /S
             del /f /q "%%b"
-            taskkill /f /im explorer.exe
         )
         for %%b in (%%a:\Xiaoran\API\Run\*.msi) do (
             echo [API]正在桌面环境下应用%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
             start "" /wait "%%b" /passive /qb-! /norestart
             del /f /q "%%b"
-            taskkill /f /im explorer.exe
         )
         for %%b in (%%a:\Xiaoran\API\Run\*.reg) do (
             echo [API]正在桌面环境下应用%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
@@ -478,7 +468,6 @@ if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
         )
     )
 )
-taskkill /f /im explorer.exe
 echo [API]正在应用OSC系统优化组件...>"%systemdrive%\Windows\Setup\wallname.txt"
 if exist "%~dp0osc.exe" (
     start "" /wait "%~dp0osc.exe" /S
@@ -490,7 +479,6 @@ if exist "%~dp0osc.exe" (
 @rem ) else (
 @rem     shutdown -s -t 30 -c "系统部署文件损坏，即将关机终止部署（API）"
 @rem )
-taskkill /f /im explorer.exe
 echo waitosc
 set oscstate=notok
 if not exist "%SystemDrive%\Windows\Setup\oscstate.txt" (
@@ -510,7 +498,6 @@ if %osver% GEQ 3 (
 )
 
 echo 清理残留
-taskkill /f /im explorer.exe
 regedit /s "%~dp0apifiles\cleanup.reg"
 echo exit>"%systemdrive%\Windows\Setup\wallname.txt"
 if exist "%~dp0apifiles\selfdel.bat" start "" "%~dp0apifiles\selfdel.bat"

@@ -63,10 +63,6 @@ rem 潇然系统盗版提示
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v legalnoticecaption /t REG_SZ /d "警告：您的系统可能没有部署完整（OSC）" /f
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v legalnoticetext /t REG_SZ /d "这通常是网络连接不稳定或部署程序BUG导致的，请在点击【确定】登录账户后，访问http://url.xrgzs.top/osc下载、重新运行osc.exe尝试解决。此提示每次登录前都会强制弹出，如有特殊情况请联系QQ:2744460679解决。" /f
 
-rem 接管winlogon
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /f /v Shell /t REG_SZ /d "cmd.exe /c exit"
-taskkill /f /im explorer.exe
-
 rem 创建runonce自删清理脚本...
 if %osver% GEQ 2 (
 	copy /y runonce.bat "%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Startup\"
@@ -74,7 +70,6 @@ if %osver% GEQ 2 (
 if not exist "%SystemDrive%\Windows\Setup\Set\xrsysstepapi5.flag" (
     start "" "%~dp0apifiles\PECMD.exe" LOAD "%~dp0apifiles\Wall.wcs"
 )
-taskkill /f /im explorer.exe
 
 :copytags
 rem 拷贝相关TAG文件
@@ -127,7 +122,6 @@ if exist "optimize\start.bat" (
     echo [OSC]正在优化系统...>"%systemdrive%\Windows\Setup\wallname.txt"
     echo y | start "" /wait /min "optimize\start.bat"
 )
-taskkill /f /im explorer.exe
 
 :changepcname
 echo 修改机器号
@@ -289,43 +283,36 @@ if exist "%SystemDrive%\Windows\Setup\Run\1\api1.bat" (
     echo [OSC]正在应用DIY接口api1.bat...>"%systemdrive%\Windows\Setup\wallname.txt"
     echo y | start "" /max /wait "%SystemDrive%\Windows\Setup\Run\1\api1.bat"
 )
-taskkill /f /im explorer.exe
 for %%b in (%SystemDrive%\Windows\Setup\Run\1\*.exe) do (
     echo [OSC]正在安装%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
     start "" /wait "%%b" /S
     del /f /q "%%b"
-    taskkill /f /im explorer.exe
 )
 for %%b in (%SystemDrive%\Windows\Setup\Run\1\*.msi) do (
     echo [OSC]正在安装%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
     start "" /wait "%%b" /passive /qb-! /norestart
     del /f /q "%%b"
-    taskkill /f /im explorer.exe
 )
 for %%b in (%SystemDrive%\Windows\Setup\Run\1\*.reg) do (
     echo [OSC]正在应用%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
     regedit /s "%%b"
     del /f /q "%%b"
 )
-taskkill /f /im explorer.exe
 if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
     for %%a in (C D E F G H) do (
         if exist "%%a:\Xiaoran\OSC\api1.bat" (
             echo [OSC]正在应用搜到的DIY接口%%a:\~\api1.bat...>"%systemdrive%\Windows\Setup\wallname.txt"
             echo y | start "" /max /wait "%%a:\Xiaoran\OSC\api1.bat"
-            taskkill /f /im explorer.exe
         )
         for %%b in (%%a:\Xiaoran\OSC\1\*.exe) do (
             echo [OSC]正在运行搜到的%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
             start "" /wait "%%b" /S
             del /f /q "%%b"
-            taskkill /f /im explorer.exe
         )
         for %%b in (%%a:\Xiaoran\OSC\1\*.msi) do (
             echo [OSC]正在安装搜到的%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
             start "" /wait "%%b" /passive /qb-! /norestart
             del /f /q "%%b"
-            taskkill /f /im explorer.exe
         )
         for %%b in (%%a:\Xiaoran\OSC\1\*.reg) do (
             echo [OSC]正在应用搜到的%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
@@ -334,7 +321,6 @@ if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
         )
     )
 )
-taskkill /f /im explorer.exe
 
 :xrkms
 if exist "xrkms\xrkms.bat" (
@@ -342,21 +328,14 @@ if exist "xrkms\xrkms.bat" (
     timeout /t 3
     echo y | start "" /wait "xrkms\xrkms.bat"
 )
-taskkill /f /im explorer.exe
 
 :runtime
 if exist "runtime\runtime.bat" echo y | start "" /wait /min "runtime\runtime.bat"
-taskkill /f /im explorer.exe
 
-:themerec
-echo [OSC]正在恢复系统主题...>"%systemdrive%\Windows\Setup\wallname.txt"
-if exist "themerec\themerec.bat" echo y | start "" /wait /min "themerec\themerec.bat"
-taskkill /f /im explorer.exe
 
 :osconline
 echo [OSC]正在应用OSConline（可能需要15分钟, 请保持网络通畅）>"%systemdrive%\Windows\Setup\wallname.txt"
 if exist "online.bat" echo y | start "" /wait /min "online.bat"
-taskkill /f /im explorer.exe
 
 :afterlife
 echo [OSC]正在处理后续事项...>"%systemdrive%\Windows\Setup\wallname.txt"
@@ -388,10 +367,6 @@ if exist "%systemdrive%\Windows\Setup\xrsyswu.txt" (
 :endosc
 cd /d "%~dp0"
 echo successful>"%SystemDrive%\Windows\Setup\oscstate.txt"
-rem 取消接管winlogon
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /f /v Shell /t REG_SZ /d "explorer.exe"
-rem start explorer.exe
-taskkill /f /im explorer.exe
 echo successfuldel>"%SystemDrive%\Windows\Setup\oscstate.txt"
 if not exist "%SystemDrive%\Windows\Setup\Set\api.exe" (
     echo exit>"%systemdrive%\Windows\Setup\wallname.txt"

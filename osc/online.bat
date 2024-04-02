@@ -6,7 +6,6 @@ set url2=http://url.xrgzs.top
 set url=%url1%
 set rtc=0
 
-taskkill /f /im explorer.exe
 
 if exist pack.7z (
     echo [OSC]正在解压pack...>"%systemdrive%\Windows\Setup\wallname.txt"
@@ -50,7 +49,6 @@ if exist pack.bat (
 goto local2
 
 :online
-taskkill /f /im explorer.exe
 cd /d "%~dp0"
 if exist osconline.bat (
     call osconline.bat
@@ -67,44 +65,37 @@ if exist "%SystemDrive%\Windows\Setup\Run\2\api2.bat" (
     echo [OSC]正在应用DIY接口api2.bat...>"%systemdrive%\Windows\Setup\wallname.txt"
     start "" /max /wait "%SystemDrive%\Windows\Setup\Run\2\api2.bat"
 )
-taskkill /f /im explorer.exe
 for %%b in (%SystemDrive%\Windows\Setup\Run\2\*.exe) do (
     echo [OSC]正在安装预装软件%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
     start "" /wait "%%b" /S
     del /f /q "%%b"
-    taskkill /f /im explorer.exe
 )
 for %%b in (%SystemDrive%\Windows\Setup\Run\2\*.msi) do (
     echo [OSC]正在安装预装软件%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
     start "" /wait "%%b" /passive /qb-! /norestart
     del /f /q "%%b"
-    taskkill /f /im explorer.exe
 )
 for %%b in (%SystemDrive%\Windows\Setup\Run\2\*.reg) do (
     echo [OSC]正在应用注册表%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
     regedit /s "%%b"
     del /f /q "%%b"
 )
-taskkill /f /im explorer.exe
 
 if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
     for %%a in (C D E F G H) do (
         if exist "%%a:\Xiaoran\OSC\api2.bat" (
             echo [OSC]正在应用搜到的DIY接口%%a:\~\api2.bat...>"%systemdrive%\Windows\Setup\wallname.txt"
             start "" /max /wait "%%a:\Xiaoran\OSC\api2.bat"
-            taskkill /f /im explorer.exe
         )
         for %%b in (%%a:\Xiaoran\OSC\2\*.exe) do (
             echo [OSC]正在运行搜到的%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
             start "" /wait "%%b" /S
             del /f /q "%%b"
-            taskkill /f /im explorer.exe
         )
         for %%b in (%%a:\Xiaoran\OSC\2\*.msi) do (
             echo [OSC]正在安装搜到的%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
             start "" /wait "%%b" /passive /qb-! /norestart
             del /f /q "%%b"
-            taskkill /f /im explorer.exe
         )
         for %%b in (%%a:\Xiaoran\OSC\2\*.reg) do (
             echo [OSC]正在应用搜到的%%b...>"%systemdrive%\Windows\Setup\wallname.txt"

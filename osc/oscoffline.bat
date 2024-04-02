@@ -6,7 +6,6 @@ setlocal enabledelayedexpansion
 echo 防止错误运行
 if not exist "%SystemDrive%\Windows\Setup\Set\osc\aria2c.exe" exit
 taskkill /f /im msedge.exe
-taskkill /f /im explorer.exe
 
 set isxrnet=0
 if exist "%SystemDrive%\Windows\Setup\Set\zjsoftforceoffline.txt" (
@@ -34,7 +33,6 @@ goto onlinepatch
 
 :onlinepatch
 echo [OSCol]正在应用在线优化补丁...>"%systemdrive%\Windows\Setup\wallname.txt"
-taskkill /f /im explorer.exe
 taskkill /f /im OfficeC2RClient.exe
 
 goto online1
@@ -390,7 +388,6 @@ find /i "Microsoft Office" softlist.txt && set zjsoftoffice=no
 find /i "WPS Office" softlist.txt && set zjsoftoffice=no
 find /i "WPS 365" softlist.txt && set zjsoftoffice=no
 find /i "永中" softlist.txt && set zjsoftoffice=no
-taskkill /f /im explorer.exe
 
 echo 正在判断是否需要安装浏览器
 if %softver%==onlinexrsys (
@@ -441,7 +438,6 @@ if "%zjsoftchat%"=="yes" (
 echo 正在遍历oscsoft.txt安装软件
 set | find /i "zjsoft" >>Version.txt
 FOR /F "eol=; tokens=1,2,3,4,5,6,7,8 delims=|" %%i in (oscsoft.txt) do (
-    taskkill /f /im explorer.exe
     echo 1.软件类型:%%i 2.安装程序:%%j 3.下载地址:%%k 4.运行参数:%%l 5.关键词:%%m 6.指定不安装版本:%%n 7.指定安装位数:%%o
     set isinstall=yes
     if not "!%%i!"=="no" (
@@ -607,7 +603,6 @@ goto onlinefinish
 
 :onlinefinish
 echo [OSCol]软件安装完成，正在处理已安装软件...>"%systemdrive%\Windows\Setup\wallname.txt"
-taskkill /f /im explorer.exe
 echo 关闭OneDrive开机自启
 taskkill /f /im OneDrive.exe
 taskkill /f /im OneDrive*.exe
@@ -684,7 +679,6 @@ reg delete HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v leg
 reg delete HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v DisableTaskMgr /f
 reg delete HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v DisableTaskMgr /f
 
-taskkill /f /im explorer.exe
 echo 输出TAG
 echo zjsoft%softver% by xrosc in %pcname% on %date% at %time% >>"%SystemDrive%\Windows\Version.txt"
 >>"%SystemDrive%\Windows\Version.txt" type Version.txt
