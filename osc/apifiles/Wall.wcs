@@ -92,16 +92,20 @@ _SUB SYSINFO
     CALC 快捷左=%ScrW%-90
     CALC 快捷上=%ScrH%-90
     
-    ITEM ,L%快捷左%T%快捷上%W40H40,,EXEC TASKMGR.EXE,TASKMGR.EXE#0
+    ITEM SCUT1,L%快捷左%T%快捷上%W40H40,,EXEC TASKMGR.EXE,TASKMGR.EXE#0
+    ENVI @SCUT1.trans=2
+    CALC 快捷上=%快捷上%-10-48
+
+    ITEM SCUT2,L%快捷左%T%快捷上%W40H40,,EXEC CMD.EXE,CMD.EXE#0
+    ENVI @SCUT2.trans=2
     CALC 快捷上=%快捷上%-10-48
     
-    ITEM ,L%快捷左%T%快捷上%W40H40,,EXEC CMD.EXE,CMD.EXE#0
+    ITEM SCUT3,L%快捷左%T%快捷上%W40H40,,EXEC MMC COMPMGMT.MSC,MMC.EXE#0
+    ENVI @SCUT3.trans=2
     CALC 快捷上=%快捷上%-10-48
     
-    ITEM ,L%快捷左%T%快捷上%W40H40,,EXEC MMC COMPMGMT.MSC,MMC.EXE#0
-    CALC 快捷上=%快捷上%-10-48
-    
-    ITEM ,L%快捷左%T%快捷上%W40H40,,EXEC PECMD SCRN -gui,shell32.dll#139
+    ITEM SCUT4,L%快捷左%T%快捷上%W40H40,,EXEC PECMD SCRN -gui,shell32.dll#139
+    ENVI @SCUT4.trans=2
     CALC 快捷上=%快捷上%-10-48
     
     
@@ -113,14 +117,21 @@ _SUB SYSINFO
     LABE -left -trans ,L%信息左%T%信息上%W500H20,计算机名：%计算机名%,,0xffffff,14
     CALC 信息上=%信息上%+30
     
-    REGI .HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProductName,版本
-    REGI .HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\DisplayVersion,版本号
-    REGI .HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\PROCESSOR_ARCHITECTURE,系统类型
-    LABE -left -trans ,L%信息左%T%信息上%W500H20,版本：%版本% %版本号% %系统类型%,,0xffffff,14
+    REGI .HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProductName,产品名称
+    REGI .HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\DisplayVersion,显示版本
+    IFEX |%显示版本%<>,REGI .HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\CSDVersion,显示版本
+    ENVI ?系统架构=PEBIT,%windir%\system32
+    LABE -left -trans ,L%信息左%T%信息上%W500H20,版本：%产品名称% %显示版本% %系统架构%,,0xffffff,14
     CALC 信息上=%信息上%+30
 
+    EXEC*N VER=!CMD.EXE /C VER
+    MSTR * VER=<-1>VER
+    MSTR * VER=-2,0,VER
+    REGI .HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BuildLabEx,BuildLabEx
+    MSTR * -delims:. SPBuild=<2>BuildLabEx
+    IFEX #%SPBuild%>1,ENVI VER=%VER%.%SPBuild%
     REGI .HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BuildLabEx,内部版本
-    LABE -left -trans ,L%信息左%T%信息上%W500H20,内部版本：%内部版本%,,0xffffff,14
+    LABE -left -trans ,L%信息左%T%信息上%W500H20,内部版本：%VER%,,0xffffff,14
     CALC 信息上=%信息上%+30
 
     REGI .HKLM\HARDWARE\DESCRIPTION\System\CentralProcessor\0\ProcessorNameString,处理器
@@ -151,7 +162,7 @@ _SUB 刷新分辨率
     SCRN ScrWnew,ScrHnew
     IFEX [#%ScrW%<>%ScrWnew% | #%ScrH%<>%ScrHnew%],
     {
-        EXEC --nowait PECMD LOAD wall.wcs
+        EXEC --nowait PECMD LOAD %CurFile%
         KILL \
     }
 _END
