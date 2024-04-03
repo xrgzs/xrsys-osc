@@ -34,7 +34,6 @@ _SUB DRAW
     // 背景图片
     ENVI @BKG.*del=
     IMAG BKG,W%ScrW%H%ScrH%,wall.jpg,
-    ENVI @BKG.Enable=0
     
     // 任务标题
     ENVI @LABE1.*del=
@@ -152,7 +151,7 @@ _SUB 刷新分辨率
     SCRN ScrWnew,ScrHnew
     IFEX [#%ScrW%<>%ScrWnew% | #%ScrH%<>%ScrHnew%],
     {
-        EXEC PECMD LOAD wall.wcs
+        EXEC --nowait PECMD LOAD wall.wcs
         KILL \
     }
 _END
