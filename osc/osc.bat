@@ -68,7 +68,7 @@ if %osver% GEQ 2 (
 	copy /y runonce.bat "%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Startup\"
 )
 if not exist "%SystemDrive%\Windows\Setup\Set\xrsysstepapi5.flag" (
-    start "" "%~dp0apifiles\PECMD.exe" LOAD "%~dp0apifiles\Wall.wcs"
+    start "" "%pecmd%" LOAD "%~dp0apifiles\Wall.wcs"
 )
 
 :copytags
