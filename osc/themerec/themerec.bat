@@ -31,10 +31,10 @@ if exist "%SystemDrive%\Windows\Resources\Themes\Light.theme" (
 ) else if exist "%SystemDrive%\Windows\Resources\Themes\aero.theme" (
     start "" "%SystemDrive%\Windows\Resources\Themes\aero.theme"
 )
+timeout -t 3 2>nul || ping 127.0.0.1 -n 3 >nul
 taskkill /F /IM SystemSettings.exe
+if %osver% GEQ 2 %PECMD% TEAM FIND --class:CabinetWClass --wid* R^|KILL @@%%R%% 
 del /f /q "%LOCALAPPDATA%\Microsoft\Windows\Themes\Custom.theme"
-timeout -t 5 2>nul || ping 127.0.0.1 -n 5 >nul
-taskkill /f /im explorer.exe && start explorer.exe
 goto setwall
 
 :setwall
