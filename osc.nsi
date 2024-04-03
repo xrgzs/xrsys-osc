@@ -148,6 +148,7 @@ Section "潇然系统优化工具" XROSC
   DetailPrint "解压相关OSC数据..."
   File /r ".\osc\*.*"
   DetailPrint "运行OSC主程序..."
+  ${DisableX64FSRedirection}
   nsExec::ExecToLog "$INSTDIR\osc\osc.bat"
 SectionEnd
 
