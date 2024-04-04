@@ -119,7 +119,8 @@ _SUB SYSINFO
     
     REGI .HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProductName,产品名称
     REGI .HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\DisplayVersion,显示版本
-    IFEX |%显示版本%<>,REGI .HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\CSDVersion,显示版本
+    IFEX |%显示版本%=,REGI .HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\CSDVersion,显示版本
+MESS %显示版本%
     ENVI ?系统架构=PEBIT,%windir%\system32
     LABE -left -trans ,L%信息左%T%信息上%W500H20,版本：%产品名称% %显示版本% %系统架构%,,0xffffff,14
     CALC 信息上=%信息上%+30
