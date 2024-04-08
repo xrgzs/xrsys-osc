@@ -12,7 +12,7 @@ set netuser="%~dp0apifiles\NetUser.exe"
 set nircmd="%~dp0apifiles\nircmd.exe"
 set winput="%~dp0apifiles\winput.exe"
 set wbox="%~dp0apifiles\wbox.exe"
-set nsudo="%~dp0apifiles\NSudoLC.exe"
+set nsudo="%nsudo%"
 set pecmd="%~dp0apifiles\PECMD.EXE"
 set srtool="%~dp0apifiles\srtool.exe"
 set wlan="%~dp0apifiles\WLAN.exe"
@@ -87,9 +87,14 @@ if %osver% GEQ 3 (
     reg delete HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v OneDrive /f
     reg delete HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v OneDriveSetup /f
     echo 禁止自动安装微软电脑管家
+    rd /s /q "%ProgramData%\Windows Master Store"
+    echo noway>"%ProgramData%\Windows Master Store"
     rd /s /q "%ProgramData%\Windows Master Setup"
     echo noway>"%ProgramData%\Windows Master Setup"
     reg delete HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce /v WindowsMasterSetup /f
+    rd /s /q "%CommonProgramFiles%\microsoft shared\ClickToRun\OnlineInteraction"
+    echo noway>"%CommonProgramFiles%\microsoft shared\ClickToRun\OnlineInteraction"
+    reg import "%~dp0apifiles\mspcmgr.reg" /reg:32
 )
 
 if not exist "%SystemDrive%\WINDOWS\Setup\xrsysnoruntime.txt" (
@@ -311,9 +316,10 @@ ver | find "10.0.10" && echo 1>"%systemdrive%\Windows\Setup\xrsysnowu.txt"
 if %osver% LEQ 3 if %osver% GEQ 2 echo y | start "" /min /wait "%~dp0apifiles\EOSNotify.bat"
 if %osver% GEQ 3 (
     echo win8-11系统WD、WU驱动处理
-    start "" /wait /min regedit /s "%~dp0apifiles\WDDisable.reg"
-    start "" /wait /min "%~dp0apifiles\NSudoLC.exe" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
-    start "" /wait /min "%~dp0apifiles\NSudoLC.exe" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-disable.reg"
+    powershell Add-MpPreference -ExclusionPath "%SystemDrive%\Windows\Setup\Set\*"
+    regedit /s "%~dp0apifiles\WDDisable.reg"
+    "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
+    "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-disable.reg"
     start "" /wait /min "%~dp0apifiles\Wub.exe" /D /P
 )
 if %osver% GEQ 2 (
@@ -348,10 +354,11 @@ title 登录时系统处理（请勿关闭此窗口）
 rem start "" /min "%~dp0apifiles\DelDrvCeo.bat"
 if %osver% GEQ 3 (
     echo win8-11系统WD、WU驱动处理
+    powershell Add-MpPreference -ExclusionPath "%SystemDrive%\Windows\Setup\Set\*"
     regedit /s "%~dp0apifiles\del7g.reg"
-    start "" /wait /min regedit /s "%~dp0apifiles\WDDisable.reg"
-    start "" /wait /min "%~dp0apifiles\NSudoLC.exe" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
-    start "" /wait /min "%~dp0apifiles\NSudoLC.exe" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-disable.reg"
+    regedit /s "%~dp0apifiles\WDDisable.reg"
+    "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
+    "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-disable.reg"
     start "" /wait "%~dp0apifiles\Wub.exe" /D /P
 
     echo 关闭显示你的数据将在你所在的国家或地区之外进行处理
@@ -377,15 +384,16 @@ start "" "%pecmd%" LOAD "%~dp0apifiles\Wall.wcs"
 echo [API]正在进行桌面环境系统处理...>"%systemdrive%\Windows\Setup\wallname.txt"
 echo win8-11系统APPX、WD、WU驱动处理
 if %osver% GEQ 3 (
-    start "" /wait /min regedit /s "%~dp0apifiles\WDDisable.reg"
-    start "" /wait /min powershell -ExecutionPolicy bypass -File "%~dp0apifiles\uninstallAppx.ps1"
-    start "" /wait /min "%~dp0apifiles\NSudoLC.exe" -U:T -P:E -wait powershell -ExecutionPolicy bypass -File "%~dp0apifiles\uninstallAppx.ps1"
-    start "" /wait /min "%~dp0apifiles\NSudoLC.exe" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
-    start "" /wait /min "%~dp0apifiles\NSudoLC.exe" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-disable.reg"
+    powershell Add-MpPreference -ExclusionPath "%SystemDrive%\Windows\Setup\Set\*"
+    regedit /s "%~dp0apifiles\WDDisable.reg"
+    powershell -ExecutionPolicy bypass -File "%~dp0apifiles\uninstallAppx.ps1"
+    "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
+    "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-disable.reg"
 )
 echo 关闭Edge
 if %osver% GEQ 4 (
     taskkill /f /im msedge.exe /t
+    taskkill /f /im MicrosoftEdgeUpdate.exe /t
     taskkill /f /im onedrive.exe /t
     taskkill /f /im onedrivesetup.exe /t
     rem del /f /s /q "%USERPROFILE%\Desktop\Microsoft Edge.lnk"
@@ -474,13 +482,6 @@ echo [API]正在应用OSC系统优化组件...>"%systemdrive%\Windows\Setup\wallname.txt"
 if exist "%~dp0osc.exe" (
     start "" /wait "%~dp0osc.exe" /S
 )
-@rem if exist "%~dp0osc\oscLoader.exe" (
-@rem      start "" /wait "%~dp0osc\oscLoader.exe"
-@rem ) else if exist "%~dp0osc\osc.bat" (
-@rem      echo y | start "" /wait "%~dp0osc\osc.bat"
-@rem ) else (
-@rem     shutdown -s -t 30 -c "系统部署文件损坏，即将关机终止部署（API）"
-@rem )
 echo waitosc
 set oscstate=notok
 if not exist "%SystemDrive%\Windows\Setup\oscstate.txt" (
@@ -493,7 +494,7 @@ echo [API]正在处理后续事项...>"%systemdrive%\Windows\Setup\wallname.txt"
 
 if %osver% GEQ 3 (
     echo win8-11系统WU驱动处理
-    start "" /wait /min "%~dp0apifiles\NSudoLC.exe" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-enable.reg"
+    "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-enable.reg"
     echo 关闭显示你的数据将在你所在的国家或地区之外进行处理
     reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CloudExperienceHost\Intent\PersonalDataExport" /v PDEShown /t REG_DWORD /d 2 /f
     reg add "HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\CloudExperienceHost\Intent\PersonalDataExport" /v PDEShown /t REG_DWORD /d 2 /f

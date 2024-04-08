@@ -17,7 +17,8 @@ Get-AppxPackage *Microsoft.OneConnect* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *Microsoft.MixedReality.Portal* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *Microsoft.Print3D* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *Microsoft.Microsoft3DViewer* -AllUsers | Remove-AppxPackage
-# Get-AppxPackage *Microsoft.549981C3F5F10* -AllUsers | Remove-AppxPackage
+Get-AppxPackage *Microsoft.MicrosoftPCManager* -AllUsers | Remove-AppxPackage
+Get-AppxPackage *Microsoft.549981C3F5F10* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.BingWeather* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.GamingApp* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.Xbox* -AllUsers | Remove-AppxPackage
@@ -47,3 +48,9 @@ Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Micros
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.MixedReality.Portal*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Print3D*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Microsoft3DViewer*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.MicrosoftPCManager*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.549981C3F5F10*"} | Remove-AppxProvisionedPackage -Online
+
+# Import registry to disable Microsoft PC Manager
+reg.exe import .\mspcmgr.reg /reg:32
+

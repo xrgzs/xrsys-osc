@@ -44,12 +44,6 @@ echo 清除DNS缓存
 ipconfig /flushdns
 echo Win10-11专用优化
 ver | find /i "10.0." && (
-    echo 禁止自动安装微软电脑管家
-    rd /s /q "%ProgramData%\Windows Master Setup"
-    echo noway>"%ProgramData%\Windows Master Setup"
-    reg delete HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce /v WindowsMasterSetup /f
-    rd /s /q "%CommonProgramFiles%\microsoft shared\ClickToRun\OnlineInteraction"
-    echo noway>"%CommonProgramFiles%\microsoft shared\ClickToRun\OnlineInteraction"
     echo 启用任务管理器显示磁盘性能
     if exist "%systemdrive%\Windows\System32\diskperf.exe" diskperf -y
     for /f "tokens=6 delims=[]. " %%a in ('ver') do set bigversion=%%a
@@ -190,19 +184,15 @@ if %notebook% GEQ 1 (
 :online2
 echo 正在判断需要下载安装的装机软件类型
 set softver=onlinexrok
-if exist "%SystemDrive%\Windows\Setup\zjsoftspoem.txt" set softver=onlinespoem & goto online3
-if exist "%SystemDrive%\Windows\Setup\zjsoftforcepure.txt" set softver=onlineno & goto online3
-if exist "%SystemDrive%\Windows\Setup\zjsoftforce.txt" set softver=onlinexrok & goto online3
-if exist "%SystemDrive%\Windows\Setup\zjsoftpure.txt" set softver=onlineno & goto online3
-if exist "%SystemDrive%\Windows\Setup\xroknoad.txt" set softver=onlineno & goto online3
-if exist "%SystemDrive%\Windows\Setup\zjsoftonlineno.txt" set softver=onlineno & goto online3
-if exist "%SystemDrive%\Windows\Setup\zjsoftonlinexrsys.txt" set softver=onlinexrsys & goto online3
-if exist "%SystemDrive%\Windows\Setup\zjsoftoffice.txt" set softver=onlineoffice & goto online3
-if exist "%SystemDrive%\Windows\Setup\zjsoftxrok.txt" set softver=onlinexrok & goto online3
-if exist "%SystemDrive%\Windows\Setup\zjsoft360pure.txt" set softver=online360pure & goto online3
-if exist "%SystemDrive%\Windows\Setup\zjsoft360.txt" set softver=online360 & goto online3
-if exist "%SystemDrive%\Windows\Setup\zjsoft2345.txt" set softver=online2345 & goto online3
-if exist "%SystemDrive%\Windows\Setup\zjsoft2345pure.txt" set softver=online2345pure & goto online3
+if exist "%SystemDrive%\Windows\Setup\zjsoftxrok.txt" set softver=onlinexrok
+if exist "%SystemDrive%\Windows\Setup\zjsoftoffice.txt" set softver=onlineoffice
+if exist "%SystemDrive%\Windows\Setup\zjsoftonlinexrsys.txt" set softver=onlinexrsys
+if exist "%SystemDrive%\Windows\Setup\zjsoftonlineno.txt" set softver=onlineno
+if exist "%SystemDrive%\Windows\Setup\xroknoad.txt" set softver=onlineno
+if exist "%SystemDrive%\Windows\Setup\zjsoftpure.txt" set softver=onlineno
+if exist "%SystemDrive%\Windows\Setup\zjsoftforce.txt" set softver=onlinexrok
+if exist "%SystemDrive%\Windows\Setup\zjsoftforcepure.txt" set softver=onlineno
+if exist "%SystemDrive%\Windows\Setup\zjsoftspoem.txt" set softver=onlinespoem
 goto online3
 
 :online3
@@ -259,58 +249,6 @@ if %softver%==onlineno (
     set zjsoftchat=yes
     set zjsoftsafe=yes
     set zjsoftextra=yes
-) else if %softver%==online360pure (
-    set zjsoftxrgzs=yes
-    set zjsoftzip=no
-    set zjsoftpinyin=no
-    set zjsoftoffice=yes
-    set zjsofttxt=yes
-    set zjsoftbrowser=no
-    set zjsoftdown=no
-    set zjsoftmusic=yes
-    set zjsoftplayer=yes
-    set zjsoftchat=yes
-    set zjsoftsafe=no
-    set zjsoftextra=no
-) else if %softver%==online360 (
-    set zjsoftxrgzs=yes
-    set zjsoftzip=no
-    set zjsoftpinyin=no
-    set zjsoftoffice=yes
-    set zjsofttxt=no
-    set zjsoftbrowser=no
-    set zjsoftdown=no
-    set zjsoftmusic=yes
-    set zjsoftplayer=yes
-    set zjsoftchat=yes
-    set zjsoftsafe=no
-    set zjsoftextra=yes
-) else if %softver%==online2345pure (
-    set zjsoftxrgzs=yes
-    set zjsoftzip=no
-    set zjsoftpinyin=no
-    set zjsoftoffice=no
-    set zjsofttxt=yes
-    set zjsoftbrowser=no
-    set zjsoftdown=no
-    set zjsoftmusic=yes
-    set zjsoftplayer=yes
-    set zjsoftchat=yes
-    set zjsoftsafe=no
-    set zjsoftextra=no
-) else if %softver%==online2345 (
-    set zjsoftxrgzs=yes
-    set zjsoftzip=no
-    set zjsoftpinyin=no
-    set zjsoftoffice=no
-    set zjsofttxt=yes
-    set zjsoftbrowser=no
-    set zjsoftdown=no
-    set zjsoftmusic=yes
-    set zjsoftplayer=yes
-    set zjsoftchat=yes
-    set zjsoftsafe=no
-    set zjsoftextra=yes
 ) else if %softver%==onlinespoem (
     set zjsoftxrgzs=no
     set zjsoftzip=yes
@@ -336,19 +274,6 @@ if not exist "%SystemDrive%\Windows\Fonts\FZXBSK.ttf" (
     )
     if exist xrfonts.exe start /wait xrfonts.exe && del /f /q xrfonts.exe
 )
-@rem echo 正在安装ok
-@rem if not exist "%SystemDrive%\Windows\Setup\Run\1\xrok.exe" (
-@rem     %aria% -x16 -o xrok.exe "%url%/xrok"
-@rem     if exist xrok.exe start /wait xrok.exe
-@rem )
-@rem if %osver% LEQ 1 ( 
-@rem     goto online2
-@rem ) else ( 
-@rem     echo 正在安装tools
-@rem     %aria% -x16 -o xrtools.exe "%url%/xrtools"
-@rem     if exist xrtools.exe start /wait xrtools.exe
-@rem )
-
 
 :online5
 echo [OSCol]正在安装软件...>"%systemdrive%\Windows\Setup\wallname.txt"
@@ -536,57 +461,6 @@ FOR /F "eol=; tokens=1,2,3,4,5,6,7,8 delims=|" %%i in (oscsoft.txt) do (
 :online6
 echo 软件安装完成，正在跳转到对应的类型装机软件安装环节>"%systemdrive%\Windows\Setup\wallname.txt"
 goto %softver%
-goto onlinefinish
-
-:online2345
-echo [OSCol]正在安装2345pack...>"%systemdrive%\Windows\Setup\wallname.txt"
-%aria% -x16 "%url%/2345pack"
-for %%a in (p*.exe) do start /wait %%a /S>nul>nul
-goto onlinefinish
-
-:online2345pure
-echo [OSCol]正在安装2345pure...>"%systemdrive%\Windows\Setup\wallname.txt"
-%aria% -x16 "%url%/2345pure"
-for %%a in (p*.exe) do start /wait %%a /S>nul>nul
-goto onlinefinish
-
-:online360
-echo [OSCol]正在安装360pack...>"%systemdrive%\Windows\Setup\wallname.txt"
-%aria% -x16 -o "360zip_yqlm_290135.exe" "%url%/360zip"
-%aria% -x16 -o "MarketSetup_290135.exe" "http://urlqh.cn/mVTyq"
-%aria% -x16 -o "360seSetup.exe" "%url%/360se"
-%aria% -x16 -o "360Game_chs_290135.exe" "http://urlqh.cn/mXMa9"
-if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
-    %aria% -x16 -o "360csex+290135+n3076eb8c9f.exe" "http://urlqh.cn/n4y8k"
-) else (
-    %aria% -x16 -o "360cse+290135+n3076eb8c9f.exe" "http://urlqh.cn/n1ZI6"
-)
-
-%aria% -x16 -d "%temp%" -o "360safe.exe" "%url%/360safe"
-if exist 360zip_yqlm_290135.exe start /wait 360zip_yqlm_290135.exe /S
-if exist MarketSetup_290135.exe start /wait MarketSetup_290135.exe /S /C 290135
-for %%a in (360cse*.exe) do start /wait %%a --silent-install=3_1_1>nul>nul
-if exist 360seSetup.exe start /wait 360seSetup.exe /S
-if exist 360Game_chs_290135.exe start /wait 360Game_chs_290135.exe /S
-if exist "%temp%\360safe.exe" start "" "%temp%\360safe.exe" /S
-goto onlinefinish
-
-:online360pure
-echo [OSCol]正在安装360packpure...>"%systemdrive%\Windows\Setup\wallname.txt"
-%aria% -x16 -o "360zip_yqlm_290135.exe" "%url%/360zip"
-%aria% -x16 -o "MarketSetup_290135.exe" "http://urlqh.cn/mVTyq"
-%aria% -x16 -o "360seSetup.exe" "%url%/360se"
-if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
-    %aria% -x16 -o "360csex+290135+n3076eb8c9f.exe" "http://urlqh.cn/n4y8k"
-) else (
-    %aria% -x16 -o "360cse+290135+n3076eb8c9f.exe" "http://urlqh.cn/n1ZI6"
-)
-%aria% -x16 -d "%temp%" -o "360safejisu+290135+n3076eb8c9f.exe" "http://urlqh.cn/n1oRr"
-if exist 360zip_yqlm_290135.exe start /wait 360zip_yqlm_290135.exe /S
-if exist MarketSetup_290135.exe start /wait MarketSetup_290135.exe /S /C 290135
-for %%a in (360cse*.exe) do start /wait %%a --silent-install=3_1_1>nul>nul
-if exist 360seSetup.exe start /wait 360seSetup.exe
-if exist "%temp%\360safejisu+290135+n3076eb8c9f.exe" start "" "%temp%\360safejisu+290135+n3076eb8c9f.exe" /S
 goto onlinefinish
 
 :onlinexrsys

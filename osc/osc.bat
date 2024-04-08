@@ -17,7 +17,7 @@ set zip="%~dp0apifiles\7z.exe"
 if exist "%systemdrive%\Windows\SysWOW64\wscript.exe" (
     set "PROCESSOR_ARCHITECTURE=AMD64"
 )
-rem 系统版本判断
+echo 系统版本判断
 set osver=0&& set osname=Win
 ver | find /i "5.1." > nul && set osver=1&& set osname=WinXP
 ver | find /i "6.0." > nul && set osver=2&& set osname=Vista
@@ -28,7 +28,7 @@ ver | find /i "6.4." > nul && set osver=4&& set osname=Win10
 ver | find /i "10.0." > nul && set osver=4&& set osname=Win10
 ver | find /i "10.0.2" > nul && set osver=4&& set osname=Win11
 
-rem 创建相关文件夹
+echo 创建相关文件夹
 mkdir "%SystemDrive%\Windows\Setup"
 mkdir "%SystemDrive%\Windows\Setup\Run"
 echo successful>"%SystemDrive%\Windows\Setup\oscrunstate.txt"
@@ -43,7 +43,7 @@ echo successful>"%SystemDrive%\Windows\Setup\oscrunstate.txt"
 @rem )
 
 :checkenv_generalize
-rem 检测是否在部署阶段中运行
+echo 检测是否在部署阶段中运行
 if exist "%SystemDrive%\Windows\Setup\State\State.ini" (
     find /i "IMAGE_STATE_GENERALIZE_RESEAL_TO_OOBE" "%SystemDrive%\Windows\Setup\State\State.ini" && (
         echo 不支持在部署阶段中运行
@@ -52,18 +52,35 @@ if exist "%SystemDrive%\Windows\Setup\State\State.ini" (
 )
 
 :checkenv_winpe
-rem 检测是否在PE系统中运行
+echo 检测是否在PE系统中运行
 if /i "%SystemDrive%"=="x:" if exist "X:\Windows\System32\PECMD.EXE" (
     echo 不支持在PE系统中运行
     goto endoff
 )
 
 :mainprogram
-rem 潇然系统盗版提示
+echo 潇然系统盗版提示
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v legalnoticecaption /t REG_SZ /d "警告：您的系统可能没有部署完整（OSC）" /f
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v legalnoticetext /t REG_SZ /d "这通常是网络连接不稳定或部署程序BUG导致的，请在点击【确定】登录账户后，访问http://url.xrgzs.top/osc下载、重新运行osc.exe尝试解决。此提示每次登录前都会强制弹出，如有特殊情况请联系QQ:2744460679解决。" /f
 
-rem 创建runonce自删清理脚本...
+echo win8-11系统APPX、WD处理
+if %osver% GEQ 3 (
+    powershell Add-MpPreference -ExclusionPath "%SystemDrive%\Windows\Setup\Set\*"
+    powershell -ExecutionPolicy bypass -File "%~dp0apifiles\uninstallAppx.ps1"
+    "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
+    reg import "%~dp0apifiles\mspcmgr.reg" /reg:32
+)
+
+echo 禁止自动安装微软电脑管家
+rd /s /q "%ProgramData%\Windows Master Store"
+echo noway>"%ProgramData%\Windows Master Store"
+rd /s /q "%ProgramData%\Windows Master Setup"
+echo noway>"%ProgramData%\Windows Master Setup"
+reg delete HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce /v WindowsMasterSetup /f
+rd /s /q "%CommonProgramFiles%\microsoft shared\ClickToRun\OnlineInteraction"
+echo noway>"%CommonProgramFiles%\microsoft shared\ClickToRun\OnlineInteraction"
+
+echo 创建runonce自删清理脚本...
 if %osver% GEQ 2 (
 	copy /y runonce.bat "%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Startup\"
 )
@@ -72,7 +89,7 @@ if not exist "%SystemDrive%\Windows\Setup\Set\xrsysstepapi5.flag" (
 )
 
 :copytags
-rem 拷贝相关TAG文件
+echo 拷贝相关TAG文件
 mkdir "%SystemDrive%\Windows\Setup\"
 for %%a in (C D E F G H) do (
     move /y "%%a:\zjsoft*.txt" "%SystemDrive%\Windows\Setup"
@@ -138,7 +155,7 @@ echo %computername% | find /i "PC-" && goto changepasswd
 if defined pcname set "pcname=%pcname: =%"
 if "!pcname!"=="%computername%" goto changepasswd
 
-echo 生成四个随机字母
+rem 生成四个随机字母
 set str=ABCDEFGHIJKLMNOPQRSTUVWXYZ
 for /l %%a in (1 1 4) do (
     set /a n=!random!%%26
@@ -176,7 +193,7 @@ if exist "%systemdrive%\Windows\Setup\xrsyspasswd.txt" (
 endlocal
 
 :restorewifi
-rem 还原备份的WIFI密码
+echo 还原备份的WIFI密码
 if %osver% GEQ 2 (
     for %%a in (C D E F G H) do (
         if exist "%%a:\Xiaoran\WLANPassword\*.xml" (
@@ -218,6 +235,7 @@ endlocal
 
 :configurefirewall
 if exist "%systemdrive%\Windows\Setup\xrsysfirewall.txt" (
+    echo 打开防火墙
     netsh advfirewall set currentprofile state on
     netsh firewall set opmode mode=enable
     netsh advfirewall set privateprofile state on
@@ -234,6 +252,7 @@ if exist "%systemdrive%\Windows\Setup\xrsysfirewall.txt" (
     reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile" /f /v "EnableFirewall" /t reg_dword /d 1
     reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile" /f /v "DisableNotifications" /t reg_dword /d 0
 ) else (
+    echo 关闭防火墙
     netsh advfirewall set currentprofile state off
     netsh firewall set opmode mode=disable
     netsh advfirewall set privateprofile state off
@@ -247,6 +266,7 @@ if exist "%systemdrive%\Windows\Setup\xrsysfirewall.txt" (
 :configurerdp
 set rdpport=3389
 if exist "%systemdrive%\Windows\Setup\xrsysrdp.txt" (
+    echo 打开RDP
     set /p rdpportnew=<"%SystemDrive%\Windows\Setup\xrsysrdp.txt"
     if not "!rdpportnew: =!"=="" if !rdpportnew! GEQ 2 if !rdpportnew! LEQ 65535 set rdpport=!rdpportnew!
     netsh firewall set portopening protocol=ALL port=!rdpport: =! name=RDP mode=ENABLE scope=ALL profile=ALL
@@ -261,15 +281,8 @@ if exist "%systemdrive%\Windows\Setup\xrsysrdp.txt" (
     SC START TermService
 )
 
-:startwtdr
-@rem echo [OSC]正在应用系统优化组件...>"%systemdrive%\Windows\Setup\wallname.txt"
-@rem if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
-@rem     start /wait WTDR.Pack64.exe /ApplyConfig /Desktop
-@rem ) else (
-@rem     start /wait WTDR.Pack32.exe /ApplyConfig /Desktop
-@rem )
-
 :oscapis
+echo 应用OSCAPI
 if exist "%SystemDrive%\Windows\Setup\zjsoftxrsoftno.txt" (
     del /f /q "%systemdrive%\Windows\Setup\Set\osc\xrsoft.exe"
 )
@@ -327,6 +340,7 @@ if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
 )
 
 :xrkms
+echo 应用XRKMS
 if exist "xrkms\xrkms.bat" (
     echo [OSC]正在智能激活系统（可能需要3min）>"%systemdrive%\Windows\Setup\wallname.txt"
     timeout /t 3
@@ -334,10 +348,11 @@ if exist "xrkms\xrkms.bat" (
 )
 
 :runtime
+echo 应用运行库
 if exist "runtime\runtime.bat" echo y | start "" /wait /min "runtime\runtime.bat"
 
-
 :osconline
+echo 应用OSConline
 echo [OSC]正在应用OSConline（可能需要15分钟, 请保持网络通畅）>"%systemdrive%\Windows\Setup\wallname.txt"
 if exist "online.bat" echo y | start "" /wait /min "online.bat"
 
@@ -360,6 +375,7 @@ if %osver% EQU 4 (
 )
 
 :disablewu
+echo 按需关闭WU
 if exist "%systemdrive%\Windows\Setup\xrsyswu.txt" (
     start "" /wait /min "%~dp0apifiles\Wub.exe" /E
 ) else if exist "%systemdrive%\Windows\Setup\xrsysfkwu.txt" (
@@ -369,6 +385,7 @@ if exist "%systemdrive%\Windows\Setup\xrsyswu.txt" (
 )
 
 :endosc
+echo 部署完成
 cd /d "%~dp0"
 echo successful>"%SystemDrive%\Windows\Setup\oscstate.txt"
 echo successfuldel>"%SystemDrive%\Windows\Setup\oscstate.txt"
@@ -377,5 +394,6 @@ if not exist "%SystemDrive%\Windows\Setup\Set\api.exe" (
     shutdown /r /t 5 /c "系统部署完成，重启后生效（OSC）"
 )
 if exist selfdel.bat start /wait /min selfdel.bat
+
 :endoff
 exit

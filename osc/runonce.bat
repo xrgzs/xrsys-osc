@@ -131,6 +131,9 @@ RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 1
 RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 16
 for /f "delims=" %%i in ('WEvtUtil el') do (WEvtUtil cl "%%i")
 
+rem delete history
+reg delete HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppSwitched /f
+
 rem bcd timeout
 bcdedit /? >nul && bcdedit /timeout 3
 
