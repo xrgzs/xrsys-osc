@@ -3,9 +3,7 @@ cd /d "%~dp0"
 if not defined osver exit
 echo [OSC]正在安装运行库...>"%systemdrive%\Windows\Setup\wallname.txt"
 if exist "%SystemDrive%\WINDOWS\Setup\xrsysnoruntime.txt" exit
-@rem if exist "%SystemDrive%\WINDOWS\Setup\xrsys.txt" (
-@rem     goto flash
-@rem )
+
 :vc
 set i=0
 if not exist "%SystemDrive%\Windows\System32\d3dcompiler_33.dll" ( set /A i=i+1 )
@@ -14,10 +12,10 @@ if not exist "%SystemDrive%\Windows\System32\d3dcompiler_43.dll" ( set /A i=i+1 
 if %i% GEQ 2 (
 	echo [OSC]正在安装DX9运行库...>"%systemdrive%\Windows\Setup\wallname.txt"
     if exist DX9.exe (
-        start /wait DX9.exe /S
+        start "" /wait "%PECMD%" EXEC -wait -timeout:300000 DX9.exe /S
     )
     if exist DirectX_Redist_Repack_x86_x64_Final.exe (
-        start /wait DirectX_Redist_Repack_x86_x64_Final.exe /ai /gm2
+        start "" /wait "%PECMD%" EXEC -wait -timeout:300000 DirectX_Redist_Repack_x86_x64_Final.exe /ai /gm2
     )
 )
 set i=0
@@ -34,27 +32,23 @@ if not exist "%SystemDrive%\Windows\System32\vcamp120.dll" ( set /A i=i+1 )
 if %i% GEQ 2 (
     if exist MSVCRedist.AIO.exe (
         echo [OSC]正在应用VC运行库 by XRSYS...>"%systemdrive%\Windows\Setup\wallname.txt"
-        start /wait MSVCRedist.AIO.exe /S
+        start "" /wait "%PECMD%" EXEC -wait -timeout:300000 MSVCRedist.AIO.exe /S
         del /f /q MSVCRedist.AIO.exe
-    )
-    if exist MSVBCRT.AIO.exe (
+    ) else if exist MSVBCRT.AIO.exe (
         echo [OSC]正在应用VC运行库 by Dreamcast...>"%systemdrive%\Windows\Setup\wallname.txt"
-        start /wait MSVBCRT.AIO.exe /SP- /SILENT /SUPPRESSMSGBOXES /NORESTART /COMPONENTS="vbvc567,vc2005,vc2008,vc2010,vc2012,vc2013,vc2019,vc2022,uc10,vstor"
+        start "" /wait "%PECMD%" EXEC -wait -timeout:300000 MSVBCRT.AIO.exe /SP- /SILENT /SUPPRESSMSGBOXES /NORESTART /COMPONENTS="vbvc567,vc2005,vc2008,vc2010,vc2012,vc2013,vc2019,vc2022,uc10,vstor"
         del /f /q MSVBCRT.AIO.exe
-    )
-    if exist VC.exe (
+    ) else if exist VC.exe (
         echo [OSC]正在安装VC运行库...>"%systemdrive%\Windows\Setup\wallname.txt"
-        start /wait VC.exe /S
+        start "" /wait "%PECMD%" EXEC -wait -timeout:300000 VC.exe /S
         del /f /q VC.exe
-    )
-    if not %osver% equ 1 (
-        if exist VisualCppRedist_AIO.exe (
+    ) else if not %osver% equ 1 if exist VisualCppRedist_AIO.exe (
             echo [OSC]正在应用VC运行库 by abodi1406...>"%systemdrive%\Windows\Setup\wallname.txt"
-            start /wait VisualCppRedist_AIO.exe /ai /gm2
+            start "" /wait "%PECMD%" EXEC -wait -timeout:300000 VisualCppRedist_AIO.exe /ai /gm2
             del /f /q VisualCppRedist_AIO.exe
-        )
     )
 )
+
 :flash
 set i=0
 if not exist "%SystemDrive%\Windows\System32\Macromed\Flash\NPSWF.dll" ( set /A i=i+1 )
@@ -62,7 +56,7 @@ if not exist "%SystemDrive%\Windows\System32\Macromed\Flash\pepflashplayer.dll" 
 if %i% GEQ 1 (
 	echo [OSC]正在安装Flash运行库...>"%systemdrive%\Windows\Setup\wallname.txt"
     if exist flash.exe (
-        start /wait flash.exe
+        start "" /wait "%PECMD%" EXEC -wait -timeout:300000 flash.exe
         del /f /q flash.exe
     )
 )

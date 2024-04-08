@@ -2,7 +2,7 @@
 chcp 936 > nul
 cd /d "%~dp0"
 setlocal enabledelayedexpansion
-set ver=智能正版激活工具 V3.24.1.11
+set ver=智能正版激活工具 V3.24.4.7
 title %ver%（请勿关闭此窗口）
 if exist "%systemdrive%\Windows\Setup\xrsysnokms.txt" exit
 if exist "%SystemDrive%\wandrv\wall.exe" exit
@@ -167,7 +167,11 @@ cls
 title %ver% - 在线激活（请勿关闭此窗口）
 echo 正在在线激活系统，请稍候...
 echo 技术支持：KMS_VL_ALL_AIO by abbodi1406
-start /wait /min cmd /c KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
+if defined pecmd (
+    start "" /wait "%PECMD%" EXEC -hide -wait -timeout:120000 KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
+) else (
+    start /wait /min cmd /c KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
+)
 echo 正在进一步激活系统，请稍候...
 if "%isoem%"=="1" call kms.exe /oem
 if "%isdigital%"=="1" call kms.exe /dig
@@ -175,12 +179,8 @@ goto exit
 
 :exit
 cd /d "%~dp0"
-for %%a in (HEU*_Debug.txt) DO (
-    type "%%a" >>"%systemdrive%\Windows\Setup\xrkmsini.log"
-)
-for %%a in (*_Silent.log) DO (
-    type "%%a" >>"%systemdrive%\Windows\Setup\xrkmsini.log"
-)
+for %%a in (HEU*_Debug.txt) DO type "%%a" >>"%systemdrive%\Windows\Setup\xrkmsini.log"
+for %%a in (*_Silent.log) DO type "%%a" >>"%systemdrive%\Windows\Setup\xrkmsini.log"
 for %%a in (%TEMP%\HEU*_Debug.txt) DO (
     type "%%a" >>"%systemdrive%\Windows\Setup\xrkmsini.log"
     del /f /q "%%a"
