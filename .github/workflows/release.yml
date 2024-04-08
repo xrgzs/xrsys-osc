@@ -39,8 +39,13 @@ jobs:
       run: |
         cmd /c build.bat
 
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v4
+    - name: Create Release and Upload Asset
+      uses: softprops/action-gh-release@v2
       with:
-        name: XRSYS_OSC_CI_Build
-        path: osc.exe
+        tag_name: v${{ steps.generate_version.outputs.version }}
+        name: v${{ steps.generate_version.outputs.version }}
+        draft: false
+        prerelease: true
+        generate_release_notes: true
+        token: ${{ secrets.MY_TOKEN }}
+        files: osc.exe
