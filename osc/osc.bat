@@ -66,9 +66,9 @@ reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v legaln
 echo win8-11系统APPX、WD处理
 if %osver% GEQ 3 (
     rem 过滤白名单路径
-    powershell Add-MpPreference -ExclusionPath "%SystemDrive%\Windows\Setup\Set\*"
-    powershell Add-MpPreference -ExclusionPath "%SystemDrive%\Program Files\Xiaoran\*"
-    powershell Add-MpPreference -ExclusionPath "%SystemDrive%\Program Files (x86)\Xiaoran\*"
+    powershell "Add-MpPreference -ExclusionPath '%SystemDrive%\Windows\Setup\Set\*'"
+    powershell "Add-MpPreference -ExclusionPath '%SystemDrive%\Program Files\Xiaoran\*'"
+    powershell "Add-MpPreference -ExclusionPath '%SystemDrive%\Program Files (x86)\Xiaoran\*'"
     rem 设置CPU使用的优先级为低
     powershell Set-MpPreference -EnableLowCpuPriority $true
     rem 设置CPU空闲时才执行定时扫描
