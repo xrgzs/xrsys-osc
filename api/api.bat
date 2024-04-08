@@ -316,7 +316,22 @@ ver | find "10.0.10" && echo 1>"%systemdrive%\Windows\Setup\xrsysnowu.txt"
 if %osver% LEQ 3 if %osver% GEQ 2 echo y | start "" /min /wait "%~dp0apifiles\EOSNotify.bat"
 if %osver% GEQ 3 (
     echo win8-11系统WD、WU驱动处理
+    rem 过滤白名单路径
     powershell Add-MpPreference -ExclusionPath "%SystemDrive%\Windows\Setup\Set\*"
+    powershell Add-MpPreference -ExclusionPath "%SystemDrive%\Program Files\Xiaoran\*"
+    powershell Add-MpPreference -ExclusionPath "%SystemDrive%\Program Files (x86)\Xiaoran\*"
+    rem 设置CPU使用的优先级为低
+    powershell Set-MpPreference -EnableLowCpuPriority $true
+    rem 设置CPU空闲时才执行定时扫描
+    powershell Set-MpPreference -ScanOnlyIfIdleEnabled $true
+    rem 设置CPU平均使用率（非严格限定值，只是一个平均值），范围为5~100，建议小于10
+    powershell Set-MpPreference -ScanAvgCPULoadFactor 6
+    rem 关闭快速扫描的追加扫描
+    powershell Set-MpPreference -DisableCatchupQuickScan $true
+    rem 关闭全部扫描的追加扫描
+    powershell Set-MpPreference -DisableCatchupFullScan $true
+    rem 暂时关闭实时防御
+    powershell Set-MpPreference -DisableRealtimeMonitoring $true
     regedit /s "%~dp0apifiles\WDDisable.reg"
     "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
     "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-disable.reg"
@@ -354,10 +369,25 @@ title 登录时系统处理（请勿关闭此窗口）
 rem start "" /min "%~dp0apifiles\DelDrvCeo.bat"
 if %osver% GEQ 3 (
     echo win8-11系统WD、WU驱动处理
+    rem 过滤白名单路径
     powershell Add-MpPreference -ExclusionPath "%SystemDrive%\Windows\Setup\Set\*"
-    regedit /s "%~dp0apifiles\del7g.reg"
+    powershell Add-MpPreference -ExclusionPath "%SystemDrive%\Program Files\Xiaoran\*"
+    powershell Add-MpPreference -ExclusionPath "%SystemDrive%\Program Files (x86)\Xiaoran\*"
+    rem 设置CPU使用的优先级为低
+    powershell Set-MpPreference -EnableLowCpuPriority $true
+    rem 设置CPU空闲时才执行定时扫描
+    powershell Set-MpPreference -ScanOnlyIfIdleEnabled $true
+    rem 设置CPU平均使用率（非严格限定值，只是一个平均值），范围为5~100，建议小于10
+    powershell Set-MpPreference -ScanAvgCPULoadFactor 6
+    rem 关闭快速扫描的追加扫描
+    powershell Set-MpPreference -DisableCatchupQuickScan $true
+    rem 关闭全部扫描的追加扫描
+    powershell Set-MpPreference -DisableCatchupFullScan $true
+    rem 暂时关闭实时防御
+    powershell Set-MpPreference -DisableRealtimeMonitoring $true
     regedit /s "%~dp0apifiles\WDDisable.reg"
     "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
+    regedit /s "%~dp0apifiles\del7g.reg"
     "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-disable.reg"
     start "" /wait "%~dp0apifiles\Wub.exe" /D /P
 
@@ -384,10 +414,25 @@ start "" "%pecmd%" LOAD "%~dp0apifiles\Wall.wcs"
 echo [API]正在进行桌面环境系统处理...>"%systemdrive%\Windows\Setup\wallname.txt"
 echo win8-11系统APPX、WD、WU驱动处理
 if %osver% GEQ 3 (
+    rem 过滤白名单路径
     powershell Add-MpPreference -ExclusionPath "%SystemDrive%\Windows\Setup\Set\*"
+    powershell Add-MpPreference -ExclusionPath "%SystemDrive%\Program Files\Xiaoran\*"
+    powershell Add-MpPreference -ExclusionPath "%SystemDrive%\Program Files (x86)\Xiaoran\*"
+    rem 设置CPU使用的优先级为低
+    powershell Set-MpPreference -EnableLowCpuPriority $true
+    rem 设置CPU空闲时才执行定时扫描
+    powershell Set-MpPreference -ScanOnlyIfIdleEnabled $true
+    rem 设置CPU平均使用率（非严格限定值，只是一个平均值），范围为5~100，建议小于10
+    powershell Set-MpPreference -ScanAvgCPULoadFactor 6
+    rem 关闭快速扫描的追加扫描
+    powershell Set-MpPreference -DisableCatchupQuickScan $true
+    rem 关闭全部扫描的追加扫描
+    powershell Set-MpPreference -DisableCatchupFullScan $true
+    rem 暂时关闭实时防御
+    powershell Set-MpPreference -DisableRealtimeMonitoring $true
     regedit /s "%~dp0apifiles\WDDisable.reg"
-    powershell -ExecutionPolicy bypass -File "%~dp0apifiles\uninstallAppx.ps1"
     "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
+    powershell -ExecutionPolicy bypass -File "%~dp0apifiles\uninstallAppx.ps1"
     "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-disable.reg"
 )
 echo 关闭Edge

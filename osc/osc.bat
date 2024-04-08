@@ -65,9 +65,25 @@ reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v legaln
 
 echo win8-11系统APPX、WD处理
 if %osver% GEQ 3 (
+    rem 过滤白名单路径
     powershell Add-MpPreference -ExclusionPath "%SystemDrive%\Windows\Setup\Set\*"
-    powershell -ExecutionPolicy bypass -File "%~dp0apifiles\uninstallAppx.ps1"
+    powershell Add-MpPreference -ExclusionPath "%SystemDrive%\Program Files\Xiaoran\*"
+    powershell Add-MpPreference -ExclusionPath "%SystemDrive%\Program Files (x86)\Xiaoran\*"
+    rem 设置CPU使用的优先级为低
+    powershell Set-MpPreference -EnableLowCpuPriority $true
+    rem 设置CPU空闲时才执行定时扫描
+    powershell Set-MpPreference -ScanOnlyIfIdleEnabled $true
+    rem 设置CPU平均使用率（非严格限定值，只是一个平均值），范围为5~100，建议小于10
+    powershell Set-MpPreference -ScanAvgCPULoadFactor 6
+    rem 关闭快速扫描的追加扫描
+    powershell Set-MpPreference -DisableCatchupQuickScan $true
+    rem 关闭全部扫描的追加扫描
+    powershell Set-MpPreference -DisableCatchupFullScan $true
+    rem 暂时关闭实时防御
+    powershell Set-MpPreference -DisableRealtimeMonitoring $true
+    regedit /s "%~dp0apifiles\WDDisable.reg"
     "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
+    powershell -ExecutionPolicy bypass -File "%~dp0apifiles\uninstallAppx.ps1"
     reg import "%~dp0apifiles\mspcmgr.reg" /reg:32
 )
 
