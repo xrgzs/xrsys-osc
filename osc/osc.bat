@@ -389,11 +389,11 @@ echo 部署完成
 cd /d "%~dp0"
 echo successful>"%SystemDrive%\Windows\Setup\oscstate.txt"
 echo successfuldel>"%SystemDrive%\Windows\Setup\oscstate.txt"
-if not exist "%SystemDrive%\Windows\Setup\Set\api.exe" (
+if not exist "%SystemDrive%\Windows\Setup\Set\api.bat" (
     echo exit>"%systemdrive%\Windows\Setup\wallname.txt"
     shutdown /r /t 5 /c "系统部署完成，重启后生效（OSC）"
 )
-if exist selfdel.bat start /wait /min selfdel.bat
+if exist selfdel.bat start /min selfdel.bat
 
 :endoff
 exit

@@ -114,14 +114,14 @@ _SUB SYSINFO
     CALC 信息上=%ScrH%-90-210
 
     REGI .HKLM\SYSTEM\ControlSet001\Control\ComputerName\ComputerName\ComputerName,计算机名
-    LABE -left -trans ,L%信息左%T%信息上%W500H30,计算机名：%计算机名%,,0xffffff,14
+    LABE -left -trans ,L%信息左%T%信息上%W500H30,计算机名：%计算机名%,,0xffffff,12
     CALC 信息上=%信息上%+30
     
     REGI .HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProductName,产品名称
     REGI .HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\DisplayVersion,显示版本
     IFEX |%显示版本%=,REGI .HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\CSDVersion,显示版本
     ENVI ?系统架构=PEBIT,%windir%\system32
-    LABE -left -trans ,L%信息左%T%信息上%W500H30,版本：%产品名称% %显示版本% %系统架构%,,0xffffff,14
+    LABE -left -trans ,L%信息左%T%信息上%W500H30,版本：%产品名称% %显示版本% %系统架构%,,0xffffff,12
     CALC 信息上=%信息上%+30
 
     EXEC*N VER=!CMD.EXE /C VER
@@ -131,31 +131,31 @@ _SUB SYSINFO
     MSTR * -delims:. SPBuild=<2>BuildLabEx
     IFEX #%SPBuild%>1,ENVI VER=%VER%.%SPBuild%
     REGI .HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BuildLabEx,内部版本
-    LABE -left -trans ,L%信息左%T%信息上%W500H30,内部版本：%VER%,,0xffffff,14
+    LABE -left -trans ,L%信息左%T%信息上%W500H30,内部版本：%VER%,,0xffffff,12
     CALC 信息上=%信息上%+30
 
     REGI .HKLM\HARDWARE\DESCRIPTION\System\CentralProcessor\0\ProcessorNameString,处理器
-    LABE -left -trans ,L%信息左%T%信息上%W500H30,处理器：%处理器%,,0xffffff,14
+    LABE -left -trans ,L%信息左%T%信息上%W500H30,处理器：%处理器%,,0xffffff,12
     CALC 信息上=%信息上%+30
     
     TEAM FIND MEM=?,内存|CALC 内存=%内存%/1024#2
     TEAM FIND %SystemDrive%\=?,系统盘|CALC 系统盘=%系统盘%/1024^3#2
 
-    LABE -left -trans ,L%信息左%T%信息上%W500H30,内存：%内存% GB    系统盘(%SystemDrive%)可用：%系统盘% GB,,0xffffff,14
+    LABE -left -trans ,L%信息左%T%信息上%W500H30,内存：%内存% GB    系统盘(%SystemDrive%)可用：%系统盘% GB,,0xffffff,12
     CALC 信息上=%信息上%+30
     
     REGI .HKLM\HARDWARE\DESCRIPTION\System\BIOS\BaseBoardManufacturer,主板厂商
-    LABE -left -trans ,L%信息左%T%信息上%W500H30,主板厂商：%主板厂商%,,0xffffff,14
+    LABE -left -trans ,L%信息左%T%信息上%W500H30,主板厂商：%主板厂商%,,0xffffff,12
     CALC 信息上=%信息上%+30
     
     REGI .HKLM\HARDWARE\DESCRIPTION\System\BIOS\BaseBoardProduct,主板型号
-    LABE -left -trans ,L%信息左%T%信息上%W500H30,主板型号：%主板型号%,,0xffffff,14
+    LABE -left -trans ,L%信息左%T%信息上%W500H30,主板型号：%主板型号%,,0xffffff,12
     CALC 信息上=%信息上%+30
     
-    LABE -left -trans ,L%信息左%T%信息上%W500H30,分辨率：%ScrW% × %ScrH%,,0xffffff,14
+    LABE -left -trans ,L%信息左%T%信息上%W500H30,分辨率：%ScrW% × %ScrH%,,0xffffff,12
     CALC 信息上=%信息上%+30
     
-    //LABE -left -trans ,L10T10W500H30,计算最终高度：%信息上%,,0xffffff,14
+    //LABE -left -trans ,L10T10W500H30,计算最终高度：%信息上%,,0xffffff,12
 _END
 
 _SUB 刷新分辨率
@@ -174,7 +174,11 @@ _SUB 刷新标题
         ENVI Name=%NameNew%
         ENVI @LABE1=%Name%
     }
-    IFEX |%NameNew%=exit,EXIT FILE
+    IFEX |%NameNew%=exit,
+    {
+        CALL 显示任务栏
+        EXIT FILE
+    }
 _END
 
 _SUB 任务栏监控
