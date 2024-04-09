@@ -4,7 +4,8 @@
 zjsoftxrgzs|潇然常用工具.exe|http://l.xr.oxyxc.top/xrtools| | | | 
 zjsoftzip|Bandizip.exe|http://l.xr.oxyxc.top/bandizip| |bandizip|xp| 
 zjsoftzip|360压缩.exe|http://l.xr.oxyxc.top/360yasuo| |bandizip 360压缩 好压|onlyxp| 
-zjsoftpinyin|搜狗拼音输入法.exe|http://l.xr.oxyxc.top/sogoupinyin|/S|拼音 输入法|xp| 
+zjsoftpinyin|微信输入法.exe|http://l.xr.oxyxc.top/wetype|/s|拼音 输入法|xp| 
+;zjsoftpinyin|搜狗拼音输入法.exe|http://l.xr.oxyxc.top/sogoupinyin|/S|拼音 输入法|xp| 
 zjsoftpinyin|搜狗拼音输入法XP专用.exe|http://l.xr.oxyxc.top/sogoupinyinxp|/S|拼音 输入法|onlyxp| 
 zjsoftoffice|WPS专业版.exe|http://l.xr.oxyxc.top/wpspro| |WPS|only710| 
 zjsoftoffice|WPS专业版XP专用.exe|http://l.xr.oxyxc.top/wpsproxp| |WPS|710| 
