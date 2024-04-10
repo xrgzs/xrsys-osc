@@ -292,24 +292,14 @@ goto end
 :bsh
 title 部署后系统处理（请勿关闭此窗口）
 echo [API]正在处理后续事项...>"%systemdrive%\Windows\Setup\wallname.txt"
-echo 创建用户
-if exist "%SystemDrive%\Users\Default\NTUSER.DAT" (
-    echo y | start "" /wait /min "%~dp0apifiles\newuser.bat"
-)
 echo 禁止win10大版本系统更新
-ver | find "10.0." && reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v TargetReleaseVersion /t REG_DWORD /d 1 /f
-ver | find "10.0.22621" && reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v TargetReleaseVersionInfo /t REG_SZ /d "22H2" /f
-ver | find "10.0.22000" && reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v TargetReleaseVersionInfo /t REG_SZ /d "21H2" /f
+ver | find "10.0." && (
+    reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v TargetReleaseVersion /t REG_DWORD /d 1 /f
+    for /f "tokens=3" %%a in ('reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v DisplayVersion') do (
+        reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v TargetReleaseVersionInfo /t REG_SZ /d "%%a" /f
+    )
+)
 ver | find "10.0.1" && reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v ProductVersion /t REG_SZ /d "Windows 10" /f
-ver | find "10.0.19045" && reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v TargetReleaseVersionInfo /t REG_SZ /d "22H2" /f
-ver | find "10.0.19044" && reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v TargetReleaseVersionInfo /t REG_SZ /d "21H2" /f
-ver | find "10.0.19043" && reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v TargetReleaseVersionInfo /t REG_SZ /d "21H1" /f
-ver | find "10.0.19042" && reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v TargetReleaseVersionInfo /t REG_SZ /d "20H2" /f
-ver | find "10.0.19041" && reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v TargetReleaseVersionInfo /t REG_SZ /d "2004" /f
-ver | find "10.0.18363" && reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v TargetReleaseVersionInfo /t REG_SZ /d "1909" /f
-ver | find "10.0.18362" && reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v TargetReleaseVersionInfo /t REG_SZ /d "1903" /f
-ver | find "10.0.17763" && reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v TargetReleaseVersionInfo /t REG_SZ /d "1809" /f
-ver | find "10.0.17134" && reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v TargetReleaseVersionInfo /t REG_SZ /d "1803" /f
 ver | find "10.0.16" && echo 1>"%systemdrive%\Windows\Setup\xrsysnowu.txt"
 ver | find "10.0.15" && echo 1>"%systemdrive%\Windows\Setup\xrsysnowu.txt"
 ver | find "10.0.14" && echo 1>"%systemdrive%\Windows\Setup\xrsysnowu.txt"
@@ -337,25 +327,23 @@ if %osver% GEQ 3 (
     "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
     "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-disable.reg"
     start "" /wait /min "%~dp0apifiles\Wub.exe" /D /P
-)
-if %osver% GEQ 2 (
-    bcdedit /timeout 3
-    bcdedit /set {current} default
-    wmic computersystem where name="%computername%" set AutomaticManagedPagefile=True
-)
-if %osver% GEQ 3 (
     echo 关闭VBS基于虚拟化的安全性
     bcdedit /set hypervisorlaunchtype off
     echo 关闭显示首次登录动画
     reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v EnableFirstLogonAnimation /t REG_DWORD /d 0 /f
     reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v EnableFirstLogonAnimation /t REG_DWORD /d 0 /f
     echo 关闭显示你的数据将在你所在的国家或地区之外进行处理
-    if exist "%USERPROFILE%\NTUSER.DAT" (
-        reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CloudExperienceHost\Intent\PersonalDataExport" /f /v "PDEShown" /t REG_DWORD /d 2
-    )
-    if exist "%SystemDrive%\Users\Default\NTUSER.DAT" (
-        reg add "HKU\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\CloudExperienceHost\Intent\PersonalDataExport" /f /v "PDEShown" /t REG_DWORD /d 2
-    )
+    reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CloudExperienceHost\Intent\PersonalDataExport" /f /v "PDEShown" /t REG_DWORD /d 2
+    reg add "HKU\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\CloudExperienceHost\Intent\PersonalDataExport" /f /v "PDEShown" /t REG_DWORD /d 2
+)
+if %osver% GEQ 2 (
+    bcdedit /timeout 3
+    bcdedit /set {current} default
+    wmic computersystem where name="%computername%" set AutomaticManagedPagefile=True
+)
+echo 创建用户
+if exist "%SystemDrive%\Users\Default\NTUSER.DAT" (
+    echo y | start "" /wait /min "%~dp0apifiles\newuser.bat"
 )
 echo [API]正在应用DIY接口api3_bsh.bat...>"%systemdrive%\Windows\Setup\wallname.txt"
 if exist api3_bsh.bat call api3_bsh.bat
