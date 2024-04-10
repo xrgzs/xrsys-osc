@@ -2,20 +2,10 @@
 chcp 936 > nul
 title 清理部署残留（首次退出桌面）...
 cd /d "%~dp0"
-set osver=0
-ver | find /i "5.0." > nul && set osver=1
-ver | find /i "5.1." > nul && set osver=1
-ver | find /i "6.0." > nul && set osver=2
-ver | find /i "6.1." > nul && set osver=2
-ver | find /i "6.2." > nul && set osver=3
-ver | find /i "6.3." > nul && set osver=3
-ver | find /i "6.4." > nul && set osver=4
-ver | find /i "10.0." > nul && set osver=4
 
 rem self kill
 taskkill /f /im "优化系统.exe"
 taskkill /f /im "osc.exe"
-taskkill /f /im "oscLoader.exe"
 
 rem delete desktop icons which is installed by accident and do not use anymore
 rem delete third party system tools...
@@ -166,6 +156,7 @@ ipconfig /flushdns
 rem self delete
 rd /s /q "%~dp0"
 rd /s /q "%temp%"
+mkdir "%temp%"
 
 start /min cmd /c del /f /q %0
 exit
