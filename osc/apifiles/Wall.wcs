@@ -100,14 +100,9 @@ _SUB SYSINFO
     ENVI @SCUT2.trans=2
     CALC 快捷上=%快捷上%-10-48
     
-    ITEM SCUT3,L%快捷左%T%快捷上%W40H40,,EXEC MMC COMPMGMT.MSC,MMC.EXE#0
+    ITEM SCUT3,L%快捷左%T%快捷上%W40H40,,EXEC PECMD SCRN -gui,shell32.dll#139
     ENVI @SCUT3.trans=2
     CALC 快捷上=%快捷上%-10-48
-    
-    ITEM SCUT4,L%快捷左%T%快捷上%W40H40,,EXEC PECMD SCRN -gui,shell32.dll#139
-    ENVI @SCUT4.trans=2
-    CALC 快捷上=%快捷上%-10-48
-    
     
     // 信息区域
     CALC 信息左=90
