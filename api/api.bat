@@ -384,6 +384,11 @@ if %osver% GEQ 3 (
     reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager" /v ShippedWithReserves /t REG_DWORD /d 0 /f
     "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-disable.reg"
     start "" /wait "%~dp0apifiles\Wub.exe" /D /P
+    echo 关闭显示你的数据将在你所在的国家或地区之外进行处理
+    taskkill /f /im WWAHost.exe
+    reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CloudExperienceHost\Intent\PersonalDataExport" /f /v "PDEShown" /t REG_DWORD /d 2
+    reg add "HKU\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\CloudExperienceHost\Intent\PersonalDataExport" /f /v "PDEShown" /t REG_DWORD /d 2
+    
 )
 if exist api4_dls.bat call api4_dls.bat
 if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
