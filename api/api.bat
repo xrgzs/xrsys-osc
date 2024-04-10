@@ -73,7 +73,7 @@ if %osver% GEQ 2 (
     reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "ConsentPromptBehaviorAdmin" /t REG_DWORD /d 0 /f
 )
 if %osver% GEQ 3 (
-    rem 关闭保留储存
+    echo 关闭保留储存
     reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager" /v ShippedWithReserves /t REG_DWORD /d 0 /f
     attrib -s -h -r "%SystemDrive%\WINDOWS\System32\OneDriveSetup.exe"
     if exist "%SystemDrive%\WINDOWS\System32\OneDriveSetup.exe" (
@@ -96,6 +96,9 @@ if %osver% GEQ 3 (
     rd /s /q "%CommonProgramFiles%\microsoft shared\ClickToRun\OnlineInteraction"
     echo noway>"%CommonProgramFiles%\microsoft shared\ClickToRun\OnlineInteraction"
     reg import "%~dp0apifiles\mspcmgr.reg" /reg:32
+    echo 关闭显示你的数据将在你所在的国家或地区之外进行处理
+    reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CloudExperienceHost\Intent\PersonalDataExport" /f /v "PDEShown" /t REG_DWORD /d 2
+    reg add "HKU\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\CloudExperienceHost\Intent\PersonalDataExport" /f /v "PDEShown" /t REG_DWORD /d 2
 )
 
 if not exist "%SystemDrive%\WINDOWS\Setup\xrsysnoruntime.txt" (
@@ -332,9 +335,6 @@ if %osver% GEQ 3 (
     echo 关闭显示首次登录动画
     reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v EnableFirstLogonAnimation /t REG_DWORD /d 0 /f
     reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v EnableFirstLogonAnimation /t REG_DWORD /d 0 /f
-    echo 关闭显示你的数据将在你所在的国家或地区之外进行处理
-    reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CloudExperienceHost\Intent\PersonalDataExport" /f /v "PDEShown" /t REG_DWORD /d 2
-    reg add "HKU\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\CloudExperienceHost\Intent\PersonalDataExport" /f /v "PDEShown" /t REG_DWORD /d 2
 )
 if %osver% GEQ 2 (
     bcdedit /timeout 3
