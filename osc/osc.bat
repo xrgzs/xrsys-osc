@@ -100,8 +100,9 @@ echo 创建runonce自删清理脚本...
 if %osver% GEQ 2 (
 	copy /y runonce.bat "%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Startup\"
 ) else (
-    "%pecmd%" FILE "%CD%\runonce.bat"=^>"%Startup%\runonce.bat"
+    copy /y runonce.bat "%ALLUSERSPROFILE%\「开始」菜单\程序\启动\"
 )
+
 if not exist "%SystemDrive%\Windows\Setup\Set\xrsysstepapi5.flag" (
     start "" "%pecmd%" LOAD "%~dp0apifiles\Wall.wcs"
 )
