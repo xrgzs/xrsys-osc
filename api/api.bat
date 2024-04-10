@@ -73,7 +73,8 @@ if %osver% GEQ 2 (
     reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "ConsentPromptBehaviorAdmin" /t REG_DWORD /d 0 /f
 )
 if %osver% GEQ 3 (
-    regedit /s "%~dp0apifiles\del7g.reg"
+    rem 关闭保留储存
+    reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager" /v ShippedWithReserves /t REG_DWORD /d 0 /f
     attrib -s -h -r "%SystemDrive%\WINDOWS\System32\OneDriveSetup.exe"
     if exist "%SystemDrive%\WINDOWS\System32\OneDriveSetup.exe" (
         move /y "%SystemDrive%\WINDOWS\System32\OneDriveSetup.exe" "%SystemDrive%\User\Public\Desktop\阻止安装的OneDriveSetup.exe"
@@ -349,8 +350,12 @@ if %osver% GEQ 3 (
     reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v EnableFirstLogonAnimation /t REG_DWORD /d 0 /f
     reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v EnableFirstLogonAnimation /t REG_DWORD /d 0 /f
     echo 关闭显示你的数据将在你所在的国家或地区之外进行处理
-    reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CloudExperienceHost\Intent\PersonalDataExport" /v PDEShown /t REG_DWORD /d 2 /f
-    reg add "HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\CloudExperienceHost\Intent\PersonalDataExport" /v PDEShown /t REG_DWORD /d 2 /f
+    if exist "%USERPROFILE%\NTUSER.DAT" (
+        reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CloudExperienceHost\Intent\PersonalDataExport" /f /v "PDEShown" /t REG_DWORD /d 2
+    )
+    if exist "%SystemDrive%\Users\Default\NTUSER.DAT" (
+        reg add "HKU\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\CloudExperienceHost\Intent\PersonalDataExport" /f /v "PDEShown" /t REG_DWORD /d 2
+    )
 )
 echo [API]正在应用DIY接口api3_bsh.bat...>"%systemdrive%\Windows\Setup\wallname.txt"
 if exist api3_bsh.bat call api3_bsh.bat
@@ -387,13 +392,10 @@ if %osver% GEQ 3 (
     powershell Set-MpPreference -DisableRealtimeMonitoring $true
     regedit /s "%~dp0apifiles\WDDisable.reg"
     "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
-    regedit /s "%~dp0apifiles\del7g.reg"
+    rem 关闭保留储存
+    reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager" /v ShippedWithReserves /t REG_DWORD /d 0 /f
     "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-disable.reg"
     start "" /wait "%~dp0apifiles\Wub.exe" /D /P
-
-    echo 关闭显示你的数据将在你所在的国家或地区之外进行处理
-    reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CloudExperienceHost\Intent\PersonalDataExport" /v PDEShown /t REG_DWORD /d 2 /f
-    reg add "HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\CloudExperienceHost\Intent\PersonalDataExport" /v PDEShown /t REG_DWORD /d 2 /f
 )
 if exist api4_dls.bat call api4_dls.bat
 if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
@@ -539,9 +541,6 @@ echo [API]正在处理后续事项...>"%systemdrive%\Windows\Setup\wallname.txt"
 if %osver% GEQ 3 (
     echo win8-11系统WU驱动处理
     "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-enable.reg"
-    echo 关闭显示你的数据将在你所在的国家或地区之外进行处理
-    reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CloudExperienceHost\Intent\PersonalDataExport" /v PDEShown /t REG_DWORD /d 2 /f
-    reg add "HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\CloudExperienceHost\Intent\PersonalDataExport" /v PDEShown /t REG_DWORD /d 2 /f
 )
 
 echo 清理残留
