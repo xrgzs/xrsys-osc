@@ -85,20 +85,22 @@ if %osver% GEQ 3 (
     "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
     powershell -ExecutionPolicy bypass -File "%~dp0apifiles\uninstallAppx.ps1"
     reg import "%~dp0apifiles\mspcmgr.reg" /reg:32
+    
+    echo 禁止自动安装微软电脑管家
+    rd /s /q "%ProgramData%\Windows Master Store"
+    echo noway>"%ProgramData%\Windows Master Store"
+    rd /s /q "%ProgramData%\Windows Master Setup"
+    echo noway>"%ProgramData%\Windows Master Setup"
+    reg delete HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce /v WindowsMasterSetup /f
+    rd /s /q "%CommonProgramFiles%\microsoft shared\ClickToRun\OnlineInteraction"
+    echo noway>"%CommonProgramFiles%\microsoft shared\ClickToRun\OnlineInteraction"
 )
-
-echo 禁止自动安装微软电脑管家
-rd /s /q "%ProgramData%\Windows Master Store"
-echo noway>"%ProgramData%\Windows Master Store"
-rd /s /q "%ProgramData%\Windows Master Setup"
-echo noway>"%ProgramData%\Windows Master Setup"
-reg delete HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce /v WindowsMasterSetup /f
-rd /s /q "%CommonProgramFiles%\microsoft shared\ClickToRun\OnlineInteraction"
-echo noway>"%CommonProgramFiles%\microsoft shared\ClickToRun\OnlineInteraction"
 
 echo 创建runonce自删清理脚本...
 if %osver% GEQ 2 (
 	copy /y runonce.bat "%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Startup\"
+) else (
+    "%pecmd%" FILE "%CD%\runonce.bat"=^>"%Startup%\runonce.bat"
 )
 if not exist "%SystemDrive%\Windows\Setup\Set\xrsysstepapi5.flag" (
     start "" "%pecmd%" LOAD "%~dp0apifiles\Wall.wcs"

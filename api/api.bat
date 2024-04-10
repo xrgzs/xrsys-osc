@@ -528,7 +528,6 @@ if exist "%~dp0osc.exe" (
     start "" /wait "%~dp0osc.exe" /S
 )
 echo waitosc
-set oscstate=notok
 if not exist "%SystemDrive%\Windows\Setup\oscstate.txt" (
     ping 127.0.0.1 -n 300 >nul
     if not exist "%SystemDrive%\Windows\Setup\oscstate.txt" (

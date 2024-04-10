@@ -177,6 +177,7 @@ _SUB 刷新标题
     IFEX |%NameNew%=exit,
     {
         CALL 显示任务栏
+        FILE "%SystemDrive%\Windows\Setup\wallname.txt"
         EXIT FILE
     }
 _END
