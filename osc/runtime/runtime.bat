@@ -65,5 +65,24 @@ if not %osver% equ 4 exit
 
 echo [OSC]正在安装UWP扩展解码插件...>"%systemdrive%\Windows\Setup\wallname.txt"
 cd /d "%~dp0"
-if exist "Extension\install.bat" call "Extension\install.bat"
+call :Add-ProvisionedAppxPackage "Microsoft.VCLibs.140.00"
+call :Add-ProvisionedAppxPackage "Microsoft.AV1VideoExtension"
+call :Add-ProvisionedAppxPackage "Microsoft.HEIFImageExtension"
+call :Add-ProvisionedAppxPackage "Microsoft.MPEG2VideoExtension"
+call :Add-ProvisionedAppxPackage "Microsoft.RawImageExtension"
+call :Add-ProvisionedAppxPackage "Microsoft.VP9VideoExtensions"
+call :Add-ProvisionedAppxPackage "Microsoft.WebMediaExtensions"
+call :Add-ProvisionedAppxPackage "Microsoft.WebpImageExtension"
+call :Add-ProvisionedAppxPackage "Microsoft.HEVCVideoExtensions"
 exit
+
+:Add-ProvisionedAppxPackage
+for %%a in (Extension\%~1*) do (
+    echo installing - %%~na
+    if exist "%%~dpna.xml" (
+        Powershell -Command Add-AppxProvisionedPackage -LicensePath "%%~dpna.xml" -Online -PackagePath "%%~fa"
+    ) else (
+        Powershell -Command Add-AppxProvisionedPackage -SkipLicense -Online -PackagePath "%%~fa"
+    )
+)
+goto :EOF

@@ -54,9 +54,11 @@ rem Special purpose, not describable
 curl.exe -sSL https://file.uhsea.com/2403/28600f9dfa3aeac0614201fddf09141dQY.exe -o osc\runtime\flash.exe || exit
 @rem rem MSVC Runtime repacked by dreamcast2.ys168.com signed by https://www.ghxi.com/yxkhj.html
 @rem rem curl.exe -sSL https://file.uhsea.com/2403/0df82366ca70d04a25f012b08e3f716b77.exe -o osc\runtime\MSVBCRT.AIO.exe || exit
-
 rem MSVC Runtime repacked by Xiaoran Studio using NSIS v2024.4.11.0
 curl.exe -sSL https://file.uhsea.com/2404/3623d021b28477a1d96460c3f5203299OT.exe -o osc\runtime\MSVCRedist.AIO.exe || exit
+rem APPX Media Extentions
+pwsh.exe -file osc\runtime\getappx.ps1
+curl.exe -sSL https://file.uhsea.com/2404/af34ee00f4ed5ad96d9c5e51a1a1eaffKV.xml -o osc\runtime\Microsoft.HEVCVideoExtension.xml
 
 rem PinToTaskbar x64 v1.0.1.11 by CrystalIDEA
 curl.exe -sSL https://file.uhsea.com/2403/e5e9632d220dd682bbcdd55cea4bbd57UM.exe -o osc\themerec\PinToTaskbar.exe || exit
@@ -75,6 +77,7 @@ rem aria2c.exe v1.37.0 https://gitlab.com/q3aql/aria2-static-builds
 curl.exe -sSL https://file.uhsea.com/2403/de8fd4f9dd9a0ac4b81aaefb72a3ba91KX.exe -o osc\aria2c.exe || exit
 rem good thing
 curl.exe -sSL https://file.uhsea.com/2404/3c76c9e1413b3d51c7fffd2665183110JA.exe -o osc\xrsoft.exe || exit
+
 
 :build
 rem use github env version first
