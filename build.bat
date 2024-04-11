@@ -58,7 +58,7 @@ rem MSVC Runtime repacked by Xiaoran Studio using NSIS v2024.4.11.0
 curl.exe -sSL https://file.uhsea.com/2404/3623d021b28477a1d96460c3f5203299OT.exe -o osc\runtime\MSVCRedist.AIO.exe || exit
 rem APPX Media Extentions
 pwsh.exe -file osc\runtime\getappx.ps1
-curl.exe -sSL https://file.uhsea.com/2404/af34ee00f4ed5ad96d9c5e51a1a1eaffKV.xml -o osc\runtime\Microsoft.HEVCVideoExtension.xml
+curl.exe -sSL https://file.uhsea.com/2404/af34ee00f4ed5ad96d9c5e51a1a1eaffKV.xml -o osc\runtime\Extension\Microsoft.HEVCVideoExtension.xml
 
 rem PinToTaskbar x64 v1.0.1.11 by CrystalIDEA
 curl.exe -sSL https://file.uhsea.com/2403/e5e9632d220dd682bbcdd55cea4bbd57UM.exe -o osc\themerec\PinToTaskbar.exe || exit
