@@ -27,11 +27,16 @@ jobs:
         echo $GITHUB_OUTPUT
         echo "version=$version" >> $env:GITHUB_OUTPUT
 
-    - name: Install NSIS
-      uses: repolevedavaj/install-nsis@v1.0.1
-      with:
-        nsis-version: 3.09
+    # - name: Install NSIS
+    #   uses: repolevedavaj/install-nsis@v1.0.1
+    #   with:
+    #     nsis-version: 3.09
 
+    - name: Install NSIS (WinGet)
+      shell: cmd
+      run: |
+        winget.exe install --id NSIS.NSIS --exact --accept-source-agreements --silent --disable-interactivity --accept-package-agreements
+    
     - name: Build XROSC
       shell: cmd
       env:
