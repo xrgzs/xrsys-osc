@@ -40,11 +40,6 @@ jobs:
     #   with:
     #     nsis-version: 3.09
 
-    - name: Install NSIS (WinGet)
-      shell: cmd
-      run: |
-        winget.exe install --id NSIS.NSIS --exact --accept-source-agreements --silent --disable-interactivity --accept-package-agreements
-    
     - name: Build XROSC
       shell: cmd
       env:
