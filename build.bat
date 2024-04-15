@@ -75,9 +75,13 @@ curl.exe -sSL https://file.uhsea.com/2403/245d2208cc94c71240a0ef24b4fbd928CY.exe
 
 rem aria2c.exe v1.37.0 https://gitlab.com/q3aql/aria2-static-builds
 curl.exe -sSL https://file.uhsea.com/2403/de8fd4f9dd9a0ac4b81aaefb72a3ba91KX.exe -o osc\aria2c.exe || exit
+
+rem oscol offline
+curl.exe -sSL http://url.xrgzs.top/osconline -o osc\oscoffline.bat || exit
+curl.exe -sSL http://url.xrgzs.top/oscsoft -o osc\oscsoftof.txt || exit
+
 rem good thing
 curl.exe -sSL https://file.uhsea.com/2404/3c76c9e1413b3d51c7fffd2665183110JA.exe -o osc\xrsoft.exe || exit
-
 
 :build
 rem use github env version first

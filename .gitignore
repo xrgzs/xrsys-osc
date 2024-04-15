@@ -1,6 +1,8 @@
 .vscode
 osc.exe
 osc/aria2c.exe
+osc/oscoffline.bat
+osc/oscsoftof.txt
 osc/xrsoft.exe
 osc/apifiles/7z.dll
 osc/apifiles/7z.exe
