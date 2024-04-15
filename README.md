@@ -5,6 +5,10 @@
 
 # 潇然系统部署插件
 
+[![GitHub Release](https://img.shields.io/github/v/release/xrgzs/xrsys-osc.svg)](https://github.com/xrgzs/xrsys-osc/releases)
+[![GitHub last commit](https://img.shields.io/github/last-commit/xrgzs/xrsys-osc)](https://github.com/xrgzs/xrsys-osc/commits)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/xrgzs/xrsys-osc/build.yml)](https://github.com/xrgzs/xrsys-osc/actions)
+[![License](https://img.shields.io/github/license/xrgzs/xrsys-osc.svg)](https://github.com/xrgzs/xrsys-hub/blob/main/LICENSE)
 </div>
 
 潇然系统优化组件（XRSYSOSC，`osc.exe`）完成系统登录进入桌面后的各种优化操作，包括但不限于注册表优化、电源优化、软件安装等🌟🚀
