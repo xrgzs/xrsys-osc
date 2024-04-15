@@ -25,6 +25,9 @@ function Download-Appx($Name) {
 }
 Remove-Item -Path "$PSScriptRoot\Extension" -Force
 New-Item -ItemType Directory -Path "$PSScriptRoot\Extension"
+
+Invoke-WebRequest -Uri "https://file.uhsea.com/2404/c34fe07085105dbc8b7ff220d80b501aDZ.xml"  -OutFile "$PSScriptRoot\Extension\Microsoft.HEVCVideoExtension.xml"
+
 Download-Appx 'Microsoft.VCLibs.140.00'
 Download-Appx 'Microsoft.AV1VideoExtension'
 Download-Appx 'Microsoft.HEIFImageExtension'
