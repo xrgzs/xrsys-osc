@@ -1,14 +1,14 @@
 <div align="center">
 
-
 <img src="./osc.ico" alt="xrosc" width="20%" />
 
 # 潇然系统部署插件
 
-[![GitHub Release](https://img.shields.io/github/v/release/xrgzs/xrsys-osc.svg)](https://github.com/xrgzs/xrsys-osc/releases)
-[![GitHub last commit](https://img.shields.io/github/last-commit/xrgzs/xrsys-osc)](https://github.com/xrgzs/xrsys-osc/commits)
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/xrgzs/xrsys-osc/build.yml)](https://github.com/xrgzs/xrsys-osc/actions)
-[![License](https://img.shields.io/github/license/xrgzs/xrsys-osc.svg)](https://github.com/xrgzs/xrsys-hub/blob/main/LICENSE)
+[![GitHub Release](https://img.shields.io/github/v/release/xrgzs/xrsys-osc?label=%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC)](https://github.com/xrgzs/xrsys-osc/releases)
+[![GitHub last commit](https://img.shields.io/github/last-commit/xrgzs/xrsys-osc?label=%E4%B8%8A%E6%AC%A1%E6%8F%90%E4%BA%A4)](https://github.com/xrgzs/xrsys-osc/commits)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/xrgzs/xrsys-osc/build.yml?label=CI%E6%9E%84%E5%BB%BA)](https://github.com/xrgzs/xrsys-osc/actions)
+[![License](https://img.shields.io/github/license/xrgzs/xrsys-osc?label=%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF)](https://github.com/xrgzs/xrsys-hub/blob/main/LICENSE)
+[![加入QQ群](https://img.shields.io/badge/QQ%E7%BE%A4-%E5%8A%A0%E5%85%A5-red?logo=tencentqq)](https://qm.qq.com/q/YaGNTJsd0W) 
 </div>
 
 潇然系统优化组件（XRSYSOSC，`osc.exe`）完成系统登录进入桌面后的各种优化操作，包括但不限于注册表优化、电源优化、软件安装等🌟🚀
@@ -18,7 +18,6 @@
 集成 XRSYS-API，以后不再需要 `api.exe`，一个 `osc.exe` 解决 deploy 和 playbook
 
 合并后，意味着潇然系统切换到 v2.5 版本，并为之后的 v3.0 做好过渡的准备
-
 
 📄[文档](https://sys.xrgzs.top/diy/osc/)
 
@@ -32,34 +31,32 @@
 
 **🫡使用到的项目：**
 
-[7-zip](https://7-zip.org/)
+- [7-zip](https://7-zip.org/)
 
-[NSIS](https://nsis.sourceforge.io/)
+- [NSIS](https://nsis.sourceforge.io/)
 
-[dmidecode](http://savannah.nongnu.org/projects/dmidecode/)
+- [dmidecode](http://savannah.nongnu.org/projects/dmidecode/)
 
-[nircmd](https://www.nirsoft.net/utils/nircmd.html)
+- [nircmd](https://www.nirsoft.net/utils/nircmd.html)
+- [PECMD](http://wuyou.net/forum.php?mod=viewthread&tid=205402)
 
-[PECMD](http://wuyou.net/forum.php?mod=viewthread&tid=205402)
+- [Wbox](https://www.horstmuc.de/w32dial.htm)
 
-[Wbox](https://www.horstmuc.de/w32dial.htm)
+- [Winput](https://www.horstmuc.de/w32dial.htm)
 
-[Winput](https://www.horstmuc.de/w32dial.htm)
+- [Curl](https://curl.se/)
 
-[Curl](https://curl.se/)
+- [M2TeamArchived/NSudo](https://github.com/M2TeamArchived/NSudo)
 
-[M2TeamArchived/NSudo](https://github.com/M2TeamArchived/NSudo)
+- [Windows Update Blocker](https://www.sordum.org/9470)
 
-[Windows Update Blocker](https://www.sordum.org/9470)
+- [stdin82/htfx](https://github.com/stdin82/htfx)
 
-[stdin82/htfx](https://github.com/stdin82/htfx)
+- [abbodi1406/KMS_VL_ALL_AIO](https://github.com/abbodi1406/KMS_VL_ALL_AIO)
+- [zbezj/HEU_KMS_Activator](https://github.com/zbezj/HEU_KMS_Activator)
 
-[abbodi1406/KMS_VL_ALL_AIO](https://github.com/abbodi1406/KMS_VL_ALL_AIO)
+- [Wind4/vlmcsd](https://github.com/Wind4/vlmcsd)
 
-[zbezj/HEU_KMS_Activator](https://github.com/zbezj/HEU_KMS_Activator)
-
-[Wind4/vlmcsd](https://github.com/Wind4/vlmcsd)
-
-[q3aql/aria2-static-builds](https://gitlab.com/q3aql/aria2-static-builds)
+- [q3aql/aria2-static-builds](https://gitlab.com/q3aql/aria2-static-builds)
 
 [![Security Status](https://www.murphysec.com/platform3/v31/badge/1777677050276757504.svg)](https://www.murphysec.com/console/report/1777677050234814464/1777677050276757504)
