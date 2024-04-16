@@ -11,7 +11,7 @@
 [![加入QQ群](https://img.shields.io/badge/QQ%E7%BE%A4-%E5%8A%A0%E5%85%A5-red?logo=tencentqq)](https://qm.qq.com/q/YaGNTJsd0W) 
 </div>
 
-潇然系统优化组件（XRSYSOSC，`osc.exe`）完成系统登录进入桌面后的各种优化操作，包括但不限于注册表优化、电源优化、软件安装等🌟🚀
+潇然系统优化组件（XRSYS-OSC，`osc.exe`）完成系统登录进入桌面后的各种优化操作，包括但不限于注册表优化、电源优化、软件安装等🌟🚀
 
 潇然系统优化组件已与潇然系统部署接口（XRSYS-API，`api.exe`）合并，支持完成系统部署的整个流程对各种组件的调用工作，包括但不限于调用万能驱动安装、用户名创建等
 
