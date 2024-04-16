@@ -8,6 +8,9 @@ if exist "%SystemDrive%\Windows\Setup\xrsysnotheme.txt" (
 if exist "%SystemDrive%\Windows\Setup\xrsyswall.jpg" (
     move /y "%SystemDrive%\Setup\xrsyswall.jpg" wallpaper.jpg
 )
+if exist "%SystemDrive%\Windows\Setup\Set\wallpaper.jpg" (
+    move /y "%SystemDrive%\Windows\Setup\Set\wallpaper.jpg" wallpaper.jpg
+)
 if exist "%SystemDrive%\Windows\Setup\zjsoftseewo.txt" call :iwb
 if exist "%SystemDrive%\Windows\Setup\zjsofthite.txt" call :iwb
 if exist "%SystemDrive%\Windows\Setup\zjsoftwenxiang.txt" (
@@ -26,10 +29,16 @@ ver | find /i "6.4." > nul && set osver=4
 ver | find /i "10.0." > nul && set osver=4
 
 :main
-if exist "%SystemDrive%\Windows\Resources\Themes\Light.theme" (
-    start "" "%SystemDrive%\Windows\Resources\Themes\Light.theme"
-) else if exist "%SystemDrive%\Windows\Resources\Themes\aero.theme" (
-    start "" "%SystemDrive%\Windows\Resources\Themes\aero.theme"
+if exist "%SystemDrive%\Windows\Setup\xrsysdark.txt" (
+    if exist "%SystemDrive%\Windows\Resources\Themes\dark.theme" (
+        start "" "%SystemDrive%\Windows\Resources\Themes\dark.theme"
+    )
+) else (
+    if exist "%SystemDrive%\Windows\Resources\Themes\Light.theme" (
+        start "" "%SystemDrive%\Windows\Resources\Themes\Light.theme"
+    ) else if exist "%SystemDrive%\Windows\Resources\Themes\aero.theme" (
+        start "" "%SystemDrive%\Windows\Resources\Themes\aero.theme"
+    )
 )
 timeout -t 3 2>nul || ping 127.0.0.1 -n 3 >nul
 taskkill /F /IM SystemSettings.exe
@@ -40,12 +49,13 @@ goto setwall
 :setwall
 cd /d "%~dp0"
 timeout /t 5
+if exist "%SystemDrive%\Windows\Setup\xrsysnowall.txt" exit
 if exist wallpaper.jpg (
     copy /y wallpaper.jpg "%SystemDrive%\Windows\Version.jpg"
     %PECMD% WALL "%SystemDrive%\Windows\Version.jpg"
     if %osver% GEQ 2 (
-        reg add "hkcu\control panel\desktop" /f /v "wallpaper" /d "%SystemDrive%\Windows\Version.jpg"
-        reg add "hkcu\control panel\desktop" /f /v "WallpaperStyle" /d "10"
+        reg add "HKCU\Control Panel\Desktop" /f /v "Wallpaper" /d "%SystemDrive%\Windows\Version.jpg"
+        reg add "HKCU\Control Panel\Desktop" /f /v "WallpaperStyle" /d "10"
         RunDll32.exe USER32.DLL,UpdatePerUserSystemParameters
     )
 )
