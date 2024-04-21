@@ -2,36 +2,43 @@ Windows Registry Editor Version 5.00
 
 ;===============================================================
 ;资源管理器相关
+
 ;当资源管理器崩溃时则自动重启资源管理器
 [HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Winlogon]
 "AutoRestartShell"=dword:00000001
-;
+
+[HKEY_CURRENT_USER\Control Panel\Desktop]
 ;自动关闭停止响应的程序
-[HKEY_CURRENT_USER\Control Panel\Desktop]
 "AutoEndTasks"="1"
-
 ;提高前台程序的显示速度
-[HKEY_CURRENT_USER\Control Panel\Desktop]
 "ForegroundLockTimeout"=dword:00000000
-
 ;拖动窗口时显示窗口内容
-[HKEY_CURRENT_USER\Control Panel\Desktop]
 "DragFullWindows"="1"
+;加快菜单显示速度
+"MenuShowDelay"="0"
+;加快开关机机速度,自动关闭停止响应
+"HungAppTimeout"="1000"
+;自动关闭无反应的程序，避免系统的“死机”隐患
+"AutoEndTasks"="1"
+;加快关闭程序等待时间，加快系统处理速度。
+"WaitToKillAppTimeout"="2000"
 
 ;开启自动刷新，防止假死
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
 "AutoRestartShell"=dword:00000001
-
-;总是从内存中卸载无用的动态链接
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\explorer]
-"AlwaysUnloadDll"=dword:00000001
-
 ;禁止登录后创建成功登录报告功能
-;[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
 ;"ReportBootOk"="0"
 
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer]
+;总是从内存中卸载无用的动态链接
+"AlwaysUnloadDll"=dword:00000001
+;加大系统的图标缓冲，提高系统开机速度**
+"Max Cached Icons"="2000"
+
 ;清除内存内被不使用的DLL文件
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\explorer\AlwaysUnloadDLL]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AlwaysUnloadDLL]
 @="1"
 
 ;窗口内动画控件和元素
@@ -160,33 +167,13 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer]
 "DesktopProcess"=dword:00000001
 
-
-
 ;Win8.1直接进桌面
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\StartPage]
 "OpenAtLogon"=dword:00000000
 
-;加快菜单显示速度
-[HKEY_CURRENT_USER\Control Panel\Desktop]
-"MenuShowDelay"="0"
-
 ;加快程序运行速度
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem]
 "ConfigFileAllocSize"=dword:000001f4
-
-;加快开关机机速度,自动关闭停止响应
-[HKEY_USERS\.DEFAULT\Control Panel\Desktop]
-;自动关闭无反应的程序，避免系统的“死机”隐患
-"AutoEndTasks"="1"
-;缩短因错误程序导致鼠标键盘无反应的等待时间
-"HungAppTimeout"="500"
-;优化程序的反应时间，加快系统处理速度。
-"WaitToKillAppTimeout"="1000"
-
-[HKEY_CURRENT_USER\Control Panel\Desktop]
-"AutoEndTasks"="1"
-"HungAppTimeout"="500"
-"WaitToKillAppTimeout"="1000"
 
 ;优化内存配置，加速游戏等软件的运行速度
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Session Manager\Memory Management]
@@ -200,24 +187,10 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\PriorityControl]
 "Win32PrioritySeparation"=dword:00000026
 
-;加快开机速度副值
-[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control]
-"WaitToKillServiceTimeout"="1000"
-
-;加快关闭程序等待时间
-[HKEY_CURRENT_USER\Control Panel\Desktop]
-"WaitToKillAppTimeout"="2000"
 
 ;加快关闭服务等待时间
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control]
 "WaitToKillServiceTimeout"="2000"
-
-[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control]
-"WaitToKillServiceTimeout"="2000"
-
-;加快结束出错程序等待时间
-[HKEY_CURRENT_USER\Control Panel\Desktop]
-"HungAppTimeout"="1000"
 
 ;优化磁盘访问性能，提升磁盘数据的读写能力
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Session Manager]
@@ -234,10 +207,6 @@ Windows Registry Editor Version 5.00
 ;关闭系统自动调试功能，提高系统运行速度**
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AeDebug]
 "Auto"="0"
-
-;加大系统的图标缓冲，提高系统开机速度**
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer]
-"Max Cached Icons"="2000"
 
 ;禁止系统自动生成错误报告，加快系统反应速度 -
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PCHealth\ErrorReporting]
@@ -260,12 +229,10 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\OptimalLayout]
 "EnableAutoLayout"=dword:00000001
 
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
 ;加快Aero Snap显示速度，更快的看到窗口缩略图（需要重启）
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
 "ExtendedUIHoverTime"=dword:00000000
-
 ;加快Aero Peek透视桌面功能的显示速度（需要重启）
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
 "DesktopLivePreviewHoverTime"=dword:00000000
 
 ;优化Windows文件列表刷新策略
