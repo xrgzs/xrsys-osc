@@ -1,7 +1,7 @@
 chcp 936 > nul
 title OSConline
 cd /d "%~dp0"
-set url1=http://l.xr.oxyxc.top
+set url1=http://xr.66ccff.love
 set url2=http://url.xrgzs.top
 set url=%url1%
 set rtc=0
