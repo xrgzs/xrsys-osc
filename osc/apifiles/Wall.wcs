@@ -51,7 +51,15 @@ _SUB DRAW
     CALL SYSINFO
     // 读取镜像状态
     REGI .HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\State\ImageState,ImageState
-    IFEX |%ImageState%=IMAGE_STATE_COMPLETE,CALL WBTN
+    IFEX |%ImageState%=IMAGE_STATE_COMPLETE,
+    {
+        CALL WBTN
+    }
+
+    // 副标题显示镜像信息
+    READ "%SystemDrive%\Windows\Version.txt",1,XRSYSVER
+    IFEX ! |%XRSYSVER%=,ENVI @LABE2=%XRSYSVER%
+    
 
 _END
 
@@ -139,14 +147,14 @@ _SUB SYSINFO
     CALC 信息上=%信息上%+30
     
     REGI .HKLM\HARDWARE\DESCRIPTION\System\BIOS\BaseBoardManufacturer,主板厂商
-    IFEX !%主板厂商%=,
+    IFEX ! |%主板厂商%=,
     {
         LABE -left -trans ,L%信息左%T%信息上%W500H30,主板厂商：%主板厂商%,,0xffffff,12
         CALC 信息上=%信息上%+30
     }
     
     REGI .HKLM\HARDWARE\DESCRIPTION\System\BIOS\BaseBoardProduct,主板型号
-    IFEX !%主板型号%=,
+    IFEX ! |%主板型号%=,
     {
         LABE -left -trans ,L%信息左%T%信息上%W500H30,主板型号：%主板型号%,,0xffffff,12
         CALC 信息上=%信息上%+30
@@ -194,10 +202,10 @@ _SUB 隐藏任务栏
     FIND --class:FirstUXWndClass --wid* &FUXWID,
     IFEX |%&FUXWID%<>0,
     {
-        FIND --wid*@%&FUXWID% &FUXWS
-        MSTR FUXT=<8>%&FUXWS%
+        // FIND --wid*@%&FUXWID% &FUXWS
+        // MSTR FUXT=<8>%&FUXWS%
         ENVI @@visible=%&FUXWID%:0
-        IFEX |%LABE2%<>%FUXT%,ENVI @LABE2=%FUXT%
+        // IFEX |%LABE2%<>%FUXT%,ENVI @LABE2=%FUXT%
     }
 _END
 
