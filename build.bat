@@ -88,5 +88,6 @@ rem use github env version first
 if not defined GITHUB_WORKFLOW_VERSION (
   set GITHUB_WORKFLOW_VERSION=2.5.0.0
 )
+>osc\Version.txt echo %GITHUB_WORKFLOW_VERSION%
 "C:\Program Files (x86)\NSIS\makensis.exe" /V4 /DCUSTOM_VERSION=%GITHUB_WORKFLOW_VERSION% "osc.nsi" || exit
 exit
