@@ -135,18 +135,23 @@ _SUB SYSINFO
     
     TEAM FIND MEM=?,内存|CALC 内存=%内存%/1024#2
     TEAM FIND %SystemDrive%\=?,系统盘|CALC 系统盘=%系统盘%/1024^3#2
-
     LABE -left -trans ,L%信息左%T%信息上%W500H30,内存：%内存% GB    系统盘(%SystemDrive%)可用：%系统盘% GB,,0xffffff,12
     CALC 信息上=%信息上%+30
     
     REGI .HKLM\HARDWARE\DESCRIPTION\System\BIOS\BaseBoardManufacturer,主板厂商
-    LABE -left -trans ,L%信息左%T%信息上%W500H30,主板厂商：%主板厂商%,,0xffffff,12
-    CALC 信息上=%信息上%+30
+    IFEX !%主板厂商%=,
+    {
+        LABE -left -trans ,L%信息左%T%信息上%W500H30,主板厂商：%主板厂商%,,0xffffff,12
+        CALC 信息上=%信息上%+30
+    }
     
     REGI .HKLM\HARDWARE\DESCRIPTION\System\BIOS\BaseBoardProduct,主板型号
-    LABE -left -trans ,L%信息左%T%信息上%W500H30,主板型号：%主板型号%,,0xffffff,12
-    CALC 信息上=%信息上%+30
-    
+    IFEX !%主板型号%=,
+    {
+        LABE -left -trans ,L%信息左%T%信息上%W500H30,主板型号：%主板型号%,,0xffffff,12
+        CALC 信息上=%信息上%+30
+    }
+
     LABE -left -trans ,L%信息左%T%信息上%W500H30,分辨率：%ScrW% × %ScrH%,,0xffffff,12
     CALC 信息上=%信息上%+30
     
