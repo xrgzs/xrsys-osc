@@ -65,12 +65,12 @@ Section /o "潇然系统部署接口-部署前" XRAPI1
   ${If} ${FileExists} "$INSTDIR\xrsysstepapifiles.flag"
     DetailPrint "APIFILES已经解压，跳过此操作！"
   ${Else}
-    FileOpen $0 "$INSTDIR\xrsysstepapifiles.flag" w
-    FileClose $0
 	  SetOutPath "$INSTDIR\apifiles"
 	  SetOverwrite on
 	  DetailPrint "解压APIFILES..."
-	  File ".\osc\apifiles\*.*"
+	  File /r ".\osc\apifiles\*.*"
+    FileOpen $0 "$INSTDIR\xrsysstepapifiles.flag" w
+    FileClose $0
   ${EndIf}
 
   ${If} ${FileExists} "$INSTDIR\xrsysstepapi1.flag"
