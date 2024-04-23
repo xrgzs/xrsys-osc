@@ -63,24 +63,9 @@ echo 潇然系统盗版提示
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v legalnoticecaption /t REG_SZ /d "警告：您的系统可能没有部署完整（OSC）" /f
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v legalnoticetext /t REG_SZ /d "这通常是网络连接不稳定或部署程序BUG导致的，请在点击【确定】登录账户后，访问http://url.xrgzs.top/osc下载、重新运行osc.exe尝试解决。此提示每次登录前都会强制弹出，如有特殊情况请联系QQ:2744460679解决。" /f
 
-echo win8-11系统APPX、WD处理
 if %osver% GEQ 3 (
-    rem 过滤白名单路径
-    powershell "Add-MpPreference -ExclusionPath '%SystemDrive%\Windows\Setup\Set\*'"
-    powershell "Add-MpPreference -ExclusionPath '%SystemDrive%\Program Files\Xiaoran\*'"
-    powershell "Add-MpPreference -ExclusionPath '%SystemDrive%\Program Files (x86)\Xiaoran\*'"
-    rem 设置CPU使用的优先级为低
-    powershell Set-MpPreference -EnableLowCpuPriority $true
-    rem 设置CPU空闲时才执行定时扫描
-    powershell Set-MpPreference -ScanOnlyIfIdleEnabled $true
-    rem 设置CPU平均使用率（非严格限定值，只是一个平均值），范围为5~100，建议小于10
-    powershell Set-MpPreference -ScanAvgCPULoadFactor 6
-    rem 关闭快速扫描的追加扫描
-    powershell Set-MpPreference -DisableCatchupQuickScan $true
-    rem 关闭全部扫描的追加扫描
-    powershell Set-MpPreference -DisableCatchupFullScan $true
-    rem 暂时关闭实时防御
-    powershell Set-MpPreference -DisableRealtimeMonitoring $true
+    echo win8-11系统APPX、WD处理
+    powershell -ExecutionPolicy bypass -File "%~dp0apifiles\WD.ps1"
     regedit /s "%~dp0apifiles\WDDisable.reg"
     "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
     powershell -ExecutionPolicy bypass -File "%~dp0apifiles\uninstallAppx.ps1"
