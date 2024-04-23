@@ -98,7 +98,7 @@ _SUB SYSINFO
     CALC 快捷左=%ScrW%-90
     CALC 快捷上=%ScrH%-90
     
-    ITEM SCUT1,L%快捷左%T%快捷上%W40H40,,EXEC OSK.EXE,OSK.EXE#0
+    ITEM SCUT1,L%快捷左%T%快捷上%W40H40,,EXEC "%WinDir%\System32\osk.exe","%WinDir%\System32\osk.exe"#0
     ENVI @SCUT1.trans=2
     CALC 快捷上=%快捷上%-10-48
 
@@ -109,9 +109,9 @@ _SUB SYSINFO
     ITEM SCUT3,L%快捷左%T%快捷上%W40H40,,EXEC TASKMGR.EXE,TASKMGR.EXE#0
     ENVI @SCUT3.trans=2
     CALC 快捷上=%快捷上%-10-48
-
+    
     ITEM SCUT4,L%快捷左%T%快捷上%W40H40,,EXEC PECMD SCRN -gui,shell32.dll#139
-    ENVI @SCUT3.trans=2
+    ENVI @SCUT4.trans=2
     CALC 快捷上=%快捷上%-10-48
     
     // 信息区域
