@@ -154,11 +154,17 @@ if exist "%SystemDrive%\Windows\Setup\xrsysnopcname.txt" goto changepasswd
 if exist "%SystemDrive%\Windows\Setup\xrsyspcname.txt" (
     set /p pcname=<"%SystemDrive%\Windows\Setup\xrsyspcname.txt"
 )
-echo %computername% | find /i "-PC" && goto changepasswd
-echo %computername% | find /i "PC-" && goto changepasswd
-if defined pcname set "pcname=%pcname: =%"
-if "!pcname!"=="%computername%" goto changepasswd
+if defined pcname (
+    set "pcname=%pcname: =%"
+    if "!pcname!"=="%computername%" goto changepasswd
+    goto :setpcname
+) else (
+    echo %computername% | find /i "-PC" && goto changepasswd
+    echo %computername% | find /i "PC-" && goto changepasswd
+    goto :genpcname
+)
 
+:genpcname
 rem 生成四个随机字母
 set str=ABCDEFGHIJKLMNOPQRSTUVWXYZ
 for /l %%a in (1 1 4) do (
@@ -174,6 +180,8 @@ if exist "%SystemDrive%\Windows\Setup\zjsoftseewo.txt" (
 ) else (
     set pcname=PC-%date:~0,4%%date:~5,2%%date:~8,2%%random_letters%
 )
+
+:setpcname
 wmic computersystem where "caption='%computername%'" call Rename name='%pcname%'
 reg add "HKCU\Software\Microsoft\Windows\ShellNoRoam" /f /ve /t REG_SZ /d "%pcname%"
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\ComputerName\ComputerName" /f /v "ComputerName" /t REG_SZ /d "%pcname%"
