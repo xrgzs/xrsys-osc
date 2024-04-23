@@ -23,6 +23,7 @@ _SUB WIN1,L0T0W%ScrW%H%ScrH%,潇然系统部署背景插件,,imageres.dll#22,#:,
     TIME ,3000,CALL 任务栏监控
     TIME ,5000,CALL 刷新分辨率
     TIME ,500,CALL 刷新标题
+    TIME ,1500,CALL 刷新检测
 _END
 
 _SUB DRAW
@@ -51,11 +52,8 @@ _SUB DRAW
     CALL SYSINFO
     // 读取镜像状态
     REGI .HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\State\ImageState,ImageState
-    IFEX |%ImageState%=IMAGE_STATE_COMPLETE,
-    {
-        CALL WBTN
-    }
-
+    IFEX |%ImageState%=IMAGE_STATE_COMPLETE,CALL WBTN
+    IFEX x:\Windows\Xiaoran.ico,CALL WBTN
     // 副标题显示镜像信息
     READ "%SystemDrive%\Windows\Version.txt",1,XRSYSVER
     IFEX ! |%XRSYSVER%=,ENVI @LABE2=%XRSYSVER%
@@ -113,8 +111,10 @@ _SUB SYSINFO
     CALC 快捷上=%快捷上%-10-48
     
     // 信息区域
-    CALC 信息左=90
-    CALC 信息上=%ScrH%-90-210
+    CALC 信息左=48
+    CALC 信息条左=%信息左%+80
+    // CALC 信息上=0
+    CALC 信息上=%ScrH%-42-390
 
     REGI .HKLM\SYSTEM\ControlSet001\Control\ComputerName\ComputerName\ComputerName,计算机名
     LABE -left -trans ,L%信息左%T%信息上%W500H30,计算机名：%计算机名%,,0xffffff,12
@@ -124,7 +124,7 @@ _SUB SYSINFO
     REGI .HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\DisplayVersion,显示版本
     IFEX |%显示版本%=,REGI .HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\CSDVersion,显示版本
     ENVI ?系统架构=PEBIT,%windir%\system32
-    LABE -left -trans ,L%信息左%T%信息上%W500H30,版本：%产品名称% %显示版本% %系统架构%,,0xffffff,12
+    LABE -left -trans ,L%信息左%T%信息上%W500H30,系统版本：%产品名称% %显示版本% %系统架构%,,0xffffff,12
     CALC 信息上=%信息上%+30
 
     EXEC*N VER=!CMD.EXE /C VER
@@ -138,12 +138,24 @@ _SUB SYSINFO
     CALC 信息上=%信息上%+30
 
     REGI .HKLM\HARDWARE\DESCRIPTION\System\CentralProcessor\0\ProcessorNameString,处理器
-    LABE -left -trans ,L%信息左%T%信息上%W500H30,处理器：%处理器%,,0xffffff,12
+    LABE -left -trans ,L%信息左%T%信息上%W500H30,处理器　：%处理器%,,0xffffff,12
+    CALC 信息上=%信息上%+30
+    ENVI CPUS=1
+    FIND --pid TMS,
+    MSTR I1,T1,CPUS=<1*>%TMS%
+    PBAR 处理器情况P,L%信息条左%T%信息上%W250H15,50
+    CALC 信息上=%信息上%+30
+
+    TEAM FIND MEM=?,总内存|CALC 内存=%总内存%/1024#2
+    LABE -left -trans 内存情况L,L%信息左%T%信息上%W500H30,运行内存：%内存% GB,KILL -gui,0xffffff,12
+    CALC 信息上=%信息上%+30
+    PBAR 内存情况P,L%信息条左%T%信息上%W250H15,50
     CALC 信息上=%信息上%+30
     
-    TEAM FIND MEM=?,内存|CALC 内存=%内存%/1024#2
     TEAM FIND %SystemDrive%\=?,系统盘|CALC 系统盘=%系统盘%/1024^3#2
-    LABE -left -trans ,L%信息左%T%信息上%W500H30,内存：%内存% GB    系统盘(%SystemDrive%)可用：%系统盘% GB,,0xffffff,12
+    LABE -left -trans 系统盘情况L,L%信息左%T%信息上%W500H30,系统分区：%系统盘% GB,,0xffffff,12
+    CALC 信息上=%信息上%+30
+    PBAR 系统盘情况P,L%信息条左%T%信息上%W250H15,50
     CALC 信息上=%信息上%+30
     
     REGI .HKLM\HARDWARE\DESCRIPTION\System\BIOS\BaseBoardManufacturer,主板厂商
@@ -160,14 +172,14 @@ _SUB SYSINFO
         CALC 信息上=%信息上%+30
     }
 
-    LABE -left -trans ,L%信息左%T%信息上%W500H30,分辨率：%ScrW% × %ScrH%,,0xffffff,12
+    LABE -left -trans ,L%信息左%T%信息上%W500H30,分辨率　：%ScrW% × %ScrH%,DISP -guis,0xffffff,12
     CALC 信息上=%信息上%+30
     
-    READ "%SystemDrive%\Windows\Setup\wallname.txt",1,OSCVER
+    READ Version.txt,1,OSCVER
     LABE -left -trans ,L%信息左%T%信息上%W500H30,程序版本：%OSCVER%,,0xffffff,12
     CALC 信息上=%信息上%+30
 
-    //LABE -left -trans ,L10T10W500H30,计算最终高度：%信息上%,,0xffffff,12
+    // LABE -left -trans ,L10T10W500H30,计算最终高度：%信息上%,,0xffffff,12
 _END
 
 _SUB 刷新分辨率
@@ -191,6 +203,36 @@ _SUB 刷新标题
         CALL 显示任务栏
         FILE "%SystemDrive%\Windows\Setup\wallname.txt"
         EXIT FILE
+    }
+_END
+
+_SUB 刷新检测
+	FIND --pid TMS,
+	MSTR I2,T2=<1*>%TMS%
+	CALC #I21=%I2%-%I1%
+	CALC #T21=%T2%-%T1%
+	CALC P=100-100*%I21%/%T21%/%CPUS%##1
+	IFEX |%P%=-0.0,ENVI P=0
+    ENVI @处理器情况P=%P%% %P%%
+
+    IFEX MEM=?,可用内存
+	CALC 已用内存=(%总内存%-%可用内存%)/1024#2
+    ENVI 内存情况L1=运行内存：%已用内存% GB (已用) / %内存% GB (总)
+    IFEX ! |%内存情况L%=%内存情况L1%,
+    {
+        ENVI @内存情况L=%内存情况L1%
+	    CALC 内存百分比=100-%可用内存%/%总内存%*100#0
+	    ENVI @内存情况P=%内存百分比%% %内存百分比%%
+    }
+
+    TEAM IFEX %SystemDrive%\=?,系统盘可用|CALC 系统盘可用=%系统盘可用%/1024^3#2
+    CALC 系统盘已用=(%系统盘%-%系统盘可用%)#2
+    ENVI 系统盘情况L1=系统分区：%系统盘已用% GB (已用) / %系统盘% GB (总)
+    IFEX ! |%系统盘情况L%=%系统盘情况L1%,
+    {
+        ENVI @系统盘情况L=%系统盘情况L1%
+        CALC 系统盘百分比=100-%系统盘可用%/%系统盘%*100#0
+        ENVI @系统盘情况P=%系统盘百分比%% %系统盘百分比%%
     }
 _END
 
