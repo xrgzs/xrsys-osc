@@ -98,19 +98,19 @@ _SUB SYSINFO
     CALC 快捷左=%ScrW%-90
     CALC 快捷上=%ScrH%-90
     
-    ITEM SCUT1,L%快捷左%T%快捷上%W40H40,,EXEC osk.exe,ico\osk.ico
+    ITEM SCUT1,L%快捷左%T%快捷上%W40H40,,EXEC osk.exe,ico\osk.png
     ENVI @SCUT1.trans=2
     CALC 快捷上=%快捷上%-10-48
 
-    ITEM SCUT2,L%快捷左%T%快捷上%W40H40,,EXEC CMD.EXE,ico\cmd.ico
+    ITEM SCUT2,L%快捷左%T%快捷上%W40H40,,EXEC CMD.EXE,ico\cmd.png
     ENVI @SCUT2.trans=2
     CALC 快捷上=%快捷上%-10-48
     
-    ITEM SCUT3,L%快捷左%T%快捷上%W40H40,,EXEC TASKMGR.EXE,ico\taskmgr.ico
+    ITEM SCUT3,L%快捷左%T%快捷上%W40H40,,EXEC TASKMGR.EXE,ico\taskmgr.png
     ENVI @SCUT3.trans=2
     CALC 快捷上=%快捷上%-10-48
     
-    ITEM SCUT4,L%快捷左%T%快捷上%W40H40,,EXEC PECMD SCRN -gui,ico\snap.ico
+    ITEM SCUT4,L%快捷左%T%快捷上%W40H40,,EXEC PECMD SCRN -gui,ico\snap.png
     ENVI @SCUT4.trans=2
     CALC 快捷上=%快捷上%-10-48
     
