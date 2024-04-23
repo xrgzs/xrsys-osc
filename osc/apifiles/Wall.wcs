@@ -212,7 +212,8 @@ _END
 
 _SUB 刷新检测
     REGI .HKLM\SYSTEM\ControlSet001\Control\ComputerName\ComputerName\ComputerName,计算机名
-    ENVI @计算机名L=计算机名：%计算机名%
+    ENVI 计算机名L1=计算机名：%计算机名%
+    IFEX ! |%计算机名L%=%计算机名L1%,ENVI @计算机名L=%计算机名L1%
 
 	FIND --pid TMS,
 	MSTR I2,T2=<1*>%TMS%
