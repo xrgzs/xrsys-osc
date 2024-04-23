@@ -6,10 +6,10 @@ if exist "%SystemDrive%\Windows\Setup\xrsysnotheme.txt" (
     exit
 )
 if exist "%SystemDrive%\Windows\Setup\xrsyswall.jpg" (
-    move /y "%SystemDrive%\Setup\xrsyswall.jpg" wallpaper.jpg
+    copy /y "%SystemDrive%\Setup\xrsyswall.jpg" wallpaper.jpg
 )
 if exist "%SystemDrive%\Windows\Setup\Set\wallpaper.jpg" (
-    move /y "%SystemDrive%\Windows\Setup\Set\wallpaper.jpg" wallpaper.jpg
+    copy /y "%SystemDrive%\Windows\Setup\Set\wallpaper.jpg" wallpaper.jpg
 )
 if exist "%SystemDrive%\Windows\Setup\zjsoftseewo.txt" call :iwb
 if exist "%SystemDrive%\Windows\Setup\zjsofthite.txt" call :iwb
