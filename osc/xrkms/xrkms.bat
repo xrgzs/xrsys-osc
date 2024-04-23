@@ -70,11 +70,11 @@ if %osver% EQU 2 set iskms=0
 if %osver% EQU 2 set isoem=1
 if %osver% EQU 2 (
     systeminfo>>osinfo.txt
-    type osinfo.txt | find /i "Windows 7 企业版" && set iskms=1& set isoem=0
-    type osinfo.txt | find /i "Windows 7 专业版" && set iskms=1& set isoem=0
-    type osinfo.txt | find /i "Windows 7 Enterprise" && set iskms=1& set isoem=0
-    type osinfo.txt | find /i "Windows 7 Professional" && set iskms=1& set isoem=0
-    type osinfo.txt | find /i "Server" && set iskms=1& set isoem=0
+    type osinfo.txt | find /i "Windows 7 企业版" && (set iskms=1& set isoem=0)
+    type osinfo.txt | find /i "Windows 7 专业版" && (set iskms=1& set isoem=0)
+    type osinfo.txt | find /i "Windows 7 Enterprise" && (set iskms=1& set isoem=0)
+    type osinfo.txt | find /i "Windows 7 Professional" && (set iskms=1& set isoem=0)
+    type osinfo.txt | find /i "Server 2008" && (set iskms=1& set isoem=0)
     bcdedit /enum {current} | find /i "path" | find /i ".efi" && set isoem=0
 )
 
