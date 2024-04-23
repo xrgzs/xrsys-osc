@@ -23,7 +23,7 @@ _SUB WIN1,L0T0W%ScrW%H%ScrH%,潇然系统部署背景插件,,imageres.dll#22,#:,
     TIME ,3000,CALL 任务栏监控
     TIME ,5000,CALL 刷新分辨率
     TIME ,500,CALL 刷新标题
-    TIME ,1500,CALL 刷新检测
+    TIME ,5000,CALL 刷新检测
 _END
 
 _SUB DRAW
