@@ -220,7 +220,6 @@ if %osver% GEQ 2 (
     )
 )
 
-
 :restoreip
 setlocal enabledelayedexpansion
 if exist "%systemdrive%\Windows\Setup\xrsysnodhcp.txt" (
@@ -284,6 +283,10 @@ if exist "%systemdrive%\Windows\Setup\xrsysrdp.txt" (
     FOR /F "tokens=2 delims=:" %%i in ('SC QUERYEX UmRdpService ^|FINDSTR /I "PID"') do TASKKILL /F /PID %%i
     SC START TermService
 )
+
+:runtime
+echo 应用运行库
+if exist "runtime\runtime.bat" echo y | start "" /wait /min "runtime\runtime.bat"
 
 :oscapis
 echo 应用OSCAPI
@@ -350,10 +353,6 @@ if exist "xrkms\xrkms.bat" (
     timeout /t 3
     echo y | start "" /wait "xrkms\xrkms.bat"
 )
-
-:runtime
-echo 应用运行库
-if exist "runtime\runtime.bat" echo y | start "" /wait /min "runtime\runtime.bat"
 
 :osconline
 echo 应用OSConline
