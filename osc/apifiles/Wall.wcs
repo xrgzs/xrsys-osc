@@ -98,7 +98,7 @@ _SUB SYSINFO
     CALC 快捷左=%ScrW%-90
     CALC 快捷上=%ScrH%-90
     
-    ITEM SCUT1,L%快捷左%T%快捷上%W40H40,,EXEC osk.exe,ico\osk.png
+    ITEM SCUT1,L%快捷左%T%快捷上%W40H40,,EXEC !cmd /c OSK.EXE,ico\osk.png
     ENVI @SCUT1.trans=2
     CALC 快捷上=%快捷上%-10-48
 
