@@ -308,17 +308,17 @@ if exist "%SystemDrive%\Windows\Setup\Run\1\api1.bat" (
     echo y | start "" /max /wait "%SystemDrive%\Windows\Setup\Run\1\api1.bat"
 )
 for %%b in (%SystemDrive%\Windows\Setup\Run\1\*.exe) do (
-    echo [OSC]正在安装%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
+    echo [OSC]正在安装%%~nxb...>"%systemdrive%\Windows\Setup\wallname.txt"
     start "" /wait "%%b" /S
     del /f /q "%%b"
 )
 for %%b in (%SystemDrive%\Windows\Setup\Run\1\*.msi) do (
-    echo [OSC]正在安装%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
+    echo [OSC]正在安装%%~nxb...>"%systemdrive%\Windows\Setup\wallname.txt"
     start "" /wait "%%b" /passive /qb-! /norestart
     del /f /q "%%b"
 )
 for %%b in (%SystemDrive%\Windows\Setup\Run\1\*.reg) do (
-    echo [OSC]正在应用%%b...>"%systemdrive%\Windows\Setup\wallname.txt"
+    echo [OSC]正在应用%%~nxb...>"%systemdrive%\Windows\Setup\wallname.txt"
     regedit /s "%%b"
     del /f /q "%%b"
 )
