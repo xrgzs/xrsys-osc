@@ -6,7 +6,7 @@ if exist "%SystemDrive%\Windows\Setup\xrsysnotheme.txt" (
     exit
 )
 if exist "%SystemDrive%\Windows\Setup\xrsyswall.jpg" (
-    copy /y "%SystemDrive%\Setup\xrsyswall.jpg" wallpaper.jpg
+    copy /y "%SystemDrive%\Windows\Setup\xrsyswall.jpg" wallpaper.jpg
 )
 if exist "%SystemDrive%\Windows\Setup\Set\wallpaper.jpg" (
     copy /y "%SystemDrive%\Windows\Setup\Set\wallpaper.jpg" wallpaper.jpg
