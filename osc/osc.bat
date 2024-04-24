@@ -262,7 +262,7 @@ if exist "%systemdrive%\Windows\Setup\xrsysfirewall.txt" (
     reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile" /f /v "DisableNotifications" /t reg_dword /d 0
     reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile" /f /v "EnableFirewall" /t reg_dword /d 1
     reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile" /f /v "DisableNotifications" /t reg_dword /d 0
-) else (
+) else if exist "%systemdrive%\Windows\Setup\xrsysnofirewall.txt" (
     echo ¹Ø±Õ·À»ðÇ½
     netsh advfirewall set currentprofile state off
     netsh firewall set opmode mode=disable
