@@ -28,6 +28,8 @@ rem https://github.com/M2TeamArchived/NSudo/releases v8.2
 curl.exe -sSL https://file.uhsea.com/2403/10fdf98fa1b888327c172e04bb92d762KW.exe -o osc\apifiles\NSudoLC.exe || exit
 rem PECMD2012.1.88.05.94Stable-230422 x86 noimd safe
 curl.exe -sSL https://file.uhsea.com/2404/09632f9544a70ee83fed715a5c8e93b3HU.exe -o osc\apifiles\PECMD.exe || exit
+rem PECMD2012.1.88.05.94Stable-230422 x64 noimd safe
+curl.exe -sSL https://file.uhsea.com/2404/5415281d7adc574a7ab5bb9be1ff8730HU.exe -o osc\apifiles\PECMD64.exe || exit
 rem SystemRestore tool by hp
 curl.exe -sSL https://file.uhsea.com/2403/ca1e5c28b2637b556dff75d0043a2504FF.exe -o osc\apifiles\srtool.exe || exit
 rem Wbox - Ver. 1.11 - Message box for batch - (c) 2011-2013, Horst Schaeffer

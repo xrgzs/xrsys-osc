@@ -1,11 +1,13 @@
 chcp 936 > nul
 setlocal enabledelayedexpansion
-if not exist "%SystemDrive%\Windows\Setup\xrsysdebug.txt" (
-    @echo off
-    mode con: cols=70 lines=5
-    color 1f
-)
+@echo off
+@REM mode con: cols=70 lines=5
+color 1f
 cd /d "%~dp0"
+if exist "%SystemDrive%\Windows\SysWOW64\wscript.exe" (
+    set "PROCESSOR_ARCHITECTURE=AMD64"
+    move /y "%~dp0apifiles\PECMD64.EXE" "%~dp0apifiles\PECMD.EXE"
+)
 set aria="%~dp0aria2c.exe" --check-certificate=false --save-not-found=false --always-resume=false --auto-save-interval=10 --auto-file-renaming=false --allow-overwrite=true -c
 set dmi="%~dp0apifiles\DMI.exe"
 set netuser="%~dp0apifiles\NetUser.exe"
@@ -17,9 +19,6 @@ set pecmd="%~dp0apifiles\PECMD.EXE"
 set srtool="%~dp0apifiles\srtool.exe"
 set wlan="%~dp0apifiles\WLAN.exe"
 set zip="%~dp0apifiles\7z.exe"
-if exist "%SystemDrive%\Windows\SysWOW64\wscript.exe" (
-    set "PROCESSOR_ARCHITECTURE=AMD64"
-)
 ::系统版本判断
 set osver=0&& set osname=Win
 ::上面一行可根据系统情况手动填写系统版本，并将下面全部注释掉
