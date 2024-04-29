@@ -28,8 +28,7 @@ if exist "%SystemDrive%\Windows\Setup\zjsoftwenxiang.txt" (
 )
 
 if %osver% GEQ 2 (
-    for /f "tokens=3" %%a in ('reg query "HKLM\SOFTWARE\Microsoft\Windows\Tablet PC" /v Devic
-eKind') do if /i not "%%a"=="0x0" call :touch
+    for /f "tokens=3" %%a in ('reg query "HKLM\SOFTWARE\Microsoft\Windows\Tablet PC" /v DeviceKind') do if /i not "%%a"=="0x0" call :touch
 )
 
 :main
