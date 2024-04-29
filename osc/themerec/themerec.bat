@@ -27,11 +27,10 @@ if exist "%SystemDrive%\Windows\Setup\zjsoftwenxiang.txt" (
     call :touch
 )
 
-if %osver% GEQ 3 (
-    for /f "tokens=3" %%a in ('reg query "HKLM\SOFTWARE\Microsoft\Windows\Tablet PC" /v "Devic
-eKind"') do if /i not "%%a"=="0x0" call :touch
+if %osver% GEQ 2 (
+    for /f "tokens=3" %%a in ('reg query "HKLM\SOFTWARE\Microsoft\Windows\Tablet PC" /v Devic
+eKind') do if /i not "%%a"=="0x0" call :touch
 )
-
 
 :main
 if exist "%SystemDrive%\Windows\Setup\xrsysdark.txt" (
