@@ -2,24 +2,10 @@
 chcp 936 > nul
 cd /d "%~dp0"
 title 主题恢复
-if exist "%SystemDrive%\Windows\Setup\xrsysnotheme.txt" (
-    exit
-)
-if exist "%SystemDrive%\Windows\Setup\xrsyswall.jpg" (
-    copy /y "%SystemDrive%\Windows\Setup\xrsyswall.jpg" wallpaper.jpg
-)
-if exist "%SystemDrive%\Windows\Setup\Set\wallpaper.jpg" (
-    copy /y "%SystemDrive%\Windows\Setup\Set\wallpaper.jpg" wallpaper.jpg
-)
-if exist "%SystemDrive%\Windows\Setup\zjsoftseewo.txt" call :iwb
-if exist "%SystemDrive%\Windows\Setup\zjsofthite.txt" call :iwb
-if exist "%SystemDrive%\Windows\Setup\zjsoftwenxiang.txt" (
-    regedit /s touchwx.reg
-    call :iwb
-)
-::系统版本判断
+if exist "%SystemDrive%\Windows\Setup\xrsysnotheme.txt" exit
+
+set istouch=
 set osver=0
-::上面一行可根据系统情况手动填写系统版本，并将下面全部注释掉
 ver | find /i "5.1." > nul && set osver=1
 ver | find /i "6.0." > nul && set osver=2
 ver | find /i "6.1." > nul && set osver=2
@@ -27,6 +13,25 @@ ver | find /i "6.2." > nul && set osver=3
 ver | find /i "6.3." > nul && set osver=3
 ver | find /i "6.4." > nul && set osver=4
 ver | find /i "10.0." > nul && set osver=4
+
+if exist "%SystemDrive%\Windows\Setup\xrsyswall.jpg" (
+    copy /y "%SystemDrive%\Windows\Setup\xrsyswall.jpg" wallpaper.jpg
+)
+if exist "%SystemDrive%\Windows\Setup\Set\wallpaper.jpg" (
+    copy /y "%SystemDrive%\Windows\Setup\Set\wallpaper.jpg" wallpaper.jpg
+)
+if exist "%SystemDrive%\Windows\Setup\zjsoftseewo.txt" call :touch
+if exist "%SystemDrive%\Windows\Setup\zjsofthite.txt" call :touch
+if exist "%SystemDrive%\Windows\Setup\zjsoftwenxiang.txt" (
+    regedit /s touchwx.reg
+    call :touch
+)
+
+if %osver% GEQ 3 (
+    for /f "tokens=3" %%a in ('reg query "HKLM\SOFTWARE\Microsoft\Windows\Tablet PC" /v "Devic
+eKind"') do if /i not "%%a"=="0x0" call :touch
+)
+
 
 :main
 if exist "%SystemDrive%\Windows\Setup\xrsysdark.txt" (
@@ -62,11 +67,13 @@ if exist wallpaper.jpg (
 reg delete "HKCU\Control Panel\Desktop" /f /v "Wallpaper.PECMD"
 exit
 
-:iwb
+:touch
+if defined istouch goto :EOF
 if exist "%ProgramW6432%" (
     PinToTaskbar.exe /pin "%SystemDrive%\Windows\System32\osk.exe"
 ) else (
     %PECMD% PINT "%SystemDrive%\Windows\System32\osk.exe",TaskBand
 )
 regedit /s touch.reg
+set istouch=1
 goto :EOF
