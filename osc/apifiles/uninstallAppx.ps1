@@ -19,6 +19,7 @@ Get-AppxPackage *Microsoft.Print3D* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *Microsoft.SkypeApp* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *Microsoft.Todos* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *Microsoft.WindowsMaps* -AllUsers | Remove-AppxPackage
+Get-AppxPackage *Microsoft.XboxApp* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *MicrosoftCorporationII.MicrosoftFamily* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.BingWeather* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.GamingApp* -AllUsers | Remove-AppxPackage
@@ -59,6 +60,7 @@ Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Micros
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.SkypeApp*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Todos*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.WindowsMaps*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.XboxApp*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*MicrosoftCorporationII.MicrosoftFamily*"} | Remove-AppxProvisionedPackage -Online
 
 # Import registry to disable Microsoft PC Manager
