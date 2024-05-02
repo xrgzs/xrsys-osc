@@ -56,8 +56,8 @@ rem Special purpose, not describable
 curl.exe -sSL https://file.uhsea.com/2403/28600f9dfa3aeac0614201fddf09141dQY.exe -o osc\runtime\flash.exe || exit
 @rem rem MSVC Runtime repacked by dreamcast2.ys168.com signed by https://www.ghxi.com/yxkhj.html
 @rem rem curl.exe -sSL https://file.uhsea.com/2403/0df82366ca70d04a25f012b08e3f716b77.exe -o osc\runtime\MSVBCRT.AIO.exe || exit
-rem MSVC Runtime repacked by Xiaoran Studio using NSIS v2024.4.29.1
-curl.exe -sSL https://file.uhsea.com/2404/98b32f10fe4e3128053f7566ada25403SJ.exe -o osc\runtime\MSVCRedist.AIO.exe || exit
+rem MSVC Runtime repacked by Xiaoran Studio using NSIS v2024.5.3.0
+curl.exe -sSL https://file.uhsea.com/2405/93156a50a77b4c44c2082229ed408b27VM.exe -o osc\runtime\MSVCRedist.AIO.exe || exit
 rem APPX Media Extentions
 @rem pwsh.exe -file osc\runtime\getappx.ps1
 @rem curl.exe -sSL https://file.uhsea.com/2404/af34ee00f4ed5ad96d9c5e51a1a1eaffKV.xml -o osc\runtime\Extension\Microsoft.HEVCVideoExtension.xml
