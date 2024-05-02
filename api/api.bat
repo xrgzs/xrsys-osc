@@ -359,6 +359,22 @@ if %osver% GEQ 3 (
     reg add "HKU\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\CloudExperienceHost\Intent\PersonalDataExport" /f /v "PDEShown" /t REG_DWORD /d 2
     
 )
+echo Login
+for %%a in (Login\*.exe) do (
+    echo [API]正在登录时应用%%a...>"%systemdrive%\Windows\Setup\wallname.txt"
+    start "" /wait "%%a" /S
+    del /f /q "%%a"
+)
+for %%a in (Login\*.msi) do (
+    echo [API]正在登录时应用%%a...>"%systemdrive%\Windows\Setup\wallname.txt"
+    start "" /wait "%%a" /passive /qb-! /norestart
+    del /f /q "%%a"
+)
+for %%a in (Login\*.reg) do (
+    echo [API]正在登录时应用%%a...>"%systemdrive%\Windows\Setup\wallname.txt"
+    regedit /s "%%a"
+    del /f /q "%%a"
+)
 if exist api4_dls.bat call api4_dls.bat
 if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
     for %%a in (C D E F G H) do (
