@@ -430,7 +430,7 @@ del /q /f "%SystemDrive%\Users\Public\Desktop\Internet Explorer.lnk"
 del /q /f "%SystemDrive%\Users\Public\Desktop\网址导航.lnk"
 echo 潇然系统盗版提示
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v legalnoticecaption /t REG_SZ /d "警告：您的系统可能没有部署完整（API）" /f
-reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v legalnoticetext /t REG_SZ /d "这通常是网络连接不稳定或部署程序BUG导致的，请在点击【确定】登录账户后，访问http://url.xrgzs.top/osc下载、重新运行osc.exe尝试解决。此提示每次登录前都会强制弹出，如有特殊情况请联系QQ:2744460679解决。" /f
+reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v legalnoticetext /t REG_SZ /d "这通常是网络连接不稳定或部署程序BUG导致的，请在点击【确定】登录账户后，访问http://url.xrgzs.top/osc下载、重新运行osc.exe尝试解决。此提示每次登录前都会强制弹出，如有特殊情况请访问https://sys.xrgzs.top/faq/error.html#legal-notice解决。" /f
 
 cd /d "%~dp0"
 echo Run
