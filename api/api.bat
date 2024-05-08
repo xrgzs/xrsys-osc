@@ -338,6 +338,9 @@ if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
         )
     )
 )
+echo 清除装机软件接口
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /f /v RunLoader
+reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run" /f /v RunLoader
 echo exit>"%systemdrive%\Windows\Setup\wallname.txt"
 goto end
 
