@@ -26,9 +26,11 @@ rem NirCmd v2.86 https://www.nirsoft.net/utils/nircmd.html
 curl.exe -sSL https://file.uhsea.com/2403/041d60d1cfc87214b254f75e8381037e80.exe -o osc\apifiles\nircmd.exe || exit
 rem https://github.com/M2TeamArchived/NSudo/releases v8.2
 curl.exe -sSL https://file.uhsea.com/2403/10fdf98fa1b888327c172e04bb92d762KW.exe -o osc\apifiles\NSudoLC.exe || exit
-rem PECMD2012.1.88.05.94Stable-230422 x86 noimd safe
+rem DrvIndex_x64-86-v7.23.10.2501
+curl.exe -sSL https://file.uhsea.com/2405/4a9868c0a7d8ec8d2ad49dc19f570b87YW.exe -o osc\apifiles\DrvIndex.exe || exit
+curl.exe -sSL https://file.uhsea.com/2405/b4c48a2603d841b29501e09de4f1ef14Y6.exe -o osc\apifiles\DrvIndex64.exe || exit
+rem PECMD2012.1.88.05.94Stable-230422 x86 x64 noimd safe
 curl.exe -sSL https://file.uhsea.com/2404/09632f9544a70ee83fed715a5c8e93b3HU.exe -o osc\apifiles\PECMD.exe || exit
-rem PECMD2012.1.88.05.94Stable-230422 x64 noimd safe
 curl.exe -sSL https://file.uhsea.com/2404/5415281d7adc574a7ab5bb9be1ff8730HU.exe -o osc\apifiles\PECMD64.exe || exit
 rem SystemRestore tool by hp
 curl.exe -sSL https://file.uhsea.com/2403/ca1e5c28b2637b556dff75d0043a2504FF.exe -o osc\apifiles\srtool.exe || exit

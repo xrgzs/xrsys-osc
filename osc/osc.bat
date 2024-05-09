@@ -5,7 +5,8 @@ title 潇然系统优化组件 XRSYS-OSC
 cd /d "%~dp0"
 if exist "%systemdrive%\Windows\SysWOW64\wscript.exe" (
     set "PROCESSOR_ARCHITECTURE=AMD64"
-    move /y "%~dp0apifiles\PECMD64.EXE" "%~dp0apifiles\PECMD.EXE"
+    move /y "%~dp0apifiles\PECMD64.exe" "%~dp0apifiles\PECMD.exe"
+    move /y "%~dp0apifiles\DrvIndex64.exe" "%~dp0apifiles\DrvIndex.exe"
 )
 set aria="%~dp0aria2c.exe" --check-certificate=false --save-not-found=false --always-resume=false --auto-save-interval=10 --auto-file-renaming=false --allow-overwrite=true -c
 set dmi="%~dp0apifiles\DMI.exe"
@@ -14,7 +15,8 @@ set nircmd="%~dp0apifiles\nircmd.exe"
 set winput="%~dp0apifiles\winput.exe"
 set wbox="%~dp0apifiles\wbox.exe"
 set nsudo="%~dp0apifiles\NSudoLC.exe"
-set pecmd="%~dp0apifiles\PECMD.EXE"
+set pecmd="%~dp0apifiles\PECMD.exe"
+set drvindex="%~dp0apifiles\DrvIndex.exe"
 set srtool="%~dp0apifiles\srtool.exe"
 set wlan="%~dp0apifiles\WLAN.exe"
 set zip="%~dp0apifiles\7z.exe"
@@ -138,7 +140,20 @@ if exist wandrv2.iso (
     start "" /wait "%~dp0wandrv2\DriveCleaner.exe" /wandrv
     echo wandrv2.iso>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
 )
-
+if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
+    for %%a in (C D E F G H) do (
+        if exist "%%a:\Xiaoran\OSC\DriverBackup.7z" (
+            echo [OSC]正在导入搜到的驱动备份%%a:\~\DriverBackup.7z...>"%systemdrive%\Windows\Setup\wallname.txt"
+            start "" /wait "%drvindex%" -b "%%a:\Xiaoran\OSC\DriverBackup.7z"
+        )
+        if exist "%%a:\Xiaoran\OSC\wandrv.iso" (
+            echo [OSC]正在应用搜到的万能驱动%%a:\~\wandrv.iso...>"%systemdrive%\Windows\Setup\wallname.txt"
+            copy /y "%~dp0apifiles\DriveCleaner.exe" "%%a:\Xiaoran\OSC\DriveCleaner.exe"
+            start "" /wait "%%a:\Xiaoran\OSC\DriveCleaner.exe" /wandrv
+            echo %%a:\Xiaoran\OSC\wandrv.iso>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
+        )
+    )
+)
 
 :optimize
 if exist "optimize\start.bat" (
