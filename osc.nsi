@@ -24,6 +24,8 @@ SetCompressorDictSize 32
 
 ; 欢迎页面
 !insertmacro MUI_PAGE_WELCOME
+; 许可协议页面
+!insertmacro MUI_PAGE_LICENSE ".\osc\LICENSE.txt"
 ; 组件选择页面
 !insertmacro MUI_PAGE_COMPONENTS
 ; 安装过程页面
