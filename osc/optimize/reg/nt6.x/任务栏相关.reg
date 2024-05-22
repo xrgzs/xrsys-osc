@@ -83,6 +83,10 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds]
 "ShellFeedsTaskbarViewMode"=dword:00000002
 "ShellFeedsTaskbarOpenOnHover"=dword:00000000
+;20240522-19045.4472+特别处理
+"IsFeedsAvailable"=dword:00000000
+"IsEnterpriseDevice"=dword:00000001
+
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Internet Explorer\Feed Discovery]
 "Enabled"=dword:00000000
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Internet Explorer\Feeds]
