@@ -2,7 +2,7 @@
 chcp 936 > nul
 cd /d "%~dp0"
 setlocal enabledelayedexpansion
-set ver=智能正版激活工具 V3.24.4.7
+set ver=智能正版激活工具 V3.24.5.25
 title %ver%（请勿关闭此窗口）
 if exist "%systemdrive%\Windows\Setup\xrsysnokms.txt" exit
 if exist "%SystemDrive%\wandrv\wall.exe" exit
@@ -150,7 +150,6 @@ cls
 title %ver% - 离线激活（请勿关闭此窗口）
 echo 正在离线激活系统，请稍候...
 echo 技术支持：HEU KMS Activator by 知彼而知己
-@echo on
 set heu=
 if "%iswindows%"=="1" if "%iskms%"=="1" set heu=%heu% /kwi /ren
 if "%iswindows%"=="1" if "%isoem%"=="1" set heu=%heu% /oem
