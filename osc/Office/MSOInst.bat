@@ -249,7 +249,11 @@ if %officevernum% GEQ 14 (
     cscript //Nologo ospp.vbs /inslic:"..\root\Licenses16\MondoVL_MAK-ul-phn.xrm-ms"
     cscript //Nologo ospp.vbs /inpkey:HFTND-W9MK4-8B7MJ-B6C4G-XQBR2
     echo 正在处理KMS激活Office的盗版弹窗问题...
-    for /f "tokens=2 delims==" %%G in ('"wmic path SoftwareLicensingProduct where (ApplicationID='0ff1ce15-a989-479d-af46-f275c6370663' and Description like '%%KMSCLIENT%%' and not Description like '%%Office 15%%' and PartialProductKey is not NULL) get ID /VALUE" 2^>nul') do (if defined SKUID (call set "SKUID=!SKUID! %%G") else (call set "SKUID=%%G"))
+    if exist "%SystemDrive%\Windows\System32\wbem\WMIC.exe" (
+      for /f "tokens=2 delims==" %%G in ('"wmic path SoftwareLicensingProduct where (ApplicationID='0ff1ce15-a989-479d-af46-f275c6370663' and Description like '%%KMSCLIENT%%' and not Description like '%%Office 15%%' and PartialProductKey is not NULL) get ID /VALUE" 2^>nul') do (if defined SKUID (call set "SKUID=!SKUID! %%G") else (call set "SKUID=%%G"))
+    ) else (
+      for /f "tokens=2 delims==" %%G in ('powershell -EncodedCommand "KABHAGUAdAAtAEMAaQBtAEkAbgBzAHQAYQBuAGMAZQAgAC0AQwBsAGEAcwBzAE4AYQBtAGUAIABTAG8AZgB0AHcAYQByAGUATABpAGMAZQBuAHMAaQBuAGcAUAByAG8AZAB1AGMAdAAgAC0ARgBpAGwAdABlAHIAIAAiAEEAcABwAGwAaQBjAGEAdABpAG8AbgBJAEQAPQAnADAAZgBmADEAYwBlADEANQAtAGEAOQA4ADkALQA0ADcAOQBkAC0AYQBmADQANgAtAGYAMgA3ADUAYwA2ADMANwAwADYANgAzACcAIABhAG4AZAAgAEQAZQBzAGMAcgBpAHAAdABpAG8AbgAgAGwAaQBrAGUAIAAnACUAJQBLAE0AUwBDAEwASQBFAE4AVAAlACUAJwAgAGEAbgBkACAAbgBvAHQAIABEAGUAcwBjAHIAaQBwAHQAaQBvAG4AIABsAGkAawBlACAAJwAlACUATwBmAGYAaQBjAGUAIAAxADUAJQAlACcAIABhAG4AZAAgAFAAYQByAHQAaQBhAGwAUAByAG8AZAB1AGMAdABLAGUAeQAgAGkAcwAgAG4AbwB0ACAATgBVAEwATAAiACAALQBQAHIAbwBwAGUAcgB0AHkAIABJAEQAKQAuAEkARAA="') do (if defined SKUID (call set "SKUID=!SKUID! %%G") else (call set "SKUID=%%G"))
+    )
     for %%# in (%SKUID%) do (
         reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\0ff1ce15-a989-479d-af46-f275c6370663\%%#" /f /v KeyManagementServiceName /t REG_SZ /d "kms.03k.org"
         reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\0ff1ce15-a989-479d-af46-f275c6370663\%%#" /f /v KeyManagementServicePort /t REG_SZ /d "1688"

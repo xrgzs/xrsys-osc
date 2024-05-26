@@ -323,7 +323,11 @@ if %osver% GEQ 3 (
 if %osver% GEQ 2 (
     bcdedit /timeout 3
     bcdedit /set {current} default
-    wmic computersystem where name="%computername%" set AutomaticManagedPagefile=True
+    if exist "%SystemDrive%\Windows\System32\wbem\WMIC.exe" (
+        wmic computersystem where name="%computername%" set AutomaticManagedPagefile=True
+    ) else (
+        powershell -Command "Get-WmiObject -Class Win32_computersystem | Set-WmiInstance -Property @{AutomaticManagedPagefile=$false}"
+    )
 )
 echo 创建用户
 if exist "%SystemDrive%\Users\Default\NTUSER.DAT" (
@@ -430,7 +434,6 @@ label %SystemDrive% %osname%_OS
 
 if %osver% GEQ 2 (
     bcdedit /timeout 3
-    wmic computersystem where name="%computername%" set AutomaticManagedPagefile=True
 )
 
 if %osver% GEQ 3 (

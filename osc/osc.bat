@@ -199,7 +199,11 @@ if exist "%SystemDrive%\Windows\Setup\zjsoftseewo.txt" (
 )
 
 :setpcname
-wmic computersystem where "caption='%computername%'" call Rename name='%pcname%'
+if exist "%SystemDrive%\Windows\System32\wbem\WMIC.exe" (
+    wmic computersystem where "caption='%computername%'" call Rename name='%pcname%'
+) else (
+    powershell -Command "Rename-Computer -NewName '%pcname%' -Force}"
+)
 reg add "HKCU\Software\Microsoft\Windows\ShellNoRoam" /f /ve /t REG_SZ /d "%pcname%"
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\ComputerName\ComputerName" /f /v "ComputerName" /t REG_SZ /d "%pcname%"
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\ComputerName\ActiveComputerName" /f /v "ComputerName" /t REG_SZ /d "%pcname%"
