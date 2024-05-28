@@ -72,8 +72,8 @@ rem EnterpriseG SKU xrm-ms file
 curl.exe -sSL https://file.uhsea.com/2403/7523c3a4a1c8f98f445765632f51f7c4HB.cab -o osc\xrkms\EnterpriseG.cab || exit
 rem https://github.com/abbodi1406/KMS_VL_ALL_AIO v52 modified server address
 curl.exe -sSL https://file.uhsea.com/2405/c79b1dba8f1d2db69af10a3ece1016899X.cmd -o osc\xrkms\KMS_VL_ALL_AIO.cmd || exit
-rem https://github.com/zbezj/HEU_KMS_Activator v42.0.3
-curl.exe -sSL https://file.uhsea.com/2405/d29f6749d9ee434f458a14697ce67e06YX.exe -o osc\xrkms\kms.exe || exit
+rem https://github.com/zbezj/HEU_KMS_Activator v42.0.4
+curl.exe -sSL https://file.uhsea.com/2405/a52104d75aa58b495f96b183a16596d94H.exe -o osc\xrkms\kms.exe || exit
 rem https://github.com/Wind4/vlmcsd/releases v1113
 curl.exe -sSL https://file.uhsea.com/2403/245d2208cc94c71240a0ef24b4fbd928CY.exe -o osc\xrkms\vlmcs.exe || exit
 

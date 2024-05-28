@@ -33,3 +33,6 @@ osc/xrkms/vlmcs.exe
 osc/runtime/MSVCRedist.AIO.exe
 desktop.ini
 osc/apifiles/Version.txt
+osc/apifiles/DrvIndex.exe
+osc/apifiles/DrvIndex64.exe
+osc/apifiles/PECMD64.exe
