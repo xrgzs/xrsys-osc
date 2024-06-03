@@ -420,10 +420,14 @@ if %osver% GEQ 4 (
 echo 修复双用户问题
 if /i not "%USERNAME%"=="Administrator" (
     NET USER Administrator /ACTIVE:NO
-    Net Accounts /MaxPwAge:Unlimited
-    %netuser% %USERNAME% /pwnexp:y
-    wmic useraccount where "name='%username%'" set PasswordExpires=FALSE
 )
+
+echo 修复用户密码过期问题
+Net Accounts /MaxPwAge:Unlimited
+%netuser% %USERNAME% /pwnexp:y
+wmic useraccount where "name='%username%'" set PasswordExpires=FALSE
+powershell -Command "Set-LocalUser -Name '%username%' -PasswordNeverExpires $true"
+
 echo 恢复环境配置
 reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\SystemRestore" /v DisableSR /f
 if exist "%SystemDrive%\windows\system32\srclient.dll" (
