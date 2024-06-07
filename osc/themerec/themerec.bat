@@ -12,7 +12,11 @@ ver | find /i "6.1." > nul && set osver=2
 ver | find /i "6.2." > nul && set osver=3
 ver | find /i "6.3." > nul && set osver=3
 ver | find /i "6.4." > nul && set osver=4
-ver | find /i "10.0." > nul && set osver=4
+ver | find /i "10.0." > nul && (
+    set osver=4
+    for /f "tokens=6 delims=[]. " %%a in ('ver') do set bigversion=%%a
+    for /f "tokens=7 delims=[]. " %%b in ('ver') do set smallversion=%%b
+)
 
 if exist "%SystemDrive%\Windows\Setup\xrsyswall.jpg" (
     copy /y "%SystemDrive%\Windows\Setup\xrsyswall.jpg" wallpaper.jpg
@@ -29,6 +33,10 @@ if exist "%SystemDrive%\Windows\Setup\zjsoftwenxiang.txt" (
 
 if %osver% GEQ 2 (
     for /f "tokens=3" %%a in ('reg query "HKLM\SOFTWARE\Microsoft\Windows\Tablet PC" /v DeviceKind') do if /i not "%%a"=="0x0" call :touch
+)
+
+if %osver% GEQ 4 (
+    if !bigversion! GEQ 22000 call :startmenu11
 )
 
 :main
@@ -74,4 +82,9 @@ if exist "%ProgramW6432%" (
 )
 regedit /s touch.reg
 set istouch=1
+goto :EOF
+
+:startmenu11
+powershell -Command "Install-ProvisioningPackage -PackagePath .\startmenu11.ppkg -ForceInstall -QuietInstall"
+powershell -Command "Uninstall-ProvisioningPackage -PackagePath .\startmenu11.ppkg"
 goto :EOF
