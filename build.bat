@@ -55,7 +55,7 @@ curl.exe -sSL https://file.uhsea.com/2403/78bbd63d73cc4a43dfa4149063799214H8.exe
 rem https://github.com/stdin82/htfx/releases v0.0.3
 curl.exe -sSL https://file.uhsea.com/2403/693274c6ee6e975023df0eb1c620f66aB0.exe -o osc\runtime\DirectX_Redist_Repack_x86_x64_Final.exe || exit
 rem Special purpose, not describable
-curl.exe -sSL https://file.uhsea.com/2403/28600f9dfa3aeac0614201fddf09141dQY.exe -o osc\runtime\flash.exe || exit
+curl.exe -sSL https://file.uhsea.com/2406/f285d9cd9a05afb2701e3acf3916ababA2.exe -o osc\runtime\flash.exe || exit
 @rem rem MSVC Runtime repacked by dreamcast2.ys168.com signed by https://www.ghxi.com/yxkhj.html
 @rem rem curl.exe -sSL https://file.uhsea.com/2403/0df82366ca70d04a25f012b08e3f716b77.exe -o osc\runtime\MSVBCRT.AIO.exe || exit
 rem MSVC Runtime repacked by Xiaoran Studio using NSIS v2024.5.3.0
