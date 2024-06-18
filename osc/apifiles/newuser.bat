@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 chcp 936 > nul
 cd /d "%~dp0"
-title 创建用户 (Build 2024.4.23)
+title 创建用户 (Build 2024.6.18)
 rem windows xp not create new user
 ver | find /i "5.1." && exit
 set name=User
@@ -13,13 +13,6 @@ rem for xrsys preload admin api
 if exist "%SystemDrive%\Windows\Setup\xrsysadmin.txt" ( 
     set name=Administrator
     del /f /q "%SystemDrive%\Windows\Setup\xrsysnewuser.txt"
-)
-
-:getxrsysnewusertag
-rem for xrsys preload newuser api
-if exist "%SystemDrive%\Windows\Setup\xrsysnewuser.txt" ( 
-    set /P name=<"%SystemDrive%\Windows\Setup\xrsysnewuser.txt"
-    del /f /q "%SystemDrive%\Windows\Setup\xrsysadmin.txt"
 )
 
 :getpcname
@@ -50,6 +43,14 @@ if exist "%SystemDrive%\Windows\Setup\zjsoftseewo.txt" (
 ) else if exist "%SystemDrive%\Windows\Setup\zjsoftspoem.txt" (
     set name=Admin
     set pcname=Admin-PC
+    goto findok
+)
+
+:getxrsysnewusertag
+rem for xrsys preload newuser api
+if exist "%SystemDrive%\Windows\Setup\xrsysnewuser.txt" ( 
+    set /P name=<"%SystemDrive%\Windows\Setup\xrsysnewuser.txt"
+    del /f /q "%SystemDrive%\Windows\Setup\xrsysadmin.txt"
     goto findok
 )
 
