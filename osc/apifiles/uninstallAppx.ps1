@@ -21,12 +21,14 @@ Get-AppxPackage *Microsoft.Todos* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *Microsoft.WindowsMaps* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *Microsoft.XboxApp* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *MicrosoftCorporationII.MicrosoftFamily* -AllUsers | Remove-AppxPackage
+Get-AppxPackage *MicrosoftTeams* -AllUsers | Remove-AppxPackage
+Get-AppxPackage *MSTeams* -AllUsers | Remove-AppxPackage
+Get-AppxPackage *Microsoft.OutlookForWindows* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.BingWeather* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.GamingApp* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.MicrosoftOfficeHub* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.MicrosoftSolitaireCollection* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.MicrosoftStickyNotes* -AllUsers | Remove-AppxPackage
-# Get-AppxPackage *Microsoft.OutlookForWindows* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.Todos* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.WindowsFeedbackHub* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.WindowsMaps* -AllUsers | Remove-AppxPackage
@@ -34,7 +36,6 @@ Get-AppxPackage *MicrosoftCorporationII.MicrosoftFamily* -AllUsers | Remove-Appx
 # Get-AppxPackage *Microsoft.YourPhone* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.windowscommunicationsapps* -AllUsers | Remove-AppxPackage # 邮件和日历
 # Get-AppxPackage *MicrosoftCorporationII.QuickAssist* -AllUsers | Remove-AppxPackage
-# Get-AppxPackage *MicrosoftTeams* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *MicrosoftWindows.Client.WebExperience* -AllUsers | Remove-AppxPackage
 
 # Uninstall Appx from the computer for all users
@@ -54,6 +55,7 @@ Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Micros
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.MixedReality.Portal*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Office.OneNote*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.OneConnect*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.OutlookForWindows*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.People*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.PowerAutomateDesktop*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Print3D*"} | Remove-AppxProvisionedPackage -Online
@@ -62,6 +64,7 @@ Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Micros
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.WindowsMaps*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.XboxApp*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*MicrosoftCorporationII.MicrosoftFamily*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.MSTeams*"} | Remove-AppxProvisionedPackage -Online
 
 # Import registry to disable Microsoft PC Manager
 reg.exe import .\mspcmgr.reg /reg:32
