@@ -245,15 +245,6 @@ if %osver% GEQ 4 (
     if !bigversion! GEQ 22000 (
         echo 处理Win11变小了的输入法候选项字体大小（大）
         reg add HKCU\Software\Microsoft\InputMethod\CandidateWindow\CHS\1 /v FontStyleTSF3 /t REG_SZ /d "18.00pt;Regular;;Microsoft YaHei UI" /f
-        
-        echo 处理Win11开始菜单固定项
-        if exist "startmenu11.ppkg" (
-            echo 安装预配包
-            powershell -Command "Install-ProvisioningPackage -PackagePath .\startmenu11.ppkg -ForceInstall -QuietInstall"
-            echo 卸载预配包
-            powershell -Command "Uninstall-ProvisioningPackage -PackagePath .\startmenu11.ppkg"
-        )
-
         if !bigversion! GEQ 22621 (
             echo 启用BBR加速TCP拥塞算法
             netsh int tcp set supplemental Template=Internet CongestionProvider=bbr2
@@ -292,4 +283,18 @@ echo [OSC]正在优化浏览器配置...>"%systemdrive%\Windows\Setup\wallname.txt"
 if exist "FUCKBrowserConfig.bat" start "" /wait /min "FUCKBrowserConfig.bat"
 if exist "bookmarks.exe" start "" /wait /min "bookmarks.exe"
 start explorer.exe
+
+if %osver% GEQ 4 (
+    for /f "tokens=6 delims=[]. " %%a in ('ver') do set bigversion=%%a
+    for /f "tokens=7 delims=[]. " %%b in ('ver') do set smallversion=%%b
+    if !bigversion! GEQ 22000 (
+        echo 处理Win11开始菜单固定项
+        if exist "startmenu11.ppkg" (
+            echo 安装预配包
+            powershell -Command "Install-ProvisioningPackage -PackagePath .\startmenu11.ppkg -ForceInstall -QuietInstall"
+            echo 卸载预配包
+            powershell -Command "Uninstall-ProvisioningPackage -PackagePath .\startmenu11.ppkg"
+        )
+    )
+)
 exit
