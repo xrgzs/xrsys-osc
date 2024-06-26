@@ -1,0 +1,5 @@
+Windows Registry Editor Version 5.00
+
+;禁用按5次Shift粘连提示
+[HKEY_CURRENT_USER\Control Panel\Accessibility\StickyKeys]
+"Flags"="506"
