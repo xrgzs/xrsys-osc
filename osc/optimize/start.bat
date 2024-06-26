@@ -195,6 +195,16 @@ if %osver% GEQ 4 (
             echo 卸载预配包
             powershell -Command "Uninstall-ProvisioningPackage -PackagePath .\startmenu11.ppkg"
         )
+
+        if !bigversion! GEQ 22621 (
+            echo 启用BBR加速TCP拥塞算法
+            netsh int tcp set supplemental Template=Internet CongestionProvider=bbr2
+            netsh int tcp set supplemental Template=Datacenter CongestionProvider=bbr2
+            netsh int tcp set supplemental Template=Compat CongestionProvider=bbr2
+            netsh int tcp set supplemental Template=DatacenterCustom CongestionProvider=bbr2
+            netsh int tcp set supplemental Template=InternetCustom CongestionProvider=bbr2
+
+        )
     )
 ) else if %osver% GEQ 2 (
     schtasks /change /tn "\Microsoft\Windows\SystemRestore\SR" /disable 
