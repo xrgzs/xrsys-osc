@@ -258,6 +258,10 @@ if %osver% GEQ 4 (
             reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced /f /v TaskbarAI /t REG_DWORD /d 0
             reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced /f /v ShowCopilotButton /t REG_DWORD /d 0
         )
+        if !bigversion! LEQ 22635 (
+            echo »Ö¸´´«Í³ÓÒ¼ü²Ëµ¥
+            reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
+        )
     )
 ) else if %osver% GEQ 2 (
     schtasks /change /tn "\Microsoft\Windows\SystemRestore\SR" /disable 
