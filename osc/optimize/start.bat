@@ -203,7 +203,11 @@ if %osver% GEQ 4 (
             netsh int tcp set supplemental Template=Compat CongestionProvider=bbr2
             netsh int tcp set supplemental Template=DatacenterCustom CongestionProvider=bbr2
             netsh int tcp set supplemental Template=InternetCustom CongestionProvider=bbr2
-
+            echo 任务栏已满时合并
+            reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced /f /v TaskbarGlomLevel /t REG_DWORD /d 1
+            echo 任务栏隐藏AI图标
+            reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced /f /v TaskbarAI /t REG_DWORD /d 0
+            reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced /f /v ShowCopilotButton /t REG_DWORD /d 0
         )
     )
 ) else if %osver% GEQ 2 (
