@@ -411,9 +411,10 @@ if %osver% GEQ 3 (
     powershell -ExecutionPolicy bypass -File "%~dp0apifiles\uninstallAppx.ps1"
     "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-disable.reg"
 )
-echo ¹Ø±ÕEdge
+echo ¹Ø±ÕEdge OneDrive
 if %osver% GEQ 4 (
     taskkill /f /im msedge.exe /t
+    taskkill /f /im msedgewebview2.exe /t
     taskkill /f /im MicrosoftEdgeUpdate.exe /t
     taskkill /f /im onedrive.exe /t
     taskkill /f /im onedrivesetup.exe /t
