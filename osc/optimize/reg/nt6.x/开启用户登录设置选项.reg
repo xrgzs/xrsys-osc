@@ -1,0 +1,8 @@
+Windows Registry Editor Version 5.00
+
+;开启用户登录设置选项
+;当用WIN+R调出【运行】窗口，输入netplwiz，打开【用户账户】面板时，有一个选项是【要使用本计算机，
+;用户必须输入用户名和密码】，可以设置用户自动登录的，对于域环境来说，这个设置比较常用。但最新
+;WIN10 20H2系统默认是将这个选项隐藏禁用了，此优化可开启这个选项显示。
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\PasswordLess\Device]
+"DevicePasswordLessBuildVersion"=dword:00000000
