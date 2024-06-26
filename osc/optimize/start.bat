@@ -187,6 +187,7 @@ if %osver% GEQ 4 (
     if !bigversion! GEQ 22000 (
         echo 处理Win11变小了的输入法候选项字体大小（大）
         reg add HKCU\Software\Microsoft\InputMethod\CandidateWindow\CHS\1 /v FontStyleTSF3 /t REG_SZ /d "18.00pt;Regular;;Microsoft YaHei UI" /f
+        
         echo 处理Win11开始菜单固定项
         if exist "startmenu11.ppkg" (
             echo 安装预配包
