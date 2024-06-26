@@ -413,11 +413,11 @@ if %osver% GEQ 3 (
 )
 echo 关闭Edge OneDrive
 if %osver% GEQ 4 (
-    taskkill /f /im msedge.exe /t
-    taskkill /f /im msedgewebview2.exe /t
-    taskkill /f /im MicrosoftEdgeUpdate.exe /t
-    taskkill /f /im onedrive.exe /t
-    taskkill /f /im onedrivesetup.exe /t
+    taskkill /f /im msedge.exe
+    taskkill /f /im msedgewebview2.exe
+    taskkill /f /im MicrosoftEdgeUpdate.exe
+    taskkill /f /im onedrive.exe
+    taskkill /f /im onedrivesetup.exe
     rem del /f /s /q "%USERPROFILE%\Desktop\Microsoft Edge.lnk"
 )
 echo 修复双用户问题
