@@ -241,6 +241,9 @@ if %osver% GEQ 4 (
         reg add "HKLM\SOFTWARE\Microsoft\Windows Photo Viewer\Capabilities\FileAssociations" /v ".wdp" /t REG_SZ /d "PhotoViewer.FileAssoc.Wdp" /f
     )
 
+    echo 启用任务管理器显示磁盘性能
+    if exist "%systemdrive%\Windows\System32\diskperf.exe" diskperf -y
+    
     if !bigversion! GEQ 22000 (
         echo 处理Win11变小了的输入法候选项字体大小（大）
         reg add HKCU\Software\Microsoft\InputMethod\CandidateWindow\CHS\1 /v FontStyleTSF3 /t REG_SZ /d "18.00pt;Regular;;Microsoft YaHei UI" /f
