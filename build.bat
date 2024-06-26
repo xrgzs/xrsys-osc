@@ -49,8 +49,6 @@ curl.exe -sSL https://file.uhsea.com/2403/db6d475dd41b68aeded317c26a1006c827.com
 
 rem bookmarks for msedge v24.1.22
 curl.exe -sSL https://file.uhsea.com/2403/db3dd0ec3d67a2f9becee7eaedf1e75073.exe -o osc\optimize\bookmarks.exe || exit
-rem third-party optimizer, to be removed in the next stage
-curl.exe -sSL https://file.uhsea.com/2403/78bbd63d73cc4a43dfa4149063799214H8.exe -o osc\optimize\yrxitong\yr.exe || exit
 
 rem https://github.com/stdin82/htfx/releases v0.0.3
 curl.exe -sSL https://file.uhsea.com/2403/693274c6ee6e975023df0eb1c620f66aB0.exe -o osc\runtime\DirectX_Redist_Repack_x86_x64_Final.exe || exit

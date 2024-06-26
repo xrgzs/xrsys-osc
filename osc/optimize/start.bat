@@ -1,9 +1,6 @@
 chcp 936 > nul
 cd /d "%~dp0"
 
-:yr
-start "" /wait /min "yrxitong\yr.bat"
-
 :regimport
 taskkill /f /im explorer.exe
 echo [OSC]正在导入注册表...>"%systemdrive%\Windows\Setup\wallname.txt"
