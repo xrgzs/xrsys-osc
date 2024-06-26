@@ -61,6 +61,19 @@ if %i% GEQ 1 (
     )
 )
 
+:edge
+if exist "Edge\*.exe" (
+	echo [OSC]正在安装Edge运行库...>"%systemdrive%\Windows\Setup\wallname.txt"
+    for %%a in ("Edge\*.exe") do (
+        start "" /wait "%PECMD%" EXEC -wait -timeout:300000 %%a --msedgewebview --verbose-logging --do-not-launch-msedge --system-level
+        start "" /wait "%PECMD%" EXEC -wait -timeout:300000 %%a --msedge --verbose-logging --do-not-launch-msedge --system-level
+    )
+    taskkill /f /im msedge.exe
+    taskkill /f /im msedgewebview2.exe
+    taskkill /f /im MicrosoftEdgeUpdate.exe
+    rd /s /q Edge
+)
+
 if not %osver% equ 4 exit
 
 echo [OSC]正在安装UWP扩展解码插件...>"%systemdrive%\Windows\Setup\wallname.txt"
