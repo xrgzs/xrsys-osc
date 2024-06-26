@@ -7,7 +7,7 @@
 [![GitHub Release](https://img.shields.io/github/v/release/xrgzs/xrsys-osc?label=%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC)](https://github.com/xrgzs/xrsys-osc/releases)
 [![GitHub last commit](https://img.shields.io/github/last-commit/xrgzs/xrsys-osc?label=%E4%B8%8A%E6%AC%A1%E6%8F%90%E4%BA%A4)](https://github.com/xrgzs/xrsys-osc/commits)
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/xrgzs/xrsys-osc/build.yml?label=CI%E6%9E%84%E5%BB%BA)](https://github.com/xrgzs/xrsys-osc/actions)
-[![License](https://img.shields.io/github/license/xrgzs/xrsys-osc?label=%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF)](https://github.com/xrgzs/xrsys-hub/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/xrgzs/xrsys-osc?label=%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF)](https://github.com/xrgzs/xrsys-osc/blob/main/LICENSE)
 [![加入QQ群](https://img.shields.io/badge/QQ%E7%BE%A4-%E5%8A%A0%E5%85%A5-red?logo=tencentqq)](https://qm.qq.com/q/YaGNTJsd0W) 
 </div>
 
@@ -38,6 +38,7 @@
 - [dmidecode](http://savannah.nongnu.org/projects/dmidecode/)
 
 - [nircmd](https://www.nirsoft.net/utils/nircmd.html)
+
 - [PECMD](http://wuyou.net/forum.php?mod=viewthread&tid=205402)
 
 - [Wbox](https://www.horstmuc.de/w32dial.htm)
@@ -53,6 +54,7 @@
 - [stdin82/htfx](https://github.com/stdin82/htfx)
 
 - [abbodi1406/KMS_VL_ALL_AIO](https://github.com/abbodi1406/KMS_VL_ALL_AIO)
+
 - [zbezj/HEU_KMS_Activator](https://github.com/zbezj/HEU_KMS_Activator)
 
 - [Wind4/vlmcsd](https://github.com/Wind4/vlmcsd)
