@@ -184,6 +184,17 @@ if %osver% GEQ 4 (
     rem 电源模式添加 卓越模式
     powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
 
+    if !bigversion! GEQ 22000 (
+        echo 处理Win11变小了的输入法候选项字体大小（大）
+        reg add HKCU\Software\Microsoft\InputMethod\CandidateWindow\CHS\1 /v FontStyleTSF3 /t REG_SZ /d "18.00pt;Regular;;Microsoft YaHei UI" /f
+        echo 处理Win11开始菜单固定项
+        if exist "startmenu11.ppkg" (
+            echo 安装预配包
+            powershell -Command "Install-ProvisioningPackage -PackagePath .\startmenu11.ppkg -ForceInstall -QuietInstall"
+            echo 卸载预配包
+            powershell -Command "Uninstall-ProvisioningPackage -PackagePath .\startmenu11.ppkg"
+        )
+    )
 ) else if %osver% GEQ 2 (
     schtasks /change /tn "\Microsoft\Windows\SystemRestore\SR" /disable 
     schtasks /change /tn "\Microsoft\Windows\Windows Error Reporting\QueueReporting" /disable 
