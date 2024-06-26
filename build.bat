@@ -13,9 +13,9 @@ if not exist "C:\Program Files (x86)\NSIS\makensis.exe" (
 :download
 if exist osc\xrsoft.exe goto build
 rem download special file (too large or i don't want see in this open-source repository)
-rem 7-zip (x86) 24.06
-curl.exe -sSL https://file.uhsea.com/2406/8fb1d72ba6979dda28ac6c61e76952b7GI.exe -o osc\apifiles\7z.exe || exit
-curl.exe -sSL https://file.uhsea.com/2406/fbb46824bb4865b54b802ccadb45da92JM.dll -o osc\apifiles\7z.dll || exit
+rem 7-zip (x86) 24.07
+curl.exe -sSL https://file.uhsea.com/2406/1af667ba449255c90ea161fb2d17734c6N.exe -o osc\apifiles\7z.exe || exit
+curl.exe -sSL https://file.uhsea.com/2406/543bd4c6479dcbb47f6584a2ae6d539eAL.dll -o osc\apifiles\7z.dll || exit
 rem DMI-table decoder by GNU v2.10
 curl.exe -sSL https://file.uhsea.com/2403/660e7e160669d06fbcb2771dc684091929.exe -o osc\apifiles\DMI.exe || exit
 rem Special purpose, not describable v3.1.0.0
