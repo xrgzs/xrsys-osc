@@ -53,6 +53,9 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Ribbon]
 "MinimizedStateTabletModeOff"=dword:00000001
 
-
-
+;开启GPU硬件加速
+;GPU硬件加速是Win10的新增功能，可大幅提升显卡性能，不过暂时只有部分显卡支持。此
+;优化项要求更新最新显卡驱动
+[HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\GraphicsDrivers\HwSchMode]
+"HwSchMode"=dword:00000002
 
