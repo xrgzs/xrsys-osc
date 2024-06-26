@@ -1,4 +1,5 @@
 chcp 936 > nul
+setlocal enabledelayedexpansion
 cd /d "%~dp0"
 
 :regimport
