@@ -323,6 +323,8 @@ if %osver% GEQ 3 (
 if %osver% GEQ 2 (
     bcdedit /timeout 3
     bcdedit /set {current} default
+    echo 禁止开机弹出启动故障界面
+    bcdedit /set {current} bootstatuspolicy ignoreallfailures
     if exist "%SystemDrive%\Windows\System32\wbem\WMIC.exe" (
         wmic computersystem where name="%computername%" set AutomaticManagedPagefile=True
     ) else (
