@@ -150,3 +150,7 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CloudContent]
 "DisableSoftLanding"=dword:00000001
 "DisableWindowsConsumerFeatures"=dword:00000001
+
+;禁止重启后自动打开之前任务
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+"DisableAutomaticRestartSignOn"=dword:00000001
