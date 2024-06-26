@@ -50,6 +50,8 @@ if exist "%SystemDrive%\windows\system32\srclient.dll" (
 )
 
 if %osver% GEQ 4 (
+    for /f "tokens=6 delims=[]. " %%a in ('ver') do set bigversion=%%a
+    for /f "tokens=7 delims=[]. " %%b in ('ver') do set smallversion=%%b
     rem 关闭遥测服务计划任务
     sc config DiagTrack start= disabled
     sc config dmwappushservice start= demand
