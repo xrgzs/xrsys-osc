@@ -27,7 +27,40 @@ SetCompressorDictSize 32
 ; 许可协议页面
 !insertmacro MUI_PAGE_LICENSE ".\osc\LICENSE.txt"
 ; 组件选择页面
+!define MUI_PAGE_CUSTOMFUNCTION_SHOW ComponentsPageShow
 !insertmacro MUI_PAGE_COMPONENTS
+; 自定义页面
+Function ComponentsPageShow
+  ; 获取窗口句柄
+  FindWindow $0 "#32770" "" $HWNDPARENT
+  ; 创建RECT结构体来存储尺寸信息
+  System::Alloc 16 ; RECT结构体大小为16字节
+  Pop $1 ; 将地址存储在$1
+  ; 调用GetClientRect来填充RECT结构体
+  System::Call 'User32::GetClientRect(i $HWNDPARENT, i $1)'
+  ; 从RECT结构体中读取宽度和高度
+  System::Call '*$1(i .r2, i .r3, i .r4, i .r5)' ; r2=left, r3=top, r4=right, r5=bottom
+  IntOp $6 $4 - $2 ; 计算宽度
+  IntOp $7 $5 - $3 ; 计算高度
+  ; 根据窗口尺寸调整组件框大小
+  GetDlgItem $8 $0 1032
+  System::Call "User32::SetWindowPos(i $8, i 0, i 0, i 0, ir6, ir7, i 0)"
+  ; 释放RECT结构体内存
+  System::Free $1
+  ; 获取组件框句柄并调整组件框大小
+	GetDlgItem $1 $0 1006 ;上方提示语
+	ShowWindow $1 ${SW_HIDE}
+	GetDlgItem $1 $0 1021 ;左侧横条
+	ShowWindow $1 ${SW_HIDE}
+	GetDlgItem $1 $0 1022 ;左侧提示语
+	ShowWindow $1 ${SW_HIDE}
+	GetDlgItem $1 $0 1023 ;左侧所需空间
+	ShowWindow $1 ${SW_HIDE}
+	GetDlgItem $1 $0 1042 ;右侧组件描述
+	ShowWindow $1 ${SW_HIDE}
+	GetDlgItem $1 $0 1043 ;右侧组件描述内容
+	ShowWindow $1 ${SW_HIDE}
+FunctionEnd
 ; 安装过程页面
 !insertmacro MUI_PAGE_INSTFILES
 ; 安装完成页面
@@ -63,7 +96,7 @@ VIAddVersionKey PrivateBuild "XRSYS" ;个人内部版本说明
 VIAddVersionKey SpecialBuild "NSIS" ;特殊内部版本说明
 
 
-Section /o "潇然系统部署接口-部署前" XRAPI1
+Section /o "-潇然系统部署接口-部署前" XRAPI1
   ${If} ${FileExists} "$INSTDIR\xrsysstepapifiles.flag"
     DetailPrint "APIFILES已经解压，跳过此操作！"
   ${Else}
@@ -88,7 +121,7 @@ Section /o "潇然系统部署接口-部署前" XRAPI1
   ${EndIf}
 SectionEnd
 
-Section /o "潇然系统部署接口-部署中" XRAPI2
+Section /o "-潇然系统部署接口-部署中" XRAPI2
   ${If} ${FileExists} "$INSTDIR\xrsysstepapi2.flag"
     DetailPrint "API2已经执行，跳过此操作！"
   ${Else}
@@ -102,7 +135,7 @@ Section /o "潇然系统部署接口-部署中" XRAPI2
 	${EndIf}
 SectionEnd
 
-Section /o "潇然系统部署接口-部署后" XRAPI3
+Section /o "-潇然系统部署接口-部署后" XRAPI3
   ${If} ${FileExists} "$INSTDIR\xrsysstepapi3.flag"
     DetailPrint "API3已经执行，跳过此操作！"
   ${Else}
@@ -116,7 +149,7 @@ Section /o "潇然系统部署接口-部署后" XRAPI3
 	${EndIf}
 SectionEnd
 
-Section /o "潇然系统部署接口-登录时" XRAPI4
+Section /o "-潇然系统部署接口-登录时" XRAPI4
   ${If} ${FileExists} "$INSTDIR\xrsysstepapifiles.flag"
     DetailPrint "APIFILES已经解压，跳过此操作！"
   ${Else}
@@ -141,7 +174,7 @@ Section /o "潇然系统部署接口-登录时" XRAPI4
 	${EndIf}
 SectionEnd
 
-Section /o "潇然系统部署接口-进桌面" XRAPI5
+Section /o "-潇然系统部署接口-进桌面" XRAPI5
   ${If} ${FileExists} "$INSTDIR\xrsysstepapi5.flag"
     DetailPrint "API5已经执行，跳过此操作！"
   ${Else}
@@ -155,7 +188,50 @@ Section /o "潇然系统部署接口-进桌面" XRAPI5
 	${EndIf}
 SectionEnd
 
-Section "潇然系统优化工具" XROSC
+SectionGroup "优化设置"
+  Section /o "自行解决正版化"
+    DetailPrint "正在输出TAG-xrsysnokms..."
+    FileOpen $0 "$WINDIR\xrsysnokms.txt" w
+    FileClose $0
+  SectionEnd
+  Section /o "禁用安装运行库"
+    DetailPrint "正在输出TAG-xrsysnoruntime..."
+    FileOpen $0 "$WINDIR\xrsysnoruntime.txt" w
+    FileClose $0
+  SectionEnd
+  Section /o "禁用安装主题"
+    DetailPrint "正在输出TAG-xrsysnotheme..."
+    FileOpen $0 "$WINDIR\xrsysnotheme.txt" w
+    FileClose $0
+  SectionEnd
+  Section /o "禁用安装软件"
+    DetailPrint "正在输出TAG-zjsoftforcepure..."
+    FileOpen $0 "$WINDIR\zjsoftforcepure.txt" w
+    FileClose $0
+  SectionEnd
+  Section /o "强制禁用Windows Update"
+    DetailPrint "正在输出TAG-xrsysfkwu..."
+    FileOpen $0 "$WINDIR\xrsysfkwu.txt" w
+    FileClose $0
+  SectionEnd
+  Section /o "启用UAC"
+    DetailPrint "正在输出TAG-xrsysuac..."
+    FileOpen $0 "$WINDIR\xrsysuac.txt" w
+    FileClose $0
+  SectionEnd
+  Section /o "禁用设置机器名"
+    DetailPrint "正在输出TAG-xrsysnopcname..."
+    FileOpen $0 "$WINDIR\xrsysnopcname.txt" w
+    FileClose $0
+  SectionEnd
+  Section /o "禁用上报安装信息"
+    DetailPrint "正在输出TAG-xrsysnoupdata..."
+    FileOpen $0 "$WINDIR\xrsysnoupdata.txt" w
+    FileClose $0
+  SectionEnd
+SectionGroupEnd
+
+Section "-潇然系统优化工具" XROSC
   SetOutPath "$INSTDIR\osc"
   SetOverwrite try
   DetailPrint "解压相关OSC数据..."
