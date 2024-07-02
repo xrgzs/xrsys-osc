@@ -1,4 +1,4 @@
-// ===============================================================================
+﻿// ===============================================================================
 //                           潇然系统部署背景插件 PECMD 版
 // ===============================================================================
 
@@ -16,7 +16,7 @@ IFEX ! "wall.jpg" ,FILE "%SystemDrive%\Windows\Web\Wallpaper\Windows\img0.jpg"=>
 // 主窗口，启动！
 CALL WIN1
 
-_SUB WIN1,L0T0W%ScrW%H%ScrH%,潇然系统部署背景插件,,imageres.dll#22,#:,,-ntab -nfocus -na -trap
+_SUB WIN1,L0T0W%ScrW%H%ScrH%,潇然系统部署背景插件,,imageres.dll#22,#,,-ntab -nfocus -na -trap
     // ENVI @this.Enable=0
     ENVI @this.Font=12:微软雅黑
     CALL DRAW
@@ -82,15 +82,19 @@ _END
 _SUB WBTN_trans
 
     // 删除图片
-    ENVI @BKG.Visible=0
+    // ENVI @BKG.Visible=0
     
     ENVI 任务栏=开
     CALL 显示任务栏
     
+    // 隐藏窗口 ENVI @WIN1.Visable=:0
+    // 最小化窗口
+    ENVI @WIN1.Visable=*4
+    
     // 恢复隐藏按钮
-    CALC 隐=%ScrW%-51
-    ENVI @隐.*del=
-    LABE -center -vcenter 隐,L%隐%T1W50H30,■,CALL WBTN,0xffffff#0xf0f0f0##0xd2d2d2,16:宋体
+    // CALC 隐=%ScrW%-51
+    // ENVI @隐.*del=
+    // LABE -center -vcenter 隐,L%隐%T1W50H30,■,CALL WBTN,0xffffff#0xf0f0f0##0xd2d2d2,16:宋体
 _END
 
 _SUB SYSINFO
