@@ -191,42 +191,42 @@ SectionEnd
 SectionGroup "优化设置"
   Section /o "自行解决正版化"
     DetailPrint "正在输出TAG-xrsysnokms..."
-    FileOpen $0 "$WINDIR\xrsysnokms.txt" w
+    FileOpen $0 "$WINDIR\Setup\xrsysnokms.txt" w
     FileClose $0
   SectionEnd
   Section /o "禁用安装运行库"
     DetailPrint "正在输出TAG-xrsysnoruntime..."
-    FileOpen $0 "$WINDIR\xrsysnoruntime.txt" w
+    FileOpen $0 "$WINDIR\Setup\xrsysnoruntime.txt" w
     FileClose $0
   SectionEnd
   Section /o "禁用安装主题"
     DetailPrint "正在输出TAG-xrsysnotheme..."
-    FileOpen $0 "$WINDIR\xrsysnotheme.txt" w
+    FileOpen $0 "$WINDIR\Setup\xrsysnotheme.txt" w
     FileClose $0
   SectionEnd
   Section /o "禁用安装软件"
     DetailPrint "正在输出TAG-zjsoftforcepure..."
-    FileOpen $0 "$WINDIR\zjsoftforcepure.txt" w
+    FileOpen $0 "$WINDIR\Setup\zjsoftforcepure.txt" w
     FileClose $0
   SectionEnd
   Section /o "强制禁用Windows Update"
     DetailPrint "正在输出TAG-xrsysfkwu..."
-    FileOpen $0 "$WINDIR\xrsysfkwu.txt" w
+    FileOpen $0 "$WINDIR\Setup\xrsysfkwu.txt" w
     FileClose $0
   SectionEnd
   Section /o "启用UAC"
     DetailPrint "正在输出TAG-xrsysuac..."
-    FileOpen $0 "$WINDIR\xrsysuac.txt" w
+    FileOpen $0 "$WINDIR\Setup\xrsysuac.txt" w
     FileClose $0
   SectionEnd
   Section /o "禁用设置机器名"
     DetailPrint "正在输出TAG-xrsysnopcname..."
-    FileOpen $0 "$WINDIR\xrsysnopcname.txt" w
+    FileOpen $0 "$WINDIR\Setup\xrsysnopcname.txt" w
     FileClose $0
   SectionEnd
   Section /o "禁用上报安装信息"
     DetailPrint "正在输出TAG-xrsysnoupdata..."
-    FileOpen $0 "$WINDIR\xrsysnoupdata.txt" w
+    FileOpen $0 "$WINDIR\Setup\xrsysnoupdata.txt" w
     FileClose $0
   SectionEnd
 SectionGroupEnd
