@@ -189,6 +189,16 @@ Section /o "-潇然系统部署接口-进桌面" XRAPI5
 SectionEnd
 
 SectionGroup "优化设置"
+  Section /o "清理上次运行信息"
+    FindFiles $0 "$WINDIR\Setup\*.txt"
+    loop:
+        Pop $R0 ; 获取文件名
+        StrCmp $R0 "" done ; 检查是否已经遍历完所有文件
+        DetailPrint "Deleting $R0"
+        Delete "$R0" ; 删除文件
+        Goto loop
+    done:
+  SectionEnd
   Section /o "自行解决正版化"
     DetailPrint "正在输出TAG-xrsysnokms..."
     FileOpen $0 "$WINDIR\Setup\xrsysnokms.txt" w
