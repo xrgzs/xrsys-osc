@@ -120,6 +120,7 @@ echo %pinpai% | find /i "ROG" && set name=ROG&& goto findok
 echo %pinpai% | find /i "ASRock" && set name=ASRock&& goto findok
 echo %pinpai% | find /i "GIGABYTE" && set name=Gigabyte&& goto findok
 echo %pinpai% | find /i "msi" && set name=Msi&& goto findok
+echo %pinpai% | find /i "micro-star" && set name=Msi&& goto findok
 echo %pinpai% | find /i "BIOSTAR" && set name=Biostar&& goto findok
 echo %pinpai% | find /i "Soyo" && set name=Soyo&& goto findok
 echo %pinpai% | find /i "Colorful" && set name=Colorful&& goto findok
