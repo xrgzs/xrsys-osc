@@ -2,18 +2,11 @@
 setlocal enabledelayedexpansion
 chcp 936 > nul
 cd /d "%~dp0"
-title 创建用户 (Build 2024.6.18)
+title 创建用户 (Build 2024.7.21)
 rem windows xp not create new user
 ver | find /i "5.1." && exit
 set name=User
 set pcname=Admin-PC
-
-:getxrsysadmintag
-rem for xrsys preload admin api
-if exist "%SystemDrive%\Windows\Setup\xrsysadmin.txt" ( 
-    set name=Administrator
-    del /f /q "%SystemDrive%\Windows\Setup\xrsysnewuser.txt"
-)
 
 :getpcname
 rem 生成四个随机字母
@@ -32,7 +25,11 @@ if exist "%SystemDrive%\Windows\Setup\xrsyspcname.txt" (
 
 :getspoem
 rem support oem special
-if exist "%SystemDrive%\Windows\Setup\zjsoftseewo.txt" (
+if exist "%SystemDrive%\Windows\Setup\xrsysadmin.txt" (
+    set name=Administrator
+    del /f /q "%SystemDrive%\Windows\Setup\xrsysnewuser.txt"
+    goto findok
+) else if exist "%SystemDrive%\Windows\Setup\zjsoftseewo.txt" (
     set name=seewo
     set pcname=seewo-PC
     goto findok
@@ -44,11 +41,7 @@ if exist "%SystemDrive%\Windows\Setup\zjsoftseewo.txt" (
     set name=Admin
     set pcname=Admin-PC
     goto findok
-)
-
-:getxrsysnewusertag
-rem for xrsys preload newuser api
-if exist "%SystemDrive%\Windows\Setup\xrsysnewuser.txt" ( 
+) else if exist "%SystemDrive%\Windows\Setup\xrsysnewuser.txt" ( 
     set /P name=<"%SystemDrive%\Windows\Setup\xrsysnewuser.txt"
     del /f /q "%SystemDrive%\Windows\Setup\xrsysadmin.txt"
     goto findok
@@ -180,7 +173,6 @@ NET USERS %name% /PASSWORDREQ:NO
 NET USERS %name% /LOGONPASSWORDCHG:NO 
 NET LOCALGROUP Administrators %name% /ADD
 rem password no expiration
-NET Accounts /MaxPwAge:Unlimited
 NetUser.exe %name% /pwnexp:y
 
 @REM 不生效，unattend会强制覆盖
