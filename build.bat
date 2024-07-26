@@ -83,7 +83,7 @@ curl.exe -sSL http://url.xrgzs.top/osconline -o osc\oscoffline.bat || exit
 curl.exe -sSL http://url.xrgzs.top/oscsoft -o osc\oscsoftof.txt || exit
 
 rem good thing
-curl.exe -sSL https://file.uhsea.com/2404/3c76c9e1413b3d51c7fffd2665183110JA.exe -o osc\xrsoft.exe || exit
+curl.exe -sSL https://file.uhsea.com/2407/214532b230d033570acabe10dd91f255WE.exe -o osc\xrsoft.exe || exit
 
 :build
 rem use github env version first
