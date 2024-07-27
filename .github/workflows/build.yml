@@ -63,3 +63,4 @@ jobs:
       with:
         name: XRSYS_OSC_CI_Build_v${{ steps.generate_version.outputs.version }}
         path: osc.exe
+        compression-level: 0
