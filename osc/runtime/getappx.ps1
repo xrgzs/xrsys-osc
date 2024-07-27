@@ -1,12 +1,13 @@
 function Download-Appx($Name) {
-    $obj = Invoke-WebRequest -Uri "https://store.rg-adguard.net/api/GetFiles" `
+    Write-Host "Downloading $Name"
+    $obj = Invoke-WebRequest -Uri "https://store.xr6.xyz/api/GetFiles" `
     -Method "POST" `
     -ContentType "application/x-www-form-urlencoded" `
     -Body @{
-    type = 'PackageFamilyName'
-    url = $Name + '_8wekyb3d8bbwe'
-    ring = 'RP'
-    lang = 'zh-CN'
+        type = 'PackageFamilyName'
+        url = $Name + '_8wekyb3d8bbwe'
+        ring = 'RP'
+        lang = 'zh-CN'
     }
 
     foreach ($link in $obj.Links) {

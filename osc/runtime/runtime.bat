@@ -1,5 +1,6 @@
 chcp 936 > nul
 cd /d "%~dp0"
+title [OSC]运行库智能安装器
 if not defined osver exit
 echo [OSC]正在安装运行库...>"%systemdrive%\Windows\Setup\wallname.txt"
 if exist "%SystemDrive%\WINDOWS\Setup\xrsysnoruntime.txt" exit
