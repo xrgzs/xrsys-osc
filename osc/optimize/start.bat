@@ -246,12 +246,6 @@ if %osver% GEQ 4 (
         echo 处理Win11变小了的输入法候选项字体大小（大）
         reg add HKCU\Software\Microsoft\InputMethod\CandidateWindow\CHS\1 /v FontStyleTSF3 /t REG_SZ /d "18.00pt;Regular;;Microsoft YaHei UI" /f
         if !bigversion! GEQ 22621 (
-            echo 启用BBR加速TCP拥塞算法
-            netsh int tcp set supplemental Template=Internet CongestionProvider=bbr2
-            netsh int tcp set supplemental Template=Datacenter CongestionProvider=bbr2
-            netsh int tcp set supplemental Template=Compat CongestionProvider=bbr2
-            netsh int tcp set supplemental Template=DatacenterCustom CongestionProvider=bbr2
-            netsh int tcp set supplemental Template=InternetCustom CongestionProvider=bbr2
             echo 任务栏已满时合并
             reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced /f /v TaskbarGlomLevel /t REG_DWORD /d 1
             echo 任务栏隐藏AI图标
