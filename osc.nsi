@@ -191,6 +191,7 @@ SectionEnd
 SectionGroup "优化设置"
   Section /o "清理上次运行信息"
     nsExec::ExecToLog 'cmd.exe /c "del /f /q "%WinDir%\\Setup\\*.txt""'
+    nsExec::ExecToLog 'cmd.exe /c "del /f /q "%WinDir%\\Version.txt""'
   SectionEnd
   Section /o "自行解决正版化"
     DetailPrint "正在输出TAG-xrsysnokms..."
