@@ -1,15 +1,24 @@
 function Download-Appx($Name) {
     Write-Host "Downloading $Name"
-    $obj = Invoke-WebRequest -Uri "https://store.xr6.xyz/api/GetFiles" `
-    -Method "POST" `
-    -ContentType "application/x-www-form-urlencoded" `
-    -Body @{
+    $body = @{
         type = 'PackageFamilyName'
         url = $Name + '_8wekyb3d8bbwe'
         ring = 'RP'
         lang = 'zh-CN'
     }
-
+    while ($true) {
+        try {
+            $obj = Invoke-WebRequest -Uri "https://store.xr6.xyz/api/GetFiles" `
+            -Method "POST" `
+            -ContentType "application/x-www-form-urlencoded" `
+            -Body $body
+            break
+        }
+        catch {
+            Write-Host "请求失败，正在进行重试..."
+            Start-Sleep -Seconds 3
+        }
+    }
     foreach ($link in $obj.Links) {
         if ($link.outerHTML -match '(?<=<a\b[^>]*>).*?(?=</a>)') {
             $linkText = $Matches[0]
@@ -18,6 +27,7 @@ function Download-Appx($Name) {
                 if (Test-Path -Path $linkText) {
                     Write-Warning "Already exists, skiping $linkText"
                 } else {
+                    Write-Host "== $linkText ($($link.href))"
                     Invoke-WebRequest -Uri $link.href -OutFile "$PSScriptRoot\Extension\$linkText"
                 }
             }
