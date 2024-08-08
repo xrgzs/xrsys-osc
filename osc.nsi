@@ -212,6 +212,11 @@ SectionGroup "优化设置"
     FileOpen $0 "$WINDIR\Setup\zjsoftforcepure.txt" w
     FileClose $0
   SectionEnd
+  Section /o "启用安装软件"
+    DetailPrint "正在输出TAG-zjsoftforce..."
+    FileOpen $0 "$WINDIR\Setup\zjsoftforce.txt" w
+    FileClose $0
+  SectionEnd
   Section /o "强制禁用Windows Update"
     DetailPrint "正在输出TAG-xrsysfkwu..."
     FileOpen $0 "$WINDIR\Setup\xrsysfkwu.txt" w
