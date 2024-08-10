@@ -74,18 +74,9 @@ if %osver% GEQ 2 (
 if %osver% GEQ 3 (
     echo 关闭保留储存
     reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager" /v ShippedWithReserves /t REG_DWORD /d 0 /f
-    attrib -s -h -r "%SystemDrive%\WINDOWS\System32\OneDriveSetup.exe"
-    if exist "%SystemDrive%\WINDOWS\System32\OneDriveSetup.exe" (
-        move /y "%SystemDrive%\WINDOWS\System32\OneDriveSetup.exe" "%SystemDrive%\User\Public\Desktop\阻止安装的OneDriveSetup.exe"
-        del /f /q "%SystemDrive%\WINDOWS\System32\OneDriveSetup.exe"
-    )
-    attrib -s -h -r "%SystemDrive%\WINDOWS\SysWOW64\OneDriveSetup.exe"
-    if exist "%SystemDrive%\WINDOWS\SysWOW64\OneDriveSetup.exe" (
-        move /y "%SystemDrive%\WINDOWS\SysWOW64\OneDriveSetup.exe" "%SystemDrive%\User\Public\Desktop\阻止安装的OneDriveSetup.exe"
-        del /f /q "%SystemDrive%\WINDOWS\SysWOW64\OneDriveSetup.exe"
-    )
-    reg delete HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v OneDrive /f
-    reg delete HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v OneDriveSetup /f
+    echo 处理Onedrive开机启动项
+    reg delete HKU\.DEFAULT\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v OneDrive /f
+    reg delete HKU\.DEFAULT\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v OneDriveSetup /f
     echo 禁止自动安装微软电脑管家
     rd /s /q "%ProgramData%\Windows Master Store"
     echo noway>"%ProgramData%\Windows Master Store"
