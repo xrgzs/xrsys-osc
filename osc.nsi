@@ -60,6 +60,9 @@ Function ComponentsPageShow
 	ShowWindow $1 ${SW_HIDE}
 	GetDlgItem $1 $0 1043 ;右侧组件描述内容
 	ShowWindow $1 ${SW_HIDE}
+
+  ; 创建Windir\Setup文件夹
+  CreateDirectory "$WINDIR\Setup"
 FunctionEnd
 ; 安装过程页面
 !insertmacro MUI_PAGE_INSTFILES
