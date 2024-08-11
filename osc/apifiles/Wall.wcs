@@ -52,7 +52,15 @@ _SUB DRAW
     CALL SYSINFO
     // 读取镜像状态
     REGI .HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\State\ImageState,ImageState
-    IFEX |%ImageState%=IMAGE_STATE_COMPLETE,CALL WBTN
+    // 桌面下显示最小化按钮
+    IFEX |%ImageState%=IMAGE_STATE_COMPLETE,
+    {
+        CALL WBTN
+    }!
+    {
+        FIND explorer.exe,CALL WBTN
+    }
+    // PE调试时显示最小化按钮
     IFEX x:\Windows\Xiaoran.ico,CALL WBTN
     // 副标题显示镜像信息
     READ "%SystemDrive%\Windows\Version.txt",1,XRSYSVER
