@@ -70,6 +70,12 @@ jobs:
       run: |
         cmd /c build.bat
 
+    - name: Disconnect Cloudfalre WRAP
+      shell: pwsh
+      run: |
+        Set-Location "C:\Program Files\Cloudflare\Cloudflare WARP"
+        .\warp-cli.exe disconnect
+
     - name: Create Release and Upload Asset
       uses: softprops/action-gh-release@v2
       with:

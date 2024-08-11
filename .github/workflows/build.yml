@@ -78,6 +78,12 @@ jobs:
       run: |
         cmd /c build.bat
 
+    - name: Disconnect Cloudfalre WRAP
+      shell: pwsh
+      run: |
+        Set-Location "C:\Program Files\Cloudflare\Cloudflare WARP"
+        .\warp-cli.exe disconnect
+  
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
