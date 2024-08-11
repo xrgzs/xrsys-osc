@@ -29,7 +29,7 @@ jobs:
         }
         ipconfig /flushdns
 
-    - name: Install Cloudfalre WRAP
+    - name: Install Cloudflare WRAP
       shell: pwsh
       run: |
         Write-Host "installing Cloudflare WARP..."
@@ -78,7 +78,7 @@ jobs:
       run: |
         cmd /c build.bat
 
-    - name: Disconnect Cloudfalre WRAP
+    - name: Disconnect Cloudflare WRAP
       shell: pwsh
       run: |
         Set-Location "C:\Program Files\Cloudflare\Cloudflare WARP"
