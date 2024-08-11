@@ -19,8 +19,26 @@ jobs:
             Set-DnsClientServerAddress -InterfaceIndex $adapter.ifIndex -ResetServerAddresses
             Set-DnsClientServerAddress -InterfaceIndex $adapter.ifIndex -ServerAddresses $newDnsServers
         }
-        echo "192.3.232.250 file.uhsea.com" >> C:\Windows\System32\drivers\etc\hosts
         ipconfig /flushdns
+
+    - name: Install Cloudfalre WRAP
+      shell: pwsh
+      run: |
+        Write-Host "installing Cloudflare WARP..."
+        Invoke-WebRequest -Uri "https://1111-releases.cloudflareclient.com/win/latest" -OutFile "C:\cfwarp.msi"
+        Start-Process "msiexec.exe" -ArgumentList "/i C:\cfwarp.msi /qn" -Wait
+        Set-Location "C:\Program Files\Cloudflare\Cloudflare WARP"
+        .\warp-cli.exe registration new
+        .\warp-cli.exe connect
+        
+        # Add a loop to wait for the status to be connected
+        while ($true) {
+            $output = .\warp-cli.exe status
+            if ($output -like "*Status update: Connected*") {
+                break
+            }
+            Start-Sleep -Seconds 5  # Wait for 5 seconds before checking again
+        }
 
     - name: Generate version based on current date and time
       id: generate_version
