@@ -1,8 +1,8 @@
 chcp 936 > nul
 title OSConline
 cd /d "%~dp0"
-set url1=http://xr.66ccff.love
-set url2=http://url.xrgzs.top
+set url1=http://url.xrgzs.top
+set url2=http://xrgzs.6655.la/url
 set url=%url1%
 set rtc=0
 
@@ -14,10 +14,6 @@ if exist pack.7z (
     echo ok >unpacked.log
 )
 
-@rem ==========================================
-@rem 提高稳定性，强制跳过联网、使用osc自带oscoffline
-@rem goto offline
-@rem ==========================================
 if exist "%SystemDrive%\Windows\Setup\Set\zjsoftforceoffline.txt" goto offline
 if exist "%SystemDrive%\Windows\Setup\zjsoftforceoffline.txt" goto offline
 ping www.aliyun.com -4 -n 2 >nul
