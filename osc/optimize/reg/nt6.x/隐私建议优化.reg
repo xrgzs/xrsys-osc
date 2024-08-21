@@ -154,3 +154,9 @@ Windows Registry Editor Version 5.00
 ;禁止重启后自动打开之前任务
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
 "DisableAutomaticRestartSignOn"=dword:00000001
+
+;关闭跨设备共享
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\CDP]
+"RomeSdkChannelUserAuthzPolicy"=dword:00000000
+"NearShareChannelUserAuthzPolicy"=dword:00000000
+"CdpSessionUserAuthzPolicy"=dword:00000000
