@@ -11,11 +11,12 @@ function Download-Appx($Name) {
             $obj = Invoke-WebRequest -Uri "https://store.xr6.xyz/api/GetFiles" `
             -Method "POST" `
             -ContentType "application/x-www-form-urlencoded" `
-            -Body $body
+            -Body $body `
+            -ConnectionTimeoutSeconds 5 -OperationTimeoutSeconds 5
             break
         }
         catch {
-            Write-Host "请求失败，正在进行重试..."
+            Write-Host "请求失败，正在进行重试... $_"
             Start-Sleep -Seconds 3
         }
     }
