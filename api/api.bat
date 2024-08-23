@@ -310,6 +310,8 @@ if %osver% GEQ 3 (
     echo 关闭显示首次登录动画
     reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v EnableFirstLogonAnimation /t REG_DWORD /d 0 /f
     reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v EnableFirstLogonAnimation /t REG_DWORD /d 0 /f
+    echo 禁用BitLocker自动加密
+    reg add "HKLM\SYSTEM\CurrentControlSet\BitLocker" /v "PreventDeviceEncryption" /t REG_DWORD /d 1 /f
 )
 if %osver% GEQ 2 (
     bcdedit /timeout 3
