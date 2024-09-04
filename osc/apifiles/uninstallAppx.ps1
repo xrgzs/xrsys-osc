@@ -24,6 +24,7 @@ Get-AppxPackage *MicrosoftCorporationII.MicrosoftFamily* -AllUsers | Remove-Appx
 Get-AppxPackage *MicrosoftTeams* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *MSTeams* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *Microsoft.OutlookForWindows* -AllUsers | Remove-AppxPackage
+Get-AppxPackage *MicrosoftWindows.Client.WebExperience* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.BingWeather* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.GamingApp* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.MicrosoftOfficeHub* -AllUsers | Remove-AppxPackage
@@ -36,7 +37,6 @@ Get-AppxPackage *Microsoft.OutlookForWindows* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.YourPhone* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.windowscommunicationsapps* -AllUsers | Remove-AppxPackage # 邮件和日历
 # Get-AppxPackage *MicrosoftCorporationII.QuickAssist* -AllUsers | Remove-AppxPackage
-# Get-AppxPackage *MicrosoftWindows.Client.WebExperience* -AllUsers | Remove-AppxPackage
 
 # Uninstall Appx from the computer for all users
 # The Remove-AppxProvisionedPackage cmdlet removes app packages (.appx) from a Windows image.
@@ -65,6 +65,7 @@ Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Micros
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.XboxApp*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*MicrosoftCorporationII.MicrosoftFamily*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.MSTeams*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*MicrosoftWindows.Client.WebExperience*"} | Remove-AppxProvisionedPackage -Online
 
 # Import registry to disable Microsoft PC Manager
 reg.exe import .\mspcmgr.reg /reg:32
