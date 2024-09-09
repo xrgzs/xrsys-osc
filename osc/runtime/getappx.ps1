@@ -8,7 +8,7 @@ function Download-Appx($Name) {
     }
     while ($true) {
         try {
-            $obj = Invoke-WebRequest -Uri "https://store.xr6.xyz/api/GetFiles" `
+            $obj = Invoke-WebRequest -Uri "https://store.rg-adguard.net/api/GetFiles" `
             -Method "POST" `
             -ContentType "application/x-www-form-urlencoded" `
             -Body $body `
@@ -40,7 +40,6 @@ New-Item -ItemType Directory -Path "$PSScriptRoot\Extension"
 
 Invoke-WebRequest -Uri "https://alist.xrgzs.top/d/pxy/System/Windows/Win10/Res/Microsoft.HEVCVideoExtension.xml"  -OutFile "$PSScriptRoot\Extension\Microsoft.HEVCVideoExtension.xml"
 
-Download-Appx 'Microsoft.VCLibs.140.00'
 Download-Appx 'Microsoft.AV1VideoExtension'
 Download-Appx 'Microsoft.HEIFImageExtension'
 Download-Appx 'Microsoft.MPEG2VideoExtension'
@@ -49,3 +48,4 @@ Download-Appx 'Microsoft.VP9VideoExtensions'
 Download-Appx 'Microsoft.WebMediaExtensions'
 Download-Appx 'Microsoft.WebpImageExtension'
 Download-Appx 'Microsoft.HEVCVideoExtensions'
+Download-Appx 'Microsoft.VCLibs.140.00'
