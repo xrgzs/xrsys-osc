@@ -8,7 +8,7 @@ if exist "%systemdrive%\Windows\SysWOW64\wscript.exe" (
     move /y "%~dp0apifiles\PECMD64.exe" "%~dp0apifiles\PECMD.exe"
     move /y "%~dp0apifiles\DrvIndex64.exe" "%~dp0apifiles\DrvIndex.exe"
 )
-set aria="%~dp0aria2c.exe" --check-certificate=false --save-not-found=false --always-resume=false --auto-save-interval=10 --auto-file-renaming=false --allow-overwrite=true -c
+set aria="%~dp0aria2c.exe" -c -R --retry-wait=5 --check-certificate=false --save-not-found=false --always-resume=false --auto-save-interval=10 --auto-file-renaming=false --allow-overwrite=true
 set dmi="%~dp0apifiles\DMI.exe"
 set netuser="%~dp0apifiles\NetUser.exe"
 set nircmd="%~dp0apifiles\nircmd.exe"
