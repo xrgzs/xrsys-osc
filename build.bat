@@ -69,8 +69,8 @@ rem EnterpriseG SKU xrm-ms file
 curl.exe -sSL "https://api.xrgzs.top/lanzou/?type=down&url=https://xrgzs.lanzouv.com/itk3827giati" -o osc\xrkms\EnterpriseG.cab || exit
 rem https://github.com/abbodi1406/KMS_VL_ALL_AIO v52 modified server address
 curl.exe -sSL "https://api.xrgzs.top/lanzou/?type=down&url=https://xrgzs.lanzouv.com/iEOKz27gibqb" -o osc\xrkms\KMS_VL_ALL_AIO.cmd || exit
-rem https://github.com/zbezj/HEU_KMS_Activator v42.1.0
-curl.exe -sSL "https://api.xrgzs.top/lanzou/?type=down&url=https://xrgzs.lanzouv.com/iYE4o27gidtg" -o osc\xrkms\kms.exe || exit
+rem https://github.com/zbezj/HEU_KMS_Activator v42.2.0
+curl.exe -sSL "https://api.xrgzs.top/lanzou/?type=down&url=https://xrgzs.lanzouv.com/i8NFT2a8fagh" -o osc\xrkms\kms.exe || exit
 rem https://github.com/Wind4/vlmcsd/releases v1113
 curl.exe -sSL "https://api.xrgzs.top/lanzou/?type=down&url=https://xrgzs.lanzouv.com/ibdGz27gieud" -o osc\xrkms\vlmcs.exe || exit
 
