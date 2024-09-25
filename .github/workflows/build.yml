@@ -75,11 +75,11 @@ jobs:
     #     nsis-version: 3.09
 
     - name: Build XROSC
-      shell: cmd
+      shell: pwsh
       env:
         GITHUB_WORKFLOW_VERSION: ${{ steps.generate_version.outputs.version }}
       run: |
-        cmd /c build.bat
+        . .\build.ps1
 
     # - name: Disconnect Cloudflare WRAP
     #   shell: pwsh
