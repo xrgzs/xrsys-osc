@@ -1,4 +1,9 @@
-function Download-Appx($Name) {
+$ExtPath = Join-Path $PSScriptRoot ".." "osc" "runtime" "Extension"
+
+Remove-Item -Path $ExtPath -Force
+New-Item -ItemType Directory -Path $ExtPath | Out-Null
+
+function Get-Appx([string]$Name) {
     Write-Host "Downloading $Name"
     $body = @{
         type = 'PackageFamilyName'
@@ -29,23 +34,21 @@ function Download-Appx($Name) {
                     Write-Warning "Already exists, skiping $linkText"
                 } else {
                     Write-Host "== $linkText ($($link.href))"
-                    Invoke-WebRequest -Uri $link.href -OutFile "$PSScriptRoot\Extension\$linkText"
+                    Invoke-WebRequest -Uri $link.href -OutFile "$ExtPath\$linkText"
                 }
             }
         }
     }
 }
-Remove-Item -Path "$PSScriptRoot\Extension" -Force
-New-Item -ItemType Directory -Path "$PSScriptRoot\Extension"
 
-Invoke-WebRequest -Uri "https://alist.xrgzs.top/d/pxy/System/Windows/Win10/Res/Microsoft.HEVCVideoExtension.xml"  -OutFile "$PSScriptRoot\Extension\Microsoft.HEVCVideoExtension.xml"
+Invoke-WebRequest -Uri "https://alist.xrgzs.top/d/pxy/System/Windows/Win10/Res/Microsoft.HEVCVideoExtension.xml"  -OutFile "$ExtPath\Microsoft.HEVCVideoExtension.xml"
 
-Download-Appx 'Microsoft.AV1VideoExtension'
-Download-Appx 'Microsoft.HEIFImageExtension'
-Download-Appx 'Microsoft.MPEG2VideoExtension'
-Download-Appx 'Microsoft.RawImageExtension'
-Download-Appx 'Microsoft.VP9VideoExtensions'
-Download-Appx 'Microsoft.WebMediaExtensions'
-Download-Appx 'Microsoft.WebpImageExtension'
-Download-Appx 'Microsoft.HEVCVideoExtensions'
-Download-Appx 'Microsoft.VCLibs.140.00'
+Get-Appx 'Microsoft.AV1VideoExtension'
+Get-Appx 'Microsoft.HEIFImageExtension'
+Get-Appx 'Microsoft.MPEG2VideoExtension'
+Get-Appx 'Microsoft.RawImageExtension'
+Get-Appx 'Microsoft.VP9VideoExtensions'
+Get-Appx 'Microsoft.WebMediaExtensions'
+Get-Appx 'Microsoft.WebpImageExtension'
+Get-Appx 'Microsoft.HEVCVideoExtensions'
+Get-Appx 'Microsoft.VCLibs.140.00'
