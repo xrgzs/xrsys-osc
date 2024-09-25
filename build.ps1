@@ -6,24 +6,33 @@ Set-Location $PSScriptRoot
 # 下载文件
 function Get-LanzouFile {
     param(
-        [Parameter(Mandatory = $true,Position=0)]
+        [Parameter(Mandatory = $true, Position = 0)]
         [string]
         $Uri,
         
-        [Parameter(Mandatory = $true,Position=1)]
+        [Parameter(Mandatory = $true, Position = 1)]
         [string]
         $OutFile
     )
-
+    Write-Host "Downloading $Uri to $OutFile..."
     try {
-        Invoke-WebRequest -Uri "https://api.xrgzs.top/lanzou/?type=down&url=$Uri" -OutFile $OutFile -ErrorAction Stop -ConnectionTimeoutSeconds 3
+        Write-Host "Using api.xrgzs.top..."
+        Invoke-WebRequest -Uri "https://api.xrgzs.top/lanzou/?type=down&url=$Uri" -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
+       
     }
     catch {
         try {
-            Invoke-WebRequest -Uri "https://api.hanximeng.com/lanzou/?type=down&url=$Uri" -OutFile $OutFile -ErrorAction Stop -ConnectionTimeoutSeconds 3
+            Write-Host "Using api.hanximeng.com..."
+            Invoke-WebRequest -Uri "https://api.hanximeng.com/lanzou/?type=down&url=$Uri" -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
         }
         catch {
-            Invoke-WebRequest -Uri "https://lz.qaiu.top/parser?url=$Uri" -OutFile $OutFile -ErrorAction Stop -ConnectionTimeoutSeconds 3
+            try {
+                Write-Host "Using lz.qaiu.top..."
+                Invoke-WebRequest -Uri "https://lz.qaiu.top/parser?url=$Uri" -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
+            }
+            catch {
+                Write-Error "Failed to download $Uri. ($_)"
+            }
         }
     }
 }
@@ -47,8 +56,8 @@ else {
     Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/ixdbP27giisf" -OutFile "osc\xrsoft.exe"
 
     # 下载其他文件
-    Invoke-WebRequest -Uri "http://url.xrgzs.top/osconline" -OutFile "osc\oscoffline.bat" -ErrorAction Stop -ConnectionTimeoutSeconds 3
-    Invoke-WebRequest -Uri "http://url.xrgzs.top/oscsoft" -OutFile "osc\oscsoftof.txt" -ErrorAction Stop -ConnectionTimeoutSeconds 3
+    Invoke-WebRequest -Uri "http://url.xrgzs.top/osconline" -OutFile "osc\oscoffline.bat" -ErrorAction Stop
+    Invoke-WebRequest -Uri "http://url.xrgzs.top/oscsoft" -OutFile "osc\oscsoftof.txt" -ErrorAction Stop
 }
 
 # 构建
