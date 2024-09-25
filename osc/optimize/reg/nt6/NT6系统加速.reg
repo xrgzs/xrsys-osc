@@ -1,51 +1,49 @@
 Windows Registry Editor Version 5.00
 
 ;===============================================================
-;×ÊÔ´¹ÜÀíÆ÷Ïà¹Ø
+;èµ„æºç®¡ç†å™¨ç›¸å…³
 
-;µ±×ÊÔ´¹ÜÀíÆ÷±ÀÀ£Ê±Ôò×Ô¶¯ÖØÆô×ÊÔ´¹ÜÀíÆ÷
+;å½“èµ„æºç®¡ç†å™¨å´©æºƒæ—¶åˆ™è‡ªåŠ¨é‡å¯èµ„æºç®¡ç†å™¨
 [HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Winlogon]
 "AutoRestartShell"=dword:00000001
 
 [HKEY_CURRENT_USER\Control Panel\Desktop]
-;×Ô¶¯¹Ø±ÕÍ£Ö¹ÏìÓ¦µÄ³ÌĞò
+;è‡ªåŠ¨å…³é—­åœæ­¢å“åº”çš„ç¨‹åº
 "AutoEndTasks"="1"
-;Ìá¸ßÇ°Ì¨³ÌĞòµÄÏÔÊ¾ËÙ¶È
+;æé«˜å‰å°ç¨‹åºçš„æ˜¾ç¤ºé€Ÿåº¦
 "ForegroundLockTimeout"=dword:00000000
-;ÍÏ¶¯´°¿ÚÊ±ÏÔÊ¾´°¿ÚÄÚÈİ
+;æ‹–åŠ¨çª—å£æ—¶æ˜¾ç¤ºçª—å£å†…å®¹
 "DragFullWindows"="1"
-;¼Ó¿ì²Ëµ¥ÏÔÊ¾ËÙ¶È
+;åŠ å¿«èœå•æ˜¾ç¤ºé€Ÿåº¦
 "MenuShowDelay"="0"
-;¼Ó¿ì¿ª¹Ø»ú»úËÙ¶È,×Ô¶¯¹Ø±ÕÍ£Ö¹ÏìÓ¦
-"HungAppTimeout"="1000"
-;×Ô¶¯¹Ø±ÕÎŞ·´Ó¦µÄ³ÌĞò£¬±ÜÃâÏµÍ³µÄ¡°ËÀ»ú¡±Òş»¼
+;è‡ªåŠ¨å…³é—­æ— ååº”çš„ç¨‹åºï¼Œé¿å…ç³»ç»Ÿçš„â€œæ­»æœºâ€éšæ‚£
 "AutoEndTasks"="1"
-;¼Ó¿ì¹Ø±Õ³ÌĞòµÈ´ıÊ±¼ä£¬¼Ó¿ìÏµÍ³´¦ÀíËÙ¶È¡£
+;åŠ å¿«å…³é—­ç¨‹åºç­‰å¾…æ—¶é—´ï¼ŒåŠ å¿«ç³»ç»Ÿå¤„ç†é€Ÿåº¦ã€‚
 "WaitToKillAppTimeout"="2000"
 
-;¿ªÆô×Ô¶¯Ë¢ĞÂ£¬·ÀÖ¹¼ÙËÀ
+;å¼€å¯è‡ªåŠ¨åˆ·æ–°ï¼Œé˜²æ­¢å‡æ­»
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
 "AutoRestartShell"=dword:00000001
-;½ûÖ¹µÇÂ¼ºó´´½¨³É¹¦µÇÂ¼±¨¸æ¹¦ÄÜ
+;ç¦æ­¢ç™»å½•ååˆ›å»ºæˆåŠŸç™»å½•æŠ¥å‘ŠåŠŸèƒ½
 ;"ReportBootOk"="0"
 
 
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer]
-;×ÜÊÇ´ÓÄÚ´æÖĞĞ¶ÔØÎŞÓÃµÄ¶¯Ì¬Á´½Ó
+;æ€»æ˜¯ä»å†…å­˜ä¸­å¸è½½æ— ç”¨çš„åŠ¨æ€é“¾æ¥
 "AlwaysUnloadDll"=dword:00000001
-;¼Ó´óÏµÍ³µÄÍ¼±ê»º³å£¬Ìá¸ßÏµÍ³¿ª»úËÙ¶È**
+;åŠ å¤§ç³»ç»Ÿçš„å›¾æ ‡ç¼“å†²ï¼Œæé«˜ç³»ç»Ÿå¼€æœºé€Ÿåº¦**
 "Max Cached Icons"="2000"
 
-;Çå³ıÄÚ´æÄÚ±»²»Ê¹ÓÃµÄDLLÎÄ¼ş
+;æ¸…é™¤å†…å­˜å†…è¢«ä¸ä½¿ç”¨çš„DLLæ–‡ä»¶
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AlwaysUnloadDLL]
 @="1"
 
-;´°¿ÚÄÚ¶¯»­¿Ø¼şºÍÔªËØ
+;çª—å£å†…åŠ¨ç”»æ§ä»¶å’Œå…ƒç´ 
 ;[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ComboBoxAnimation]
 ;"DefaultApplied"=dword:00000000
 ;
-;ÈÎÎñÀ¸ºÍ¿ªÊ¼²Ëµ¥ÖĞµÄ¶¯»­
+;ä»»åŠ¡æ å’Œå¼€å§‹èœå•ä¸­çš„åŠ¨ç”»
 ;[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\TaskbarAnimations]
 ;"DefaultApplied"=dword:00000000
 ;"DefaultValue"=dword:00000000
@@ -58,61 +56,61 @@ Windows Registry Editor Version 5.00
 ;"DefaultApplied"=dword:00000000
 ;"DefaultValue"=dword:00000000
 ;
-;Æ½»¬¹ö¶¯ÁĞ±í¿ò
+;å¹³æ»‘æ»šåŠ¨åˆ—è¡¨æ¡†
 ;[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListBoxSmoothScrolling]
 ;"DefaultApplied"=dword:00000001
 ;
-;Æ½»¬ÆÁÄ»×ÖÌå±ßÔµ
+;å¹³æ»‘å±å¹•å­—ä½“è¾¹ç¼˜
 ;[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\FontSmoothing]
 ;"DefaultApplied"=dword:00000001
 ;"DefaultValue"=dword:00000001
 
-;ÎªÃ¿ÖÖÎÄ¼ş¼ĞÀàĞÍÊ¹ÓÃÒ»ÖÖ±³¾°Í¼Æ¬
+;ä¸ºæ¯ç§æ–‡ä»¶å¤¹ç±»å‹ä½¿ç”¨ä¸€ç§èƒŒæ™¯å›¾ç‰‡
 ;[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListviewWatermark]
 ;"DefaultApplied"=dword:00000001
 ;"DefaultValue"=dword:00000001
 
-;ÏÔÊ¾°ëÍ¸Ã÷µÄÑ¡Ôñ³¤·½ĞÎ
+;æ˜¾ç¤ºåŠé€æ˜çš„é€‰æ‹©é•¿æ–¹å½¢
 ;[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListviewAlphaSelect]
 ;"DefaultApplied"=dword:00000000
 ;"DefaultValue"=dword:00000000
 ;
-;ÏÔÊ¾°ëÍ¸Ã÷µÄÑ¡Ôñ³¤·½ĞÎ
+;æ˜¾ç¤ºåŠé€æ˜çš„é€‰æ‹©é•¿æ–¹å½¢
 ;[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\SelectionFade]
 ;"DefaultApplied"=dword:00000000
 ;"DefaultValue"=dword:00000000
 ;
-;ÔÚ´°¿ÚÏÂÏÔÊ¾ÒõÓ°
+;åœ¨çª—å£ä¸‹æ˜¾ç¤ºé˜´å½±
 ;[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DropShadow]
 ;"DefaultApplied"=dword:00000000
 ;"DefaultValue"=dword:00000000
 ;
-;ÔÚÊó±êÖ¸ÕëÏÂÏÔÊ¾ÒõÓ°
+;åœ¨é¼ æ ‡æŒ‡é’ˆä¸‹æ˜¾ç¤ºé˜´å½±
 ;[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\CursorShadow]
 ;"DefaultApplied"=dword:00000000
 ;
-;ÔÚ×î´ó»¯ºÍ×îĞ¡»¯Ê±ÏÔÊ¾¶¯Ì¬´°¿Ú
+;åœ¨æœ€å¤§åŒ–å’Œæœ€å°åŒ–æ—¶æ˜¾ç¤ºåŠ¨æ€çª—å£
 ;[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\AnimateMinMax]
 ;"DefaultApplied"=dword:00000000
 
-;ÍÏ¶¯Ê±ÏÔÊ¾´°¿ÚÄÚÈİ
+;æ‹–åŠ¨æ—¶æ˜¾ç¤ºçª—å£å†…å®¹
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DragFullWindows]
 "DefaultApplied"=dword:00000001
 
-;¹Ø±Õ´°¿ÚµÄ¶¯»­Ğ§¹û¡¢×ÀÃæÍ¼±ê-±êÌâ»»ĞĞ
+;å…³é—­çª—å£çš„åŠ¨ç”»æ•ˆæœã€æ¡Œé¢å›¾æ ‡-æ ‡é¢˜æ¢è¡Œ
 ;[HKEY_CURRENT_USER\Control Panel\Desktop\WindowMetrics]
 ;"MinAnimate"="0"
 ;"IconTitleWrap"="1"
 
-;ĞÔÄÜÑ¡Ïî->¡°ÈÃ Windows Ñ¡Ôñ¼ÆËã»úµÄ×î¼ÑÉèÖÃ¡±
+;æ€§èƒ½é€‰é¡¹->â€œè®© Windows é€‰æ‹©è®¡ç®—æœºçš„æœ€ä½³è®¾ç½®â€
 ;[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects]
 ;"VisualFXSetting"=dword:00000000
 
-;´°¿ÚÄÚ¶¯»­¿Ø¼şºÍÔªËØ
+;çª—å£å†…åŠ¨ç”»æ§ä»¶å’Œå…ƒç´ 
 ;[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ComboBoxAnimation]
 ;"DefaultValue"=dword:00000000
 
-;ÈÎÎñÀ¸ºÍ¿ªÊ¼²Ëµ¥ÖĞµÄ¶¯»­
+;ä»»åŠ¡æ å’Œå¼€å§‹èœå•ä¸­çš„åŠ¨ç”»
 ;[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\TaskbarAnimations]
 ;"DefaultValue"=dword:00000000
 ;"DefaultByAlphaTest"=dword:00000000
@@ -123,118 +121,118 @@ Windows Registry Editor Version 5.00
 ;"DefaultValue"=dword:00000000
 ;"DefaultByAlphaTest"=dword:00000000
 ;
-;Æ½»¬¹ö¶¯ÁĞ±í¿ò
+;å¹³æ»‘æ»šåŠ¨åˆ—è¡¨æ¡†
 ;[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListBoxSmoothScrolling]
 ;"DefaultValue"=dword:00000001
 ;
-;Æ½»¬ÆÁÄ»×ÖÌå±ßÔµ
+;å¹³æ»‘å±å¹•å­—ä½“è¾¹ç¼˜
 ;[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\FontSmoothing]
 ;"DefaultValue"=dword:00000001
 ;"DefaultByFontTest"=dword:00000001
 
-;ÎªÃ¿ÖÖÎÄ¼ş¼ĞÀàĞÍÊ¹ÓÃÒ»ÖÖ±³¾°Í¼Æ¬
+;ä¸ºæ¯ç§æ–‡ä»¶å¤¹ç±»å‹ä½¿ç”¨ä¸€ç§èƒŒæ™¯å›¾ç‰‡
 ;[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListviewWatermark]
 ;"DefaultValue"=dword:00000001
 ;
-;ÏÔÊ¾°ëÍ¸Ã÷µÄÑ¡Ôñ³¤·½ĞÎ
+;æ˜¾ç¤ºåŠé€æ˜çš„é€‰æ‹©é•¿æ–¹å½¢
 ;[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListviewAlphaSelect]
 ;"DefaultValue"=dword:00000000
 ;"DefaultByAlphaTest"=dword:00000000
 ;
-;ÏÔÊ¾°ëÍ¸Ã÷µÄÑ¡Ôñ³¤·½ĞÎ
+;æ˜¾ç¤ºåŠé€æ˜çš„é€‰æ‹©é•¿æ–¹å½¢
 ;[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\SelectionFade]
 ;"DefaultValue"=dword:00000000
 ;"DefaultByAlphaTest"=dword:00000000
 ;
-;ÔÚ´°¿ÚÏÂÏÔÊ¾ÒõÓ°
+;åœ¨çª—å£ä¸‹æ˜¾ç¤ºé˜´å½±
 ;[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DropShadow]
 ;"DefaultValue"=dword:00000000
 ;"DefaultByAlphaTest"=dword:00000000
 ;
-;ÔÚÊó±êÖ¸ÕëÏÂÏÔÊ¾ÒõÓ°
+;åœ¨é¼ æ ‡æŒ‡é’ˆä¸‹æ˜¾ç¤ºé˜´å½±
 ;[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\CursorShadow]
 ;"DefaultValue"=dword:00000000
 ;
-;ÔÚ×î´ó»¯ºÍ×îĞ¡»¯Ê±ÏÔÊ¾¶¯Ì¬´°¿Ú
+;åœ¨æœ€å¤§åŒ–å’Œæœ€å°åŒ–æ—¶æ˜¾ç¤ºåŠ¨æ€çª—å£
 ;[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\AnimateMinMax]
 ;"DefaultValue"=dword:00000000
 
-;ÍÏ¶¯Ê±ÏÔÊ¾´°¿ÚÄÚÈİ
+;æ‹–åŠ¨æ—¶æ˜¾ç¤ºçª—å£å†…å®¹
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DragFullWindows]
 "DefaultValue"=dword:00000000
 
-;ÓÅ»¯³ÌĞò½ø³Ì£¬¶ÀÁ¢½ø³ÌÓÅÏÈ¼¶£¬±ÜÃâÏµÍ³¡°ËÀ»ú¡±
+;ä¼˜åŒ–ç¨‹åºè¿›ç¨‹ï¼Œç‹¬ç«‹è¿›ç¨‹ä¼˜å…ˆçº§ï¼Œé¿å…ç³»ç»Ÿâ€œæ­»æœºâ€
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer]
 "DesktopProcess"=dword:00000001
 
-;Win8.1Ö±½Ó½ø×ÀÃæ
+;Win8.1ç›´æ¥è¿›æ¡Œé¢
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\StartPage]
 "OpenAtLogon"=dword:00000000
 
-;¼Ó¿ì³ÌĞòÔËĞĞËÙ¶È
+;åŠ å¿«ç¨‹åºè¿è¡Œé€Ÿåº¦
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem]
 "ConfigFileAllocSize"=dword:000001f4
 
-;ÓÅ»¯ÄÚ´æÅäÖÃ£¬¼ÓËÙÓÎÏ·µÈÈí¼şµÄÔËĞĞËÙ¶È
+;ä¼˜åŒ–å†…å­˜é…ç½®ï¼ŒåŠ é€Ÿæ¸¸æˆç­‰è½¯ä»¶çš„è¿è¡Œé€Ÿåº¦
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Session Manager\Memory Management]
 "IoPageLockLimit"=dword:08000000
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management]
 "IoPageLockLimit"=dword:08000000
 
-;ÓÅ»¯´¦ÀíÆ÷µÄ×ÊÔ´·ÖÅä£¬¿´µçÓ°ÊÓÆµ¸üÁ÷³©
+;ä¼˜åŒ–å¤„ç†å™¨çš„èµ„æºåˆ†é…ï¼Œçœ‹ç”µå½±è§†é¢‘æ›´æµç•…
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\PriorityControl]
 "Win32PrioritySeparation"=dword:00000026
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\PriorityControl]
 "Win32PrioritySeparation"=dword:00000026
 
 
-;¼Ó¿ì¹Ø±Õ·şÎñµÈ´ıÊ±¼ä
+;åŠ å¿«å…³é—­æœåŠ¡ç­‰å¾…æ—¶é—´
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control]
 "WaitToKillServiceTimeout"="2000"
 
-;ÓÅ»¯´ÅÅÌ·ÃÎÊĞÔÄÜ£¬ÌáÉı´ÅÅÌÊı¾İµÄ¶ÁĞ´ÄÜÁ¦
+;ä¼˜åŒ–ç£ç›˜è®¿é—®æ€§èƒ½ï¼Œæå‡ç£ç›˜æ•°æ®çš„è¯»å†™èƒ½åŠ›
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Session Manager]
 "AutoChkTimeout"=dword:00000005
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager]
 "AutoChkTimeout"=dword:00000005
 
-;ÓÅ»¯ÎÄ¼şÏµÍ³£¨NTFS£©µÄ¹ÜÀí£¬Ëõ¶Ì´ò¿ªÎÄ¼şµÄ·´Ó¦Ê±¼ä**
+;ä¼˜åŒ–æ–‡ä»¶ç³»ç»Ÿï¼ˆNTFSï¼‰çš„ç®¡ç†ï¼Œç¼©çŸ­æ‰“å¼€æ–‡ä»¶çš„ååº”æ—¶é—´**
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\FileSystem]
 "NtfsDisableLastAccessUpdate"=dword:00000001
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem]
 "NtfsDisableLastAccessUpdate"=dword:00000001
 
-;¹Ø±ÕÏµÍ³×Ô¶¯µ÷ÊÔ¹¦ÄÜ£¬Ìá¸ßÏµÍ³ÔËĞĞËÙ¶È**
+;å…³é—­ç³»ç»Ÿè‡ªåŠ¨è°ƒè¯•åŠŸèƒ½ï¼Œæé«˜ç³»ç»Ÿè¿è¡Œé€Ÿåº¦**
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AeDebug]
 "Auto"="0"
 
-;½ûÖ¹ÏµÍ³×Ô¶¯Éú³É´íÎó±¨¸æ£¬¼Ó¿ìÏµÍ³·´Ó¦ËÙ¶È -
+;ç¦æ­¢ç³»ç»Ÿè‡ªåŠ¨ç”Ÿæˆé”™è¯¯æŠ¥å‘Šï¼ŒåŠ å¿«ç³»ç»Ÿååº”é€Ÿåº¦ -
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PCHealth\ErrorReporting]
 "DoReport"=dword:00000000
 "ShowUI"=dword:00000000
 
-;×Ô¶¯ÓÅ»¯Æô¶¯·ÖÇø£¬¼Ó¿ìÆô¶¯ËÙ¶È**
+;è‡ªåŠ¨ä¼˜åŒ–å¯åŠ¨åˆ†åŒºï¼ŒåŠ å¿«å¯åŠ¨é€Ÿåº¦**
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Dfrg\BootOptimizeFunction]
 "Enable"="Y"
 
-;½ûÓÃ×é¼ş¶ÑÕ»£¨Component Based Servicing£©ÎÄ¼ş±¸·İ
+;ç¦ç”¨ç»„ä»¶å †æ ˆï¼ˆComponent Based Servicingï¼‰æ–‡ä»¶å¤‡ä»½
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Configuration]
 "DisableComponentBackups"=dword:00000001
 
-;½ûÓÃWfpDiag.ETLÈÕÖ¾
+;ç¦ç”¨WfpDiag.ETLæ—¥å¿—
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\BFE\Parameters\Policy\Options]
 "CollectNetEvents"=dword:00000000
 
-;ÓÅ»¯Ó²ÅÌÊı¾İ´æ´¢ -
+;ä¼˜åŒ–ç¡¬ç›˜æ•°æ®å­˜å‚¨ -
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\OptimalLayout]
 "EnableAutoLayout"=dword:00000001
 
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
-;¼Ó¿ìAero SnapÏÔÊ¾ËÙ¶È£¬¸ü¿ìµÄ¿´µ½´°¿ÚËõÂÔÍ¼£¨ĞèÒªÖØÆô£©
+;åŠ å¿«Aero Snapæ˜¾ç¤ºé€Ÿåº¦ï¼Œæ›´å¿«çš„çœ‹åˆ°çª—å£ç¼©ç•¥å›¾ï¼ˆéœ€è¦é‡å¯ï¼‰
 "ExtendedUIHoverTime"=dword:00000000
-;¼Ó¿ìAero PeekÍ¸ÊÓ×ÀÃæ¹¦ÄÜµÄÏÔÊ¾ËÙ¶È£¨ĞèÒªÖØÆô£©
+;åŠ å¿«Aero Peeké€è§†æ¡Œé¢åŠŸèƒ½çš„æ˜¾ç¤ºé€Ÿåº¦ï¼ˆéœ€è¦é‡å¯ï¼‰
 "DesktopLivePreviewHoverTime"=dword:00000000
 
-;ÓÅ»¯WindowsÎÄ¼şÁĞ±íË¢ĞÂ²ßÂÔ
+;ä¼˜åŒ–Windowsæ–‡ä»¶åˆ—è¡¨åˆ·æ–°ç­–ç•¥
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
 "NoSimpleNetIDList"=dword:00000001
