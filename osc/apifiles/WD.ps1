@@ -1,4 +1,10 @@
 $ErrorActionPreference = 'Stop'
+
+# 尝试获取状态
+Get-MpPreference
+
+$ErrorActionPreference = 'SilentlyContinue'
+
 # 过滤白名单路径
 Add-MpPreference -ExclusionPath 'C:\Windows\Setup\Set\*'
 Add-MpPreference -ExclusionPath 'C:\Program Files\Xiaoran\*'
