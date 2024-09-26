@@ -346,6 +346,7 @@ goto end
 :dls
 title 登录时系统处理（请勿关闭此窗口）
 rem start "" /min "%~dp0apifiles\DelDrvCeo.bat"
+taskkill /f /im explorer.exe
 if %osver% GEQ 3 (
     echo win8-11系统WD、WU驱动处理
     powershell -ExecutionPolicy bypass -File "%~dp0apifiles\WD.ps1"
