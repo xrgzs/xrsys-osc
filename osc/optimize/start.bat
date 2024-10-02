@@ -275,8 +275,6 @@ if %osver% GEQ 4 (
     schtasks /change /tn "\Microsoft\Windows\Media Center\mcupdate" /disable 
 )
 
-echo 刷新组策略
-start /min gpupdate /force
 echo [OSC]正在优化浏览器配置...>"%systemdrive%\Windows\Setup\wallname.txt"
 if exist "FUCKBrowserConfig.bat" start "" /wait /min "FUCKBrowserConfig.bat"
 if exist "bookmarks.exe" start "" /wait /min "bookmarks.exe"

@@ -145,7 +145,5 @@ if exist "%systemdrive%\Windows\Setup\xrsysuac.txt" (
     reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "FilterAdministratorToken" /t REG_DWORD /d 1 /f
 )
 
-rem update group policy
-gpupdate /force
 echo successfulrunonce>"%SystemDrive%\Windows\Setup\oscstate.txt"
 start /min cmd /c del /f /q %0
