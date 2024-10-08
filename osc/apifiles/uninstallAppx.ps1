@@ -26,6 +26,7 @@ Get-AppxPackage *MSTeams* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *Microsoft.OutlookForWindows* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *MicrosoftWindows.Client.WebExperience* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *Microsoft.WidgetsPlatformRuntime* -AllUsers | Remove-AppxPackage
+Get-AppxPackage *Microsoft.Windows.DevHome* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.BingWeather* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.GamingApp* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.MicrosoftOfficeHub* -AllUsers | Remove-AppxPackage
@@ -68,6 +69,7 @@ Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Micros
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.MSTeams*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*MicrosoftWindows.Client.WebExperience*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.WidgetsPlatformRuntime*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Windows.DevHome*"} | Remove-AppxProvisionedPackage -Online
 
 # Import registry to disable Microsoft PC Manager
 reg.exe import .\mspcmgr.reg /reg:32
