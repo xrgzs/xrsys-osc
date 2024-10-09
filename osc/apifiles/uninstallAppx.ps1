@@ -27,14 +27,13 @@ Get-AppxPackage *Microsoft.OutlookForWindows* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *MicrosoftWindows.Client.WebExperience* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *Microsoft.WidgetsPlatformRuntime* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *Microsoft.Windows.DevHome* -AllUsers | Remove-AppxPackage
-# Get-AppxPackage *Microsoft.BingWeather* -AllUsers | Remove-AppxPackage
+Get-AppxPackage *Microsoft.BingWeather* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.GamingApp* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.MicrosoftOfficeHub* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.MicrosoftSolitaireCollection* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.MicrosoftStickyNotes* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.Todos* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.WindowsFeedbackHub* -AllUsers | Remove-AppxPackage
-# Get-AppxPackage *Microsoft.WindowsMaps* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.Xbox* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.YourPhone* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.windowscommunicationsapps* -AllUsers | Remove-AppxPackage # 邮件和日历
@@ -49,6 +48,7 @@ Get-AppxPackage *Microsoft.Windows.DevHome* -AllUsers | Remove-AppxPackage
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Clipchamp*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.549981C3F5F10*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.BingNews*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.BingWeather*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.GetHelp*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Getstarted*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Microsoft3DViewer*"} | Remove-AppxProvisionedPackage -Online
