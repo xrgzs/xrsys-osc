@@ -52,7 +52,7 @@ else {
     Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/ihcxj29z4hbe" -OutFile "osc\runtime\flash.exe"
     Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/iWN6I27gi6ch" -OutFile "osc\runtime\MSVCRedist.AIO.exe"
     Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/idHOf2bfs3te" -OutFile "osc\xrkms\KMS_VL_ALL_AIO.cmd"
-    Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/i8NFT2a8fagh" -OutFile "osc\xrkms\kms.exe"
+    Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/iWI1c2c8sjqb" -OutFile "osc\xrkms\kms.exe"
     Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/ixdbP27giisf" -OutFile "osc\xrsoft.exe"
 
     # 下载其他文件
