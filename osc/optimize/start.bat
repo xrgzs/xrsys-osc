@@ -255,6 +255,8 @@ if %osver% GEQ 4 (
             echo 任务栏隐藏AI图标
             reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced /f /v TaskbarAI /t REG_DWORD /d 0
             reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced /f /v ShowCopilotButton /t REG_DWORD /d 0
+            echo 启用右键单击即可在任务栏中启用结束任务
+            reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\TaskbarDeveloperSettings /v TaskbarEndTask /t REG_DWORD /d 1 /f
         )
         if !bigversion! LEQ 22635 (
             echo 恢复传统右键菜单
