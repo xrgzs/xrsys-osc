@@ -1,4 +1,36 @@
 
+# Uninstall Appx from the computer for all users
+# The Remove-AppxProvisionedPackage cmdlet removes app packages (.appx) from a Windows image.
+# App packages will not be installed when new user accounts are created.
+# Packages will not be removed from existing user accounts.
+# To remove app packages (.appx) that are not provisioned or to remove a package for a particular user only, use Remove-AppxPackage instead.
+
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Clipchamp*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.549981C3F5F10*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.BingNews*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.BingWeather*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.GetHelp*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Getstarted*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Microsoft3DViewer*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.MicrosoftPCManager*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.MicrosoftTeams*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.MixedReality.Portal*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Office.OneNote*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.OneConnect*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.OutlookForWindows*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.People*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.PowerAutomateDesktop*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Print3D*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.SkypeApp*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Todos*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.WindowsMaps*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.XboxApp*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*MicrosoftCorporationII.MicrosoftFamily*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.MSTeams*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*MicrosoftWindows.Client.WebExperience*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.WidgetsPlatformRuntime*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Windows.DevHome*"} | Remove-AppxProvisionedPackage -Online
+
 # Uninstall Appx for the current user
 # Remove-AppxPackage cmdlet removes an app package from a user account.
 
@@ -38,38 +70,6 @@ Get-AppxPackage *Microsoft.BingWeather* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.YourPhone* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.windowscommunicationsapps* -AllUsers | Remove-AppxPackage # 邮件和日历
 # Get-AppxPackage *MicrosoftCorporationII.QuickAssist* -AllUsers | Remove-AppxPackage
-
-# Uninstall Appx from the computer for all users
-# The Remove-AppxProvisionedPackage cmdlet removes app packages (.appx) from a Windows image.
-# App packages will not be installed when new user accounts are created.
-# Packages will not be removed from existing user accounts.
-# To remove app packages (.appx) that are not provisioned or to remove a package for a particular user only, use Remove-AppxPackage instead.
-
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Clipchamp*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.549981C3F5F10*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.BingNews*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.BingWeather*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.GetHelp*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Getstarted*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Microsoft3DViewer*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.MicrosoftPCManager*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.MicrosoftTeams*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.MixedReality.Portal*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Office.OneNote*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.OneConnect*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.OutlookForWindows*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.People*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.PowerAutomateDesktop*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Print3D*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.SkypeApp*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Todos*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.WindowsMaps*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.XboxApp*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*MicrosoftCorporationII.MicrosoftFamily*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.MSTeams*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*MicrosoftWindows.Client.WebExperience*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.WidgetsPlatformRuntime*"} | Remove-AppxProvisionedPackage -Online
-Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Windows.DevHome*"} | Remove-AppxProvisionedPackage -Online
 
 # Import registry to disable Microsoft PC Manager
 reg.exe import .\mspcmgr.reg /reg:32
