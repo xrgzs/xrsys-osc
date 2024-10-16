@@ -241,7 +241,11 @@ if %osver% GEQ 4 (
 
     echo 启用任务管理器显示磁盘性能
     if exist "%systemdrive%\Windows\System32\diskperf.exe" diskperf -y
-    
+    if exist "%LocalAppData%\Microsoft\WindowsApps\wt.exe" (
+        echo 更换默认控制台为Windows Terminal
+        Reg.exe add "HKCU\Console\%%%%Startup" /v "DelegationConsole" /t REG_SZ /d "{2EACA947-7F5F-4CFA-BA87-8F7FBEEFBE69}" /f
+        Reg.exe add "HKCU\Console\%%%%Startup" /v "DelegationTerminal" /t REG_SZ /d "{E12CFF52-A866-4C77-9A90-F570A7AA2C6B}" /f
+    )
     if !bigversion! GEQ 22000 (
         echo 处理Win11变小了的输入法候选项字体大小（大）
         reg add HKCU\Software\Microsoft\InputMethod\CandidateWindow\CHS\1 /v FontStyleTSF3 /t REG_SZ /d "18.00pt;Regular;;Microsoft YaHei UI" /f
