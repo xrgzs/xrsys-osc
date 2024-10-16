@@ -30,6 +30,7 @@ Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Micros
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*MicrosoftWindows.Client.WebExperience*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.WidgetsPlatformRuntime*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Windows.DevHome*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.windowscommunicationsapps*"} | Remove-AppxProvisionedPackage -Online
 
 # Uninstall Appx for the current user
 # Remove-AppxPackage cmdlet removes an app package from a user account.
@@ -60,6 +61,7 @@ Get-AppxPackage *MicrosoftWindows.Client.WebExperience* -AllUsers | Remove-AppxP
 Get-AppxPackage *Microsoft.WidgetsPlatformRuntime* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *Microsoft.Windows.DevHome* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *Microsoft.BingWeather* -AllUsers | Remove-AppxPackage
+Get-AppxPackage *Microsoft.windowscommunicationsapps* -AllUsers | Remove-AppxPackage  # 邮件和日历
 # Get-AppxPackage *Microsoft.GamingApp* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.MicrosoftOfficeHub* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.MicrosoftSolitaireCollection* -AllUsers | Remove-AppxPackage
@@ -68,7 +70,6 @@ Get-AppxPackage *Microsoft.BingWeather* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.WindowsFeedbackHub* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.Xbox* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.YourPhone* -AllUsers | Remove-AppxPackage
-# Get-AppxPackage *Microsoft.windowscommunicationsapps* -AllUsers | Remove-AppxPackage # 邮件和日历
 # Get-AppxPackage *MicrosoftCorporationII.QuickAssist* -AllUsers | Remove-AppxPackage
 
 # Import registry to disable Microsoft PC Manager
