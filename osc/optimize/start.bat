@@ -262,6 +262,12 @@ if %osver% GEQ 4 (
             echo 恢复传统右键菜单
             reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
         )
+        if !bigversion! GEQ 26100 (
+            if exist "%SystemDrive%\Windows\System32\sudo.exe" (
+                echo 启用 sudo
+                sudo config --enable enable
+            )
+        )
     )
 ) else if %osver% GEQ 2 (
     schtasks /change /tn "\Microsoft\Windows\SystemRestore\SR" /disable 
