@@ -246,6 +246,10 @@ if %osver% GEQ 4 (
         Reg.exe add "HKCU\Console\%%%%Startup" /v "DelegationConsole" /t REG_SZ /d "{2EACA947-7F5F-4CFA-BA87-8F7FBEEFBE69}" /f
         Reg.exe add "HKCU\Console\%%%%Startup" /v "DelegationTerminal" /t REG_SZ /d "{E12CFF52-A866-4C77-9A90-F570A7AA2C6B}" /f
     )
+    if !bigversion! GEQ 19041 (
+        echo 启用硬件加速GPU调度
+        reg add HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers /f /v HwSchMode /t REG_DWORD /d 2
+    )
     if !bigversion! GEQ 22000 (
         echo 处理Win11变小了的输入法候选项字体大小（大）
         reg add HKCU\Software\Microsoft\InputMethod\CandidateWindow\CHS\1 /v FontStyleTSF3 /t REG_SZ /d "18.00pt;Regular;;Microsoft YaHei UI" /f
