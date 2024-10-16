@@ -250,6 +250,13 @@ if %osver% GEQ 4 (
         echo 启用硬件加速GPU调度
         reg add HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers /f /v HwSchMode /t REG_DWORD /d 2
     )
+    if !bigversion! GEQ 19041 if !bigversion! LEQ 19045 (
+        reg query HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds /v IsFeedsAvailable | find /i "0x1" && (
+            echo 强制使用组策略关闭feeds
+            reg add "HKLM\Software\Policies\Microsoft\Windows\Windows Feeds" /v "EnableFeeds" /t REG_DWORD /f /d 0
+         )
+        )
+    )
     if !bigversion! GEQ 22000 (
         echo 处理Win11变小了的输入法候选项字体大小（大）
         reg add HKCU\Software\Microsoft\InputMethod\CandidateWindow\CHS\1 /v FontStyleTSF3 /t REG_SZ /d "18.00pt;Regular;;Microsoft YaHei UI" /f
