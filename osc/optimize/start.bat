@@ -254,7 +254,6 @@ if %osver% GEQ 4 (
         reg query HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds /v IsFeedsAvailable | find /i "0x1" && (
             echo 强制使用组策略关闭feeds
             reg add "HKLM\Software\Policies\Microsoft\Windows\Windows Feeds" /v "EnableFeeds" /t REG_DWORD /f /d 0
-         )
         )
     )
     if !bigversion! GEQ 22000 (
