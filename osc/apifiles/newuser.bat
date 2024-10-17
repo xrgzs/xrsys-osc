@@ -137,6 +137,13 @@ rem ask user
 if not exist "%SystemDrive%\Windows\Setup\xrsysnewuser.txt" if not exist "%SystemDrive%\Windows\Setup\xrsysadmin.txt" if exist Winput.exe for /f "tokens=1" %%a in ('Winput.exe "OOBE - 用户创建" "$input" "请输入您要创建的用户名：^^ - 用户名请勿包含中文/标点/空格；^^ - 目前没有防呆机制，输错会导致系统安装失败 ^^ - 15s内未做出反应则保持默认" "%name%" /screen /FS^=12 /length:24 /timeout^=15') do set "nameinput=%%a"
 rem ask passwd
 if not exist "%SystemDrive%\Windows\Setup\xrsyspasswd.txt" if exist Winput.exe for /f "tokens=1" %%a in ('Winput.exe "OOBE - 用户密码设置" "$input" "请输入您要设置的密码：^^ - 密码请勿包含中文/空格；^^ - 目前没有防呆机制，输错后果自负 ^^ - 15s内未做出反应则保持默认" "" /screen /FS^=12 /length:255 /timeout^=15s') do set "passinput=%%a"
+rem ask uac
+if not exist "%SystemDrive%\Windows\Setup\xrsysuac.txt" if exist Winput.exe (
+    wbox.exe "OOBE - UAC 设置" "是否启用 UAC（用户账户控制）？^^启用UAC可避免手滑运行程序，^但可能会减缓运行速度，^并且不方便程序安装。^^ - 15s内未做出反应则保持默认" "保持关闭 -$- ;启用" /TM=15 /FS=12
+    if "!errorlevel!"=="2" (
+        echo 1 >"%SystemDrive%\Windows\Setup\xrsysuac.txt"
+    )
+)
 @REM taskkill /f /im osk.exe
 rem write xrsyspasswd tag
 if defined passinput >"%SystemDrive%\Windows\Setup\xrsyspasswd.txt" echo %passinput%
