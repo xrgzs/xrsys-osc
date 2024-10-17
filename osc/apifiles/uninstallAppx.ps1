@@ -25,6 +25,7 @@ Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Micros
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Todos*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.WindowsMaps*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.XboxApp*"} | Remove-AppxProvisionedPackage -Online
+Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.Wallet*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*MicrosoftCorporationII.MicrosoftFamily*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*Microsoft.MSTeams*"} | Remove-AppxProvisionedPackage -Online
 Get-AppxProvisionedPackage -Online | Where-Object {$_.packagename -like "*MicrosoftWindows.Client.WebExperience*"} | Remove-AppxProvisionedPackage -Online
@@ -53,6 +54,7 @@ Get-AppxPackage *Microsoft.SkypeApp* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *Microsoft.Todos* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *Microsoft.WindowsMaps* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *Microsoft.XboxApp* -AllUsers | Remove-AppxPackage
+Get-AppxPackage *Microsoft.Wallet* -AllUsers | Remove-AppxPackage # Pay
 Get-AppxPackage *MicrosoftCorporationII.MicrosoftFamily* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *MicrosoftTeams* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *MSTeams* -AllUsers | Remove-AppxPackage
