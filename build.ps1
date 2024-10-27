@@ -4,6 +4,50 @@ $ErrorActionPreference = 'Stop'
 Set-Location $PSScriptRoot
 
 # 下载文件
+function Get-LanzouLink {
+    param(
+        [Parameter(Mandatory = $true, Position = 0)]
+        [string]
+        $Uri
+    )
+    $sharekey = $Uri -split '/' | Select-Object -Last 1
+    if ((Invoke-RestMethod -Uri "https://lanzoui.com/$sharekey") -match 'src="(\/fn\?.\w+)') {
+        $fn = Invoke-RestMethod -Uri ('https://lanzoui.com/' + $Matches[1])
+    }
+    else {
+        throw "Failed to get fn. Please check whether the URL is correct."
+    }
+    if ($fn -match '\/ajaxm\.php\?file=\d+') {
+        $ajaxm = $Matches[0]
+    }
+    else {
+        throw "Failed to get ajaxm.php."
+    }
+    if ($fn -match "'sign':'(\w+)'") {
+        $sign = $Matches[1]
+    }
+    else {
+        throw "Failed to get sign."
+    }
+    $ajax = Invoke-RestMethod -Uri ('https://lanzoui.com/' + $ajaxm) -Method Post `
+        -Headers @{ referer = "https://lanzoui.com/" } `
+        -Body @{ 'action' = 'downprocess'; 'signs' = '?ctdf'; 'sign' = $sign }
+    $directlink = $ajax.dom + '/file/' + $ajax.url
+    try {
+        Invoke-WebRequest -Uri $directlink -Method Head -MaximumRedirection 0 -ErrorAction SilentlyContinue `
+            -Headers @{ "Accept-Language" = "zh-CN,zh;q=0.9" } 
+    }
+    catch {
+        $directlink = $_.Exception.Response.Headers.Location.OriginalString
+    }
+    Write-Host -ForegroundColor Yellow "Direct Link of $sharekey is: $directlink"
+    if ($directlink) {
+        return $directlink
+    }
+    else {
+        throw "Failed to get direct link."
+    }
+}
 function Get-LanzouFile {
     param(
         [Parameter(Mandatory = $true, Position = 0)]
@@ -16,22 +60,28 @@ function Get-LanzouFile {
     )
     Write-Host "Downloading $Uri to $OutFile..."
     try {
-        Write-Host "Using api.xrgzs.top..."
-        Invoke-WebRequest -Uri "https://api.xrgzs.top/lanzou/?type=down&url=$Uri" -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
-       
+        Write-Host "Using PowerShell Function to parse link..."
+        $directlink = Get-LanzouLink -Uri $Uri
+        Invoke-WebRequest -Uri $directlink -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
     }
     catch {
         try {
-            Write-Host "Using api.hanximeng.com..."
-            Invoke-WebRequest -Uri "https://api.hanximeng.com/lanzou/?type=down&url=$Uri" -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
+            Write-Host "Using api.xrgzs.top to parse link..."
+            Invoke-WebRequest -Uri "https://api.xrgzs.top/lanzou/?type=down&url=$Uri" -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
         }
         catch {
             try {
-                Write-Host "Using lz.qaiu.top..."
-                Invoke-WebRequest -Uri "https://lz.qaiu.top/parser?url=$Uri" -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
+                Write-Host "Using api.hanximeng.com to parse link..."
+                Invoke-WebRequest -Uri "https://api.hanximeng.com/lanzou/?type=down&url=$Uri" -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
             }
             catch {
-                Write-Error "Failed to download $Uri. ($_)"
+                try {
+                    Write-Host "Using lz.qaiu.top to parse link..."
+                    Invoke-WebRequest -Uri "https://lz.qaiu.top/parser?url=$Uri" -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
+                }
+                catch {
+                    Write-Error "Failed to download $Uri. ($_)"
+                }
             }
         }
     }
