@@ -13,7 +13,7 @@ function Get-Appx([string]$Name) {
     }
     while ($true) {
         try {
-            $obj = Invoke-WebRequest -Uri "https://store.rg-adguard.net/api/GetFiles" `
+            $obj = Invoke-WebRequest -Uri "https://api.xrgzs.top/msstore/GetFiles" `
             -Method "POST" `
             -ContentType "application/x-www-form-urlencoded" `
             -Body $body `
