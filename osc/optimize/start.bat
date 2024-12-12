@@ -30,10 +30,6 @@ powercfg setactive SCHEME_BALANCED && powercfg -x -disk-timeout-ac 0
 powercfg setactive SCHEME_MAX && powercfg -x -disk-timeout-ac 0
 powercfg setactive SCHEME_MIN && powercfg -x -disk-timeout-ac 0
 
-if %osver% GEQ 2 (
-    echo win7以上系统开启休眠
-    rem powercfg /h on
-)
 if %osver% GEQ 3 (
     echo win8以上系统禁用快速启动
     reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Session Manager\Power" /v "HiberbootEnabled" /t REG_DWORD /d 0 /f
@@ -112,9 +108,6 @@ if %osver% GEQ 4 (
     SCHTASKS /Change /DISABLE /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan"
     SCHTASKS /Change /DISABLE /TN "\Microsoft\Windows\Application Experience\SdbinstMergeDbTask" 
 
-    rem 禁用启动延迟
-    reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Serialize" /v "StartupDelayInMSec" /t REG_DWORD /d 0 /f
-
     rem 在用户登录时不启动隐私设置体验
     reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\OOBE" /v "DisablePrivacyExperience" /t REG_DWORD /d 1 /f
 
@@ -126,16 +119,6 @@ if %osver% GEQ 4 (
 
     rem 让 Windows 选择计算机的最佳外观
     @rem reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v "VisualFXSetting" /t REG_DWORD /d 1 /f
-
-    rem 关闭开始菜单或任务栏中的应用程序显示最近打开的文件/文件夹
-    reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackDocs" /t REG_DWORD /d 0 /f
-
-    rem 关闭开始菜单中显示”建议安装的应用“广告
-    reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SystemPaneSuggestionsEnabled" /t REG_DWORD /d 0 /f
-    reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338388Enabled" /t REG_DWORD /d 0 /f
-
-    rem 不显示 "Windows 询问我意见"
-    reg add "HKEY_LOCAL_MACHINE\Software\Microsoft\Siuf\Rules" /v "NumberOfSIUFInPeriod" /t REG_DWORD /d 0 /f
 
     rem 当Windows检测到通信活动时：不执行任何操作
     reg add "HKEY_CURRENT_USER\Software\Microsoft\Multimedia\Audio" /v "UserDuckingPreference" /t REG_DWORD /d 3 /f
