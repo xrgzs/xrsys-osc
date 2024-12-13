@@ -116,3 +116,7 @@ if (-not $env:GITHUB_WORKFLOW_VERSION) {
 }
 Set-Content -Path "osc\apifiles\Version.txt" -Value $env:GITHUB_WORKFLOW_VERSION
 & "C:\Program Files (x86)\NSIS\makensis.exe" /V4 /DCUSTOM_VERSION=$env:GITHUB_WORKFLOW_VERSION "osc.nsi" || exit 1
+
+$env:GITHUB_WORKFLOW_VERSION | Out-File -FilePath "osc.exe.ver"
+(Get-FileHash -Path "osc.exe" -Algorithm SHA256).Hash | Out-File -FilePath "osc.exe.sha256"
+(Get-FileHash -Path "osc.exe" -Algorithm MD5).Hash | Out-File -FilePath "osc.exe.md5"

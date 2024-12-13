@@ -91,5 +91,9 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: XRSYS_OSC_CI_Build_v${{ steps.generate_version.outputs.version }}
-        path: osc.exe
+        path: |
+            osc.exe
+            osc.exe.ver
+            osc.exe.sha256
+            osc.exe.md5
         compression-level: 0

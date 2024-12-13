@@ -88,4 +88,8 @@ jobs:
         prerelease: true
         generate_release_notes: true
         token: ${{ secrets.MY_TOKEN }}
-        files: osc.exe
+        files: |
+            osc.exe
+            osc.exe.ver
+            osc.exe.sha256
+            osc.exe.md5
