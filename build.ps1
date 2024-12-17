@@ -31,7 +31,7 @@ function Get-LanzouLink {
     }
     $ajax = Invoke-RestMethod -Uri ('https://lanzoui.com/' + $ajaxm) -Method Post `
         -Headers @{ referer = "https://lanzoui.com/" } `
-        -Body @{ 'action' = 'downprocess'; 'signs' = '?ctdf'; 'sign' = $sign }
+        -Body @{ 'action' = 'downprocess'; 'signs' = '?ctdf'; 'sign' = $sign; 'kd' = '1' }
     $directlink = $ajax.dom + '/file/' + $ajax.url
     try {
         Invoke-WebRequest -Uri $directlink -Method Head -MaximumRedirection 0 -ErrorAction SilentlyContinue `
