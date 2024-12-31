@@ -155,6 +155,14 @@ if exist xrsysdrv.zip (
     echo [API]正在解压驱动zip...>"%systemdrive%\Windows\Setup\wallname.txt"
     echo %zip% e -r -y xrsysdrv.zip >>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
     %zip% e -r -y xrsysdrv.zip
+    del /f /q wandrv.iso
+)
+rem ARM64 不支持挂载，需要解压
+if exist wandrv.iso if /i "%PROCESSOR_ARCHITECTURE%"=="ARM64" (
+    echo [API]正在解压驱动iso...>"%systemdrive%\Windows\Setup\wallname.txt"
+    echo %zip% e -r -y wandrv.iso >>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
+    %zip% e -r -y wandrv.iso >>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
+    del /f /q wandrv.iso
 )
 if %osver% GEQ 2 if exist CeoMSX.wim (
     echo [API]正在应用CeoMSX...>"%systemdrive%\Windows\Setup\wallname.txt"
