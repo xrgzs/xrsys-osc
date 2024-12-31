@@ -3,40 +3,57 @@ $ExtPath = Join-Path $PSScriptRoot ".." "osc" "runtime" "Extension"
 Remove-Item -Path $ExtPath -Force
 New-Item -ItemType Directory -Path $ExtPath | Out-Null
 
-function Get-Appx([string]$Name) {
-    Write-Host "Downloading $Name"
-    $body = @{
+function Get-Appx($Name) {
+    $Body = @{
         type = 'PackageFamilyName'
-        url = $Name + '_8wekyb3d8bbwe'
+        url  = $Name + '_8wekyb3d8bbwe'
         ring = 'RP'
         lang = 'zh-CN'
     }
+    $msstoreApis = @(
+        "https://api.xrgzs.top/msstore/GetFiles",
+        "https://store.rg-adguard.net/api/GetFiles"
+    )
+    
     while ($true) {
         try {
-            $obj = Invoke-WebRequest -Uri "https://api.xrgzs.top/msstore/GetFiles" `
-            -Method "POST" `
-            -ContentType "application/x-www-form-urlencoded" `
-            -Body $body `
-            -ConnectionTimeoutSeconds 5 -OperationTimeoutSeconds 5
+            foreach ($url in $msstoreApis) {
+                try {
+                    $obj = Invoke-WebRequest -Uri $url `
+                        -Method "POST" `
+                        -ContentType "application/x-www-form-urlencoded" `
+                        -Body $Body `
+                        -ConnectionTimeoutSeconds 5 -OperationTimeoutSeconds 5
+                    break
+                }
+                catch {
+                    if ($url -eq $msstoreApis[-1]) {
+                        throw "All requests failed. $_"
+                    }
+                    Write-Warning "Request failed with $url, trying next url... ($_)"
+                    continue
+                }
+            }
+            foreach ($link in $obj.Links) {
+                if ($link.outerHTML -match '(?<=<a\b[^>]*>).*?(?=</a>)') {
+                    $linkText = $Matches[0]
+                    if ($linkText -match '(arm64|x64|x86|neutral).*\.(appx|appxbundle|msixbundle)\b') {
+                        Write-Debug "$linkText : $($link.href)"
+                        if (Test-Path -Path $linkText) {
+                            Write-Warning "Already exists, skiping $linkText"
+                        }
+                        else {
+                            Write-Host "== $linkText ($($link.href))"
+                            Invoke-WebRequest -Uri $link.href -OutFile "$ExtPath\$linkText"
+                        }
+                    }
+                }
+            }
             break
         }
         catch {
-            Write-Host "请求失败，正在进行重试... $_"
+            Write-Warning "Request failed, retrying in 3 seconds... ($_)"
             Start-Sleep -Seconds 3
-        }
-    }
-    foreach ($link in $obj.Links) {
-        if ($link.outerHTML -match '(?<=<a\b[^>]*>).*?(?=</a>)') {
-            $linkText = $Matches[0]
-            if ($linkText -match '(x86|x64|arm64|neutral).*\.(appx|appxbundle|msixbundle)\b') {
-                Write-Debug "$linkText : $($link.href)"
-                if (Test-Path -Path $linkText) {
-                    Write-Warning "Already exists, skiping $linkText"
-                } else {
-                    Write-Host "== $linkText ($($link.href))"
-                    Invoke-WebRequest -Uri $link.href -OutFile "$ExtPath\$linkText"
-                }
-            }
         }
     }
 }
