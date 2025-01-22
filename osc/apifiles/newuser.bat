@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 chcp 936 > nul
 cd /d "%~dp0"
-title 创建用户 (Build 2024.7.21)
+title 创建用户 (Build 2025.1.22)
 rem windows xp not create new user
 ver | find /i "5.1." && exit
 set name=User
@@ -28,18 +28,6 @@ rem support oem special
 if exist "%SystemDrive%\Windows\Setup\xrsysadmin.txt" (
     set name=Administrator
     del /f /q "%SystemDrive%\Windows\Setup\xrsysnewuser.txt"
-    goto findok
-) else if exist "%SystemDrive%\Windows\Setup\zjsoftseewo.txt" (
-    set name=seewo
-    set pcname=seewo-PC
-    goto findok
-) else if exist "%SystemDrive%\Windows\Setup\zjsofthite.txt" (
-    set name=HiteVision
-    set pcname=HiteVision-PC
-    goto findok
-) else if exist "%SystemDrive%\Windows\Setup\zjsoftspoem.txt" (
-    set name=Admin
-    set pcname=Admin-PC
     goto findok
 ) else if exist "%SystemDrive%\Windows\Setup\xrsysnewuser.txt" ( 
     set /P name=<"%SystemDrive%\Windows\Setup\xrsysnewuser.txt"

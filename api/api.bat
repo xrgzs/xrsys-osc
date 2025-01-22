@@ -63,8 +63,6 @@ for %%a in (C D E F G H) do (
     move /y "%%a:\xrsys*.txt" "%SystemDrive%\Windows\Setup"
 )
 echo isxrsys >"%SystemDrive%\WINDOWS\Setup\xrsys.txt"
-if exist "%SystemDrive%\Windows\Setup\zjsoftseewo.txt" echo isseewo >"%SystemDrive%\Windows\Setup\zjsoftspoem.txt"
-if exist "%SystemDrive%\Windows\Setup\zjsofthite.txt" echo ishitevision >"%SystemDrive%\Windows\Setup\zjsoftspoem.txt"
 
 if %osver% GEQ 2 (
     reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableLUA" /t REG_DWORD /d 0 /f

@@ -188,11 +188,7 @@ for /l %%a in (1 1 4) do (
     set /a n=!random!%%26
     call set random_letters=%%str:~!n!,1%%!random_letters!
 )
-if exist "%SystemDrive%\Windows\Setup\zjsoftseewo.txt" (
-    set pcname=seewo-PC
-) else if exist "%SystemDrive%\Windows\Setup\zjsofthite.txt" (
-    set pcname=HiteVision-PC
-) else if exist "%SystemDrive%\Windows\Setup\zjsoftspoem.txt" (
+if exist "%SystemDrive%\Windows\Setup\zjsoftspoem.txt" (
     set pcname=Admin-PC
 ) else (
     set pcname=PC-%date:~0,4%%date:~5,2%%date:~8,2%%random_letters%
@@ -320,9 +316,6 @@ if exist "runtime\runtime.bat" echo y | start "" /wait /min "runtime\runtime.bat
 :oscapis
 echo ”¶”√OSCAPI
 if exist "%SystemDrive%\Windows\Setup\zjsoftxrsoftno.txt" (
-    del /f /q "%systemdrive%\Windows\Setup\Set\osc\xrsoft.exe"
-)
-if exist "%SystemDrive%\Windows\Setup\zjsoftforcepure.txt" (
     del /f /q "%systemdrive%\Windows\Setup\Set\osc\xrsoft.exe"
 )
 if exist "%systemdrive%\Windows\Setup\Set\osc\xrsoft.exe" (

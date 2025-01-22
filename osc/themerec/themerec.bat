@@ -4,7 +4,6 @@ cd /d "%~dp0"
 title Ö÷Ìâ»Ö¸´
 if exist "%SystemDrive%\Windows\Setup\xrsysnotheme.txt" exit
 
-set istouch=
 set osver=0
 ver | find /i "5.1." > nul && set osver=1
 ver | find /i "6.0." > nul && set osver=2
@@ -23,12 +22,6 @@ if exist "%SystemDrive%\Windows\Setup\xrsyswall.jpg" (
 )
 if exist "%SystemDrive%\Windows\Setup\Set\wallpaper.jpg" (
     copy /y "%SystemDrive%\Windows\Setup\Set\wallpaper.jpg" wallpaper.jpg
-)
-if exist "%SystemDrive%\Windows\Setup\zjsoftseewo.txt" call :touch
-if exist "%SystemDrive%\Windows\Setup\zjsofthite.txt" call :touch
-if exist "%SystemDrive%\Windows\Setup\zjsoftwenxiang.txt" (
-    regedit /s touchwx.reg
-    call :touch
 )
 
 if %osver% GEQ 2 (
@@ -78,14 +71,12 @@ reg delete "HKCU\Control Panel\Desktop" /f /v "Wallpaper.PECMD"
 exit
 
 :touch
-if defined istouch goto :EOF
 if exist "%ProgramW6432%" (
     PinToTaskbar.exe /pin "%SystemDrive%\Windows\System32\osk.exe"
 ) else (
     %PECMD% PINT "%SystemDrive%\Windows\System32\osk.exe",TaskBand
 )
 regedit /s touch.reg
-set istouch=1
 goto :EOF
 
 :startmenu11
