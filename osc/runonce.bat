@@ -6,6 +6,10 @@ title 清理部署残留（第二次进桌面）...
 tasklist | find /i "PECMD.exe" && exit
 type "%SystemDrive%\Windows\Setup\oscstate.txt" | find /i "successfuldel" || exit
 
+rem if uac is to be enabled, disable desktop and do reboot
+if exist "%systemdrive%\Windows\Setup\xrsysuac.txt" (
+    taskkill /f /im explorer.exe
+)
 rem delete desktop icons which is installed by accident and do not use anymore
 rem delete third party system tools...
 del /f /q "%USERPROFILE%\Desktop\自选软件安装.lnk"
@@ -119,10 +123,10 @@ del /f /q "%SystemDrive%\Windows\Panther\unattend.xml"
 del /f /q "%SystemDrive%\Windows\Panther\unattend1.xml"
 
 rem rebuild temp folders
-rd /s /q "%TEMP%"
-MKDIR "%TEMP%"
-rd /s /q "%SystemDrive%\Windows\Temp"
-MKDIR "%SystemDrive%\Windows\Temp"
+for /f "tokens=*" %%a in ('dir /a:D /b "%temp%"') do rd /s /q "%%~a"
+for /f "tokens=*" %%a in ('dir /a:-D /b "%temp%"') do del /f /q "%%~a"
+for /f "tokens=*" %%a in ('dir /a:D /b "%SystemDrive%\Windows\Temp"') do rd /s /q "%%~a"
+for /f "tokens=*" %%a in ('dir /a:-D /b "%SystemDrive%\Windows\Temp"') do del /f /q "%%~a"
 
 rem cleanup system trashes
 RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 8
@@ -137,13 +141,15 @@ reg delete HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\
 rem bcd timeout
 bcdedit /? >nul && bcdedit /timeout 3
 
+echo successfulrunonce>"%SystemDrive%\Windows\Setup\oscstate.txt"
+
 rem enable uac
 if exist "%systemdrive%\Windows\Setup\xrsysuac.txt" (
     reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableLUA" /t REG_DWORD /d 1 /f
     reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "PromptOnSecureDesktop" /t REG_DWORD /d 1 /f
     reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "ConsentPromptBehaviorAdmin" /t REG_DWORD /d 5 /f
     reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "FilterAdministratorToken" /t REG_DWORD /d 1 /f
+    shutdown /r /t 5 /c "系统部署完成，重启后生效（OSC）"
 )
 
-echo successfulrunonce>"%SystemDrive%\Windows\Setup\oscstate.txt"
 start /min cmd /c del /f /q %0

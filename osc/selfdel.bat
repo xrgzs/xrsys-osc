@@ -157,8 +157,6 @@ ipconfig /flushdns
 
 rem self delete
 rd /s /q "%~dp0"
-rd /s /q "%temp%"
-mkdir "%temp%"
 
 start /min cmd /c del /f /q %0
 exit

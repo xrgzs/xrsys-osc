@@ -25,10 +25,4 @@ del /f /q "%SystemDrive%\Windows\System32\deploy.exe"
 del /f /q "%SystemDrive%\Windows\Panther\unattend.xml"
 del /f /q "%SystemDrive%\Windows\Panther\unattend1.xml"
 
-rem rebuild temp folders
-rd /s /q "%TEMP%"
-MKDIR "%TEMP%"
-rd /s /q "%SystemDrive%\Windows\Temp"
-MKDIR "%SystemDrive%\Windows\Temp"
-
 start /min cmd /c del /f /q %0
