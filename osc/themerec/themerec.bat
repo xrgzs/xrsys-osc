@@ -32,10 +32,6 @@ if %osver% GEQ 4 (
     if !bigversion! GEQ 22000 call :startmenu11
 )
 
-if %osver% GEQ 4 (
-    if !bigversion! GEQ 26100 call :taskband11
-)
-
 :main
 if exist "%SystemDrive%\Windows\Setup\xrsysdark.txt" (
     if exist "%SystemDrive%\Windows\Resources\Themes\dark.theme" (
@@ -82,8 +78,4 @@ goto :EOF
 :startmenu11
 powershell -Command "Install-ProvisioningPackage -PackagePath .\startmenu11.ppkg -ForceInstall -QuietInstall"
 powershell -Command "Uninstall-ProvisioningPackage -PackagePath .\startmenu11.ppkg"
-goto :EOF
-
-:taskband11
-powershell -ExecutionPolicy bypass -File ".\removeOutlookNewTaskbar.ps1"
 goto :EOF
