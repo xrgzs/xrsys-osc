@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 chcp 936 > nul
 cd /d "%~dp0"
-title 创建用户 (Build 2025.1.22)
+title 创建用户OOBE (Build 2025.2.5)
 rem windows xp not create new user
 ver | find /i "5.1." && exit
 set name=User
@@ -153,6 +153,7 @@ if not defined name set name=User
 rem active admin
 if not "%name%"=="Administrator" (
     NET USER Administrator /ACTIVE:NO
+    NET LOCALGROUP Users %name% /ADD
 ) else (
     NET USER Administrator /ACTIVE:yes
     echo isadmin >"%SystemDrive%\Windows\Setup\xrsysadmin.txt"
