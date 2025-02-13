@@ -2,9 +2,8 @@ chcp 936 > nul
 title OSConline
 cd /d "%~dp0"
 set url1=http://url.xrgzs.top
-set url2=http://url.xrgzs.lmxiao.top
-set url3=http://dl.xrgzs.top/d/url
-set url4=http://alist.xrgzs.top/d/url
+set url2=http://dl.xrgzs.top/d/url
+set url3=http://alist.xrgzs.top/d/url
 set url=%url1%
 
 
@@ -30,8 +29,7 @@ goto retry
 echo 服务器%url%连接失败，
 if "%url%"=="%url1%" set url=%url2%
 if "%url%"=="%url2%" set url=%url3%
-if "%url%"=="%url3%" set url=%url4%
-if "%url%"=="%url4%" goto offline
+if "%url%"=="%url3%" goto offline
 echo 更换下一个服务器%url%！
 goto try
 
