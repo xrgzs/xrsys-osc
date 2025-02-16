@@ -1,8 +1,8 @@
 chcp 936 > nul
 cd /d "%~dp0"
-title [OSC]è¿è¡Œåº“æ™ºèƒ½å®‰è£…å™¨
+title [OSC]ÔËÐÐ¿âÖÇÄÜ°²×°Æ÷
 if not defined osver exit
-echo [OSC]æ­£åœ¨å®‰è£…è¿è¡Œåº“...>"%systemdrive%\Windows\Setup\wallname.txt"
+echo [OSC]ÕýÔÚ°²×°ÔËÐÐ¿â...>"%systemdrive%\Windows\Setup\wallname.txt"
 if exist "%SystemDrive%\WINDOWS\Setup\xrsysnoruntime.txt" exit
 
 :vc
@@ -11,7 +11,7 @@ if not exist "%SystemDrive%\Windows\System32\d3dcompiler_33.dll" ( set /A i=i+1 
 if not exist "%SystemDrive%\Windows\System32\d3dcompiler_36.dll" ( set /A i=i+1 )
 if not exist "%SystemDrive%\Windows\System32\d3dcompiler_43.dll" ( set /A i=i+1 )
 if %i% GEQ 2 (
-	echo [OSC]æ­£åœ¨å®‰è£…DX9è¿è¡Œåº“...>"%systemdrive%\Windows\Setup\wallname.txt"
+	echo [OSC]ÕýÔÚ°²×°DX9ÔËÐÐ¿â...>"%systemdrive%\Windows\Setup\wallname.txt"
     if exist DX9.exe (
         start "" /wait "%PECMD%" EXEC -wait -timeout:300000 DX9.exe /S
     )
@@ -32,19 +32,19 @@ if not exist "%SystemDrive%\Windows\System32\vcamp120.dll" ( set /A i=i+1 )
 @rem if %osver% equ 1 ( set i=0 )
 if %i% GEQ 2 (
     if exist MSVCRedist.AIO.exe (
-        echo [OSC]æ­£åœ¨åº”ç”¨VCè¿è¡Œåº“ by XRSYS...>"%systemdrive%\Windows\Setup\wallname.txt"
+        echo [OSC]ÕýÔÚÓ¦ÓÃVCÔËÐÐ¿â by XRSYS...>"%systemdrive%\Windows\Setup\wallname.txt"
         start "" /wait "%PECMD%" EXEC -wait -timeout:300000 MSVCRedist.AIO.exe /S
         del /f /q MSVCRedist.AIO.exe
     ) else if exist MSVBCRT.AIO.exe (
-        echo [OSC]æ­£åœ¨åº”ç”¨VCè¿è¡Œåº“ by Dreamcast...>"%systemdrive%\Windows\Setup\wallname.txt"
+        echo [OSC]ÕýÔÚÓ¦ÓÃVCÔËÐÐ¿â by Dreamcast...>"%systemdrive%\Windows\Setup\wallname.txt"
         start "" /wait "%PECMD%" EXEC -wait -timeout:300000 MSVBCRT.AIO.exe /SP- /SILENT /SUPPRESSMSGBOXES /NORESTART /COMPONENTS="vbvc567,vc2005,vc2008,vc2010,vc2012,vc2013,vc2019,vc2022,uc10,vstor"
         del /f /q MSVBCRT.AIO.exe
     ) else if exist VC.exe (
-        echo [OSC]æ­£åœ¨å®‰è£…VCè¿è¡Œåº“...>"%systemdrive%\Windows\Setup\wallname.txt"
+        echo [OSC]ÕýÔÚ°²×°VCÔËÐÐ¿â...>"%systemdrive%\Windows\Setup\wallname.txt"
         start "" /wait "%PECMD%" EXEC -wait -timeout:300000 VC.exe /S
         del /f /q VC.exe
     ) else if not %osver% equ 1 if exist VisualCppRedist_AIO.exe (
-            echo [OSC]æ­£åœ¨åº”ç”¨VCè¿è¡Œåº“ by abodi1406...>"%systemdrive%\Windows\Setup\wallname.txt"
+            echo [OSC]ÕýÔÚÓ¦ÓÃVCÔËÐÐ¿â by abodi1406...>"%systemdrive%\Windows\Setup\wallname.txt"
             start "" /wait "%PECMD%" EXEC -wait -timeout:300000 VisualCppRedist_AIO.exe /ai /gm2
             del /f /q VisualCppRedist_AIO.exe
     )
@@ -55,7 +55,7 @@ set i=0
 if not exist "%SystemDrive%\Windows\System32\Macromed\Flash\NPSWF.dll" ( set /A i=i+1 )
 if not exist "%SystemDrive%\Windows\System32\Macromed\Flash\pepflashplayer.dll" ( set /A i=i+1 )
 if %i% GEQ 1 (
-	echo [OSC]æ­£åœ¨å®‰è£…Flashè¿è¡Œåº“...>"%systemdrive%\Windows\Setup\wallname.txt"
+	echo [OSC]ÕýÔÚ°²×°FlashÔËÐÐ¿â...>"%systemdrive%\Windows\Setup\wallname.txt"
     if exist flash.exe (
         start "" /wait "%PECMD%" EXEC -wait -timeout:300000 flash.exe
         del /f /q flash.exe
@@ -64,7 +64,7 @@ if %i% GEQ 1 (
 
 :edge
 if exist "Edge\*.exe" (
-	echo [OSC]æ­£åœ¨å®‰è£…Edgeè¿è¡Œåº“...>"%systemdrive%\Windows\Setup\wallname.txt"
+	echo [OSC]ÕýÔÚ°²×°EdgeÔËÐÐ¿â...>"%systemdrive%\Windows\Setup\wallname.txt"
     for %%a in ("Edge\*.exe") do (
         start "" /wait "%PECMD%" EXEC -wait -timeout:300000 %%a --msedgewebview --verbose-logging --do-not-launch-msedge --system-level
         start "" /wait "%PECMD%" EXEC -wait -timeout:300000 %%a --msedge --verbose-logging --do-not-launch-msedge --system-level
@@ -76,19 +76,19 @@ if exist "Edge\*.exe" (
 
 :desktopruntime
 if exist "DotNet\*.exe" (
-    echo [OSC]æ­£åœ¨å®‰è£….NETè¿è¡Œåº“...>"%systemdrive%\Windows\Setup\wallname.txt"
+    echo [OSC]ÕýÔÚ°²×°.NETÔËÐÐ¿â...>"%systemdrive%\Windows\Setup\wallname.txt"
     for %%a in ("DotNet\*.exe") do start "" /wait "%PECMD%" EXEC -wait -timeout:300000 %%a /install /quiet /norestart
 )
 
 :pwsh
 if exist "PWSH\*.msi" (
-    echo [OSC]æ­£åœ¨å®‰è£…PWSHè¿è¡Œåº“...>"%systemdrive%\Windows\Setup\wallname.txt"
+    echo [OSC]ÕýÔÚ°²×°PWSHÔËÐÐ¿â...>"%systemdrive%\Windows\Setup\wallname.txt"
     for %%a in ("PWSH\*.msi") do start "" /wait "%PECMD%" EXEC -wait -timeout:300000 msiexec.exe /package "%%~fa" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ADD_FILE_CONTEXT_MENU_RUNPOWERSHELL=1 REGISTER_MANIFEST=1 USE_MU=1 ENABLE_MU=1 ADD_PATH=1
 )
 
 if not %osver% equ 4 exit
 
-echo [OSC]æ­£åœ¨å®‰è£…UWPæ‰©å±•è§£ç æ’ä»¶...>"%systemdrive%\Windows\Setup\wallname.txt"
+echo [OSC]ÕýÔÚ°²×°UWPÀ©Õ¹½âÂë²å¼þ...>"%systemdrive%\Windows\Setup\wallname.txt"
 cd /d "%~dp0"
 call :Add-ProvisionedAppxPackage "Microsoft.VCLibs.140.00"
 call :Add-ProvisionedAppxPackage "Microsoft.AV1VideoExtension"
