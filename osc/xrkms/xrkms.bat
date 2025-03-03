@@ -2,7 +2,7 @@
 chcp 936 > nul
 cd /d "%~dp0"
 setlocal enabledelayedexpansion
-set ver=智能正版激活工具 V3.24.5.25
+set ver=智能正版激活工具 V3.25.3.4
 title %ver%（请勿关闭此窗口）
 if exist "%systemdrive%\Windows\Setup\xrsysnokms.txt" exit
 if exist "%SystemDrive%\wandrv\wall.exe" exit
@@ -54,6 +54,7 @@ set server5=kms.loli.best
 
 :: Windows激活
 set iswindows=1
+set iswts=1
 set iskms=1
 set isoem=0
 set isdigital=0
@@ -63,11 +64,15 @@ set isentg=0
 :: Office激活
 set isoffice=0
 set isnewoffice=0
+set isots=1
+set isohk=0
 
 if %osver% EQU 1 set iswindows=0
 
 if %osver% EQU 2 set iskms=0
 if %osver% EQU 2 set isoem=1
+rem Windows 7上安装的Office被OSPP接管，不适用 TSForge
+if %osver% EQU 2 set isots=0
 if %osver% EQU 2 (
     systeminfo>>osinfo.txt
     type osinfo.txt | find /i "Windows 7 企业版" && (set iskms=1& set isoem=0)
@@ -151,10 +156,12 @@ title %ver% - 离线激活（请勿关闭此窗口）
 echo 正在离线激活系统，请稍候...
 echo 技术支持：HEU KMS Activator by 知彼而知己
 set heu=
+if "%iswindows%"=="1" if "%iswts%"=="1" set heu=%heu% /wts
 if "%iswindows%"=="1" if "%iskms%"=="1" set heu=%heu% /kwi /ren
 if "%iswindows%"=="1" if "%isoem%"=="1" set heu=%heu% /oem
 if "%iswindows%"=="1" if "%isdigital%"=="1" set heu=%heu% /dig
 if "%iswindows%"=="1" if "%iskms38%"=="1" set heu=%heu% /k38 /lok
+if "%isoffice%"=="1" if "%isots%"=="1" set heu=%heu% /ots
 if "%isoffice%"=="1" set heu=%heu% /kof /ren /r2v
 if "%heu%"=="" goto exit
 echo 执行参数：%heu%
@@ -166,11 +173,11 @@ cls
 title %ver% - 在线激活（请勿关闭此窗口）
 echo 正在在线激活系统，请稍候...
 echo 技术支持：KMS_VL_ALL_AIO by abbodi1406
-if defined pecmd (
-    start "" /wait "%PECMD%" EXEC -hide -wait -timeout:120000 KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
-) else (
-    start /wait /min cmd /c KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
-)
+    if defined pecmd (
+        start "" /wait "%PECMD%" EXEC -hide -wait -timeout:120000 KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
+    ) else (
+        start /wait /min cmd /c KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
+    )
 echo 正在进一步激活系统，请稍候...
 if "%isoem%"=="1" call kms.exe /oem
 if "%isdigital%"=="1" call kms.exe /dig
@@ -227,6 +234,8 @@ if exist "%SystemDrive%\Program Files\Microsoft Office\Office16\OSPP.VBS" (
 ) else if exist "%SystemDrive%\Program Files\Microsoft Office\Office14\OSPP.VBS" (
     set "officepath=%SystemDrive%\Program Files\Microsoft Office\Office14"
     set isoffice=1
+    rem Office 2010被OSPP接管，不适用 TSForge
+    set isots=0
 ) else if exist "%SystemDrive%\Program Files (x86)\Microsoft Office\Office16\OSPP.VBS" (
     set "officepath=%SystemDrive%\Program Files (x86)\Microsoft Office\Office16"
     set isoffice=1
