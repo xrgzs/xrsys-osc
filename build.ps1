@@ -99,7 +99,7 @@ if (Test-Path 'osc\xrsoft.exe') {
 else {
     # 下载所需文件
     Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/irdVI27gi2pg" -OutFile "osc\runtime\DirectX_Redist_Repack_x86_x64_Final.exe"
-    Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/it4vE2i2cq3e" -OutFile "osc\runtime\flash.exe"
+    Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/iImmW2qeilob" -OutFile "osc\runtime\flash.exe"
     Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/i41Nh2nk84xg" -OutFile "osc\runtime\MSVCRedist.AIO.exe"
     Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/idHOf2bfs3te" -OutFile "osc\xrkms\KMS_VL_ALL_AIO.cmd"
     Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/iKodC2pi8g7c" -OutFile "osc\xrkms\kms.exe"
