@@ -17,13 +17,13 @@ function Get-LanzouLink {
     else {
         throw "Failed to get fn. Please check whether the URL is correct."
     }
-    if ($fn -match '\/ajaxm\.php\?file=\d+') {
+    if ($fn -match '\/ajaxm\.php\?file=\d\d+') {
         $ajaxm = $Matches[0]
     }
     else {
         throw "Failed to get ajaxm.php."
     }
-    if ($fn -match "'sign':'(\w+)'") {
+    if ($fn -match "wp_sign = '(.*?)';") {
         $sign = $Matches[1]
     }
     else {
@@ -35,7 +35,13 @@ function Get-LanzouLink {
     $directlink = $ajax.dom + '/file/' + $ajax.url
     try {
         Invoke-WebRequest -Uri $directlink -Method Head -MaximumRedirection 0 -ErrorAction SilentlyContinue `
-            -Headers @{ "Accept-Language" = "zh-CN,zh;q=0.9" } 
+            -Headers @{ 
+                'accept' = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+                'accept-encoding' = 'gzip, deflate, br, zstd'
+                'accept-language' = 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6'
+                'priority' = 'u=0, i'
+                'upgrade-insecure-requests' = '1'
+             } 
     }
     catch {
         $directlink = $_.Exception.Response.Headers.Location.OriginalString
@@ -65,6 +71,7 @@ function Get-LanzouFile {
         Invoke-WebRequest -Uri $directlink -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
     }
     catch {
+        Write-Warning "PowerShell Function faild: $_"
         try {
             Write-Host "Using api.xrgzs.top to parse link..."
             Invoke-WebRequest -Uri "https://api.xrgzs.top/lanzou/?type=down&url=$Uri" -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
