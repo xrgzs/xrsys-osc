@@ -229,6 +229,11 @@ if %osver% GEQ 4 (
         Reg.exe add "HKCU\Console\%%%%Startup" /v "DelegationConsole" /t REG_SZ /d "{2EACA947-7F5F-4CFA-BA87-8F7FBEEFBE69}" /f
         Reg.exe add "HKCU\Console\%%%%Startup" /v "DelegationTerminal" /t REG_SZ /d "{E12CFF52-A866-4C77-9A90-F570A7AA2C6B}" /f
     )
+    echo 禁用Smart App Control，修复Windows Installer安装缓慢
+    if exist "%systemdrive%\Windows\System32\CiTool.exe" (
+        reg add "HKLM\SYSTEM\CurrentControlSet\Control\CI\Policy" /f /v "VerifiedAndReputablePolicyState" /t REG_DWORD /d 0
+        echo | CiTool.exe -r
+    )
     if !bigversion! GEQ 19041 (
         echo 启用硬件加速GPU调度
         reg add HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers /f /v HwSchMode /t REG_DWORD /d 2
