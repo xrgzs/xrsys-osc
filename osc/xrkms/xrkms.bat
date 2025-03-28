@@ -2,7 +2,7 @@
 chcp 936 > nul
 cd /d "%~dp0"
 setlocal enabledelayedexpansion
-set ver=智能正版激活工具 V3.25.3.4
+set ver=智能正版激活工具 V3.25.3.29
 title %ver%（请勿关闭此窗口）
 if exist "%systemdrive%\Windows\Setup\xrsysnokms.txt" exit
 if exist "%SystemDrive%\wandrv\wall.exe" exit
@@ -156,12 +156,12 @@ title %ver% - 离线激活（请勿关闭此窗口）
 echo 正在离线激活系统，请稍候...
 echo 技术支持：HEU KMS Activator by 知彼而知己
 set heu=
-if "%iswindows%"=="1" if "%iswts%"=="1" set heu=%heu% /wts
+if "%iswindows%"=="1" if "%iswts%"=="1" set heu=%heu% /wts /w4k
 if "%iswindows%"=="1" if "%iskms%"=="1" set heu=%heu% /kwi /ren
 if "%iswindows%"=="1" if "%isoem%"=="1" set heu=%heu% /oem
 if "%iswindows%"=="1" if "%isdigital%"=="1" set heu=%heu% /dig
 if "%iswindows%"=="1" if "%iskms38%"=="1" set heu=%heu% /k38 /lok
-if "%isoffice%"=="1" if "%isots%"=="1" set heu=%heu% /ots
+if "%isoffice%"=="1" if "%isots%"=="1" set heu=%heu% /ots /o4k
 if "%isoffice%"=="1" set heu=%heu% /kof /ren /r2v
 if "%heu%"=="" goto exit
 echo 执行参数：%heu%
@@ -179,8 +179,14 @@ echo 技术支持：KMS_VL_ALL_AIO by abbodi1406
         start /wait /min cmd /c KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
     )
 echo 正在进一步激活系统，请稍候...
-if "%isoem%"=="1" call kms.exe /oem
-if "%isdigital%"=="1" call kms.exe /dig
+set heu=
+if "%iswindows%"=="1" if "%iswts%"=="1" set heu=%heu% /wts /w4k
+if "%iswindows%"=="1" if "%isoem%"=="1" set heu=%heu% /oem
+if "%iswindows%"=="1" if "%isdigital%"=="1" set heu=%heu% /dig
+if "%heu%"=="" goto exit
+echo 技术支持：HEU KMS Activator by 知彼而知己
+echo 执行参数：%heu%
+kms.exe %heu%
 goto exit
 
 :exit
