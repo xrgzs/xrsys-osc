@@ -58,7 +58,7 @@ function Get-Appx($Name) {
     }
 }
 
-Invoke-WebRequest -Uri "https://alist.xrgzs.top/d/pxy/System/Windows/Win10/Res/Microsoft.HEVCVideoExtension.xml"  -OutFile "$ExtPath\Microsoft.HEVCVideoExtension.xml"
+Invoke-WebRequest -Uri "https://alist.xrgzs.top/d/pxy/System/Windows/Win10/Res/Microsoft.HEVCVideoExtensions.xml"  -OutFile "$ExtPath\Microsoft.HEVCVideoExtensions.xml"
 
 Get-Appx 'Microsoft.AV1VideoExtension'
 Get-Appx 'Microsoft.HEIFImageExtension'
