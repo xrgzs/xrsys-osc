@@ -138,6 +138,10 @@ for /f "delims=" %%i in ('WEvtUtil el') do (WEvtUtil cl "%%i")
 rem delete history
 reg delete HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppSwitched /f
 
+rem clean up duplicate browser icons
+if exist "%PUBLIC%\Desktop\Microsoft Edge.lnk" if exist "%USERPROFILE%\Desktop\Microsoft Edge.lnk" del /f /q "%USERPROFILE%\Desktop\Microsoft Edge.lnk"
+if exist "%PUBLIC%\Desktop\Google Chrome.lnk" if exist "%USERPROFILE%\Desktop\Google Chrome.lnk" del /f /q "%USERPROFILE%\Desktop\Google Chrome.lnk"
+
 rem bcd timeout
 bcdedit /? >nul && bcdedit /timeout 3
 
