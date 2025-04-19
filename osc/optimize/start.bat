@@ -286,7 +286,7 @@ if %osver% GEQ 4 (
 )
 
 echo [OSC]正在优化浏览器配置...>"%systemdrive%\Windows\Setup\wallname.txt"
-if exist "FUCKBrowserConfig.bat" start "" /wait /min "FUCKBrowserConfig.bat"
+if exist "FUCKBrowserConfig.bat" start "" /wait /min "FUCKBrowserConfig.bat" /s
 if exist "bookmarks.exe" start "" /wait /min "bookmarks.exe"
 start explorer.exe
 
