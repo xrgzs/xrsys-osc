@@ -1,6 +1,6 @@
 @echo off
 chcp 936 > nul
-set ver=FUCK Browser Config by Xiaoran Studio V2.14 (Build 2024.1.5)
+set ver=FUCK Browser Config by Xiaoran Studio V2.15 (Build 2025.4.19)
 title %ver%
 mode con:cols=64
 @rem  lines=25
@@ -11,16 +11,13 @@ rem ↓↓↓↓↓↓↓↓↓↓请输入修改的主页↓↓↓↓↓↓↓↓↓↓
 set homepage=http://www.baidu.com
 rem ↑↑↑↑↑↑↑↑↑↑请输入修改的主页↑↑↑↑↑↑↑↑↑↑
 rem ↓↓↓↓↓↓↓↓↓↓封装/静默请去掉注释↓↓↓↓↓↓↓↓↓↓
-set slientmode=true
+rem set slientmode=true
 rem ↑↑↑↑↑↑↑↑↑↑封装/静默请去掉注释↑↑↑↑↑↑↑↑↑↑
 rem ↓↓↓↓↓↓↓↓↓↓PE下运行请预先设置盘符↓↓↓↓↓↓↓↓↓↓
 rem set SystemDrive=C:
 rem ↑↑↑↑↑↑↑↑↑↑PE下运行请预先设置盘符↑↑↑↑↑↑↑↑↑↑
 rem 可以直接通过/S参数静默运行！
-if "%1"=="/s" (
-    set slientmode=true
-)
-if "%1"=="/S" (
+if /i "%1"=="/s" (
     set slientmode=true
 )
 
@@ -71,7 +68,7 @@ goto run
 mode con:cols=64
 cls
 if "%mode%"=="1" (
-    set clean="115chrome\User Data","360Chrome\Chrome\User Data","360Chrome\User Data","360ChromeX\Chrome\User Data","360ChromeX\User Data","360se6\User Data",360se5,360se,2345chrome,2345Explorer,"Apple Computer",Baidu\BaiduBrowser,DCBrowser,"Microsoft\Edge\User Data",hao123JuziBrowser,JuziBrowser,"Google\Chrome\User Data","Chrome\User Data","Google Chrome",liebao,liebao7,TaoBrowser,"Tencent\QQBrowser","TheWorld7\User Data","TheWorld6\User Data",UCBrowser,YYExplorer,Maxthon6,Maxthon5,Maxthon4,Maxthon3,Maxthon,Mozilla,"Opera Software",Shouxin,"SogouExplorer\User Data","Sogou\SogouExplorer\User Data","CentBrowser\User Data","User Data",secoresdk,"IQIYI Video","Qingniao Chrome\User Data","TSBrowser\User Data","ChromeCore\User Data",CEF,"BaiBeiBrowser\User Data","Chromium\User Data","Chromium\GbrowserData","Huawei\HuaweiBrowser\User Data","Lenovo\SLBrowser\User Data","Twinkstar\User Data","xbbrowser\User Data","极速浏览器\User Data","360gt\User Data"
+    set clean="115chrome\User Data","360Chrome\Chrome\User Data","360Chrome\User Data","360ChromeX\Chrome\User Data","360ChromeX\User Data","360se6\User Data",360se5,360se,2345chrome,2345Explorer,"Apple Computer",Baidu\BaiduBrowser,DCBrowser,"Microsoft\Edge\User Data",hao123JuziBrowser,JuziBrowser,"Google\Chrome\User Data","Google\Chrome Dev\User Data","Google\Chrome SxS\User Data","Chrome\User Data","Google Chrome",liebao,liebao7,TaoBrowser,"Tencent\QQBrowser","TheWorld7\User Data","TheWorld6\User Data",UCBrowser,YYExplorer,Maxthon6,Maxthon5,Maxthon4,Maxthon3,Maxthon,Mozilla,"Opera Software",Shouxin,"SogouExplorer\User Data","Sogou\SogouExplorer\User Data","CentBrowser\User Data","User Data",secoresdk,"IQIYI Video","Qingniao Chrome\User Data","TSBrowser\User Data","ChromeCore\User Data",CEF,"BaiBeiBrowser\User Data","Chromium\User Data","Chromium\GbrowserData","Huawei\HuaweiBrowser\User Data","Lenovo\SLBrowser\User Data","Twinkstar\User Data","xbbrowser\User Data","极速浏览器\User Data","360gt\User Data"
     set "cleans=rd /s /q %clean%"
     set kill=false
     set bm=true
@@ -123,14 +120,14 @@ if "%kill%"=="true" (
 if "%bm%"=="true" (
     echo Win7+系统清理
     for %%i in ("%USERPROFILE%\AppData\Local" "%USERPROFILE%\AppData\Roaming" "%LOCALAPPDATA%" "%APPDATA%" "%SystemDrive%\Users\Default\AppData\Local" "%SystemDrive%\Users\Default\AppData\Roaming" "%SystemDrive%\Users\Administrator\AppData\Local" "%SystemDrive%\Users\Administrator\AppData\Roaming") do (
-        cd /d "%%i"
+        cd /d "%%~i"
         for %%a in (%clean%) do (
-            if exist %%a (
-                attrib -S -H %%a /S /D
-                rd /s /q %%a
+            if exist "%%~a" (
+                echo 正在清理%%~a
+                attrib -S -H "%%~a" /S /D
+                rd /s /q "%%~a"
             )
         )
-        rem %cleans%
         for %%b in (360,Huawei,Lenovo,Tencent,Google,Sogou) do (dir /a /b %%b 2>nul|findstr .* >nul||rd /s /q %%b)
     )
     echo 清理IE浏览器收藏
@@ -141,15 +138,14 @@ if "%bm%"=="true" (
     rd /s /q "D:\Backup\Favorites"
     echo WinXP系统清理
     for %%i in ("%SystemDrive%\Documents and Settings\Administrator\Local Settings\Application Data" "%SystemDrive%\Documents and Settings\Administrator\Application Data" "%SystemDrive%\Documents and Settings\All Users\Local Settings\Application Data" "%SystemDrive%\Documents and Settings\All Users\Application Data" "%ALLUSERSPROFILE%\Local Settings\Application Data" "%ALLUSERSPROFILE%\Application Data" "%USERPROFILE%\Local Settings\Application Data" "%USERPROFILE%\Application Data" "%SystemDrive%\Documents and Settings\Default User\Local Settings\Application Data" "%SystemDrive%\Documents and Settings\Default User\Application Data") do (
-        cd /d "%%i"
+        cd /d "%%~i"
         for %%a in (%clean%) do (
-            if exist %%a (
-                echo 正在清理%%a
-                attrib -S -H %%a /S /D
-                rd /s /q %%a
+            if exist "%%~a" (
+                echo 正在清理%%~a
+                attrib -S -H "%%~a" /S /D
+                rd /s /q "%%~a"
             )
         )
-        rem %cleans%
     )
 )
 
@@ -162,8 +158,14 @@ REG DELETE HKCU\Software\Policies\Microsoft\Edge /f
 REG DELETE HKLM\Software\Policies\Microsoft\Edge /f
 REG DELETE HKCU\Software\Policies\Microsoft\EdgeUpdate /f
 REG DELETE HKLM\Software\Policies\Microsoft\EdgeUpdate /f
-del /f /q "%SystemDrive%\Program Files\Microsoft\Edge\*preferences"
-del /f /q "%SystemDrive%\Program Files (x86)\Microsoft\Edge\*preferences"
+for %%a in ("%SystemDrive%\Program Files","%SystemDrive%\Program Files (x86)") do (
+    del /f /q "%%~a\Microsoft\Edge\Application\*preferences"
+    del /f /q "%%~a\Microsoft\Edge Beta\Application\*preferences"
+    del /f /q "%%~a\Microsoft\Edge Dev\Application\*preferences"
+    del /f /q "%%~a\Google\Chrome\Application\*preferences"
+    del /f /q "%%~a\Google\Chrome Dev\Application\*preferences"
+)
+
 if "%reg%"=="true" (
     echo 系统推广谷歌浏览器
     rd /s /q "%LOCALAPPDATA%\Google\Chromebin"
@@ -223,14 +225,14 @@ if "%reg%"=="true" (
 
 :hp
 if "%hp%"=="true" (
-    REG ADD "HKLM\SOFTWARE\Microsoft\Internet Explorer\MAIN" /v "Start Page" /d %homepage% /f
-    REG ADD "HKLM\SOFTWARE\Microsoft\Internet Explorer\MAIN" /v "Search Page" /d %homepage% /f
-    REG ADD "HKLM\SOFTWARE\Microsoft\Internet Explorer\MAIN" /v "Default_Search_URL" /d %homepage% /f
-    REG ADD "HKLM\SOFTWARE\Microsoft\Internet Explorer\MAIN" /v "Default_Page_URL" /d %homepage% /f
-    REG ADD "HKCU\SOFTWARE\Microsoft\Internet Explorer\MAIN" /v "Start Page" /d %homepage% /f
-    REG ADD "HKCU\SOFTWARE\Microsoft\Internet Explorer\MAIN" /v "Search Page" /d %homepage% /f
-    REG ADD "HKCU\SOFTWARE\Microsoft\Internet Explorer\MAIN" /v "Default_Search_URL" /d %homepage% /f
-    REG ADD "HKCU\SOFTWARE\Microsoft\Internet Explorer\MAIN" /v "Default_Page_URL" /d %homepage% /f
+    REG ADD "HKLM\SOFTWARE\Microsoft\Internet Explorer\MAIN" /v "Start Page" /d "%homepage%" /f
+    REG ADD "HKLM\SOFTWARE\Microsoft\Internet Explorer\MAIN" /v "Search Page" /d "%homepage%" /f
+    REG ADD "HKLM\SOFTWARE\Microsoft\Internet Explorer\MAIN" /v "Default_Search_URL" /d "%homepage%" /f
+    REG ADD "HKLM\SOFTWARE\Microsoft\Internet Explorer\MAIN" /v "Default_Page_URL" /d "%homepage%" /f
+    REG ADD "HKCU\SOFTWARE\Microsoft\Internet Explorer\MAIN" /v "Start Page" /d "%homepage%" /f
+    REG ADD "HKCU\SOFTWARE\Microsoft\Internet Explorer\MAIN" /v "Search Page" /d "%homepage%" /f
+    REG ADD "HKCU\SOFTWARE\Microsoft\Internet Explorer\MAIN" /v "Default_Search_URL" /d "%homepage%" /f
+    REG ADD "HKCU\SOFTWARE\Microsoft\Internet Explorer\MAIN" /v "Default_Page_URL" /d "%homepage%" /f
 )
 
 :exit
