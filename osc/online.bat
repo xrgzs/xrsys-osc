@@ -1,9 +1,9 @@
 chcp 936 > nul
 title OSConline
 cd /d "%~dp0"
-set url1=http://url.xrgzs.top
-set url2=http://dl.xrgzs.top/d/url
-set url3=http://alist.xrgzs.top/d/url
+set url1=https://url.xrgzs.top
+set url2=https://dl.xrgzs.top/d/url
+set url3=https://alist.xrgzs.top/d/url
 set url=%url1%
 
 

@@ -113,8 +113,8 @@ else {
     Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/ixdbP27giisf" -OutFile "osc\xrsoft.exe"
 
     # 下载其他文件
-    Invoke-WebRequest -Uri "http://url.xrgzs.top/osconline" -OutFile "osc\oscoffline.bat" -ErrorAction Stop
-    Invoke-WebRequest -Uri "http://url.xrgzs.top/oscsoft" -OutFile "osc\oscsoftof.txt" -ErrorAction Stop
+    Invoke-WebRequest -Uri "https://url.xrgzs.top/osconline" -OutFile "osc\oscoffline.bat" -ErrorAction Stop
+    Invoke-WebRequest -Uri "https://url.xrgzs.top/oscsoft" -OutFile "osc\oscsoftof.txt" -ErrorAction Stop
 }
 
 # 构建
