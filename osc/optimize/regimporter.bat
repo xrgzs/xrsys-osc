@@ -10,48 +10,38 @@ ver | find /i "6.3." > nul && set osver=3
 ver | find /i "6.4." > nul && set osver=4
 ver | find /i "10.0." > nul && set osver=4
 
-:1st
-cd /d "%~dp0\reg\all"
-for %%a in (*.reg) do (
-	reg import "%%a" >nul >nul
-	regedit /s "%%a" >nul >nul
-)
-if %osver% LEQ 1 goto 2nd_nt5
-if %osver% EQU 2 goto 2nd_nt6.1
-if %osver% GEQ 3 goto 2nd_nt6.x
+:: bypass UCPD
+set random=
+set reg_name=%random%
+set regedit_name=%random%
+copy /y "%SystemDrive%\Windows\System32\reg.exe" "%~dp0\%reg_name%.exe"
+copy /y "%SystemDrive%\Windows\regedit.exe" "%~dp0\%regedit_name%.exe"
 
-:2nd_nt5
-cd /d "%~dp0\reg\nt5"
-for %%a in (*.reg) do (
-	reg import "%%a" >nul >nul
-	regedit /s "%%a" >nul >nul
+call :import_reg_folder all
+if %osver% LEQ 1 (
+    call :import_reg_folder nt5
+    goto exit
 )
-goto exit
-
-:2nd_nt6.1
-cd /d "%~dp0\reg\nt6.1"
-for %%a in (*.reg) do (
-	reg import "%%a" >nul >nul
-	regedit /s "%%a" >nul >nul
+call :import_reg_folder nt6
+if %osver% EQU 2 (
+    call :import_reg_folder nt6.1
+    goto exit
 )
-goto 2nd_nt6
-
-:2nd_nt6.x
-cd /d "%~dp0\reg\nt6.x"
-for %%a in (*.reg) do (
-	reg import "%%a" >nul >nul
-	regedit /s "%%a" >nul >nul
+if %osver% GEQ 3 (
+    call :import_reg_folder nt6.x
 )
-goto 2nd_nt6
-
-:2nd_nt6
-cd /d "%~dp0\reg\nt6"
-for %%a in (*.reg) do (
-	reg import "%%a" >nul >nul
-	regedit /s "%%a" >nul >nul
-)
-goto exit
-
 
 :exit
+del /f /q "%~dp0\reg%rand_name%.exe"
+del /f /q "%~dp0\regedit%rand_name%.exe"
 exit
+
+:import_reg_folder <path>
+cd /d "%~dp0\reg\%1"
+for %%a in (*.reg) do (
+    reg.exe import "%%a" >nul
+    "%~dp0\%reg_name%.exe" import "%%a" >nul
+    regedit.exe /s "%%a" >nul
+    "%~dp0\%regedit_name%.exe" /s "%%a" >nul
+)
+goto :eof
