@@ -2,20 +2,11 @@
 chcp 936 > nul
 cd /d "%~dp0"
 setlocal enabledelayedexpansion
-set ver=智能正版激活工具 V3.25.5.22
+set ver=智能正版激活工具 V3.25.5.23
 title %ver%（请勿关闭此窗口）
 if exist "%systemdrive%\Windows\Setup\xrsysnokms.txt" exit
 if exist "%SystemDrive%\wandrv\wall.exe" exit
 if exist wbox.exe set wbox="%~dp0wbox.exe"
-@rem if not exist "%SystemDrive%\WINDOWS\Setup\Set\api.exe" (
-@rem     if exist "%SystemDrive%\WINDOWS\OSConfig\osc.exe" (
-@rem         if exist "%SystemDrive%\wandrv\wall.exe" exit
-@rem     ) else (
-@rem         echo 检测到您未在潇然系统部署过程中运行，程序即将退出！！！
-@rem         timeout -t 5 2>nul || ping 127.0.0.1 -n 5 >nul
-@rem         exit
-@rem     )
-@rem )
 
 :ask
 cls
@@ -62,10 +53,13 @@ set isoffice=0
 set isnewoffice=0
 set isots=1
 set isohk=0
+set officepath=
 
 echo 正在检测并设置激活方案...
 echo 正在检测并设置激活方案... >>"%systemdrive%\Windows\Setup\xrkmsini.log"
-if %osver% EQU 1 set iswindows=0
+
+call :isWinActivated
+if %errorlevel% EQU 0 set iswindows=0
 
 if %osver% EQU 2 set iskms=0
 if %osver% EQU 2 set isoem=1
@@ -83,13 +77,13 @@ if %osver% EQU 2 (
 
 if exist "%systemdrive%\Windows\Setup\xrsysentg.txt" set isentg=1
 
-if "%isentg%"=="1" call :windowsentg
-call :checkmsostate
+if "%isentg%"=="1" call :convertWinEntG
+call :checkMSOState
 
 goto ping
 
 :ping
-if "%server%"=="" goto offline
+set server=
 if not exist vlmcs.exe goto offline
 cls
 title %ver% - 网络测试（请勿关闭此窗口）
@@ -102,7 +96,7 @@ if %errorlevel% NEQ 0 (
 )
 echo 您的电脑能够连接到Internet，即将为您在线激活
 for %%s in (%serverlist%) do (
-    echo 正在测试您的电脑是否能与激活服务器%%S连接...
+    echo 正在测试您的电脑是否能与激活服务器%%s连接...
     vlmcs.exe -l 1 %%s 2>nul | find /i "successful" 1>nul 2>nul && (
         echo 您的电脑能与激活服务器%%s连接，即将为您在线激活
         set server=%%s
@@ -119,22 +113,24 @@ cls
 title %ver% - 离线激活（请勿关闭此窗口）
 echo 正在离线激活系统，请稍候...
 >Set.ini echo [Smart]
+>>Set.ini echo HWID=0
 >>Set.ini echo OHook=0
-call :runheu /smart
+call :runHEU /smart
 goto exit
 
 :online
 cls
 title %ver% - 在线激活（请勿关闭此窗口）
 echo 正在在线激活系统，请稍候...
-call :runkva
+call :runKVA
+call :isWinActivated
+if %errorlevel% EQU 0 goto exit
 echo 正在进一步激活系统，请稍候...
-set heu=
-if "%iswindows%"=="1" if "%iswts%"=="1" set heu=%heu% /wts /w4k
-if "%iswindows%"=="1" if "%isoem%"=="1" set heu=%heu% /oem
-if "%iswindows%"=="1" if "%isdigital%"=="1" set heu=%heu% /dig
-if "%heu%"=="" goto exit
-call :runheu %heu%
+>Set.ini echo [Smart]
+>>Set.ini echo OHook=0
+>>Set.ini echo OfficeTSForge=0
+>>Set.ini echo OfficeKMS=0
+call :runHEU /smart
 goto exit
 
 :exit
@@ -151,7 +147,7 @@ echo 激活完毕，如果还未激活，请使用桌面“常用工具”内的激活工具激活！
 timeout -t 5 >nul 2>nul || ping 127.0.0.1 -n 5 >nul
 exit
 
-:runkva
+:runKVA
 echo 技术支持：KMS_VL_ALL_AIO by abbodi1406
 echo 服务器：%server%
 if defined pecmd (
@@ -161,7 +157,7 @@ if defined pecmd (
 )
 goto :eof
 
-:runheu <*param>
+:runHEU <*param>
 echo 技术支持：HEU KMS Activator by 知彼而知己
 echo 执行参数：%*
 if defined pecmd (
@@ -171,7 +167,7 @@ if defined pecmd (
 )
 goto :eof
 
-:windowsentg
+:convertWinEntG
 if %osver% LEQ 3 goto :eof
 echo 正在获取当前的Windows SKU...
 echo 正在获取当前的Windows SKU... >>"%systemdrive%\Windows\Setup\xrkmsini.log"
@@ -194,9 +190,43 @@ if "%WIN_SKU%"=="EnterpriseG" (
     cscript.exe //B %windir%\System32\slmgr.vbs /ckhc >>"%systemdrive%\Windows\Setup\xrkmsini.log"
     cscript.exe //B %windir%\System32\slmgr.vbs /ipk YYVX9-NTFWV-6MDM3-9PT4T-4M68B >>"%systemdrive%\Windows\Setup\xrkmsini.log"
 )
+set iswindows=1
 goto :eof
 
-:checkmsostate
+:isWinActivated -> errorlevel EQU 0 ? true : false
+:: XP 不激活 Windows
+if %osver% EQU 1 (
+    set errorlevel=0
+    goto :eof
+)
+echo 正在检测Windows激活状态...
+cscript.exe //nologo "%SystemDrive%\Windows\System32\slmgr.vbs" /xpr | find "    Windows "
+if %errorlevel% EQU 0 (
+    echo Windows未激活
+    set errorlevel=1
+) else (
+    echo Windows已激活
+    set errorlevel=0
+)
+goto :eof
+
+:isMSOActivated -> errorlevel EQU 0 ? true : false
+if not defined officepath (
+    set errorlevel=0
+    goto :eof
+)
+echo 正在检测Office激活状态...
+cscript.exe //nologo "%officepath%\OSPP.VBS" /dstatus | find /i "LICENSE STATUS:  ---LICENSED---"
+if %errorlevel% EQU 0 (
+    echo Office未激活
+    set errorlevel=1
+) else (
+    echo Office已激活
+    set errorlevel=0
+)
+goto :eof
+
+:checkMSOState
 echo 正在获取当前的Office版本...
 echo 正在获取当前的Office版本... >>"%systemdrive%\Windows\Setup\xrkmsini.log"
 if exist "%SystemDrive%\Program Files\Microsoft Office\Office16\OSPP.VBS" (
@@ -227,5 +257,7 @@ if exist "%SystemDrive%\Program Files\Microsoft Office\Office16\OSPP.VBS" (
     set isoffice=0
     set isnewoffice=0
 )
-echo Office路径：%officepath%>>"%systemdrive%\Windows\Setup\xrkmsini.log"
+if defined officepath echo Office路径：%officepath%>>"%systemdrive%\Windows\Setup\xrkmsini.log"
+call :isMSOActivated
+if %errorlevel% EQU 0 set isoffice=0
 goto :eof
