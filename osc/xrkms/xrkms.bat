@@ -2,7 +2,7 @@
 chcp 936 > nul
 cd /d "%~dp0"
 setlocal enabledelayedexpansion
-set ver=智能正版激活工具 V3.25.3.29
+set ver=智能正版激活工具 V3.25.5.22
 title %ver%（请勿关闭此窗口）
 if exist "%systemdrive%\Windows\Setup\xrsysnokms.txt" exit
 if exist "%SystemDrive%\wandrv\wall.exe" exit
@@ -45,12 +45,8 @@ ver | find /i "6.4." > nul && set osver=4 && set osname=Windows10
 ver | find /i "10.0." > nul && set osver=4 && set osname=Windows10
 ver | find /i "10.0.2" > nul && set osver=4 && set osname=Windows11
 
-set server=kms.03k.org
-set server1=kms.000606.xyz
-set server2=kms.ghpym.com
-set server3=kms.lotro.cc
-set server4=kms.sixyin.com
-set server5=kms.loli.best
+:: KMS服务器，来自互联网
+set serverlist=kms.03k.org kms.000606.xyz kms.ghpym.com kms.lotro.cc kms.sixyin.com kms.loli.best
 
 :: Windows激活
 set iswindows=1
@@ -67,6 +63,8 @@ set isnewoffice=0
 set isots=1
 set isohk=0
 
+echo 正在检测并设置激活方案...
+echo 正在检测并设置激活方案... >>"%systemdrive%\Windows\Setup\xrkmsini.log"
 if %osver% EQU 1 set iswindows=0
 
 if %osver% EQU 2 set iskms=0
@@ -95,56 +93,22 @@ if "%server%"=="" goto offline
 if not exist vlmcs.exe goto offline
 cls
 title %ver% - 网络测试（请勿关闭此窗口）
-echo 正在测试您的电脑是否能与激活服务器%server%连接...
-vlmcs.exe -l 1 %server% 2>nul | find /i "successful" 1>nul 2>nul && (
-    echo 您的电脑能与激活服务器%server%连接，即将为您在线激活
-    goto online
-) || (
-    echo 您的电脑不能与激活服务器%server%连接，即将为您尝试另一个服务器
-    goto ping1
-)
-
-:ping1
-cls
-title %ver% - 网络测试（请勿关闭此窗口）
 echo 正在测试您的电脑是否能够连接到Internet...
 ping www.baidu.com -n 1 >nul
-if %errorlevel% EQU 0 (
-    echo 您的电脑能够连接到Internet，即将为您在线激活
-) else (
+if %errorlevel% NEQ 0 (
     echo 您的电脑不能够连接到Internet，即将为您本地激活
     echo 您的电脑不能够连接到Internet，即将为您本地激活 >>"%systemdrive%\Windows\Setup\xrkmsini.log"
     goto offline
 )
-echo 正在测试您的电脑是否能与激活服务器%server1%连接...
-vlmcs.exe -l 1 %server1% 2>nul | find /i "successful" 1>nul 2>nul && (
-    echo 您的电脑能与激活服务器%server1%连接，即将为您在线激活
-    set server=%server1%
-    goto online
-)
-echo 您的电脑不能与激活服务器%server1%连接，即将为您尝试另一个服务器
-vlmcs.exe -l 1 %server2% 2>nul | find /i "successful" 1>nul 2>nul && (
-    echo 您的电脑能与激活服务器%server2%连接，即将为您在线激活
-    set server=%server2%
-    goto online
-)
-echo 您的电脑不能与激活服务%server2%器连接，即将为您尝试另一个服务器
-vlmcs.exe -l 1 %server3% 2>nul | find /i "successful" 1>nul 2>nul && (
-    echo 您的电脑能与激活服务器%server3%连接，即将为您在线激活
-    set server=%server3%
-    goto online
-)
-echo 您的电脑不能与激活服务%server3%器连接，即将为您尝试另一个服务器
-vlmcs.exe -l 1 %server4% 2>nul | find /i "successful" 1>nul 2>nul && (
-    echo 您的电脑能与激活服务器%server4%连接，即将为您在线激活
-    set server=%server4%
-    goto online
-)
-echo 您的电脑不能与激活服务%server5%器连接，即将为您尝试另一个服务器
-vlmcs.exe -l 1 %server5% 2>nul | find /i "successful" 1>nul 2>nul && (
-    echo 您的电脑能与激活服务器%server5%连接，即将为您在线激活
-    set server=%server5%
-    goto online
+echo 您的电脑能够连接到Internet，即将为您在线激活
+for %%s in (%serverlist%) do (
+    echo 正在测试您的电脑是否能与激活服务器%%S连接...
+    vlmcs.exe -l 1 %%s 2>nul | find /i "successful" 1>nul 2>nul && (
+        echo 您的电脑能与激活服务器%%s连接，即将为您在线激活
+        set server=%%s
+        goto online
+    )
+    echo 您的电脑不能与激活服务器%%s连接，尝试下一个服务器...
 )
 echo 您的电脑不能与激活服务器连接，即将为您本地激活
 echo 您的电脑不能与激活服务器连接，即将为您本地激活 >>"%systemdrive%\Windows\Setup\xrkmsini.log"
@@ -165,7 +129,11 @@ if "%isoffice%"=="1" if "%isots%"=="1" set heu=%heu% /ots /o4k
 if "%isoffice%"=="1" set heu=%heu% /kof /ren /r2v
 if "%heu%"=="" goto exit
 echo 执行参数：%heu%
-kms.exe %heu%
+if defined pecmd (
+    start "" /wait "%PECMD%" EXEC -wait -timeout:120000 kms.exe %heu%
+) else (
+    start /wait kms.exe %heu%
+)
 goto exit
 
 :online
@@ -173,11 +141,11 @@ cls
 title %ver% - 在线激活（请勿关闭此窗口）
 echo 正在在线激活系统，请稍候...
 echo 技术支持：KMS_VL_ALL_AIO by abbodi1406
-    if defined pecmd (
-        start "" /wait "%PECMD%" EXEC -hide -wait -timeout:120000 KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
-    ) else (
-        start /wait /min cmd /c KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
-    )
+if defined pecmd (
+    start "" /wait "%PECMD%" EXEC -hide -wait -timeout:120000 KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
+) else (
+    start /wait /min cmd /c KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
+)
 echo 正在进一步激活系统，请稍候...
 set heu=
 if "%iswindows%"=="1" if "%iswts%"=="1" set heu=%heu% /wts /w4k
@@ -186,7 +154,11 @@ if "%iswindows%"=="1" if "%isdigital%"=="1" set heu=%heu% /dig
 if "%heu%"=="" goto exit
 echo 技术支持：HEU KMS Activator by 知彼而知己
 echo 执行参数：%heu%
-kms.exe %heu%
+if defined pecmd (
+    start "" /wait "%PECMD%" EXEC -wait -timeout:120000 kms.exe %heu%
+) else (
+    start /wait kms.exe %heu%
+)
 goto exit
 
 :exit
@@ -204,7 +176,7 @@ timeout -t 5 >nul 2>nul || ping 127.0.0.1 -n 5 >nul
 exit
 
 :windowsentg
-if %osver% LEQ 3 goto windowsact
+if %osver% LEQ 3 goto :eof
 echo 正在获取当前的Windows SKU...
 echo 正在获取当前的Windows SKU... >>"%systemdrive%\Windows\Setup\xrkmsini.log"
 for /F "tokens=3* delims=: " %%A in ('dism /english /online /Get-CurrentEdition ^| find /i "Current Edition :"') do set "WIN_SKU=%%A"
@@ -229,6 +201,8 @@ if "%WIN_SKU%"=="EnterpriseG" (
 goto :eof
 
 :checkmsostate
+echo 正在获取当前的Office版本...
+echo 正在获取当前的Office版本... >>"%systemdrive%\Windows\Setup\xrkmsini.log"
 if exist "%SystemDrive%\Program Files\Microsoft Office\Office16\OSPP.VBS" (
     set "officepath=%SystemDrive%\Program Files\Microsoft Office\Office16"
     set isoffice=1
@@ -257,5 +231,5 @@ if exist "%SystemDrive%\Program Files\Microsoft Office\Office16\OSPP.VBS" (
     set isoffice=0
     set isnewoffice=0
 )
-echo officepath:%officepath%>>"%systemdrive%\Windows\Setup\xrkmsini.log"
+echo Office路径：%officepath%>>"%systemdrive%\Windows\Setup\xrkmsini.log"
 goto :eof
