@@ -222,6 +222,11 @@ if %osver% GEQ 4 (
         reg add "HKLM\SOFTWARE\Microsoft\Windows Photo Viewer\Capabilities\FileAssociations" /v ".wdp" /t REG_SZ /d "PhotoViewer.FileAssoc.Wdp" /f
     )
 
+    echo 关闭显示最近添加的应用，关闭显示最常用的应用
+    for /f "delims=*" %%a in ('reg.exe query HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount ^| find /i "}$$windows.data.unifiedtile.startglobalproperties"') do (
+        reg.exe add "%%a\Current" /v "Data" /t REG_BINARY /d "0200000061F31E4D36CBDB010000000043420100C21401CB320A0305CEABD3E90224DAF40344C38A016682E58BB1AEFDFDBB3C0005A08FFCC103248AD0034480990166B0B599DCCDB097DE4D00058691CC930524AAA30144C38401669FF79DB187CBD1ACD40100C23C01C55A0100" /f
+    )
+
     echo 启用任务管理器显示磁盘性能
     if exist "%systemdrive%\Windows\System32\diskperf.exe" diskperf -y
     if exist "%LocalAppData%\Microsoft\WindowsApps\wt.exe" (
