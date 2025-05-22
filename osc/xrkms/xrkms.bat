@@ -118,7 +118,6 @@ goto offline
 cls
 title %ver% - 离线激活（请勿关闭此窗口）
 echo 正在离线激活系统，请稍候...
-echo 技术支持：HEU KMS Activator by 知彼而知己
 set heu=
 if "%iswindows%"=="1" if "%iswts%"=="1" set heu=%heu% /wts /w4k
 if "%iswindows%"=="1" if "%iskms%"=="1" set heu=%heu% /kwi /ren
@@ -128,37 +127,21 @@ if "%iswindows%"=="1" if "%iskms38%"=="1" set heu=%heu% /k38 /lok
 if "%isoffice%"=="1" if "%isots%"=="1" set heu=%heu% /ots /o4k
 if "%isoffice%"=="1" set heu=%heu% /kof /ren /r2v
 if "%heu%"=="" goto exit
-echo 执行参数：%heu%
-if defined pecmd (
-    start "" /wait "%PECMD%" EXEC -wait -timeout:120000 kms.exe %heu%
-) else (
-    start /wait kms.exe %heu%
-)
+call :runheu %heu%
 goto exit
 
 :online
 cls
 title %ver% - 在线激活（请勿关闭此窗口）
 echo 正在在线激活系统，请稍候...
-echo 技术支持：KMS_VL_ALL_AIO by abbodi1406
-if defined pecmd (
-    start "" /wait "%PECMD%" EXEC -hide -wait -timeout:120000 KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
-) else (
-    start /wait /min cmd /c KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
-)
+call :runkva
 echo 正在进一步激活系统，请稍候...
 set heu=
 if "%iswindows%"=="1" if "%iswts%"=="1" set heu=%heu% /wts /w4k
 if "%iswindows%"=="1" if "%isoem%"=="1" set heu=%heu% /oem
 if "%iswindows%"=="1" if "%isdigital%"=="1" set heu=%heu% /dig
 if "%heu%"=="" goto exit
-echo 技术支持：HEU KMS Activator by 知彼而知己
-echo 执行参数：%heu%
-if defined pecmd (
-    start "" /wait "%PECMD%" EXEC -wait -timeout:120000 kms.exe %heu%
-) else (
-    start /wait kms.exe %heu%
-)
+call :runheu %heu%
 goto exit
 
 :exit
@@ -174,6 +157,26 @@ cls
 echo 激活完毕，如果还未激活，请使用桌面“常用工具”内的激活工具激活！
 timeout -t 5 >nul 2>nul || ping 127.0.0.1 -n 5 >nul
 exit
+
+:runkva
+echo 技术支持：KMS_VL_ALL_AIO by abbodi1406
+echo 服务器：%server%
+if defined pecmd (
+    start "" /wait "%PECMD%" EXEC -hide -wait -timeout:120000 KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
+) else (
+    start /wait /min cmd /c KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
+)
+goto :eof
+
+:runheu <*param>
+echo 技术支持：HEU KMS Activator by 知彼而知己
+echo 执行参数：%*
+if defined pecmd (
+    start "" /wait "%PECMD%" EXEC -wait -timeout:120000 kms.exe %*
+) else (
+    start /wait kms.exe %*
+)
+goto :eof
 
 :windowsentg
 if %osver% LEQ 3 goto :eof
