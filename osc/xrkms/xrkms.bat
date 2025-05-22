@@ -118,16 +118,9 @@ goto offline
 cls
 title %ver% - 离线激活（请勿关闭此窗口）
 echo 正在离线激活系统，请稍候...
-set heu=
-if "%iswindows%"=="1" if "%iswts%"=="1" set heu=%heu% /wts /w4k
-if "%iswindows%"=="1" if "%iskms%"=="1" set heu=%heu% /kwi /ren
-if "%iswindows%"=="1" if "%isoem%"=="1" set heu=%heu% /oem
-if "%iswindows%"=="1" if "%isdigital%"=="1" set heu=%heu% /dig
-if "%iswindows%"=="1" if "%iskms38%"=="1" set heu=%heu% /k38 /lok
-if "%isoffice%"=="1" if "%isots%"=="1" set heu=%heu% /ots /o4k
-if "%isoffice%"=="1" set heu=%heu% /kof /ren /r2v
-if "%heu%"=="" goto exit
-call :runheu %heu%
+>Set.ini echo [Smart]
+>>Set.ini echo OHook=0
+call :runheu /smart
 goto exit
 
 :online
