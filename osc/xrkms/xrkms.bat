@@ -200,6 +200,7 @@ if %osver% EQU 1 (
     goto :eof
 )
 echo 正在检测Windows激活状态...
+set errorlevel=
 cscript.exe //nologo "%SystemDrive%\Windows\System32\slmgr.vbs" /xpr | find "    Windows "
 if %errorlevel% EQU 0 (
     echo Windows未激活
