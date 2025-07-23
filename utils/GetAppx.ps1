@@ -1,71 +1,94 @@
 $ExtPath = Join-Path $PSScriptRoot ".." "osc" "runtime" "Extension"
 
-Remove-Item -Path $ExtPath -Force
+Remove-Item -Path $ExtPath -Force -Recurse -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Path $ExtPath | Out-Null
 
-function Get-Appx($Name) {
-    $Body = @{
-        type = 'PackageFamilyName'
-        url  = $Name + '_8wekyb3d8bbwe'
-        ring = 'RP'
-        lang = 'zh-CN'
-    }
-    $msstoreApis = @(
-        "https://api.xrgzs.top/msstore/GetFiles",
-        "https://store.rg-adguard.net/api/GetFiles"
+Import-Module "$PSScriptRoot\MSStore.psm1"
+
+function Get-Appx {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$ProductNumber,
+        
+        [Parameter(Mandatory = $false)]
+        [string]$OutputPath = $ExtPath,
+        
+        [switch]$Latest
     )
     
-    while ($true) {
-        try {
-            foreach ($url in $msstoreApis) {
-                try {
-                    $obj = Invoke-WebRequest -Uri $url `
-                        -Method "POST" `
-                        -ContentType "application/x-www-form-urlencoded" `
-                        -Body $Body `
-                        -ConnectionTimeoutSeconds 5 -OperationTimeoutSeconds 5
-                    break
-                }
-                catch {
-                    if ($url -eq $msstoreApis[-1]) {
-                        throw "All requests failed. $_"
-                    }
-                    Write-Warning "Request failed with $url, trying next url... ($_)"
-                    continue
-                }
-            }
-            foreach ($link in $obj.Links) {
-                if ($link.outerHTML -match '(?<=<a\b[^>]*>).*?(?=</a>)') {
-                    $linkText = $Matches[0]
-                    if ($linkText -match '(arm64|x64|x86|neutral).*\.(appx|appxbundle|msixbundle)\b') {
-                        Write-Debug "$linkText : $($link.href)"
-                        if (Test-Path -Path $linkText) {
-                            Write-Warning "Already exists, skiping $linkText"
-                        }
-                        else {
-                            Write-Host "== $linkText ($($link.href))"
-                            Invoke-WebRequest -Uri $link.href -OutFile "$ExtPath\$linkText"
-                        }
-                    }
-                }
-            }
-            break
+    try {
+        Write-Host "Getting download URLs for product: $ProductNumber" -ForegroundColor Cyan
+        
+        # Use the Get-StoreURLS function from the module
+        $StoreData = Get-StoreURLS -ProductNumber $ProductNumber
+        
+        
+        Write-Host ($StoreData | ConvertTo-Json -Depth 100)
+
+        if ($Latest) {
+            $StoreData = $StoreData | Sort-Object -Property ID -Descending | Select-Object -First 1
         }
-        catch {
-            Write-Warning "Request failed, retrying in 3 seconds... ($_)"
-            Start-Sleep -Seconds 3
+        
+        if ($null -eq $StoreData -or $StoreData.Count -eq 0) {
+            Write-Error "No download URLs found for product: $ProductNumber"
+            return
         }
+        
+        # Create output directory if it doesn't exist
+        if (-not (Test-Path -Path $OutputPath)) {
+            New-Item -ItemType Directory -Path $OutputPath -Force | Out-Null
+        }
+        
+        foreach ($item in $StoreData) {
+            Write-Host "Processing: $($item.ID)" -ForegroundColor Yellow
+            
+            $url = $item.URLS[-1]
+           
+            # Extract filename from URL or use the ID
+            $fileName = $item.FileName 
+
+            if ($fileName -notmatch '(arm64|x64|x86|neutral).*\.(appx|appxbundle|msixbundle)\b') {
+                Write-Host "Invalid filename: $fileName" -ForegroundColor Red
+                continue
+            }
+                
+            $filePath = Join-Path -Path $OutputPath -ChildPath $fileName
+                
+            if (Test-Path -Path $filePath) {
+                Write-Warning "Already exists, skipping $fileName"
+                continue
+            }
+                
+            try {
+                Write-Host "== Downloading $fileName" -ForegroundColor Green
+                Write-Debug "URL: $url"
+                    
+                Invoke-WebRequest -Uri $url -OutFile $filePath -UseBasicParsing
+                Write-Host "Downloaded: $fileName" -ForegroundColor Green
+            }
+            catch {
+                Write-Error "Failed to download $fileName`: $($_.Exception.Message)"
+            }
+        }
+        
+    }
+    catch {
+        Write-Error "Failed to get store URLs: $($_.Exception.Message)"
     }
 }
 
-Invoke-WebRequest -Uri "https://alist.xrgzs.top/d/pxy/System/Windows/Win10/Res/Microsoft.HEVCVideoExtensions.xml"  -OutFile "$ExtPath\Microsoft.HEVCVideoExtensions.xml"
+# Download HEVC XML file
+Invoke-WebRequest -Uri "https://alist.xrgzs.top/d/pxy/System/Windows/Win10/Res/Microsoft.HEVCVideoExtensions.xml" -OutFile "$ExtPath\Microsoft.HEVCVideoExtensions.xml"
 
-Get-Appx 'Microsoft.AV1VideoExtension'
-Get-Appx 'Microsoft.HEIFImageExtension'
-Get-Appx 'Microsoft.MPEG2VideoExtension'
-Get-Appx 'Microsoft.RawImageExtension'
-Get-Appx 'Microsoft.VP9VideoExtensions'
-Get-Appx 'Microsoft.WebMediaExtensions'
-Get-Appx 'Microsoft.WebpImageExtension'
-Get-Appx 'Microsoft.HEVCVideoExtensions'
-Get-Appx 'Microsoft.VCLibs.140.00'
+# Use correct Microsoft Store product numbers
+Get-Appx '9MVZQVXJBQ9V'  # AV1 Video Extension
+Get-Appx '9PMMSR1CGPWG'  # HEIF Image Extension
+Get-Appx '9N95Q1ZZPMH4'  # MPEG-2 Video Extension
+Get-Appx '9NCTDW2W1BH8'  # Raw Image Extension
+Get-Appx '9N4D0MSMP0PT'  # VP9 Video Extensions
+Get-Appx '9N5TDP8VCMHS'  # Web Media Extensions
+Get-Appx '9PG2DK419DRG'  # WebP Image Extension
+Get-Appx '9NMZLZ57R3T7'  # HEVC Video Extensions
+# Get-Appx '9WZDNCRFJ3Q2'  # Microsoft Visual C++ 2015-2019 Redistributable
+
+Remove-Module MSStore
