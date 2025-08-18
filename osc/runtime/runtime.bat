@@ -86,28 +86,4 @@ if exist "PWSH\*.msi" (
     for %%a in ("PWSH\*.msi") do start "" /wait "%PECMD%" EXEC -wait -timeout:300000 msiexec.exe /package "%%~fa" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ADD_FILE_CONTEXT_MENU_RUNPOWERSHELL=1 REGISTER_MANIFEST=1 USE_MU=1 ENABLE_MU=1 ADD_PATH=1
 )
 
-if not %osver% equ 4 exit
-
-echo [OSC]正在安装UWP扩展解码插件...>"%systemdrive%\Windows\Setup\wallname.txt"
-cd /d "%~dp0"
-call :Add-ProvisionedAppxPackage "Microsoft.VCLibs.140.00"
-call :Add-ProvisionedAppxPackage "Microsoft.AV1VideoExtension"
-call :Add-ProvisionedAppxPackage "Microsoft.HEIFImageExtension"
-call :Add-ProvisionedAppxPackage "Microsoft.MPEG2VideoExtension"
-call :Add-ProvisionedAppxPackage "Microsoft.RawImageExtension"
-call :Add-ProvisionedAppxPackage "Microsoft.VP9VideoExtensions"
-call :Add-ProvisionedAppxPackage "Microsoft.WebMediaExtensions"
-call :Add-ProvisionedAppxPackage "Microsoft.WebpImageExtension"
-call :Add-ProvisionedAppxPackage "Microsoft.HEVCVideoExtensions"
 exit
-
-:Add-ProvisionedAppxPackage
-for %%a in (Extension\%~1*) do (
-    echo installing - %%~na
-    if exist "%%~dpna.xml" (
-        Powershell -Command Add-AppxProvisionedPackage -LicensePath "%%~dpna.xml" -Online -PackagePath "%%~fa"
-    ) else (
-        Powershell -Command Add-AppxProvisionedPackage -SkipLicense -Online -PackagePath "%%~fa"
-    )
-)
-goto :EOF
