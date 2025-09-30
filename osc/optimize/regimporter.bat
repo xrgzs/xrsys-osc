@@ -16,6 +16,11 @@ set reg_name=%random%
 set regedit_name=%random%
 copy /y "%SystemDrive%\Windows\System32\reg.exe" "%~dp0\%reg_name%.exe"
 copy /y "%SystemDrive%\Windows\regedit.exe" "%~dp0\%regedit_name%.exe"
+if exist "%SystemDrive%\Windows\System32\drivers\ucpd.sys" (
+    echo 禁用 UCPD 驱动
+    sc stop ucpd
+    sc config ucpd start= disabled
+)
 
 call :import_reg_folder all
 if %osver% LEQ 1 (

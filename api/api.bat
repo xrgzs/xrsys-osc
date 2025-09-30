@@ -95,6 +95,12 @@ if %osver% GEQ 3 (
     reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned\Microsoft.Edge.GameAssist_8wekyb3d8bbwe" /f
 )
 
+if exist "%SystemDrive%\Windows\System32\drivers\ucpd.sys" (
+    echo 禁用 UCPD 驱动
+    sc stop ucpd
+    sc config ucpd start= disabled
+)
+
 if not exist "%SystemDrive%\WINDOWS\Setup\xrsysnoruntime.txt" (
     if exist "osc\runtime\DirectX_Redist_Repack_x86_x64_Final.exe" (
         echo [API]正在应用DirectX运行库...>"%systemdrive%\Windows\Setup\wallname.txt"
