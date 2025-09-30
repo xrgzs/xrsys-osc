@@ -66,8 +66,8 @@ Get-AppxPackage *Microsoft.Windows.DevHome* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *Microsoft.BingWeather* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *Microsoft.windowscommunicationsapps* -AllUsers | Remove-AppxPackage  # 邮件和日历
 Get-AppxPackage *Microsoft.Edge.GameAssist* -AllUsers | Remove-AppxPackage  # 邮件和日历
+Get-AppxPackage *Microsoft.MicrosoftOfficeHub* -AllUsers | Remove-AppxPackage # Microsoft 365 Copilot
 # Get-AppxPackage *Microsoft.GamingApp* -AllUsers | Remove-AppxPackage
-# Get-AppxPackage *Microsoft.MicrosoftOfficeHub* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.MicrosoftSolitaireCollection* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.MicrosoftStickyNotes* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.Todos* -AllUsers | Remove-AppxPackage
