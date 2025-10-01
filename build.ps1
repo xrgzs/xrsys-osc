@@ -36,12 +36,12 @@ function Get-LanzouLink {
     try {
         Invoke-WebRequest -Uri $directlink -Method Head -MaximumRedirection 0 -ErrorAction SilentlyContinue `
             -Headers @{ 
-                'accept' = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
-                'accept-encoding' = 'gzip, deflate, br, zstd'
-                'accept-language' = 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6'
-                'priority' = 'u=0, i'
-                'upgrade-insecure-requests' = '1'
-             } 
+            'accept'                    = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+            'accept-encoding'           = 'gzip, deflate, br, zstd'
+            'accept-language'           = 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6'
+            'priority'                  = 'u=0, i'
+            'upgrade-insecure-requests' = '1'
+        } 
     }
     catch {
         $directlink = $_.Exception.Response.Headers.Location.OriginalString
@@ -78,17 +78,11 @@ function Get-LanzouFile {
         }
         catch {
             try {
-                Write-Host "Using api.hanximeng.com to parse link..."
-                Invoke-WebRequest -Uri "https://api.hanximeng.com/lanzou/?type=down&url=$Uri" -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
+                Write-Host "Using lz.qaiu.top to parse link..."
+                Invoke-WebRequest -Uri "https://lz.qaiu.top/parser?url=$Uri" -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
             }
             catch {
-                try {
-                    Write-Host "Using lz.qaiu.top to parse link..."
-                    Invoke-WebRequest -Uri "https://lz.qaiu.top/parser?url=$Uri" -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
-                }
-                catch {
-                    Write-Error "Failed to download $Uri. ($_)"
-                }
+                Write-Error "Failed to download $Uri. ($_)"
             }
         }
     }
