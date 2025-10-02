@@ -32,7 +32,7 @@ if not exist "%SystemDrive%\Windows\System32\vcamp120.dll" ( set /A i=i+1 )
 @rem if %osver% equ 1 ( set i=0 )
 if %i% GEQ 2 (
     if exist MSVCRedist.AIO.exe (
-        echo [OSC]正在应用VC运行库 by XRSYS...>"%systemdrive%\Windows\Setup\wallname.txt"
+        echo [OSC]正在应用微软常用运行库 by XRSYS...>"%systemdrive%\Windows\Setup\wallname.txt"
         start "" /wait "%PECMD%" EXEC -wait -timeout:300000 MSVCRedist.AIO.exe /S
         del /f /q MSVCRedist.AIO.exe
     ) else if exist MSVBCRT.AIO.exe (
