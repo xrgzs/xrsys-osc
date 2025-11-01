@@ -100,7 +100,7 @@ if (Test-Path 'osc\xrsoft.exe') {
 else {
     # 下载所需文件
     Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/idHOf2bfs3te" -OutFile "osc\xrkms\KMS_VL_ALL_AIO.cmd"
-    Get-LanzouFile -Uri "https://xrgzs.lanzoum.com/iIse82yindri" -OutFile "osc\xrkms\kms.exe"
+    Get-LanzouFile -Uri "https://xrgzs.lanzoum.com/iQ0er39w4dhe" -OutFile "osc\xrkms\kms.exe"
     Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/iqnTr2wxjufc" -OutFile "osc\xrsoft.exe"
 
     # 下载其他文件
