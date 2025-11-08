@@ -2,7 +2,7 @@
 chcp 936 > nul
 cd /d "%~dp0"
 setlocal enabledelayedexpansion
-set ver=智能正版激活工具 V3.25.5.23
+set ver=智能正版激活工具 V3.25.11.6
 title %ver%（请勿关闭此窗口）
 if exist "%systemdrive%\Windows\Setup\xrsysnokms.txt" exit
 if exist "%SystemDrive%\wandrv\wall.exe" exit
@@ -230,7 +230,12 @@ goto :eof
 :checkMSOState
 echo 正在获取当前的Office版本...
 echo 正在获取当前的Office版本... >>"%systemdrive%\Windows\Setup\xrkmsini.log"
-if exist "%SystemDrive%\Program Files\Microsoft Office\Office16\OSPP.VBS" (
+if exist "%SystemDrive%\Program Files\Microsoft Office\root\Office16\OSPP.VBS" (
+    rem 新版 ospp 已改为 root 目录
+    set "officepath=%SystemDrive%\Program Files\Microsoft Office\root\Office16"
+    set isoffice=1
+    set isnewoffice=1
+) else if exist "%SystemDrive%\Program Files\Microsoft Office\Office16\OSPP.VBS" (
     set "officepath=%SystemDrive%\Program Files\Microsoft Office\Office16"
     set isoffice=1
     set isnewoffice=1
@@ -243,6 +248,11 @@ if exist "%SystemDrive%\Program Files\Microsoft Office\Office16\OSPP.VBS" (
     set isoffice=1
     rem Office 2010被OSPP接管，不适用 TSForge
     set isots=0
+) else if exist "%SystemDrive%\Program Files (x86)\Microsoft Office\root\Office16\OSPP.VBS" (
+    rem 新版 ospp 已改为 root 目录
+    set "officepath=%SystemDrive%\Program Files (x86)\Microsoft Office\root\Office16"
+    set isoffice=1
+    set isnewoffice=1
 ) else if exist "%SystemDrive%\Program Files (x86)\Microsoft Office\Office16\OSPP.VBS" (
     set "officepath=%SystemDrive%\Program Files (x86)\Microsoft Office\Office16"
     set isoffice=1

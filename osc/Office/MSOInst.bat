@@ -233,20 +233,35 @@ if %officevernum% LEQ 15 (
 cls
 echo 使用KMS激活Office
 if %officevernum% GEQ 14 (
-  if exist "%systemdrive%\Program Files\Microsoft Office\Office%officevernum%\OSPP.VBS" (
+  if exist "%systemdrive%\Program Files\Microsoft Office\root\Office%officevernum%\OSPP.VBS" (
+      set "officepath=%systemdrive%\Program Files\Microsoft Office\root\Office%officevernum%"
+  ) else if exist "%systemdrive%\Program Files\Microsoft Office\Office%officevernum%\OSPP.VBS" (
       set "officepath=%systemdrive%\Program Files\Microsoft Office\Office%officevernum%"
-  ) else (
+  ) else if exist "%systemdrive%\Program Files (x86)\Microsoft Office\root\Office%officevernum%\OSPP.VBS" (
+      set "officepath=%systemdrive%\Program Files (x86)\Microsoft Office\root\Office%officevernum%"
+  ) else if exist "%systemdrive%\Program Files (x86)\Microsoft Office\Office%officevernum%\OSPP.VBS" (
       set "officepath=%systemdrive%\Program Files (x86)\Microsoft Office\Office%officevernum%"
+  ) else (
+      set "errorreason=未找到OSPP.VBS激活脚本。"
+      goto error
   )
   cd /d "!officepath!"
   if "%officever%"=="365" (
+    if exist "..\root\Licenses16\MondoVL_KMS_Client-ppd.xrm-ms" (
+        set "licensepath=..\root\Licenses16"
+    ) else if exist "..\Licenses16\MondoVL_KMS_Client-ppd.xrm-ms" (
+        set "licensepath=..\Licenses16"
+    ) else (
+        set "errorreason=未找到Office 365 MondoVL许可证文件。"
+        goto error
+    )
     echo Office 365转MondoVL
-    cscript //Nologo ospp.vbs /inslic:"..\root\Licenses16\MondoVL_KMS_Client-ppd.xrm-ms"
-    cscript //Nologo ospp.vbs /inslic:"..\root\Licenses16\MondoVL_KMS_Client-ul-oob.xrm-ms"
-    cscript //Nologo ospp.vbs /inslic:"..\root\Licenses16\MondoVL_KMS_Client-ul.xrm-ms"
-    cscript //Nologo ospp.vbs /inslic:"..\root\Licenses16\MondoVL_MAK-pl.xrm-ms"
-    cscript //Nologo ospp.vbs /inslic:"..\root\Licenses16\MondoVL_MAK-ppd.xrm-ms"
-    cscript //Nologo ospp.vbs /inslic:"..\root\Licenses16\MondoVL_MAK-ul-phn.xrm-ms"
+    cscript //Nologo ospp.vbs /inslic:"!licensepath!\MondoVL_KMS_Client-ppd.xrm-ms"
+    cscript //Nologo ospp.vbs /inslic:"!licensepath!\MondoVL_KMS_Client-ul-oob.xrm-ms"
+    cscript //Nologo ospp.vbs /inslic:"!licensepath!\MondoVL_KMS_Client-ul.xrm-ms"
+    cscript //Nologo ospp.vbs /inslic:"!licensepath!\MondoVL_MAK-pl.xrm-ms"
+    cscript //Nologo ospp.vbs /inslic:"!licensepath!\MondoVL_MAK-ppd.xrm-ms"
+    cscript //Nologo ospp.vbs /inslic:"!licensepath!\MondoVL_MAK-ul-phn.xrm-ms"
     cscript //Nologo ospp.vbs /inpkey:HFTND-W9MK4-8B7MJ-B6C4G-XQBR2
     echo 正在处理KMS激活Office的盗版弹窗问题...
     if exist "%SystemDrive%\Windows\System32\wbem\WMIC.exe" (
