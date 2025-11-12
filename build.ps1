@@ -90,23 +90,24 @@ function Get-LanzouFile {
 
 # 检查
 Write-Host "version: $env:GITHUB_WORKFLOW_VERSION"
-# if (-not (Test-Path "C:\Program Files (x86)\NSIS\makensis.exe")) {
-#     Write-Host "Cannot find nsis!"
-#     exit 1
-# }
-# if (Test-Path 'osc\xrsoft.exe') {
-#     Write-Host "xrsoft.exe already exists."
-# }
-# else {
+if (-not (Test-Path "C:\Program Files (x86)\NSIS\makensis.exe")) {
+    Write-Host "Cannot find nsis!"
+    exit 1
+}
+if (Test-Path 'osc\xrsoft.exe') {
+    Write-Host "xrsoft.exe already exists."
+}
+else {
     # 下载所需文件
     Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/idHOf2bfs3te" -OutFile "osc\xrkms\KMS_VL_ALL_AIO.cmd"
     Get-LanzouFile -Uri "https://xrgzs.lanzoum.com/itYHu3avdgcb" -OutFile "osc\xrkms\kms.exe"
     Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/iqnTr2wxjufc" -OutFile "osc\xrsoft.exe"
+    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/refs/heads/master/MAS/Separate-Files-Version/Activators/TSforge_Activation.cmd" -OutFile "osc\xrkms\TSforge_Activation.cmd"
 
     # 下载其他文件
     Invoke-WebRequest -Uri "https://url.xrgzs.top/osconline" -OutFile "osc\oscoffline.bat" -ErrorAction Stop
     Invoke-WebRequest -Uri "https://url.xrgzs.top/oscsoft" -OutFile "osc\oscsoftof.txt" -ErrorAction Stop
-# }
+}
 
 # 构建
 if (-not $env:GITHUB_WORKFLOW_VERSION) {

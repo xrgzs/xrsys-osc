@@ -2,7 +2,7 @@
 chcp 936 > nul
 cd /d "%~dp0"
 setlocal enabledelayedexpansion
-set ver=智能正版激活工具 V3.25.11.6
+set ver=智能正版激活工具 V3.25.11.13
 title %ver%（请勿关闭此窗口）
 if exist "%systemdrive%\Windows\Setup\xrsysnokms.txt" exit
 if exist "%SystemDrive%\wandrv\wall.exe" exit
@@ -27,25 +27,24 @@ title %ver% - 正在读取参数（请勿关闭此窗口）
 ::系统版本判断
 set osver=0
 ::上面一行可根据系统情况手动填写系统版本，并将下面全部注释掉
-ver | find /i "5.1." > nul && set osver=1 && set osname=WindowsXP
-ver | find /i "6.0." > nul && set osver=2 && set osname=WindowsVista
-ver | find /i "6.1." > nul && set osver=2 && set osname=Windows7
-ver | find /i "6.2." > nul && set osver=3 && set osname=Windows8
-ver | find /i "6.3." > nul && set osver=3 && set osname=Windows8.1
-ver | find /i "6.4." > nul && set osver=4 && set osname=Windows10
-ver | find /i "10.0." > nul && set osver=4 && set osname=Windows10
-ver | find /i "10.0.2" > nul && set osver=4 && set osname=Windows11
+ver | find /i "5.1." > nul && set osver=1
+ver | find /i "6.0." > nul && set osver=2
+ver | find /i "6.1." > nul && set osver=2
+ver | find /i "6.2." > nul && set osver=3
+ver | find /i "6.3." > nul && set osver=3
+ver | find /i "6.4." > nul && set osver=4
+ver | find /i "10.0." > nul && set osver=4
 
 :: KMS服务器，来自互联网
 set serverlist=kms.03k.org kms.000606.xyz kms.ghpym.com kms.lotro.cc kms.sixyin.com kms.loli.best
 
 :: Windows激活
 set iswindows=1
+set iswtsesu=0
 set iswts=1
 set iskms=1
 set isoem=0
 set isdigital=0
-set iskms38=0
 set isentg=0
 
 :: Office激活
@@ -73,6 +72,11 @@ if %osver% EQU 2 (
     type osinfo.txt | find /i "Windows 7 Professional" && (set iskms=1& set isoem=0)
     type osinfo.txt | find /i "Server 2008" && (set iskms=1& set isoem=0)
     bcdedit /enum {current} | find /i "path" | find /i ".efi" && set isoem=0
+)
+if %osver% GEQ 4 (
+    ver | find /i "10.0.14393" && set iswtsesu=1
+    ver | find /i "10.0.17763" && set iswtsesu=1
+    ver | find /i "10.0.1904" && set iswtsesu=1
 )
 
 if exist "%systemdrive%\Windows\Setup\xrsysentg.txt" set isentg=1
@@ -116,7 +120,7 @@ echo 正在离线激活系统，请稍候...
 >>Set.ini echo HWID=0
 >>Set.ini echo OHook=0
 call :runHEU /smart
-goto exit
+goto afteract
 
 :online
 cls
@@ -124,13 +128,23 @@ title %ver% - 在线激活（请勿关闭此窗口）
 echo 正在在线激活系统，请稍候...
 call :runKVA
 call :isWinActivated
-if %errorlevel% EQU 0 goto exit
+if %errorlevel% EQU 0 goto afteract
 echo 正在进一步激活系统，请稍候...
 >Set.ini echo [Smart]
 >>Set.ini echo OHook=0
 >>Set.ini echo OfficeTSForge=0
 >>Set.ini echo OfficeKMS=0
 call :runHEU /smart
+goto afteract
+
+:afteract
+cls
+title %ver% - 后续处理（请勿关闭此窗口）
+echo 正在进行后续处理，请稍候...
+if "%iswtsesu%"=="1" (
+   echo 正在激活 Windows ESU...
+   call :runTS /Z-ESU
+)
 goto exit
 
 :exit
@@ -164,6 +178,16 @@ if defined pecmd (
     start "" /wait "%PECMD%" EXEC -wait -timeout:120000 kms.exe %*
 ) else (
     start /wait kms.exe %*
+)
+goto :eof
+
+:runTS
+echo 技术支持：TSForge by Massgrave
+echo 执行参数：%*
+if defined pecmd (
+    start "" /wait "%PECMD%" EXEC -hide -wait -timeout:120000 TSforge_Activation.cmd %*
+) else (
+    start /wait /min cmd /c TSforge_Activation.cmd %*
 )
 goto :eof
 
