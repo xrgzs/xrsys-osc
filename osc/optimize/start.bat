@@ -108,6 +108,9 @@ if %osver% GEQ 4 (
     SCHTASKS /Change /DISABLE /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan"
     SCHTASKS /Change /DISABLE /TN "\Microsoft\Windows\Application Experience\SdbinstMergeDbTask" 
 
+    rem 禁用计划任务 OneDrive 自动安装（28000+）
+    SCHTASKS /Change /DISABLE /TN "\Microsoft\OneDrive\OneDrive Per-Machine First Setup Task"
+
     rem 在用户登录时不启动隐私设置体验
     reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\OOBE" /v "DisablePrivacyExperience" /t REG_DWORD /d 1 /f
 
