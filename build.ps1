@@ -1,59 +1,10 @@
+#Requires -Version 7
 $ErrorActionPreference = 'Stop'
 
 # 切换到当前目录
 Set-Location $PSScriptRoot
 
 # 下载文件
-function Get-LanzouLink {
-    param(
-        [Parameter(Mandatory = $true, Position = 0)]
-        [string]
-        $Uri
-    )
-    $sharekey = $Uri -split '/' | Select-Object -Last 1
-    if ((Invoke-RestMethod -Uri "https://lanzoui.com/$sharekey") -match 'src="(\/fn\?.\w+)') {
-        $fn = Invoke-RestMethod -Uri ('https://lanzoui.com/' + $Matches[1])
-    }
-    else {
-        throw "Failed to get fn. Please check whether the URL is correct."
-    }
-    if ($fn -match '\/ajaxm\.php\?file=\d\d+') {
-        $ajaxm = $Matches[0]
-    }
-    else {
-        throw "Failed to get ajaxm.php."
-    }
-    if ($fn -match "wp_sign = '(.*?)';") {
-        $sign = $Matches[1]
-    }
-    else {
-        throw "Failed to get sign."
-    }
-    $ajax = Invoke-RestMethod -Uri ('https://lanzoui.com/' + $ajaxm) -Method Post `
-        -Headers @{ referer = "https://lanzoui.com/" } `
-        -Body @{ 'action' = 'downprocess'; 'signs' = '?ctdf'; 'sign' = $sign; 'kd' = '1' }
-    $directlink = $ajax.dom + '/file/' + $ajax.url
-    try {
-        Invoke-WebRequest -Uri $directlink -Method Head -MaximumRedirection 0 -ErrorAction SilentlyContinue `
-            -Headers @{ 
-            'accept'                    = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
-            'accept-encoding'           = 'gzip, deflate, br, zstd'
-            'accept-language'           = 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6'
-            'priority'                  = 'u=0, i'
-            'upgrade-insecure-requests' = '1'
-        } 
-    }
-    catch {
-        $directlink = $_.Exception.Response.Headers.Location.OriginalString
-    }
-    Write-Host -ForegroundColor Yellow "Direct Link of $sharekey is: $directlink, type: $($directlink.GetType().FullName)"
-    if ($directlink) {
-        return $directlink
-    }
-    else {
-        throw "Failed to get direct link."
-    }
-}
 function Get-LanzouFile {
     param(
         [Parameter(Mandatory = $true, Position = 0)]
@@ -66,24 +17,16 @@ function Get-LanzouFile {
     )
     Write-Host "Downloading $Uri to $OutFile..."
     try {
-        Write-Host "Using PowerShell Function to parse link..."
-        $directlink = Get-LanzouLink -Uri $Uri
-        Invoke-WebRequest -Uri $directlink -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
+        Write-Host "Using api.xrgzs.top to parse link..."
+        Invoke-WebRequest -Uri "https://api.xrgzs.top/sdlp/lanzou/?type=down&url=$Uri" -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
     }
     catch {
-        Write-Warning "PowerShell Function faild: $_"
         try {
-            Write-Host "Using api.xrgzs.top to parse link..."
-            Invoke-WebRequest -Uri "https://api.xrgzs.top/lanzou/?type=down&url=$Uri" -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
+            Write-Host "Using lz.qaiu.top to parse link..."
+            Invoke-WebRequest -Uri "https://lz.qaiu.top/parser?url=$Uri" -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
         }
         catch {
-            try {
-                Write-Host "Using lz.qaiu.top to parse link..."
-                Invoke-WebRequest -Uri "https://lz.qaiu.top/parser?url=$Uri" -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
-            }
-            catch {
-                Write-Error "Failed to download $Uri. ($_)"
-            }
+            Write-Error "Failed to download $Uri. ($_)"
         }
     }
 }
