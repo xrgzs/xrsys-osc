@@ -20,6 +20,7 @@ if exist "%SystemDrive%\Windows\System32\drivers\ucpd.sys" (
     echo 禁用 UCPD 驱动
     sc stop ucpd
     sc config ucpd start= disabled
+    schtasks /delete /tn "\Microsoft\Windows\AppxDeploymentClient\UCPD velocity" /f
 )
 
 call :import_reg_folder all

@@ -99,6 +99,7 @@ if exist "%SystemDrive%\Windows\System32\drivers\ucpd.sys" (
     echo ½ûÓÃ UCPD Çý¶¯
     sc stop ucpd
     sc config ucpd start= disabled
+    schtasks /delete /tn "\Microsoft\Windows\AppxDeploymentClient\UCPD velocity" /f
 )
 
 if not exist "%SystemDrive%\WINDOWS\Setup\xrsysnoruntime.txt" (
