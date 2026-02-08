@@ -49,11 +49,18 @@ function Get-LanzouFile {
 }
 
 # 检查
-Write-Host "version: $env:GITHUB_WORKFLOW_VERSION"
-if (-not (Test-Path "C:\Program Files (x86)\NSIS\makensis.exe")) {
+if (Test-Path "$env:NSISDIR\makensis.exe") {
+    $nsisDir = "$env:NSISDIR"
+}
+elseif (Test-Path "C:\Program Files (x86)\NSIS\makensis.exe") {
+    $nsisDir = "C:\Program Files (x86)\NSIS"
+}
+else {
     Write-Host "Cannot find nsis!"
     exit 1
 }
+Write-Host "version: $env:GITHUB_WORKFLOW_VERSION"
+Write-Host "nsisDir: $nsisDir"
 if (Test-Path 'osc\xrsoft.exe') {
     Write-Host "xrsoft.exe already exists."
 }
@@ -74,7 +81,7 @@ if (-not $env:GITHUB_WORKFLOW_VERSION) {
     $env:GITHUB_WORKFLOW_VERSION = "2.5.0.0"
 }
 Set-Content -Path "osc\apifiles\Version.txt" -Value $env:GITHUB_WORKFLOW_VERSION
-& "C:\Program Files (x86)\NSIS\makensis.exe" /V4 /DCUSTOM_VERSION=$env:GITHUB_WORKFLOW_VERSION "osc.nsi" || exit 1
+& "$nsisDir\makensis.exe" /V4 /DCUSTOM_VERSION=$env:GITHUB_WORKFLOW_VERSION "osc.nsi" || exit 1
 
 $env:GITHUB_WORKFLOW_VERSION | Out-File -FilePath "osc.exe.ver"
 (Get-FileHash -Path "osc.exe" -Algorithm SHA256).Hash | Out-File -FilePath "osc.exe.sha256"
