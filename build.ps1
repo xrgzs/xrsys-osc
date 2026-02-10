@@ -6,17 +6,27 @@ Set-Location $PSScriptRoot
 
 # 下载文件
 function Invoke-RobustRequest {
-    param($Url, $OutFile)
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Uri,
+        [Parameter(Mandatory = $true)]
+        [string]$OutFile
+    )
+    if ([string]::IsNullOrWhiteSpace($Uri)) {
+        throw "URL cannot be null or empty! OutFile: $OutFile"
+    }
+
     for ($retry = 1; $retry -le 3; $retry++) {
         try {
-            Invoke-WebRequest -Uri $Url -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
+            Invoke-WebRequest -Uri $Uri -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
             return
         }
         catch {
             if ($retry -eq 3) {
-                throw
+                throw "Failed after 3 retries! URL: $Uri, Error: $_"
             }
-            Write-Host "Retry $retry failed for $Url, trying again ($retry / 3)..."
+            Write-Host "Retry $retry failed for $Uri, trying again ($retry / 3)... Error: $_"
+            Start-Sleep -Seconds 2
         }
     }
 }
@@ -35,12 +45,12 @@ function Get-LanzouFile {
     Write-Host "Downloading $Uri to $OutFile..."
     try {
         Write-Host "Using api.xrgzs.top to parse link..."
-        Invoke-RobustRequest -Url "https://api.xrgzs.top/sdlp/lanzou/?type=down&url=$Uri" -OutFile $OutFile
+        Invoke-RobustRequest -Uri "https://api.xrgzs.top/sdlp/lanzou/?type=down&url=$Uri" -OutFile $OutFile
     }
     catch {
         try {
             Write-Host "Using lz.qaiu.top to parse link..."
-            Invoke-RobustRequest -Url "https://lz.qaiu.top/parser?url=$Uri" -OutFile $OutFile
+            Invoke-RobustRequest -Uri "https://lz.qaiu.top/parser?url=$Uri" -OutFile $OutFile
         }
         catch {
             Write-Error "Failed to download $Uri. ($_)"
