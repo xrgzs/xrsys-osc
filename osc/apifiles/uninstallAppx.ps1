@@ -67,6 +67,7 @@ Get-AppxPackage *Microsoft.BingWeather* -AllUsers | Remove-AppxPackage
 Get-AppxPackage *Microsoft.windowscommunicationsapps* -AllUsers | Remove-AppxPackage  # 邮件和日历
 Get-AppxPackage *Microsoft.Edge.GameAssist* -AllUsers | Remove-AppxPackage  # 邮件和日历
 Get-AppxPackage *Microsoft.MicrosoftOfficeHub* -AllUsers | Remove-AppxPackage # Microsoft 365 Copilot
+Get-AppxPackage *Microsoft.Copilot* -AllUsers | Remove-AppxPackage # Copilot
 Get-AppxPackage *Microsoft.StartExperiencesApp* -AllUsers | Remove-AppxPackage # “开始体验”应用
 # Get-AppxPackage *Microsoft.GamingApp* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.MicrosoftSolitaireCollection* -AllUsers | Remove-AppxPackage
