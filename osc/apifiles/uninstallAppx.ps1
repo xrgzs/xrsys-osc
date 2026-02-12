@@ -69,6 +69,7 @@ Get-AppxPackage *Microsoft.Edge.GameAssist* -AllUsers | Remove-AppxPackage  # �
 Get-AppxPackage *Microsoft.MicrosoftOfficeHub* -AllUsers | Remove-AppxPackage # Microsoft 365 Copilot
 Get-AppxPackage *Microsoft.Copilot* -AllUsers | Remove-AppxPackage # Copilot
 Get-AppxPackage *Microsoft.StartExperiencesApp* -AllUsers | Remove-AppxPackage # “开始体验”应用
+Get-AppxPackage *Microsoft.BingSearch* -AllUsers | Remove-AppxPackage # BingSearch
 # Get-AppxPackage *Microsoft.GamingApp* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.MicrosoftSolitaireCollection* -AllUsers | Remove-AppxPackage
 # Get-AppxPackage *Microsoft.MicrosoftStickyNotes* -AllUsers | Remove-AppxPackage
