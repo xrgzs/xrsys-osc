@@ -446,6 +446,7 @@ if %osver% GEQ 4 (
     taskkill /f /im msedge.exe
     taskkill /f /im msedgewebview2.exe
     taskkill /f /im MicrosoftEdgeUpdate.exe
+    taskkill /f /im MicrosoftEdgeUpdateSetup.exe
     taskkill /f /im onedrive.exe
     taskkill /f /im onedrivesetup.exe
     rem del /f /s /q "%USERPROFILE%\Desktop\Microsoft Edge.lnk"
