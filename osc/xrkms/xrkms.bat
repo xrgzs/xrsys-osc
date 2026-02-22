@@ -2,11 +2,13 @@
 chcp 936 > nul
 cd /d "%~dp0"
 setlocal enabledelayedexpansion
-set ver=智能正版激活工具 V3.25.11.13
+set ver=智能正版激活工具 V3.26.2.23
 title %ver%（请勿关闭此窗口）
 if exist "%systemdrive%\Windows\Setup\xrsysnokms.txt" exit
 if exist "%SystemDrive%\wandrv\wall.exe" exit
 if exist wbox.exe set wbox="%~dp0wbox.exe"
+set "xrkmslogfile=%~dp0xrkms.log"
+if exist "%systemdrive%\Windows\Setup\osc" set "xrkmslogfile=%systemdrive%\Windows\Setup\osc\xrkms.log"
 
 :ask
 cls
@@ -55,7 +57,7 @@ set isohk=0
 set officepath=
 
 echo 正在检测并设置激活方案...
-echo 正在检测并设置激活方案... >>"%systemdrive%\Windows\Setup\xrkmsini.log"
+echo 正在检测并设置激活方案... >>"%xrkmslogfile%"
 
 call :isWinActivated
 if %errorlevel% EQU 0 set iswindows=0
@@ -95,7 +97,7 @@ echo 正在测试您的电脑是否能够连接到Internet...
 ping www.baidu.com -n 1 >nul
 if %errorlevel% NEQ 0 (
     echo 您的电脑不能够连接到Internet，即将为您本地激活
-    echo 您的电脑不能够连接到Internet，即将为您本地激活 >>"%systemdrive%\Windows\Setup\xrkmsini.log"
+    echo 您的电脑不能够连接到Internet，即将为您本地激活 >>"%xrkmslogfile%"
     goto offline
 )
 echo 您的电脑能够连接到Internet，即将为您在线激活
@@ -103,19 +105,22 @@ for %%s in (%serverlist%) do (
     echo 正在测试您的电脑是否能与激活服务器%%s连接...
     vlmcs.exe -l 1 %%s 2>nul | find /i "successful" 1>nul 2>nul && (
         echo 您的电脑能与激活服务器%%s连接，即将为您在线激活
+        echo 您的电脑能与激活服务器%%s连接，即将为您在线激活 >>"%xrkmslogfile%"
         set server=%%s
         goto online
     )
     echo 您的电脑不能与激活服务器%%s连接，尝试下一个服务器...
+    echo 您的电脑不能与激活服务器%%s连接，尝试下一个服务器... >>"%xrkmslogfile%"
 )
 echo 您的电脑不能与激活服务器连接，即将为您本地激活
-echo 您的电脑不能与激活服务器连接，即将为您本地激活 >>"%systemdrive%\Windows\Setup\xrkmsini.log"
+echo 您的电脑不能与激活服务器连接，即将为您本地激活 >>"%xrkmslogfile%"
 goto offline
 
 :offline
 cls
 title %ver% - 离线激活（请勿关闭此窗口）
 echo 正在离线激活系统，请稍候...
+echo 正在离线激活系统，请稍候... >>"%xrkmslogfile%"
 >Set.ini echo [Smart]
 >>Set.ini echo HWID=0
 >>Set.ini echo OHook=0
@@ -126,10 +131,12 @@ goto afteract
 cls
 title %ver% - 在线激活（请勿关闭此窗口）
 echo 正在在线激活系统，请稍候...
+echo 正在在线激活系统，请稍候... >>"%xrkmslogfile%"
 call :runKVA
 call :isWinActivated
 if %errorlevel% EQU 0 goto afteract
 echo 正在进一步激活系统，请稍候...
+echo 正在进一步激活系统，请稍候... >>"%xrkmslogfile%"
 >Set.ini echo [Smart]
 >>Set.ini echo OHook=0
 >>Set.ini echo OfficeTSForge=0
@@ -141,21 +148,18 @@ goto afteract
 cls
 title %ver% - 后续处理（请勿关闭此窗口）
 echo 正在进行后续处理，请稍候...
+echo 正在进行后续处理，请稍候... >>"%xrkmslogfile%"
 if "%iswtsesu%"=="1" (
    echo 正在激活 Windows ESU...
+   echo 正在激活 Windows ESU... >>"%xrkmslogfile%"
    call :runTS /Z-ESU
 )
 goto exit
 
 :exit
 cd /d "%~dp0"
-for %%a in (HEU*_Debug.txt) DO type "%%a" >>"%systemdrive%\Windows\Setup\xrkmsini.log"
-for %%a in (*_Silent.log) DO type "%%a" >>"%systemdrive%\Windows\Setup\xrkmsini.log"
-for %%a in (%TEMP%\HEU*_Debug.txt) DO (
-    type "%%a" >>"%systemdrive%\Windows\Setup\xrkmsini.log"
-    del /f /q "%%a"
-)
-set >>"%systemdrive%\Windows\Setup\xrkmsini.log"
+echo 脚本执行完毕，环境如下： >>"%xrkmslogfile%"
+set >>"%xrkmslogfile%"
 cls
 echo 激活完毕，如果还未激活，请使用桌面“常用工具”内的激活工具激活！
 timeout -t 5 >nul 2>nul || ping 127.0.0.1 -n 5 >nul
@@ -164,6 +168,7 @@ exit
 :runKVA
 echo 技术支持：KMS_VL_ALL_AIO by abbodi1406
 echo 服务器：%server%
+echo 执行KMS_VL_ALL_AIO，参数：/u /s /l /x /e %server% >>"%xrkmslogfile%"
 if defined pecmd (
     start "" /wait "%PECMD%" EXEC -hide -wait -timeout:120000 KMS_VL_ALL_AIO.cmd /u /s /l /x /e %server%
 ) else (
@@ -174,16 +179,27 @@ goto :eof
 :runHEU <*param>
 echo 技术支持：HEU KMS Activator by 知彼而知己
 echo 执行参数：%*
+echo 执行HEU，参数：%* >>"%xrkmslogfile%"
+if exist "Set.ini" type "Set.ini" >>"%xrkmslogfile%"
 if defined pecmd (
-    start "" /wait "%PECMD%" EXEC -wait -timeout:120000 kms.exe %*
+    start "" /wait "%PECMD%" EXEC -wait -timeout:120000 HEU.exe %*
 ) else (
-    start /wait kms.exe %*
+    start /wait HEU.exe %*
+)
+echo HEU日志： >>"%xrkmslogfile%"
+for %%a in (HEU*_Debug.txt) DO type "%%a" >>"%xrkmslogfile%"
+for %%a in (*_Silent.log) DO type "%%a" >>"%xrkmslogfile%"
+for %%a in ("%TEMP%\HEU*_Debug.txt") DO (
+    echo HEU日志文件名：%%a >>"%xrkmslogfile%"
+    type "%%a" >>"%xrkmslogfile%"
+    del /f /q "%%a"
 )
 goto :eof
 
 :runTS
 echo 技术支持：TSForge by Massgrave
 echo 执行参数：%*
+echo 执行TSForge，参数：%* >>"%xrkmslogfile%"
 if defined pecmd (
     start "" /wait "%PECMD%" EXEC -hide -wait -timeout:120000 TSforge_Activation.cmd %*
 ) else (
@@ -194,25 +210,27 @@ goto :eof
 :convertWinEntG
 if %osver% LEQ 3 goto :eof
 echo 正在获取当前的Windows SKU...
-echo 正在获取当前的Windows SKU... >>"%systemdrive%\Windows\Setup\xrkmsini.log"
+echo 正在获取当前的Windows SKU... >>"%xrkmslogfile%"
 for /F "tokens=3* delims=: " %%A in ('dism /english /online /Get-CurrentEdition ^| find /i "Current Edition :"') do set "WIN_SKU=%%A"
 echo 当前的Windows SKU为：%WIN_SKU%
-echo 当前的Windows SKU为：%WIN_SKU% >>"%systemdrive%\Windows\Setup\xrkmsini.log"
+echo 当前的Windows SKU为：%WIN_SKU% >>"%xrkmslogfile%"
 echo 正在检查是否需要转换...
-echo 正在检查是否需要转换... >>"%systemdrive%\Windows\Setup\xrkmsini.log"
+echo 正在检查是否需要转换... >>"%xrkmslogfile%"
 if "%WIN_SKU%"=="EnterpriseG" (
     echo 当前的Windows已经是EnterpriseG SKU，无需转换。
-    echo 当前的Windows已经是EnterpriseG SKU，无需转换。 >>"%systemdrive%\Windows\Setup\xrkmsini.log"
+    echo 当前的Windows已经是EnterpriseG SKU，无需转换。 >>"%xrkmslogfile%"
 ) else (
     cd /d "%~dp0"
     echo 正在进行SKU转换...
-    echo 正在进行SKU转换... >>"%systemdrive%\Windows\Setup\xrkmsini.log"
-    if not exist "%windir%\System32\spp\tokens\skus\EnterpriseG-Volume-GVLK-1-ul-rtm.xrm-ms" expand -r -F:* EnterpriseG.cab "%windir%\System32\spp\tokens\skus\\" >>"%systemdrive%\Windows\Setup\xrkmsini.log"
-    cscript.exe //B %windir%\System32\slmgr.vbs /rilc >>"%systemdrive%\Windows\Setup\xrkmsini.log"
-    reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform" /v NoGenTicket /t REG_DWORD /d 1 /f 1>nul 2>nul
-    cscript.exe //B %windir%\System32\slmgr.vbs /act-type 0 >>"%systemdrive%\Windows\Setup\xrkmsini.log"
-    cscript.exe //B %windir%\System32\slmgr.vbs /ckhc >>"%systemdrive%\Windows\Setup\xrkmsini.log"
-    cscript.exe //B %windir%\System32\slmgr.vbs /ipk YYVX9-NTFWV-6MDM3-9PT4T-4M68B >>"%systemdrive%\Windows\Setup\xrkmsini.log"
+    echo 正在进行SKU转换... >>"%xrkmslogfile%"
+    (
+        if not exist "%windir%\System32\spp\tokens\skus\EnterpriseG-Volume-GVLK-1-ul-rtm.xrm-ms" expand -r -F:* EnterpriseG.cab "%windir%\System32\spp\tokens\skus\\" >>"%xrkmslogfile%"
+        cscript.exe //B %windir%\System32\slmgr.vbs /rilc >>"%xrkmslogfile%"
+        reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform" /v NoGenTicket /t REG_DWORD /d 1 /f 1>nul 2>nul
+        cscript.exe //B %windir%\System32\slmgr.vbs /act-type 0 >>"%xrkmslogfile%"
+        cscript.exe //B %windir%\System32\slmgr.vbs /ckhc >>"%xrkmslogfile%"
+        cscript.exe //B %windir%\System32\slmgr.vbs /ipk YYVX9-NTFWV-6MDM3-9PT4T-4M68B >>"%xrkmslogfile%"
+    ) >>"%xrkmslogfile%"
 )
 set iswindows=1
 goto :eof
@@ -224,14 +242,46 @@ if %osver% EQU 1 (
     goto :eof
 )
 echo 正在检测Windows激活状态...
-set errorlevel=
-cscript.exe //nologo "%SystemDrive%\Windows\System32\slmgr.vbs" /xpr | find "    Windows "
-if %errorlevel% EQU 0 (
-    echo Windows未激活
-    set errorlevel=1
-) else (
+echo 正在检测Windows激活状态... >>"%xrkmslogfile%"
+if not exist "%systemdrive%\Windows\System32\wmic.exe" (
+    echo 未找到WMIC！
+    echo 未找到WMIC！ >>"%xrkmslogfile%"
+    if exist "%systemdrive%\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" (
+        echo 正在尝试使用PowerShell检测Windows激活状态...
+        echo 正在尝试使用PowerShell检测Windows激活状态... >>"%xrkmslogfile%"
+       goto :isWinActivatedPS
+    ) else (
+        echo 无法检测Windows激活状态，缺少WMIC和PowerShell！
+        echo 无法检测Windows激活状态，缺少WMIC和PowerShell！ >>"%xrkmslogfile%"
+        set errorlevel=0
+    )
+)
+set LicenseStatus=
+for /f "tokens=2 delims==" %%a in ('wmic path SoftwareLicensingProduct where "Name like 'Windows%%' and PartialProductKey is not null" get LicenseStatus /value 2^>nul ^| find "="') do set "LicenseStatus=%%a"
+if "%LicenseStatus%"=="1" (
     echo Windows已激活
+    echo Windows已激活 >>"%xrkmslogfile%"
     set errorlevel=0
+) else (
+    echo Windows未激活
+    echo Windows未激活 >>"%xrkmslogfile%"
+    set errorlevel=1
+)
+goto :eof
+
+:isWinActivatedPS -> errorlevel EQU 0 ? true : false
+echo 正在使用PowerShell检测Windows激活状态...
+echo 正在使用PowerShell检测Windows激活状态... >>"%xrkmslogfile%"
+set LicenseStatus=
+for /f "tokens=*" %%a in ('powershell -NoLogo -NoProfile -Command "(Get-CimInstance -Class SoftwareLicensingProduct -Filter 'Name like ''Windows%%'' and PartialProductKey is not null').LicenseStatus" 2^>nul') do set "LicenseStatus=%%a"
+if "%LicenseStatus%"=="1" (
+    echo Windows已激活
+    echo Windows已激活 >>"%xrkmslogfile%"
+    set errorlevel=0
+) else (
+    echo Windows未激活
+    echo Windows未激活 >>"%xrkmslogfile%"
+    set errorlevel=1
 )
 goto :eof
 
@@ -241,19 +291,22 @@ if not defined officepath (
     goto :eof
 )
 echo 正在检测Office激活状态...
-cscript.exe //nologo "%officepath%\OSPP.VBS" /dstatus | find /i "LICENSE STATUS:  ---LICENSED---"
+echo 正在检测Office激活状态... >>"%xrkmslogfile%"
+(cscript.exe //nologo "%officepath%\OSPP.VBS" /dstatus | find /i "LICENSE STATUS:  ---LICENSED---") >>"%xrkmslogfile%"
 if %errorlevel% EQU 0 (
     echo Office未激活
+    echo Office未激活 >>"%xrkmslogfile%"
     set errorlevel=1
 ) else (
     echo Office已激活
+    echo Office已激活 >>"%xrkmslogfile%"
     set errorlevel=0
 )
 goto :eof
 
 :checkMSOState
 echo 正在获取当前的Office版本...
-echo 正在获取当前的Office版本... >>"%systemdrive%\Windows\Setup\xrkmsini.log"
+echo 正在获取当前的Office版本... >>"%xrkmslogfile%"
 if exist "%SystemDrive%\Program Files\Microsoft Office\root\Office16\OSPP.VBS" (
     rem 新版 ospp 已改为 root 目录
     set "officepath=%SystemDrive%\Program Files\Microsoft Office\root\Office16"
@@ -292,7 +345,7 @@ if exist "%SystemDrive%\Program Files\Microsoft Office\root\Office16\OSPP.VBS" (
     set isoffice=0
     set isnewoffice=0
 )
-if defined officepath echo Office路径：%officepath%>>"%systemdrive%\Windows\Setup\xrkmsini.log"
+if defined officepath echo Office路径：%officepath%>>"%xrkmslogfile%"
 call :isMSOActivated
 if %errorlevel% EQU 0 set isoffice=0
 goto :eof

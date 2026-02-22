@@ -77,7 +77,7 @@ if (Test-Path 'osc\xrsoft.exe') {
 else {
     # 下载所需文件
     Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/idHOf2bfs3te" -OutFile "osc\xrkms\KMS_VL_ALL_AIO.cmd"
-    Get-LanzouFile -Uri "https://xrgzs.lanzoum.com/itYHu3avdgcb" -OutFile "osc\xrkms\kms.exe"
+    Get-LanzouFile -Uri "https://xrgzs.lanzoum.com/itYHu3avdgcb" -OutFile "osc\xrkms\HEU.exe"
     Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/iqnTr2wxjufc" -OutFile "osc\xrsoft.exe"
     Invoke-RobustRequest -Uri "https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/refs/heads/master/MAS/Separate-Files-Version/Activators/TSforge_Activation.cmd" -OutFile "osc\xrkms\TSforge_Activation.cmd"
 
