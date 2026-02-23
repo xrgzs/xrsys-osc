@@ -5,6 +5,30 @@ $ErrorActionPreference = 'Stop'
 Set-Location $PSScriptRoot
 
 # 下载文件
+
+function Test-Hashes {
+    param (
+        [hashtable]$Hashes,
+        [string]$Algorithm
+    )
+    return $Hashes.GetEnumerator() | ForEach-Object {
+        $file = $_.Key
+        $expectedHash = $_.Value
+        Write-Host -ForegroundColor Blue "Verifying $file $Algorithm hash ..."
+        Write-Host -ForegroundColor Gray "Expected: $expectedHash"
+        $actualHash = (Get-FileHash -Path $file -Algorithm $Algorithm).Hash
+        Write-Host -ForegroundColor Gray "Actual  : $actualHash"
+        if ($actualHash -ne $expectedHash) {
+            # return $false
+            Write-Error "$file hash not match."
+        }
+        else {
+            Write-Host -ForegroundColor Green "$file hash match."
+        }
+    }
+}
+function Test-SHA256 ([hashtable]$Hashes) { return Test-Hashes -Hashes $Hashes -Algorithm "SHA256" }
+
 function Invoke-RobustRequest {
     param(
         [Parameter(Mandatory = $true)]
@@ -23,9 +47,9 @@ function Invoke-RobustRequest {
         }
         catch {
             if ($retry -eq 3) {
-                throw "Failed after 3 retries! URL: $Uri, Error: $_"
+                throw "Failed after 3 retries! URL: '$Uri', Error: $_"
             }
-            Write-Host "Retry $retry failed for $Uri, trying again ($retry / 3)... Error: $_"
+            Write-Host "Retry $retry failed for '$Uri', trying again ($retry / 3)... Error: $_"
             Start-Sleep -Seconds 2
         }
     }
@@ -76,14 +100,24 @@ if (Test-Path 'osc\xrsoft.exe') {
 }
 else {
     # 下载所需文件
-    Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/idHOf2bfs3te" -OutFile "osc\xrkms\KMS_VL_ALL_AIO.cmd"
-    Get-LanzouFile -Uri "https://xrgzs.lanzoum.com/itYHu3avdgcb" -OutFile "osc\xrkms\HEU.exe"
-    Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/iqnTr2wxjufc" -OutFile "osc\xrsoft.exe"
+    # Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/idHOf2bfs3te" -OutFile "osc\xrkms\KMS_VL_ALL_AIO.cmd"
+    Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/bb28b9686ffcacb2876588c53377c00a.cmd" -OutFile "osc\xrkms\KMS_VL_ALL_AIO.cmd"
+    # Get-LanzouFile -Uri "https://xrgzs.lanzoum.com/itYHu3avdgcb" -OutFile "osc\xrkms\HEU.exe"
+    Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/98db6874da2919b86757bd5c88a1a41c.exe" -OutFile "osc\xrkms\HEU.exe"
+    # Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/iqnTr2wxjufc" -OutFile "osc\xrsoft.exe"
+    Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/e68b8f58127b7680debf16b120cad91a.exe" -OutFile "osc\xrsoft.exe"
     Invoke-RobustRequest -Uri "https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/refs/heads/master/MAS/Separate-Files-Version/Activators/TSforge_Activation.cmd" -OutFile "osc\xrkms\TSforge_Activation.cmd"
 
     # 下载其他文件
     Invoke-RobustRequest -Uri "https://url.xrgzs.top/osconline" -OutFile "osc\oscoffline.bat" -ErrorAction Stop
     Invoke-RobustRequest -Uri "https://url.xrgzs.top/oscsoft" -OutFile "osc\oscsoftof.txt" -ErrorAction Stop
+}
+
+# 验证文件
+Test-SHA256 -Hashes @{
+    "osc\xrkms\KMS_VL_ALL_AIO.cmd" = "FB229FDCBA766AC801C635CF398ACA3158B25A659FBB7326946E951B5ED0EACA"
+    "osc\xrkms\HEU.exe"            = "9CD237D04D1B2DBF2610E1ED5CA130295A8640664F9BC33BF0EE73997E360FF0"
+    "osc\xrsoft.exe"               = "9C863AE73272D7470D0BC48CB1E70D5B3172FEDF532CB14ECE502718726A220E"
 }
 
 # 构建
