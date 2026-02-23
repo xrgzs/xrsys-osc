@@ -8,7 +8,7 @@ if exist "%systemdrive%\Windows\Setup\xrsysnokms.txt" exit
 if exist "%SystemDrive%\wandrv\wall.exe" exit
 if exist wbox.exe set wbox="%~dp0wbox.exe"
 set "xrkmslogfile=%~dp0xrkms.log"
-if exist "%systemdrive%\Windows\Setup\osc" set "xrkmslogfile=%systemdrive%\Windows\Setup\osc\xrkms.log"
+if exist "%systemdrive%\Windows\Setup\osc" set "xrkmslogfile=%systemdrive%\Windows\Setup\xrkms.log"
 
 :ask
 cls
