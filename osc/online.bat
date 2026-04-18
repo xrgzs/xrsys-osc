@@ -3,7 +3,7 @@ title OSConline
 cd /d "%~dp0"
 set url1=https://url.xrgzs.top
 set url2=https://dl.xrgzs.top/d/url
-set url3=https://alist.xrgzs.top/d/url
+set url3=https://list.xrgzs.top/d/url
 set url=%url1%
 
 
@@ -27,9 +27,11 @@ goto retry
 
 :retry
 echo 服务器%url%连接失败，
-if "%url%"=="%url1%" set url=%url2%
-if "%url%"=="%url2%" set url=%url3%
-if "%url%"=="%url3%" goto offline
+if "%url%"=="%url1%" (
+    set "url=%url2%"
+) else if "%url%"=="%url2%" (
+    set "url=%url3%"
+) else if "%url%"=="%url3%" goto offline
 echo 更换下一个服务器%url%！
 goto try
 
