@@ -100,8 +100,8 @@ if (Test-Path 'osc\xrsoft.exe') {
 }
 else {
     # 下载所需文件
-    # Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/idHOf2bfs3te" -OutFile "osc\xrkms\KMS_VL_ALL_AIO.cmd"
-    Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/bb28b9686ffcacb2876588c53377c00a.cmd" -OutFile "osc\xrkms\KMS_VL_ALL_AIO.cmd"
+    # Get-LanzouFile -Uri "https://xrgzs.lanzoum.com/iy02F3ppu8mj" -OutFile "osc\xrkms\KMS_VL_ALL_AIO.cmd"
+    Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/3380523d9ee1fbc12a84e5a5b7994890.cmd" -OutFile "osc\xrkms\KMS_VL_ALL_AIO.cmd"
     # Get-LanzouFile -Uri "https://xrgzs.lanzoum.com/ivVCK3nlbwxe" -OutFile "osc\xrkms\HEU.exe"
     Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/952745b06c87be10fad90403f9c8f5d6.exe" -OutFile "osc\xrkms\HEU.exe"
     # Get-LanzouFile -Uri "https://xrgzs.lanzouv.com/iqnTr2wxjufc" -OutFile "osc\xrsoft.exe"
@@ -115,7 +115,7 @@ else {
 
 # 验证文件
 Test-SHA256 -Hashes @{
-    "osc\xrkms\KMS_VL_ALL_AIO.cmd" = "FB229FDCBA766AC801C635CF398ACA3158B25A659FBB7326946E951B5ED0EACA"
+    "osc\xrkms\KMS_VL_ALL_AIO.cmd" = "CEE80B2DE0CA33BE709C33E6725E81D28FC366565211B4E1D996951512AA0049"
     "osc\xrkms\HEU.exe"            = "C90C4330DFB4917462B15C35D7A0AF5FA926C4922AC5AADD9978A844B1193FA6"
     "osc\xrsoft.exe"               = "9C863AE73272D7470D0BC48CB1E70D5B3172FEDF532CB14ECE502718726A220E"
 }
