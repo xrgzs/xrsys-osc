@@ -2,7 +2,7 @@
 chcp 936 > nul
 cd /d "%~dp0"
 setlocal enabledelayedexpansion
-set ver=智能正版激活工具 V3.26.2.23
+set ver=智能正版激活工具 V3.26.5.18
 title %ver%（请勿关闭此窗口）
 if exist "%systemdrive%\Windows\Setup\xrsysnokms.txt" exit
 if exist "%SystemDrive%\wandrv\wall.exe" exit
@@ -243,10 +243,10 @@ if %osver% EQU 1 (
 )
 echo 正在检测Windows激活状态...
 echo 正在检测Windows激活状态... >>"%xrkmslogfile%"
-if not exist "%systemdrive%\Windows\System32\wmic.exe" (
+if not exist "%SystemDrive%\Windows\System32\wbem\WMIC.exe" (
     echo 未找到WMIC！
     echo 未找到WMIC！ >>"%xrkmslogfile%"
-    if exist "%systemdrive%\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" (
+    if exist "%SystemDrive%\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" (
         echo 正在尝试使用PowerShell检测Windows激活状态...
         echo 正在尝试使用PowerShell检测Windows激活状态... >>"%xrkmslogfile%"
        goto :isWinActivatedPS
