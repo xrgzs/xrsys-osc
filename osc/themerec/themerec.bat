@@ -76,6 +76,6 @@ regedit /s touch.reg
 goto :EOF
 
 :startmenu11
-powershell -Command "Install-ProvisioningPackage -PackagePath .\startmenu11.ppkg -ForceInstall -QuietInstall"
-powershell -Command "Uninstall-ProvisioningPackage -PackagePath .\startmenu11.ppkg"
+powershell -NoLogo -NoProfile -Command "Install-ProvisioningPackage -PackagePath .\startmenu11.ppkg -ForceInstall -QuietInstall"
+powershell -NoLogo -NoProfile -Command "Uninstall-ProvisioningPackage -PackagePath .\startmenu11.ppkg"
 goto :EOF

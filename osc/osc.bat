@@ -69,10 +69,10 @@ reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v legaln
 
 if %osver% GEQ 3 (
     echo win8-11系统APPX、WD处理
-    powershell -ExecutionPolicy bypass -File "%~dp0apifiles\WD.ps1"
+    powershell -NoLogo -NoProfile -ExecutionPolicy bypass -File "%~dp0apifiles\WD.ps1"
     regedit /s "%~dp0apifiles\WDDisable.reg"
     "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
-    powershell -ExecutionPolicy bypass -File "%~dp0apifiles\uninstallAppx.ps1"
+    powershell -NoLogo -NoProfile -ExecutionPolicy bypass -File "%~dp0apifiles\uninstallAppx.ps1"
     reg import "%~dp0apifiles\mspcmgr.reg" /reg:32
     
     echo 禁止自动安装微软电脑管家
@@ -198,7 +198,7 @@ if exist "%SystemDrive%\Windows\Setup\zjsoftspoem.txt" (
 if exist "%SystemDrive%\Windows\System32\wbem\WMIC.exe" (
     wmic computersystem where "caption='%computername%'" call Rename name='%pcname%'
 ) else (
-    powershell -Command "Rename-Computer -NewName '%pcname%' -Force"
+    powershell -NoLogo -NoProfile -Command "Rename-Computer -NewName '%pcname%' -Force"
 )
 reg add "HKCU\Software\Microsoft\Windows\ShellNoRoam" /f /ve /t REG_SZ /d "%pcname%"
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\ComputerName\ComputerName" /f /v "ComputerName" /t REG_SZ /d "%pcname%"

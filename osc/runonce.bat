@@ -1,5 +1,5 @@
 @rem %1(start /min cmd.exe /c %0 :& exit )
-powershell -window minimized -command "" >nul
+powershell -NoLogo -NoProfile -window minimized -command "" >nul
 @echo off
 chcp 936 > nul
 title 清理部署残留（第二次进桌面）...
