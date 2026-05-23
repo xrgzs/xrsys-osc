@@ -140,6 +140,8 @@ _SUB SYSINFO
     CALC 信息上=%信息上%+30
     
     REGI .HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProductName,产品名称
+    REGI .HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\CurrentBuildNumber,系统构建号
+    IFEX #%系统构建号%>=22000,SED 产品名称=1,Windows 10,Windows 11,%产品名称%
     REGI .HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\DisplayVersion,显示版本
     IFEX |%显示版本%=,REGI .HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\CSDVersion,显示版本
     ENVI ?系统架构=PEBIT,%windir%\system32
