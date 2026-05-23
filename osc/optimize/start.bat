@@ -168,7 +168,7 @@ if %osver% GEQ 4 (
     rem 电源模式添加 卓越模式
     powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
 
-    Powershell "Get-AppxPackage Microsoft.Windows.Photo* | Write-Host" | find /i "Microsoft.Windows.Photo" || if exist "%ProgramFiles%\Windows Photo Viewer\PhotoViewer.dll" (
+    Powershell -NoLogo -NoProfile "Get-AppxPackage Microsoft.Windows.Photo* | Write-Host" | find /i "Microsoft.Windows.Photo" || if exist "%ProgramFiles%\Windows Photo Viewer\PhotoViewer.dll" (
         echo 未检测到看图软件，启用Windows图片查看器
         reg add "HKLM\SOFTWARE\Classes\Applications\photoviewer.dll\shell\open\command" /ve /t REG_EXPAND_SZ /d "%%SystemRoot%%\System32\rundll32.exe \"%%ProgramFiles%%\Windows Photo Viewer\PhotoViewer.dll\", ImageView_Fullscreen %%1" /f
         reg add "HKLM\SOFTWARE\Classes\Applications\photoviewer.dll\shell\open\DropTarget" /v "Clsid" /t REG_SZ /d "{FFE2A43C-56B9-4bf5-9A79-CC6D4285608A}" /f
@@ -305,14 +305,7 @@ start explorer.exe
 if %osver% GEQ 4 (
     for /f "tokens=6 delims=[]. " %%a in ('ver') do set bigversion=%%a
     for /f "tokens=7 delims=[]. " %%b in ('ver') do set smallversion=%%b
-    if !bigversion! GEQ 22000 (
-        echo 处理Win11开始菜单固定项
-        if exist "startmenu11.ppkg" (
-            echo 安装预配包
-            powershell -Command "Install-ProvisioningPackage -PackagePath .\startmenu11.ppkg -ForceInstall -QuietInstall"
-            echo 卸载预配包
-            powershell -Command "Uninstall-ProvisioningPackage -PackagePath .\startmenu11.ppkg"
-        )
-    )
+    echo Win10+选择应用在锁屏上显示详细状态-无
+    powershell -NoLogo -NoProfile -ExecutionPolicy bypass -File "LockScreenStatus.ps1"
 )
 exit
