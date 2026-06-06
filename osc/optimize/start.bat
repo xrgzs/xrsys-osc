@@ -305,7 +305,12 @@ if %osver% GEQ 4 (
 
 echo [OSC]正在优化浏览器配置...>"%systemdrive%\Windows\Setup\wallname.txt"
 if exist "FUCKBrowserConfig.bat" start "" /wait /min "FUCKBrowserConfig.bat" /s
-if exist "bookmarks.exe" start "" /wait /min "bookmarks.exe"
+if %osver% GEQ 2 (
+    taskkill /f /im msedge.exe
+    rd /s /q "%LocalAppData%\Microsoft\Edge\User Data"
+    mkdir "%LocalAppData%\Microsoft\Edge\User Data"
+    xcopy /E /C /I /H /R /Y "User Data" "%LocalAppData%\Microsoft\Edge\User Data"
+)
 start explorer.exe
 
 if %osver% GEQ 4 (
