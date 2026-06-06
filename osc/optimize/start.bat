@@ -4,6 +4,7 @@ cd /d "%~dp0"
 
 :regimport
 taskkill /f /im explorer.exe
+taskkill /f /im StartMenuExperienceHost.exe
 echo [OSC]正在导入注册表...>"%systemdrive%\Windows\Setup\wallname.txt"
 start "" /wait /min regimporter.bat
 if %osver% GEQ 2 (
@@ -277,6 +278,11 @@ if %osver% GEQ 4 (
                 echo 启用 sudo
                 sudo config --enable enable
             )
+        )
+
+        if exist "start2.bin" if exist "%LocalAppData%\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\start2.bin" (
+            echo 替换开始菜单固定文件
+            copy /y "start2.bin" "%LocalAppData%\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\start2.bin"
         )
     )
 ) else if %osver% GEQ 2 (

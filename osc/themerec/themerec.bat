@@ -28,10 +28,6 @@ if %osver% GEQ 2 (
     for /f "tokens=3" %%a in ('reg query "HKLM\SOFTWARE\Microsoft\Windows\Tablet PC" /v DeviceKind') do if /i not "%%a"=="0x0" call :touch
 )
 
-if %osver% GEQ 4 (
-    if !bigversion! GEQ 22000 call :startmenu11
-)
-
 :main
 if exist "%SystemDrive%\Windows\Setup\xrsysdark.txt" (
     if exist "%SystemDrive%\Windows\Resources\Themes\dark.theme" (
@@ -75,7 +71,3 @@ if exist "%ProgramW6432%" (
 regedit /s touch.reg
 goto :EOF
 
-:startmenu11
-powershell -NoLogo -NoProfile -Command "Install-ProvisioningPackage -PackagePath .\startmenu11.ppkg -ForceInstall -QuietInstall"
-powershell -NoLogo -NoProfile -Command "Uninstall-ProvisioningPackage -PackagePath .\startmenu11.ppkg"
-goto :EOF
