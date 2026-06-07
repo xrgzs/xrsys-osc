@@ -38,8 +38,8 @@ if %osver% GEQ 3 (
 )
 
 :exit
-del /f /q "%~dp0\reg%rand_name%.exe"
-del /f /q "%~dp0\regedit%rand_name%.exe"
+del /f /q "%~dp0\%reg_name%.exe"
+del /f /q "%~dp0\%regedit_name%.exe"
 exit
 
 :import_reg_folder <path>

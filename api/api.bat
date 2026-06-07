@@ -5,7 +5,6 @@ setlocal enabledelayedexpansion
 color 1f
 cd /d "%~dp0"
 if exist "%SystemDrive%\Windows\SysWOW64\wscript.exe" (
-    set "PROCESSOR_ARCHITECTURE=AMD64"
     move /y "%~dp0apifiles\PECMD64.EXE" "%~dp0apifiles\PECMD.EXE"
 )
 set aria="%~dp0aria2c.exe" -c -R --retry-wait=5 --check-certificate=false --save-not-found=false --always-resume=false --auto-save-interval=10 --auto-file-renaming=false --allow-overwrite=true

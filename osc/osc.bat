@@ -4,7 +4,6 @@ setlocal EnableDelayedExpansion
 title 潇然系统优化组件 XRSYS-OSC
 cd /d "%~dp0"
 if exist "%systemdrive%\Windows\SysWOW64\wscript.exe" (
-    set "PROCESSOR_ARCHITECTURE=AMD64"
     move /y "%~dp0apifiles\PECMD64.exe" "%~dp0apifiles\PECMD.exe"
     move /y "%~dp0apifiles\DrvIndex64.exe" "%~dp0apifiles\DrvIndex.exe"
 )
