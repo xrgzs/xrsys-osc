@@ -86,4 +86,38 @@ if exist "PWSH\*.msi" (
     for %%a in ("PWSH\*.msi") do start "" /wait "%PECMD%" EXEC -wait -timeout:300000 msiexec.exe /package "%%~fa" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ADD_FILE_CONTEXT_MENU_RUNPOWERSHELL=1 REGISTER_MANIFEST=1 USE_MU=1 ENABLE_MU=1 ADD_PATH=1
 )
 
+
+
+if not defined url set url=https://url.xrgzs.top
+set isoffline=1
+ping www.aliyun.com -4 -n 2 >nul
+if %errorlevel% EQU 0 set isoffline=0
+:runtime_enhance
+echo 正在判断下载安装系统增强组件
+set os_arch=%PROCESSOR_ARCHITECTURE%
+if /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" set os_arch=x64
+if not exist "%SystemDrive%\Windows\Setup\xrsysnoruntime.txt" (
+    if not exist "%SystemDrive%\Windows\Fonts\FZXBSK.ttf" (
+        echo [OSCol]正在安装系统增强组件xrfonts...>"%SystemDrive%\Windows\Setup\wallname.txt"
+        if not exist xrfonts.exe if "%isoffline%"=="0" %aria% -x16 -j16 -s16 -o xrfonts.exe "%url%/xrfonts"
+        if exist xrfonts.exe start /wait xrfonts.exe && del /f /q xrfonts.exe
+    )
+    ver | find /i "10.0." && (
+        @rem echo [OSCol]正在安装系统增强组件.NET 6...>"%SystemDrive%\Windows\Setup\wallname.txt"
+        @rem if not exist "dotnet6-%os_arch%.exe" if "%isoffline%"=="0" %aria% -x16 -j16 -s16 -o "dotnet6-%os_arch%.exe" "%url%/dotnet6-%os_arch%"
+        @rem if exist "dotnet6-%os_arch%.exe" start "" /wait "dotnet6-%os_arch%.exe" /q /norestart && del /f /q "dotnet6-%os_arch%.exe"
+        if not exist "%SystemDrive%\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App\8.*" (
+            echo [OSCol]正在安装系统增强组件.NET 8...>"%SystemDrive%\Windows\Setup\wallname.txt"
+            if not exist "dotnet8-%os_arch%.exe" if "%isoffline%"=="0" %aria% -x16 -j16 -s16 -o "dotnet8-%os_arch%.exe" "%url%/dotnet8-%os_arch%"
+            if exist "dotnet8-%os_arch%.exe" start "" /wait "dotnet8-%os_arch%.exe" /q /norestart && del /f /q "dotnet8-%os_arch%.exe"
+        )
+		if not exist "%SystemDrive%\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App\10.*" (
+            echo [OSCol]正在安装系统增强组件.NET 10...>"%SystemDrive%\Windows\Setup\wallname.txt"
+            if not exist "dotnet10-%os_arch%.exe" if "%isoffline%"=="0" %aria% -x16 -j16 -s16 -o "dotnet10-%os_arch%.exe" "%url%/dotnet10-%os_arch%"
+            if exist "dotnet10-%os_arch%.exe" start "" /wait "dotnet10-%os_arch%.exe" /q /norestart && del /f /q "dotnet10-%os_arch%.exe"
+        )
+    )
+)
+
+
 exit

@@ -237,7 +237,7 @@ Section "-潇然系统优化工具" XROSC
   SetOutPath "$INSTDIR\osc"
   SetOverwrite try
   DetailPrint "解压相关OSC数据..."
-  File /r ".\osc\*.*"
+  File /r /x online.bat /x oscoffline.bat /x osconline.bat /x oscsoft.txt /x *.bak ".\osc\*.*"
   DetailPrint "运行OSC主程序..."
   ${DisableX64FSRedirection}
   nsExec::ExecToLog "$INSTDIR\osc\osc.bat"

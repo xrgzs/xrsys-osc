@@ -375,10 +375,11 @@ if exist "xrkms\xrkms.bat" (
     echo y | start "" /wait "xrkms\xrkms.bat"
 )
 
-:osconline
-echo 应用OSConline
-echo [OSC]正在应用OSConline（可能需要15分钟, 请保持网络通畅）>"%systemdrive%\Windows\Setup\wallname.txt"
-if exist "online.bat" echo y | start "" /wait /min "online.bat"
+
+:software
+echo Apply local software list
+echo [OSC]Applying local software list, keep network connected...>"%systemdrive%\Windows\Setup\wallname.txt"
+if exist "software.bat" echo y | start "" /wait /min "software.bat"
 
 :afterlife
 echo [OSC]正在处理后续事项...>"%systemdrive%\Windows\Setup\wallname.txt"
@@ -408,6 +409,10 @@ if exist "%systemdrive%\Windows\Setup\xrsyswu.txt" (
     start "" /wait /min "%~dp0apifiles\Wub.exe" /D
 )
 
+
+:finalpower
+echo 应用最终电源偏好
+if exist "optimize\finalpower.bat" echo y | start "" /wait /min "optimize\finalpower.bat"
 :endosc
 echo 部署完成
 cd /d "%~dp0"

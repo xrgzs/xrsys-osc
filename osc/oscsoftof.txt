@@ -1,0 +1,40 @@
+;1.软件类型:%%i|2.安装程序:%%j|3.下载地址:%%k|4.运行参数:%%l|5.关键词:%%m|6.指定不安装版本:%%n|7.指定安装位数:%%o
+;zjsoftxrgzs|潇然一键装机助理.exe|https://url.xrgzs.top/xrok| | | | 
+zjsoftxrgzs|潇然常用工具.exe|https://url.xrgzs.top/xrtools|/S|潇然常用工具| | 
+zjsoftxrgzs|潇然系统设置.exe|https://url.xrgzs.top/xrsyshub|/verysilent|潇然系统设置|only10|AMD64
+zjsoftxrgzs|Win7SP2.exe|https://url.xrgzs.top/VxKex| |VxKex|only7|AMD64
+zjsoftzip|Bandizip.exe|https://url.xrgzs.top/bandizip| |bandizip|xp| 
+zjsoftzip|360压缩.exe|https://url.xrgzs.top/360yasuo| |bandizip 360压缩 好压|onlyxp| 
+;zjsoftpinyin|微信输入法.exe|https://url.xrgzs.top/wetype|/s|拼音 输入法|xp| 
+zjsoftpinyin|搜狗拼音输入法.exe|https://url.xrgzs.top/sogoupinyin|/S|拼音 输入法|xp| 
+zjsoftpinyin|搜狗拼音输入法XP专用.exe|https://url.xrgzs.top/sogoupinyinxp|/S|拼音 输入法|onlyxp| 
+zjsoftoffice|WPS专业版.exe|https://url.xrgzs.top/wpspro| |WPS|only710| 
+zjsoftoffice|WPS专业版XP专用.exe|https://url.xrgzs.top/wpsproxp| |WPS|710| 
+;zjsofttxt|Typora.exe|https://url.xrgzs.top/typora| |typora|xp|AMD64
+zjsofttxt|记事本4.exe|https://url.xrgzs.top/notepad4|/S|Notepad2 Notepad3 Notepad4| | 
+zjsofttxt|记事本4XP专用.exe|https://url.xrgzs.top/notepad4xp|/S|Notepad2 Notepad3 Notepad4| | 
+zjsofttxt|BC文件比较.exe|https://url.xrgzs.top/bydcompare|/S|Compare|xp| 
+;zjsofttxt|文件搜索64位.exe|https://url.xrgzs.top/Everythingx64|/S|Everything|xp|AMD64
+;zjsofttxt|文件搜索32位.exe|https://url.xrgzs.top/Everythingx86|/S|Everything| |x86
+zjsoftbrowser|360极速浏览器X.exe|https://url.xrgzs.top/360csex| |浏览器 Browser|xp|AMD64
+zjsoftbrowser|360极速浏览器.exe|https://url.xrgzs.top/360cse| |浏览器 Browser|onlyxp|x86
+zjsoftbrowser|360安全浏览器32位.exe|https://url.xrgzs.top/360se| |浏览器 Browser|xp|x86
+zjsoftdown|InternetDownloadManager.exe|https://url.xrgzs.top/idm| | |xp| 
+zjsoftplayer|完美解码.exe|https://url.xrgzs.top/PureCodec| |影音 播放器 完美解码 potplayer|xp| 
+zjsoftplayer|完美解码XP专用.exe|https://url.xrgzs.top/PureCodecXP| |影音 播放器 完美解码 potplayer|onlyxp| 
+;zjsoftplayer|爱奇艺64位.exe|https://url.xrgzs.top/iqiyi| |爱奇艺|xp|AMD64
+zjsoftmusic|Steam正版.exe|https://url.xrgzs.top/steam|/S|Steam|only10|AMD64
+zjsoftmusic|洛雪音乐助手64位.exe|https://url.xrgzs.top/luoxuex64| | |xp|AMD64
+;zjsoftmusic|酷我音乐9.exe|https://url.xrgzs.top/kuwo9| |酷我音乐|xp|x86
+;zjsoftmusic|酷我音乐9.exe|https://url.xrgzs.top/kuwo9| |酷我音乐|xp|
+;zjsoftmusic|酷我音乐.exe|https://url.xrgzs.top/kuwo| |酷我音乐|onlyxp| 
+zjsoftmusic|酷我音乐.exe|https://url.xrgzs.top/kuwo| |酷我音乐| |x86
+zjsoftchat|腾讯QQNT64位.exe|https://url.xrgzs.top/qqntx64|/S| |xp|AMD64
+zjsoftchat|腾讯QQNT32位.exe|https://url.xrgzs.top/qqntx86|/S| |xp|x86
+zjsoftchat|腾讯QQ.exe|https://url.xrgzs.top/qqlatest|/S| |onlyxp| 
+zjsoftchat|微信64位.exe|https://url.xrgzs.top/wechatlatest|/S|微信|xp|AMD64
+zjsoftchat|微信32位.exe|https://url.xrgzs.top/wechatx86|/S|微信|xp|x86
+zjsoftchat|微信XP专用.exe|https://url.xrgzs.top/wechatxp|/S|微信|onlyxp| 
+;zjsoftsafe|安全软件.exe|https://url.xrgzs.top/safe| |安全卫士 杀毒 火绒 毒霸 电脑管家| | 
+zjsoftsafe|火绒32位.exe|https://url.xrgzs.top/huorongx86|/S|火绒| |x86
+zjsoftsafe|火绒64位.exe|https://url.xrgzs.top/huorongx64|/S|火绒| |AMD64

@@ -2,7 +2,7 @@ chcp 936 > nul
 setlocal enabledelayedexpansion
 cd /d "%~dp0"
 
-:regimport
+echo ==================== 01 导入注册表 ====================
 taskkill /f /im explorer.exe
 taskkill /f /im StartMenuExperienceHost.exe
 echo [OSC]正在导入注册表...>"%systemdrive%\Windows\Setup\wallname.txt"
@@ -11,9 +11,8 @@ if %osver% GEQ 2 (
     %nsudo% -U:T -P:E -wait regimporter.bat
 )
 
-:misc
+echo ==================== 02 任务保活电源策略 ====================
 cd /d "%~dp0"
-echo 电源选项设置
 rem POWERCFG -HIBERNATE OFF
 powercfg /h off
 POWERCFG -CHANGE -monitor-timeout-ac 0
@@ -22,11 +21,11 @@ POWERCFG -CHANGE -standby-timeout-ac 0
 POWERCFG -CHANGE -standby-timeout-dc 0
 POWERCFG -CHANGE -hibernate-timeout-ac 0
 POWERCFG -CHANGE -hibernate-timeout-dc 0
-rem [监视器电源不关闭]
+echo 监视器电源不关闭
 powercfg setactive SCHEME_BALANCED && powercfg -x -monitor-timeout-ac 0
 powercfg setactive SCHEME_MAX && powercfg -x -monitor-timeout-ac 0
 powercfg setactive SCHEME_MIN && powercfg -x -monitor-timeout-ac 0
-rem [磁盘电源不关闭]
+echo 磁盘电源不关闭
 powercfg setactive SCHEME_BALANCED && powercfg -x -disk-timeout-ac 0
 powercfg setactive SCHEME_MAX && powercfg -x -disk-timeout-ac 0
 powercfg setactive SCHEME_MIN && powercfg -x -disk-timeout-ac 0
@@ -37,7 +36,8 @@ if %osver% GEQ 3 (
     reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "HiberbootEnabled" /t REG_DWORD /d 0 /f
 )
 
-echo 恢复环境配置
+echo ==================== 03 系统还原与遥测优化 ====================
+echo 恢复环境配置 - 禁止系统还原
 reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\SystemRestore" /v DisableSR /f
 if exist "%SystemDrive%\windows\system32\srclient.dll" (
     start "" /min %srtool% /off
@@ -47,7 +47,7 @@ if exist "%SystemDrive%\windows\system32\srclient.dll" (
 if %osver% GEQ 4 (
     for /f "tokens=6 delims=[]. " %%a in ('ver') do set bigversion=%%a
     for /f "tokens=7 delims=[]. " %%b in ('ver') do set smallversion=%%b
-    rem 关闭遥测服务计划任务
+    echo 关闭遥测服务计划任务
     sc config DiagTrack start= disabled
     sc config dmwappushservice start= demand
     schtasks /Change /TN "Microsoft\Windows\Customer Experience Improvement Program\Consolidator" /Disable
@@ -60,43 +60,43 @@ if %osver% GEQ 4 (
     SCHTASKS /Change /DISABLE /TN "\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector"
     SCHTASKS /Change /DISABLE /TN "\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticResolver"
 
-    rem 关闭遥测
+    echo 关闭遥测
     reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PreviewBuilds" /v "AllowBuildPreview" /t "REG_DWORD" /d "0" /f
     reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform" /v "NoGenTicket" /t "REG_DWORD" /d "1" /f
     reg add "HKLM\SOFTWARE\Policies\Microsoft\SQMClient\Windows" /v "CEIPEnable" /t "REG_DWORD" /d "0" /f
     reg add "HKLM\SOFTWARE\Policies\Microsoft\AppV\CEIP" /v "CEIPEnable" /t "REG_DWORD" /d "0" /f
-    rem 关闭应用程序遥测
+    echo 关闭应用程序遥测
     reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "AITEnable" /t "REG_DWORD" /d "0" /f
-    rem 禁用清单收集器
+    echo 禁用清单收集器
     reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisableInventory" /t "REG_DWORD" /d "1" /f
-    rem 诊断和反馈
+    echo 诊断和反馈
     reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "AllowTelemetry" /t "REG_DWORD" /d "0" /f
     reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" /v "AllowTelemetry" /t "REG_DWORD" /d "0" /f
     reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection" /v "AllowTelemetry" /t "REG_DWORD" /d "0" /f
-    rem 允许应用使用我的广告 ID 向我展示个性化广告 - 关
+    echo 允许应用使用我的广告 ID 向我展示个性化广告 - 关
     reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v Enabled /t REG_DWORD /d 0 /f
-    rem 量身定制的体验
+    echo 量身定制的体验
     reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Privacy" /v TailoredExperiencesWithDiagnosticDataEnabled /t REG_DWORD /d 0 /f
-    rem 墨迹书写和键入个性
-    rem reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\TabletPC" /v "PreventHandwritingDataSharing" /t "REG_DWORD" /d "1" /f
-    rem reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\TextInput" /v "AllowLinguisticDataCollection" /t "REG_DWORD" /d "0" /f
+    echo 墨迹书写和键入个性
+    echo reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\TabletPC" /v "PreventHandwritingDataSharing" /t "REG_DWORD" /d "1" /f
+    echo reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\TextInput" /v "AllowLinguisticDataCollection" /t "REG_DWORD" /d "0" /f
 
-    rem 禁用计划任务 App列表备份
+    echo 禁用计划任务 App列表备份
     SCHTASKS /Change /DISABLE /TN "\Microsoft\Windows\AppListBackup\Backup"
 
-    rem 禁用计划任务 Windows Defender 定期维护任务。"
+    echo 禁用计划任务 Windows Defender 定期维护任务。"
     SCHTASKS /Change /DISABLE /TN "\Microsoft\Windows\Windows Defender\Windows Defender Cache Maintenance" 
 
-    rem 禁用计划任务 Windows Defender 定期清理任务。"
+    echo 禁用计划任务 Windows Defender 定期清理任务。"
     SCHTASKS /Change /DISABLE /TN "\Microsoft\Windows\Windows Defender\Windows Defender Cleanup" 
 
-    rem 禁用计划任务 Windows Defender 定期扫描任务。"
+    echo 禁用计划任务 Windows Defender 定期扫描任务。"
     SCHTASKS /Change /DISABLE /TN "\Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan" 
 
-    rem 禁用计划任务 Windows Defender 定期验证任务。"
+    echo 禁用计划任务 Windows Defender 定期验证任务。"
     SCHTASKS /Change /DISABLE /TN "\Microsoft\Windows\Windows Defender\Windows Defender Verification" 
 
-    rem 禁用计划任务 WindowsUpdate 更新扫描
+    echo 禁用计划任务 WindowsUpdate 更新扫描
     SCHTASKS /Change /DISABLE /TN "\Microsoft\Windows\WindowsUpdate\Scheduled Start"
     SCHTASKS /Change /DISABLE /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task"
     SCHTASKS /Change /DISABLE /TN "\Microsoft\Windows\UpdateOrchestrator\StartOobeAppsScan_LicenseAccepted"
@@ -109,25 +109,25 @@ if %osver% GEQ 4 (
     SCHTASKS /Change /DISABLE /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan"
     SCHTASKS /Change /DISABLE /TN "\Microsoft\Windows\Application Experience\SdbinstMergeDbTask" 
 
-    rem 禁用计划任务 OneDrive 自动安装（28000+）
+    echo 禁用计划任务 OneDrive 自动安装（28000+）
     SCHTASKS /Change /DISABLE /TN "\Microsoft\OneDrive\OneDrive Per-Machine First Setup Task"
 
-    rem 在用户登录时不启动隐私设置体验
+    echo 在用户登录时不启动隐私设置体验
     reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\OOBE" /v "DisablePrivacyExperience" /t REG_DWORD /d 1 /f
 
-    rem 设备管理器显示已禁用的设备
+    echo 设备管理器显示已禁用的设备
     reg add "HKEY_CURRENT_USER\Software\Microsoft\Multimedia\Audio\DeviceCpl" /v "ShowHiddenDevices" /t REG_DWORD /d 1 /f
 
-    rem 设备管理器显示已断开的设备
+    echo 设备管理器显示已断开的设备
     reg add "HKEY_CURRENT_USER\Software\Microsoft\Multimedia\Audio\DeviceCpl" /v "ShowDisconnectedDevices" /t REG_DWORD /d 1 /f
 
-    rem 让 Windows 选择计算机的最佳外观
-    @rem reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v "VisualFXSetting" /t REG_DWORD /d 1 /f
+    @REM echo 让 Windows 选择计算机的最佳外观
+    @REM reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v "VisualFXSetting" /t REG_DWORD /d 1 /f
 
-    rem 当Windows检测到通信活动时：不执行任何操作
+    echo 当Windows检测到通信活动时：不执行任何操作
     reg add "HKEY_CURRENT_USER\Software\Microsoft\Multimedia\Audio" /v "UserDuckingPreference" /t REG_DWORD /d 3 /f
 
-    rem 找回隐藏的处理器电源管理选项
+    echo 找回隐藏的处理器电源管理选项
     powercfg -attributes 54533251-82be-4824-96c1-47b60b740d00 45bcc044-d885-43e2-8605-ee0ec6e96b59 -ATTRIB_HIDE
     powercfg -attributes 54533251-82be-4824-96c1-47b60b740d00 36687f9e-e3a5-4dbf-b1dc-15eb381c6863 -ATTRIB_HIDE
     powercfg -attributes 2E601130-5351-4d9d-8E04-252966BAD054 d502f7ee-1dc7-4efd-a55d-f04b6f5c0545 -ATTRIB_HIDE
@@ -166,7 +166,7 @@ if %osver% GEQ 4 (
     powercfg -attributes 238C9FA8-0AAD-41ED-83F4-97BE242C8F20 94AC6D29-73CE-41A6-809F-6363BA21B47E -ATTRIB_HIDE
     powercfg -attributes 238C9FA8-0AAD-41ED-83F4-97BE242C8F20 7bc4a2f9-d8fc-4469-b07b-33eb785aaca0 -ATTRIB_HIDE
 
-    rem 电源模式添加 卓越模式
+    echo 电源模式添加 卓越模式
     powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
 
     Powershell -NoLogo -NoProfile "Get-AppxPackage Microsoft.Windows.Photo* | Write-Host" | find /i "Microsoft.Windows.Photo" || if exist "%ProgramFiles%\Windows Photo Viewer\PhotoViewer.dll" (
@@ -233,16 +233,22 @@ if %osver% GEQ 4 (
 
     echo 启用任务管理器显示磁盘性能
     if exist "%systemdrive%\Windows\System32\diskperf.exe" diskperf -y
+
+    echo 更换默认控制台为Windows Terminal
     if exist "%LocalAppData%\Microsoft\WindowsApps\wt.exe" (
-        echo 更换默认控制台为Windows Terminal
         Reg.exe add "HKCU\Console\%%%%Startup" /v "DelegationConsole" /t REG_SZ /d "{2EACA947-7F5F-4CFA-BA87-8F7FBEEFBE69}" /f
         Reg.exe add "HKCU\Console\%%%%Startup" /v "DelegationTerminal" /t REG_SZ /d "{E12CFF52-A866-4C77-9A90-F570A7AA2C6B}" /f
+        echo 清空Windows Terminal的设置，确保为最新的默认配置
+        if exist "%LocalAppData%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" del /f /q "%LocalAppData%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
     )
     echo 禁用Smart App Control，修复Windows Installer安装缓慢
     if exist "%systemdrive%\Windows\System32\CiTool.exe" (
         reg add "HKLM\SYSTEM\CurrentControlSet\Control\CI\Policy" /f /v "VerifiedAndReputablePolicyState" /t REG_DWORD /d 0
         echo | CiTool.exe -r
     )
+
+    echo ==================== Win10/11专用优化 ====================
+
     if !bigversion! GEQ 19041 (
         echo 启用硬件加速GPU调度
         reg add HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers /f /v HwSchMode /t REG_DWORD /d 2
@@ -303,6 +309,7 @@ if %osver% GEQ 4 (
     schtasks /change /tn "\Microsoft\Windows\Media Center\mcupdate" /disable 
 )
 
+echo ==================== 04 浏览器与桌面配置 ====================
 echo [OSC]正在优化浏览器配置...>"%systemdrive%\Windows\Setup\wallname.txt"
 if exist "FUCKBrowserConfig.bat" start "" /wait /min "FUCKBrowserConfig.bat" /s
 if %osver% GEQ 2 (
@@ -322,5 +329,34 @@ if %osver% GEQ 4 (
         echo Win11移除固定的新版Outlook任务栏图标
         powershell -NoLogo -NoProfile -ExecutionPolicy bypass -File "removeOutlookNewTaskbar.ps1"
     )
+)
+
+echo ==================== 05 安装前网络准备 ====================
+set isoffline=1
+ping www.aliyun.com -4 -n 2 >nul
+if %errorlevel% EQU 0 set isoffline=0
+
+echo Win10/11 软件源优化
+ver | find /i "10.0." && (
+    if "%isoffline%"=="0" (
+        if exist "%LocalAppData%\Microsoft\WindowsApps\winget.exe" (
+            echo WinGet 换源
+            winget source remove winget && winget source add winget https://mirrors.cernet.edu.cn/winget-source
+        )
+        @rem if exist "%SystemDrive%\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" (
+        @rem     echo 安装 Scoop
+        @rem     powershell -C "irm https://c.xrgzs.top/c/scoop|iex"
+        @rem )
+    )
+    for /f "tokens=6 delims=[]. " %%a in ('ver') do set bigversion=%%a
+    for /f "tokens=7 delims=[]. " %%b in ('ver') do set smallversion=%%b
+    @rem if !bigversion! GEQ 19041 (
+    @rem     if !bigversion! LEQ 19049 (
+    @rem         if !smallversion! GEQ 2900 (
+    @rem             echo 处理Win10 1904x.2900+变大了的搜索图标（改成搜索框，保留原版风格）
+    @rem             reg add HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search /v SearchboxTaskbarMode /t REG_DWORD /d 2 /f
+    @rem         )
+    @rem     )
+    @rem )
 )
 exit
