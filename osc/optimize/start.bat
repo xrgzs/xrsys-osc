@@ -1,14 +1,15 @@
 chcp 936 > nul
 setlocal enabledelayedexpansion
 cd /d "%~dp0"
+call "%~dp0..\..\common\env.bat" OSC
 
 echo ==================== 01 导入注册表 ====================
 taskkill /f /im explorer.exe
 taskkill /f /im StartMenuExperienceHost.exe
 echo [OSC]正在导入注册表...>"%systemdrive%\Windows\Setup\wallname.txt"
 start "" /wait /min regimporter.bat
-if %osver% GEQ 2 (
-    %nsudo% -U:T -P:E -wait regimporter.bat
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 2 (
+    "%XRSYS_OSC_NSUDO_EXE%" -U:T -P:E -wait regimporter.bat
 )
 
 echo ==================== 02 任务保活电源策略 ====================
@@ -30,7 +31,7 @@ powercfg setactive SCHEME_BALANCED && powercfg -x -disk-timeout-ac 0
 powercfg setactive SCHEME_MAX && powercfg -x -disk-timeout-ac 0
 powercfg setactive SCHEME_MIN && powercfg -x -disk-timeout-ac 0
 
-if %osver% GEQ 3 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 3 (
     echo win8以上系统禁用快速启动
     reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Session Manager\Power" /v "HiberbootEnabled" /t REG_DWORD /d 0 /f
     reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "HiberbootEnabled" /t REG_DWORD /d 0 /f
@@ -40,13 +41,11 @@ echo ==================== 03 系统还原与遥测优化 ====================
 echo 恢复环境配置 - 禁止系统还原
 reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\SystemRestore" /v DisableSR /f
 if exist "%SystemDrive%\windows\system32\srclient.dll" (
-    start "" /min %srtool% /off
-    start "" /min %srtool% /reset
+    start "" /min "%XRSYS_OSC_SRTOOL_EXE%" /off
+    start "" /min "%XRSYS_OSC_SRTOOL_EXE%" /reset
 )
 
-if %osver% GEQ 4 (
-    for /f "tokens=6 delims=[]. " %%a in ('ver') do set bigversion=%%a
-    for /f "tokens=7 delims=[]. " %%b in ('ver') do set smallversion=%%b
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 4 (
     echo 关闭遥测服务计划任务
     sc config DiagTrack start= disabled
     sc config dmwappushservice start= demand
@@ -249,24 +248,24 @@ if %osver% GEQ 4 (
 
     echo ==================== Win10/11专用优化 ====================
 
-    if !bigversion! GEQ 19041 (
+    if !XRSYS_OSC_WINDOWS_BUILD! GEQ 19041 (
         echo 启用硬件加速GPU调度
         reg add HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers /f /v HwSchMode /t REG_DWORD /d 2
     )
-    if !bigversion! GEQ 19041 if !bigversion! LEQ 19045 (
+    if !XRSYS_OSC_WINDOWS_BUILD! GEQ 19041 if !XRSYS_OSC_WINDOWS_BUILD! LEQ 19045 (
         reg query HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds /v IsFeedsAvailable | find /i "0x1" && (
             echo 强制使用组策略关闭feeds
             reg add "HKLM\Software\Policies\Microsoft\Windows\Windows Feeds" /v "EnableFeeds" /t REG_DWORD /f /d 0
         )
     )
-    if !bigversion! GEQ 22000 (
+    if !XRSYS_OSC_WINDOWS_BUILD! GEQ 22000 (
         echo 处理Win11变小了的输入法候选项字体大小（大）
         reg add HKCU\Software\Microsoft\InputMethod\CandidateWindow\CHS\1 /v FontStyleTSF3 /t REG_SZ /d "18.00pt;Regular;;Microsoft YaHei UI" /f
         
         echo Win11桌面不显示控制面板
         reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel /v "{5399E694-6CE5-4D6C-8FCE-1D8870FDCBA0}" /t REG_DWORD /d 1 /f
 
-        if !bigversion! GEQ 22621 (
+        if !XRSYS_OSC_WINDOWS_BUILD! GEQ 22621 (
             echo 任务栏已满时合并
             reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced /f /v TaskbarGlomLevel /t REG_DWORD /d 1
             echo 任务栏隐藏AI图标
@@ -275,11 +274,11 @@ if %osver% GEQ 4 (
             echo 启用右键单击即可在任务栏中启用结束任务
             reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\TaskbarDeveloperSettings /v TaskbarEndTask /t REG_DWORD /d 1 /f
         )
-        if !bigversion! LEQ 22635 (
+        if !XRSYS_OSC_WINDOWS_BUILD! LEQ 22635 (
             echo 恢复传统右键菜单
             reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
         )
-        if !bigversion! GEQ 26100 (
+        if !XRSYS_OSC_WINDOWS_BUILD! GEQ 26100 (
             if exist "%SystemDrive%\Windows\System32\sudo.exe" (
                 echo 启用 sudo
                 sudo config --enable enable
@@ -291,7 +290,7 @@ if %osver% GEQ 4 (
             copy /y "start2.bin" "%LocalAppData%\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\start2.bin"
         )
     )
-) else if %osver% GEQ 2 (
+) else if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 2 (
     schtasks /change /tn "\Microsoft\Windows\SystemRestore\SR" /disable 
     schtasks /change /tn "\Microsoft\Windows\Windows Error Reporting\QueueReporting" /disable 
     schtasks /change /tn "\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" /disable 
@@ -312,7 +311,7 @@ if %osver% GEQ 4 (
 echo ==================== 04 浏览器与桌面配置 ====================
 echo [OSC]正在优化浏览器配置...>"%systemdrive%\Windows\Setup\wallname.txt"
 if exist "FUCKBrowserConfig.bat" start "" /wait /min "FUCKBrowserConfig.bat" /s
-if %osver% GEQ 2 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 2 (
     taskkill /f /im msedge.exe
     rd /s /q "%LocalAppData%\Microsoft\Edge\User Data"
     mkdir "%LocalAppData%\Microsoft\Edge\User Data"
@@ -320,12 +319,10 @@ if %osver% GEQ 2 (
 )
 start explorer.exe
 
-if %osver% GEQ 4 (
-    for /f "tokens=6 delims=[]. " %%a in ('ver') do set bigversion=%%a
-    for /f "tokens=7 delims=[]. " %%b in ('ver') do set smallversion=%%b
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 4 (
     echo Win10+选择应用在锁屏上显示详细状态-无
     powershell -NoLogo -NoProfile -ExecutionPolicy bypass -File "LockScreenStatus.ps1"
-    if !smallversion! GEQ 26100 (
+    if !XRSYS_OSC_WINDOWS_REVISION! GEQ 26100 (
         echo Win11移除固定的新版Outlook任务栏图标
         powershell -NoLogo -NoProfile -ExecutionPolicy bypass -File "removeOutlookNewTaskbar.ps1"
     )
@@ -348,11 +345,9 @@ ver | find /i "10.0." && (
         @rem     powershell -C "irm https://c.xrgzs.top/c/scoop|iex"
         @rem )
     )
-    for /f "tokens=6 delims=[]. " %%a in ('ver') do set bigversion=%%a
-    for /f "tokens=7 delims=[]. " %%b in ('ver') do set smallversion=%%b
-    @rem if !bigversion! GEQ 19041 (
-    @rem     if !bigversion! LEQ 19049 (
-    @rem         if !smallversion! GEQ 2900 (
+    @rem if !XRSYS_OSC_WINDOWS_BUILD! GEQ 19041 (
+    @rem     if !XRSYS_OSC_WINDOWS_BUILD! LEQ 19049 (
+    @rem         if !XRSYS_OSC_WINDOWS_REVISION! GEQ 2900 (
     @rem             echo 处理Win10 1904x.2900+变大了的搜索图标（改成搜索框，保留原版风格）
     @rem             reg add HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search /v SearchboxTaskbarMode /t REG_DWORD /d 2 /f
     @rem         )

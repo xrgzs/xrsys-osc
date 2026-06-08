@@ -1,6 +1,7 @@
 chcp 936 > nul
 setlocal EnableDelayedExpansion
 cd /d "%~dp0"
+call "%~dp0..\..\common\env.bat" OSC
 echo [OSC]Running post software cleanup...>"%SystemDrive%\Windows\Setup\wallname.txt"
 echo 正在安装低配机器优化组件...
 if not "%isxp%"=="yes" if not "%isoffline%"=="1" if "%zjsoftxrgzs%"=="yes" (
@@ -8,9 +9,9 @@ if not "%isxp%"=="yes" if not "%isoffline%"=="1" if "%zjsoftxrgzs%"=="yes" (
         for /f %%a in ('powershell "(Get-WmiObject Win32_PhysicalMemory | Measure-Object -Property Capacity -Sum).Sum / 1GB -le 4 -or (Get-WmiObject -Class Win32_Processor | Measure-Object -Property NumberOfCores -Sum).Sum -le 2"') do (
             if "%%a"=="True" (
                 @rem echo [OSCol]正在安装低配机器优化组件...>"%SystemDrive%\Windows\Setup\wallname.txt"
-                @rem %aria% -o "MemReductSetup.exe" "%url%/memreduct"
+                @rem %XRSYS_OSC_ARIA2_CMD% -o "MemReductSetup.exe" "%XRSYS_OSC_LINK_BASE_URL%/memreduct"
                 @rem if exist "MemReductSetup.exe" start "" /wait "MemReductSetup.exe" /S
-                @rem %aria% -o "ProlassoSetup.exe" "%url%/processlasso"
+                @rem %XRSYS_OSC_ARIA2_CMD% -o "ProlassoSetup.exe" "%XRSYS_OSC_LINK_BASE_URL%/processlasso"
                 @rem if exist "ProlassoSetup.exe" start "" /wait "ProlassoSetup.exe" /S
                 ver | find /i "10.0." > nul && (
                     echo [OSCol]正在对低配机器做界面调整...>"%SystemDrive%\Windows\Setup\wallname.txt"

@@ -1,7 +1,8 @@
 chcp 936 > nul
 @echo off
 title 潇然系统优化组件osc.exe——软件安装脚本
-if not defined url set url=https://url.xrgzs.top
+
+call "%~dp0..\common\env.bat" OSC
 setlocal enabledelayedexpansion
 taskkill /f /im msedge.exe
 
@@ -30,7 +31,7 @@ goto software_prepare
 echo 设置时区为中国
 if exist "%SystemDrive%\Windows\System32\tzutil.exe" tzutil /s "China Standard Time"
 echo 校对时间
-if "%isoffline%"=="0" %PECMD% NTPC ntp1.aliyun.com
+if "%isoffline%"=="0" "%XRSYS_OSC_PECMD_EXE%" NTPC ntp1.aliyun.com
 echo 清除DNS缓存
 ipconfig /flushdns
 echo [OSCol]正在检测组件...>"%SystemDrive%\Windows\Setup\wallname.txt"
@@ -139,7 +140,7 @@ copy /y softlist.txt "%SystemDrive%\Windows\Setup\softlist.txt"
 
 if exist pack.7z (
     echo [OSCol]正在解压pack...>"%SystemDrive%\Windows\Setup\wallname.txt"
-    %zip% x -r -y -p123 pack.7z
+    "%XRSYS_OSC_7Z_EXE%" x -r -y -p123 pack.7z
     del /f /q pack.7z
     echo ok >unpacked.log
 )
@@ -157,7 +158,7 @@ find /i "永中" softlist.txt && set zjsoftoffice=no
 
 echo 正在判断是否需要安装浏览器
 @rem if %softver%==onlinexrsys (
-@rem     rem if %osver% GEQ 2 SET zjsoftbrowser=no
+@rem     rem if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 2 SET zjsoftbrowser=no
 @rem     if exist "%ProgramData%\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk" set zjsoftbrowser=no
 @rem )
 if exist "%ProgramData%\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk" set zjsoftbrowser=no
@@ -251,17 +252,17 @@ FOR /F "eol=; tokens=1,2,3,4,5,6,7,8 delims=|" %%i in (oscsoft.txt) do (
         if not exist "%%j" (
             echo 不存在文件，开始下载
             echo [notice]"%%j":file not exist once, downloading... >>Version.txt
-            %aria% -x16 -j16 -s16 -o "%%j" "%%k"
+            %XRSYS_OSC_ARIA2_CMD% -x16 -j16 -s16 -o "%%j" "%%k"
         )
         if not exist "%%j" (
             echo 二次不存在文件，开始下载
             echo [error]"%%j":file not exist twice, try to download again... >>Version.txt
-            %aria% -x8 -o "%%j" "%%k"
+            %XRSYS_OSC_ARIA2_CMD% -x8 -o "%%j" "%%k"
         )
         if not exist "%%j" (
             echo 三次不存在文件，开始下载
             echo [error]"%%j":file not exist 3 times, try to download again... >>Version.txt
-            %aria% -x1 -o "%%j" "%%k"
+            %XRSYS_OSC_ARIA2_CMD% -x1 -o "%%j" "%%k"
         )
         if exist "%%j" (
             echo 存在文件，运行并等待安装
@@ -277,11 +278,9 @@ FOR /F "eol=; tokens=1,2,3,4,5,6,7,8 delims=|" %%i in (oscsoft.txt) do (
         echo [notice]"%%j":isinstall=no, do nothing with >>Version.txt
     )
 )
-
-echo ???????????????????????????????...>"%SystemDrive%\Windows\Setup\wallname.txt"
 goto softwarefinish
 :softwarefinish
-echo [OSC]Running post software cleanup...>"%SystemDrive%\Windows\Setup\wallname.txt"
+echo [OSC]正在运行软件安装后的清理操作...>"%SystemDrive%\Windows\Setup\wallname.txt"
 if exist "optimize\postsoftware.bat" echo y | start "" /wait /min "optimize\postsoftware.bat"
 cd /d "%~dp0"
 echo successful %softver%>"%SystemDrive%\Windows\Setup\softwarestate.txt"

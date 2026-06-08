@@ -7,37 +7,20 @@ cd /d "%~dp0"
 if exist "%SystemDrive%\Windows\SysWOW64\wscript.exe" (
     move /y "%~dp0apifiles\PECMD64.EXE" "%~dp0apifiles\PECMD.EXE"
 )
-set aria="%~dp0aria2c.exe" -c -R --retry-wait=5 --check-certificate=false --save-not-found=false --always-resume=false --auto-save-interval=10 --auto-file-renaming=false --allow-overwrite=true
-set dmi="%~dp0apifiles\DMI.exe"
-set netuser="%~dp0apifiles\NetUser.exe"
-set nircmd="%~dp0apifiles\nircmd.exe"
-set winput="%~dp0apifiles\winput.exe"
-set wbox="%~dp0apifiles\wbox.exe"
-set nsudo="%~dp0apifiles\NSudoLC.exe"
-set pecmd="%~dp0apifiles\PECMD.EXE"
-set srtool="%~dp0apifiles\srtool.exe"
-set wlan="%~dp0apifiles\WLAN.exe"
-set zip="%~dp0apifiles\7z.exe"
-::系统版本判断
-set osver=0&& set osname=Win
-::上面一行可根据系统情况手动填写系统版本，并将下面全部注释掉
-ver | find /i "5.1." > nul && set osver=1&& set osname=WinXP
-ver | find /i "6.0." > nul && set osver=2&& set osname=Vista
-ver | find /i "6.1." > nul && set osver=2&& set osname=Win7
-ver | find /i "6.2." > nul && set osver=3&& set osname=Win8
-ver | find /i "6.3." > nul && set osver=3&& set osname=Win8.1
-ver | find /i "6.4." > nul && set osver=4&& set osname=Win10
-ver | find /i "10.0." > nul && set osver=4&& set osname=Win10
-ver | find /i "10.0.2" > nul && set osver=4&& set osname=Win11
+if exist "%~dp0common\env.bat" (
+    call "%~dp0common\env.bat" API
+) else (
+    call "%~dp0..\common\env.bat" API
+)
 if not exist apifiles\DriveCleaner.exe (
     shutdown -s -t 30 -c "系统部署文件损坏，即将关机终止部署（API）"
 )
 if exist cdrive.7z (
-    %zip% x -r -y -p123 -o%SystemDrive% cdrive.7z
+    "%XRSYS_OSC_7Z_EXE%" x -r -y -p123 -o%SystemDrive% cdrive.7z
     del /f /q cdrive.7z
 )
 if exist cdrive.rar (
-    %zip% x -r -y -o%SystemDrive% cdrive.rar
+    "%XRSYS_OSC_7Z_EXE%" x -r -y -o%SystemDrive% cdrive.rar
     del /f /q cdrive.rar
 )
 :choose
@@ -50,12 +33,12 @@ goto end
 
 :bsq
 title 部署前系统处理（请勿关闭此窗口）
-rem %pecmd% LINK %Desktop%\继续执行未完成的任务,api.exe,/5
-rem if %osver% EQU 2 (
-rem     %pecmd% DISP
+rem %XRSYS_OSC_PECMD_EXE% LINK %Desktop%\继续执行未完成的任务,api.exe,/5
+rem if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% EQU 2 (
+rem     %XRSYS_OSC_PECMD_EXE% DISP
 rem )
 mkdir "%SystemDrive%\Windows\Setup"
-start "" "%pecmd%" LOAD "%~dp0apifiles\Wall.wcs"
+start "" "%XRSYS_OSC_PECMD_EXE%" LOAD "%~dp0apifiles\Wall.wcs"
 for %%a in (C D E F G H) do (
     move /y "%%a:\zjsoft*.txt" "%SystemDrive%\Windows\Setup"
     move /y "%%a:\xrok*.txt" "%SystemDrive%\Windows\Setup"
@@ -63,12 +46,12 @@ for %%a in (C D E F G H) do (
 )
 echo isxrsys >"%SystemDrive%\WINDOWS\Setup\xrsys.txt"
 
-if %osver% GEQ 2 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 2 (
     reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableLUA" /t REG_DWORD /d 0 /f
     reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "PromptOnSecureDesktop" /t REG_DWORD /d 0 /f
     reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "ConsentPromptBehaviorAdmin" /t REG_DWORD /d 0 /f
 )
-if %osver% GEQ 3 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 3 (
     echo 关闭保留储存
     reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager" /v ShippedWithReserves /t REG_DWORD /d 0 /f
     echo 处理Onedrive开机启动项
@@ -149,7 +132,7 @@ if exist fonts.exe (
 @rem         echo [API]正在应用VC运行库 by Dreamcast...>"%systemdrive%\Windows\Setup\wallname.txt"
 @rem         start "" /wait "osc\runtime\MSVBCRT.AIO.exe" /SILENT /SUPPRESSMSGBOXES /NOCLOSEAPPLICATIONS /NORESTARTAPPLICATIONS /NORESTART /COMPONENTS="vbvc567,vc2005,vc2008,vc2010,vc2012,vc2013,vc2019,vc2022,uc10,vstor"
 @rem     )
-@rem     if %osver% GEQ 2 (
+@rem     if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 2 (
 @rem         if exist "osc\runtime\VisualCppRedist_AIO.exe" (
 @rem             echo [API]正在应用VC运行库 by abodi1406...>"%systemdrive%\Windows\Setup\wallname.txt"
 @rem             start "" /wait "osc\runtime\VisualCppRedist_AIO.exe" /ai
@@ -163,18 +146,18 @@ if exist fonts.exe (
 ::应用系统驱动
 if exist xrsysdrv.zip (
     echo [API]正在解压驱动zip...>"%systemdrive%\Windows\Setup\wallname.txt"
-    echo %zip% e -r -y xrsysdrv.zip >>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
-    %zip% e -r -y xrsysdrv.zip
+    echo "%XRSYS_OSC_7Z_EXE%" e -r -y xrsysdrv.zip >>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
+    "%XRSYS_OSC_7Z_EXE%" e -r -y xrsysdrv.zip
     del /f /q wandrv.iso
 )
 rem ARM64 不支持挂载，需要解压
 if exist wandrv.iso if /i "%PROCESSOR_ARCHITECTURE%"=="ARM64" (
     echo [API]正在解压驱动iso...>"%systemdrive%\Windows\Setup\wallname.txt"
-    echo %zip% e -r -y wandrv.iso >>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
-    %zip% e -r -y wandrv.iso >>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
+    echo "%XRSYS_OSC_7Z_EXE%" e -r -y wandrv.iso >>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
+    "%XRSYS_OSC_7Z_EXE%" e -r -y wandrv.iso >>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
     del /f /q wandrv.iso
 )
-if %osver% GEQ 2 if exist CeoMSX.wim (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 2 if exist CeoMSX.wim (
     echo [API]正在应用CeoMSX...>"%systemdrive%\Windows\Setup\wallname.txt"
     mkdir CeoMSX
     DISM.exe /Mount-Wim /WimFile:CeoMSX.wim /index:1 /MountDir:CeoMSX
@@ -332,13 +315,13 @@ ver | find "10.0.16" && echo 1>"%systemdrive%\Windows\Setup\xrsysnowu.txt"
 ver | find "10.0.15" && echo 1>"%systemdrive%\Windows\Setup\xrsysnowu.txt"
 ver | find "10.0.14" && echo 1>"%systemdrive%\Windows\Setup\xrsysnowu.txt"
 ver | find "10.0.10" && echo 1>"%systemdrive%\Windows\Setup\xrsysnowu.txt"
-if %osver% LEQ 3 if %osver% GEQ 2 echo y | start "" /min /wait "%~dp0apifiles\EOSNotify.bat"
-if %osver% GEQ 3 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% LEQ 3 if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 2 echo y | start "" /min /wait "%~dp0apifiles\EOSNotify.bat"
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 3 (
     echo win8-11系统WD、WU驱动处理
     powershell -NoLogo -NoProfile -ExecutionPolicy bypass -File "%~dp0apifiles\WD.ps1"
     regedit /s "%~dp0apifiles\WDDisable.reg"
-    "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
-    "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-disable.reg"
+    "%XRSYS_OSC_NSUDO_EXE%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
+    "%XRSYS_OSC_NSUDO_EXE%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-disable.reg"
     start "" /wait /min "%~dp0apifiles\Wub.exe" /D /P
     echo 关闭VBS基于虚拟化的安全性
     bcdedit /set hypervisorlaunchtype off
@@ -348,7 +331,7 @@ if %osver% GEQ 3 (
     echo 禁用BitLocker自动加密
     reg add "HKLM\SYSTEM\CurrentControlSet\BitLocker" /v "PreventDeviceEncryption" /t REG_DWORD /d 1 /f
 )
-if %osver% GEQ 2 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 2 (
     bcdedit /timeout 3
     bcdedit /set {current} default
     echo 禁止开机弹出启动故障界面
@@ -382,14 +365,14 @@ goto end
 title 登录时系统处理（请勿关闭此窗口）
 rem start "" /min "%~dp0apifiles\DelDrvCeo.bat"
 taskkill /f /im explorer.exe
-if %osver% GEQ 3 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 3 (
     echo win8-11系统WD、WU驱动处理
     powershell -NoLogo -NoProfile -ExecutionPolicy bypass -File "%~dp0apifiles\WD.ps1"
     regedit /s "%~dp0apifiles\WDDisable.reg"
-    "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
+    "%XRSYS_OSC_NSUDO_EXE%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
     rem 关闭保留储存
     reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager" /v ShippedWithReserves /t REG_DWORD /d 0 /f
-    "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-disable.reg"
+    "%XRSYS_OSC_NSUDO_EXE%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-disable.reg"
     start "" /wait "%~dp0apifiles\Wub.exe" /D /P
     echo 关闭显示你的数据将在你所在的国家或地区之外进行处理
     taskkill /f /im WWAHost.exe
@@ -430,18 +413,18 @@ goto end
 
 :jzm
 title 桌面环境系统处理（请勿关闭此窗口）
-start "" "%pecmd%" LOAD "%~dp0apifiles\Wall.wcs"
+start "" "%XRSYS_OSC_PECMD_EXE%" LOAD "%~dp0apifiles\Wall.wcs"
 echo [API]正在进行桌面环境系统处理...>"%systemdrive%\Windows\Setup\wallname.txt"
 echo win8-11系统APPX、WD、WU驱动处理
-if %osver% GEQ 3 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 3 (
 
     regedit /s "%~dp0apifiles\WDDisable.reg"
-    "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
+    "%XRSYS_OSC_NSUDO_EXE%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
     powershell -NoLogo -NoProfile -ExecutionPolicy bypass -File "%~dp0apifiles\uninstallAppx.ps1"
-    "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-disable.reg"
+    "%XRSYS_OSC_NSUDO_EXE%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-disable.reg"
 )
 echo 关闭Edge OneDrive
-if %osver% GEQ 4 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 4 (
     taskkill /f /im msedge.exe
     taskkill /f /im msedgewebview2.exe
     taskkill /f /im MicrosoftEdgeUpdate.exe
@@ -457,7 +440,7 @@ if /i not "%USERNAME%"=="Administrator" (
 
 echo 修复用户密码过期问题
 Net Accounts /MaxPwAge:Unlimited
-%netuser% %USERNAME% /pwnexp:y
+"%XRSYS_OSC_NETUSER_EXE%" %USERNAME% /pwnexp:y
 wmic useraccount where "name='%username%'" set PasswordExpires=FALSE
 powershell -NoLogo -NoProfile -Command "Set-LocalUser -Name '%username%' -PasswordNeverExpires $true"
 
@@ -467,13 +450,13 @@ if exist "%SystemDrive%\windows\system32\srclient.dll" (
     "%~dp0apifiles\srtool.exe" /off
     "%~dp0apifiles\srtool.exe" /reset
 )
-label %SystemDrive% %osname%_OS
+label %SystemDrive% %XRSYS_OSC_WINDOWS_NAME%_OS
 
-if %osver% GEQ 2 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 2 (
     bcdedit /timeout 3
 )
 
-if %osver% GEQ 3 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 3 (
     @REM reagentc /enable
     @REM netsh advfirewall set allprofiles state off
     @REM bcdedit /set {current} bootmenupolicy legacy
@@ -546,9 +529,9 @@ if not exist "%SystemDrive%\Windows\Setup\oscstate.txt" (
 )
 echo [API]正在处理后续事项...>"%systemdrive%\Windows\Setup\wallname.txt"
 
-if %osver% GEQ 3 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 3 (
     echo win8-11系统WU驱动处理
-    "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-enable.reg"
+    "%XRSYS_OSC_NSUDO_EXE%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WUdrivers-enable.reg"
 )
 
 echo 清理残留

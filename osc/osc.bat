@@ -7,29 +7,7 @@ if exist "%systemdrive%\Windows\SysWOW64\wscript.exe" (
     move /y "%~dp0apifiles\PECMD64.exe" "%~dp0apifiles\PECMD.exe"
     move /y "%~dp0apifiles\DrvIndex64.exe" "%~dp0apifiles\DrvIndex.exe"
 )
-set aria="%~dp0aria2c.exe" -c -R --retry-wait=5 --check-certificate=false --save-not-found=false --always-resume=false --auto-save-interval=10 --auto-file-renaming=false --allow-overwrite=true
-set dmi="%~dp0apifiles\DMI.exe"
-set netuser="%~dp0apifiles\NetUser.exe"
-set nircmd="%~dp0apifiles\nircmd.exe"
-set winput="%~dp0apifiles\winput.exe"
-set wbox="%~dp0apifiles\wbox.exe"
-set nsudo="%~dp0apifiles\NSudoLC.exe"
-set pecmd="%~dp0apifiles\PECMD.exe"
-set drvindex="%~dp0apifiles\DrvIndex.exe"
-set srtool="%~dp0apifiles\srtool.exe"
-set wlan="%~dp0apifiles\WLAN.exe"
-set zip="%~dp0apifiles\7z.exe"
-
-echo 系统版本判断
-set osver=0&& set osname=Win
-ver | find /i "5.1." > nul && set osver=1&& set osname=WinXP
-ver | find /i "6.0." > nul && set osver=2&& set osname=Vista
-ver | find /i "6.1." > nul && set osver=2&& set osname=Win7
-ver | find /i "6.2." > nul && set osver=3&& set osname=Win8
-ver | find /i "6.3." > nul && set osver=3&& set osname=Win8.1
-ver | find /i "6.4." > nul && set osver=4&& set osname=Win10
-ver | find /i "10.0." > nul && set osver=4&& set osname=Win10
-ver | find /i "10.0.2" > nul && set osver=4&& set osname=Win11
+call "%~dp0..\common\env.bat" OSC
 
 echo 创建相关文件夹
 mkdir "%SystemDrive%\Windows\Setup"
@@ -66,11 +44,11 @@ echo 潇然系统盗版提示
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v legalnoticecaption /t REG_SZ /d "警告：您的系统可能没有部署完整（OSC）" /f
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v legalnoticetext /t REG_SZ /d "这通常是网络连接不稳定或部署程序BUG导致的，请在点击【确定】登录账户后，访问http://url.xrgzs.top/osc下载、重新运行osc.exe尝试解决。此提示每次登录前都会强制弹出，如有特殊情况请联系我们解决。" /f
 
-if %osver% GEQ 3 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 3 (
     echo win8-11系统APPX、WD处理
     powershell -NoLogo -NoProfile -ExecutionPolicy bypass -File "%~dp0apifiles\WD.ps1"
     regedit /s "%~dp0apifiles\WDDisable.reg"
-    "%nsudo%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
+    "%XRSYS_OSC_NSUDO_EXE%" -U:T -P:E -wait regedit /s "%~dp0apifiles\WDDisable.reg"
     powershell -NoLogo -NoProfile -ExecutionPolicy bypass -File "%~dp0apifiles\uninstallAppx.ps1"
     reg import "%~dp0apifiles\mspcmgr.reg" /reg:32
     
@@ -85,14 +63,14 @@ if %osver% GEQ 3 (
 )
 
 echo 创建runonce自删清理脚本...
-if %osver% GEQ 2 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 2 (
 	copy /y runonce.bat "%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Startup\"
 ) else (
     copy /y runonce.bat "%ALLUSERSPROFILE%\「开始」菜单\程序\启动\"
 )
 
 if not exist "%SystemDrive%\Windows\Setup\Set\xrsysstepapi5.flag" (
-    start "" "%pecmd%" LOAD "%~dp0apifiles\Wall.wcs"
+    start "" "%XRSYS_OSC_PECMD_EXE%" LOAD "%~dp0apifiles\Wall.wcs"
 )
 
 :copytags
@@ -143,7 +121,7 @@ if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
     for %%a in (C D E F G H) do (
         if exist "%%a:\Xiaoran\OSC\DriverBackup.7z" (
             echo [OSC]正在导入搜到的驱动备份%%a:\~\DriverBackup.7z...>"%systemdrive%\Windows\Setup\wallname.txt"
-            start "" /wait "%drvindex%" -b "%%a:\Xiaoran\OSC\DriverBackup.7z"
+            start "" /wait "%XRSYS_OSC_DRVINDEX_EXE%" -b "%%a:\Xiaoran\OSC\DriverBackup.7z"
         )
         if exist "%%a:\Xiaoran\OSC\wandrv.iso" (
             echo [OSC]正在应用搜到的万能驱动%%a:\~\wandrv.iso...>"%systemdrive%\Windows\Setup\wallname.txt"
@@ -222,7 +200,7 @@ endlocal
 
 :restorewifi
 echo 还原备份的WIFI密码
-if %osver% GEQ 2 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 2 (
     for %%a in (C D E F G H) do (
         if exist "%%a:\Xiaoran\WLANPassword\*.xml" (
             FORFILES /P "%%a:\Xiaoran\WLANPassword" /M *.xml /C "cmd /c netsh wlan add profile filename=@path"
@@ -232,12 +210,12 @@ if %osver% GEQ 2 (
         )
     )
 ) else (
-    for /f "tokens=1,2" %%i in ('%wlan% ei') DO (
+    for /f "tokens=1,2" %%i in ('"%XRSYS_OSC_WLAN_EXE%" ei') DO (
         if "%%i"=="GUID:" (
             set GUID=%%j
             for %%a in (C D E F G H) do (
                 for %%b in ("%%a:\Xiaoran\WLANPassword\*.xml") DO (
-                    %wlan% sp !GUID! "%%b"
+                    "%XRSYS_OSC_WLAN_EXE%" sp !GUID! "%%b"
                 )
             )
         )
@@ -383,18 +361,18 @@ if exist "software.bat" echo y | start "" /wait /min "software.bat"
 
 :afterlife
 echo [OSC]正在处理后续事项...>"%systemdrive%\Windows\Setup\wallname.txt"
-if %osver% EQU 2 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% EQU 2 (
     echo win7系统WU服务处理
     echo yes>"%systemdrive%\Windows\Setup\xrsysnowu.txt"
 )
-if %osver% EQU 3 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% EQU 3 (
     echo Win8启用UAC
     echo yes>"%systemdrive%\Windows\Setup\xrsysuac.txt"
     echo win8系统WU服务处理
     echo yes>"%systemdrive%\Windows\Setup\xrsysnowu.txt"
 )
 
-if %osver% EQU 4 (
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% EQU 4 (
     echo win10+系统WU服务处理
     echo yes>"%systemdrive%\Windows\Setup\xrsyswu.txt"
 )
