@@ -1,6 +1,13 @@
 chcp 936 > nul
-setlocal enabledelayedexpansion
 @echo off
+REM ===========================================================
+REM 文件说明: API 入口脚本
+REM 作者: 狂犬主子
+REM SPDX-License-Identifier: GPL-3.0-or-later
+REM 版权所有 (C) 潇然工作室
+REM 未经作者许可，不得删除或修改此文件中的版权和许可信息
+REM ===========================================================
+setlocal enabledelayedexpansion
 @REM mode con: cols=70 lines=5
 color 1f
 cd /d "%~dp0"

@@ -1,6 +1,13 @@
 chcp 936 > nul
-setlocal EnableDelayedExpansion
 @echo off
+REM ===========================================================
+REM 文件说明: OSC 主入口脚本
+REM 作者: 狂犬主子
+REM SPDX-License-Identifier: GPL-3.0-or-later
+REM 版权所有 (C) 潇然工作室
+REM 未经作者许可，不得删除或修改此文件中的版权和许可信息
+REM ===========================================================
+setlocal EnableDelayedExpansion
 title 潇然系统优化组件 XRSYS-OSC
 cd /d "%~dp0"
 if exist "%systemdrive%\Windows\SysWOW64\wscript.exe" (

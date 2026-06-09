@@ -1,3 +1,10 @@
+﻿# ===========================================================
+# 文件说明: 编码转换工具脚本
+# 作者: 狂犬主子
+# SPDX-License-Identifier: GPL-3.0-or-later
+# 版权所有 (C) 潇然工作室
+# 未经作者许可，不得删除或修改此文件中的版权和许可信息
+# ===========================================================
 # 定义尝试的编码列表
 $encodings = [System.Text.Encoding]::UTF8, [System.Text.Encoding]::Unicode, [System.Text.Encoding]::GetEncoding("GB2312"), [System.Text.Encoding]::ASCII, [System.Text.Encoding]::GetEncoding("Big5")
 

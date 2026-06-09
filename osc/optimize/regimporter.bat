@@ -1,5 +1,12 @@
 @echo off
 chcp 936 > nul
+REM ===========================================================
+REM 文件说明: 注册表导入脚本
+REM 作者: 狂犬主子
+REM SPDX-License-Identifier: GPL-3.0-or-later
+REM 版权所有 (C) 潇然工作室
+REM 未经作者许可，不得删除或修改此文件中的版权和许可信息
+REM ===========================================================
 cd /d "%~dp0"
 call "%~dp0..\..\common\env.bat" OSC
 
@@ -10,7 +17,7 @@ set regedit_name=%random%
 copy /y "%SystemDrive%\Windows\System32\reg.exe" "%~dp0\%reg_name%.exe"
 copy /y "%SystemDrive%\Windows\regedit.exe" "%~dp0\%regedit_name%.exe"
 if exist "%SystemDrive%\Windows\System32\drivers\ucpd.sys" (
-    echo 绂佺敤 UCPD 椹卞姩
+    echo 禁用 UCPD 驱动
     sc stop ucpd
     sc config ucpd start= disabled
     schtasks /delete /tn "\Microsoft\Windows\AppxDeploymentClient\UCPD velocity" /f

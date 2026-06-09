@@ -1,5 +1,12 @@
+chcp 936 >nul
 @echo off
-@chcp 936 >nul
+REM ===========================================================
+REM 文件说明: Microsoft Office 安装脚本
+REM 作者: 狂犬主子
+REM SPDX-License-Identifier: GPL-3.0-or-later
+REM 版权所有 (C) 潇然工作室
+REM 未经作者许可，不得删除或修改此文件中的版权和许可信息
+REM ===========================================================
 setlocal enabledelayedexpansion
 cd /d "%~dp0"
 set officeiso=Office.iso

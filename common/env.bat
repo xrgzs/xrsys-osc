@@ -1,4 +1,12 @@
+chcp 936 > nul
 @echo off
+REM ===========================================================
+REM 文件说明: 环境变量设置脚本
+REM 作者: 狂犬主子
+REM SPDX-License-Identifier: GPL-3.0-or-later
+REM 版权所有 (C) 潇然工作室
+REM 未经作者许可，不得删除或修改此文件中的版权和许可信息
+REM ===========================================================
 set "XRSYS_OSC_ENV_MODE=%~1"
 if not defined XRSYS_OSC_ENV_MODE set "XRSYS_OSC_ENV_MODE=OSC"
 

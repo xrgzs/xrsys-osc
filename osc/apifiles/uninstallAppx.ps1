@@ -1,3 +1,10 @@
+﻿# ===========================================================
+# 文件说明: 卸载 Appx 应用脚本
+# 作者: 狂犬主子
+# SPDX-License-Identifier: GPL-3.0-or-later
+# 版权所有 (C) 潇然工作室
+# 未经作者许可，不得删除或修改此文件中的版权和许可信息
+# ===========================================================
 
 # Uninstall Appx from the computer for all users
 # The Remove-AppxProvisionedPackage cmdlet removes app packages (.appx) from a Windows image.
