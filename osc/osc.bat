@@ -362,8 +362,8 @@ if exist "xrkms\xrkms.bat" (
 
 
 :software
-echo Apply local software list
-echo [OSC]Applying local software list, keep network connected...>"%systemdrive%\Windows\Setup\wallname.txt"
+echo 应用软件列表
+echo [OSC]正在应用软件列表，请保持网络连接...>"%systemdrive%\Windows\Setup\wallname.txt"
 if exist "software.bat" echo y | start "" /wait /min "software.bat"
 
 :afterlife

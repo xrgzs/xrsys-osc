@@ -9,7 +9,7 @@ REM ===========================================================
 setlocal EnableDelayedExpansion
 cd /d "%~dp0"
 call "%~dp0..\..\common\env.bat" OSC
-echo [OSC]Running post software cleanup...>"%SystemDrive%\Windows\Setup\wallname.txt"
+echo [OSC]正在进行软件安装后优化...>"%SystemDrive%\Windows\Setup\wallname.txt"
 echo 正在安装低配机器优化组件...
 if not "%isxp%"=="yes" if not "%isoffline%"=="1" if "%zjsoftxrgzs%"=="yes" (
     if defined PSModulePath (
