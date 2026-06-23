@@ -60,93 +60,6 @@ echo [OSCol]正在检测组件...>"%SystemDrive%\Windows\Setup\wallname.txt"
 
 echo [OSCol]正在应用在线优化补丁...>"%SystemDrive%\Windows\Setup\wallname.txt"
 taskkill /f /im OfficeC2RClient.exe
-goto software_profile
-
-:software_profile
-echo 正在判断需要下载安装的装机软件类型
-set softver=onlinexrsys
-if exist "%SystemDrive%\Windows\Setup\zjsoftxrok.txt" set softver=onlinexrok
-if exist "%SystemDrive%\Windows\Setup\zjsoftoffice.txt" set softver=onlineoffice
-if exist "%SystemDrive%\Windows\Setup\zjsoftonlinexrsys.txt" set softver=onlinexrsys
-if exist "%SystemDrive%\Windows\Setup\zjsoftonlineno.txt" set softver=onlineno
-if exist "%SystemDrive%\Windows\Setup\xroknoad.txt" set softver=onlineno
-if exist "%SystemDrive%\Windows\Setup\zjsoftpure.txt" set softver=onlineno
-if exist "%SystemDrive%\Windows\Setup\zjsoftforce.txt" set softver=onlinexrok
-if exist "%SystemDrive%\Windows\Setup\zjsoftforcepure.txt" set softver=onlineno
-if exist "%SystemDrive%\Windows\Setup\zjsoftspoem.txt" set softver=onlinespoem
-goto software_select
-
-:software_select
-echo 正在根据装机软件类型判断需要安装的基础软件
-if %softver%==onlineno (
-    set zjsoftxrgzs=no
-    set zjsoftzip=no
-    set zjsoftpinyin=no
-    set zjsoftoffice=no
-    set zjsofttxt=no
-    set zjsoftbrowser=no
-    set zjsoftdown=no
-    set zjsoftmusic=no
-    set zjsoftplayer=no
-    set zjsoftchat=no
-    set zjsoftsafe=no
-    set zjsoftextra=no
-) else if %softver%==onlinexrsys (
-    set zjsoftxrgzs=yes
-    set zjsoftzip=yes
-    set zjsoftpinyin=yes
-    set zjsoftoffice=no
-    set zjsofttxt=no
-    set zjsoftbrowser=yes
-    set zjsoftdown=no
-    set zjsoftmusic=no
-    set zjsoftplayer=no
-    set zjsoftchat=no
-    set zjsoftsafe=no
-    set zjsoftextra=no
-) else if %softver%==onlineoffice (
-    set zjsoftxrgzs=yes
-    set zjsoftzip=yes
-    set zjsoftpinyin=yes
-    set zjsoftoffice=yes
-    set zjsofttxt=yes
-    set zjsoftbrowser=no
-    set zjsoftdown=no
-    set zjsoftmusic=no
-    set zjsoftplayer=no
-    set zjsoftchat=no
-    set zjsoftsafe=no
-    set zjsoftextra=no
-) else if %softver%==onlinexrok (
-    set zjsoftxrgzs=yes
-    set zjsoftzip=yes
-    set zjsoftpinyin=yes
-    set zjsoftoffice=yes
-    set zjsofttxt=yes
-    set zjsoftbrowser=yes
-    set zjsoftdown=yes
-    set zjsoftmusic=yes
-    set zjsoftplayer=yes
-    set zjsoftchat=yes
-    set zjsoftsafe=yes
-    echo test startup >"%SystemDrive%\Windows\Setup\zjsoftHR.txt"
-    set zjsoftextra=yes
-) else if %softver%==onlinespoem (
-    set zjsoftxrgzs=no
-    set zjsoftzip=yes
-    set zjsoftpinyin=yes
-    set zjsoftoffice=yes
-    set zjsofttxt=no
-    set zjsoftbrowser=no
-    set zjsoftdown=no
-    set zjsoftmusic=no
-    set zjsoftplayer=yes
-    set zjsoftchat=no
-    set zjsoftsafe=yes
-    set zjsoftextra=no
-    echo oem special do not 360 >"%SystemDrive%\Windows\Setup\zjsoftHR.txt"
-)
-
 :software_install
 echo [OSCol]正在安装软件...>"%SystemDrive%\Windows\Setup\wallname.txt"
 echo 正在读取注册表，获取软件安装列表
@@ -167,144 +80,129 @@ if exist pack.7z (
     echo ok >unpacked.log
 )
 
-if exist oscsoftof.txt copy /y oscsoftof.txt oscsoft.txt
-if not exist oscsoft.txt goto softwarefinish
+REM 优先加载外置TAG软件清单
+set "softlistfile=xrsyssoft.txt"
+if exist "%SystemDrive%\Windows\Setup\xrsyssoft.txt" set "softlistfile=%SystemDrive%\Windows\Setup\xrsyssoft.txt"
+if not exist "!softlistfile!" goto softwarefinish
 
-echo 正在判断是否已安装办公软件（增强）
-find /i "Microsoft 365" softlist.txt && set zjsoftoffice=no
-find /i "Office 16" softlist.txt && set zjsoftoffice=no
-find /i "Microsoft Office" softlist.txt && set zjsoftoffice=no
-find /i "WPS Office" softlist.txt && set zjsoftoffice=no
-find /i "WPS 365" softlist.txt && set zjsoftoffice=no
-find /i "永中" softlist.txt && set zjsoftoffice=no
+echo 正在遍历 !softlistfile! 安装软件
+echo [软件清单] !softlistfile! >>Version.txt
+echo [系统版本] %XRSYS_OSC_WINDOWS_VERSION_LEVEL% >>Version.txt
+echo [处理器架构] %PROCESSOR_ARCHITECTURE% >>Version.txt
+echo --- >>Version.txt
 
-echo 正在判断是否需要安装浏览器
-@rem if %softver%==onlinexrsys (
-@rem     rem if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 2 SET zjsoftbrowser=no
-@rem     if exist "%ProgramData%\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk" set zjsoftbrowser=no
-@rem )
-if exist "%ProgramData%\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk" set zjsoftbrowser=no
-if exist "%ProgramData%\Microsoft\Windows\Start Menu\Programs\Firefox.lnk" set zjsoftbrowser=no
-if exist "%ProgramData%\Microsoft\Windows\Start Menu\Programs\Google Chrome.lnk" set zjsoftbrowser=no
-
-echo 正在判断是否需要安装输入法
-ver | find /i "10.0.1" > nul && set zjsoftpinyin=no
-ver | find /i "10.0.2" > nul && set zjsoftpinyin=no
-
-
-echo 正在遍历oscsoft.txt安装软件
-set | find /i "zjsoft" >>Version.txt
-FOR /F "eol=; tokens=1,2,3,4,5,6,7,8 delims=|" %%i in (oscsoft.txt) do (
-    echo 1.软件类型:%%i 2.安装程序:%%j 3.下载地址:%%k 4.运行参数:%%l 5.关键词:%%m 6.指定不安装版本:%%n 7.指定安装位数:%%o
+FOR /F "eol=; tokens=1,2,3,4,5,6 delims=|" %%a in (!softlistfile!) do (
+    echo 软件:%%a 下载:%%b 参数:%%c 检测:%%d 排除:%%e 架构:%%f
     set isinstall=yes
-    if not "!%%i!"=="no" (
-        if not "%%n"==" " (
-            if "%%n"=="xp" (
-                echo wXP不安装
-                ver | find /i "5.0." > nul && set isinstall=no
-                ver | find /i "5.1." > nul && set isinstall=no
-            )
-            if "%%n"=="onlyxp" (
-                echo 除了wXP外都不安装（仅wXP安装）
-                set isinstall=no
-                ver | find /i "5.0." > nul && set isinstall=yes
-                ver | find /i "5.1." > nul && set isinstall=yes
-            )
-            if "%%n"=="11xp" (
-                echo w11和wXP不安装
-                ver | find /i "5.0." > nul && set isinstall=no
-                ver | find /i "5.1." > nul && set isinstall=no
-                ver | find /i "10.0.19" > nul && set isinstall=no
-                ver | find /i "10.0.2" > nul && set isinstall=no
-            )
-            if "%%n"=="7" (
-                echo w7不安装
-                ver | find /i "6.0." > nul && set isinstall=no
-                ver | find /i "6.1." > nul && set isinstall=no
-            )
-            if "%%n"=="only7" (
-                echo 除了w7外都不安装（仅w7安装）
-                set isinstall=no
-                ver | find /i "6.0." > nul && set isinstall=yes
-                ver | find /i "6.1." > nul && set isinstall=yes
-            )
-            if "%%n"=="only710" (
-                echo 除了w7和nt10外都不安装（仅w7和nt10安装）
-                set isinstall=no
-                ver | find /i "6.0." > nul && set isinstall=yes
-                ver | find /i "6.1." > nul && set isinstall=yes
-                ver | find /i "10.0." > nul && set isinstall=yes
-            )
-            if "%%n"=="only10" (
-                echo 除了nt10外都不安装（仅nt10安装）
-                set isinstall=no
-                ver | find /i "10.0." > nul && set isinstall=yes
-            )
-            if "%%n"=="710" (
-                echo w7和nt10不安装（WPS）
-                ver | find /i "6.0." > nul && set isinstall=no
-                ver | find /i "6.1." > nul && set isinstall=no
-                ver | find /i "10.0." > nul && set isinstall=no
-            )
-            if "%%n"=="10" (
-                echo nt10不安装
-                ver | find /i "6.4." > nul && set isinstall=no
-                ver | find /i "10.0." > nul && set isinstall=no
-            )
-            if "%%n"=="11" (
-                echo w11不安装
-                ver | find /i "10.0.2" > nul && set isinstall=no
-            )
+    set "softname=%%a"
+    set "softurl=%%b"
+    set "softargs=%%c"
+    set "softdetect=%%d"
+    set "softexclude=%%e"
+    set "softarch=%%f"
+
+    REM 检测已安装
+    if not "!softdetect!"==" " (
+        findstr /i "!softdetect!" softlist.txt && (
+            echo [跳过] !softname! 已安装 >>Version.txt
+            set isinstall=no
         )
-        echo 已存在关键词不安装
-        findstr /i "%%m" softlist.txt && set isinstall=no
-        if not "%%o"==" " (
-            if not "%PROCESSOR_ARCHITECTURE%"=="%%o" set isinstall=no
-        )
-    ) else (
-        set isinstall=no
     )
-    if not exist "%%j" (
-        echo 不存在文件且未联网不安装
+
+    REM 检测排除版本
+    if not "!softexclude!"==" " (
+        if "!softexclude!"=="xp" (
+            ver | find /i "5.0." > nul && set isinstall=no
+            ver | find /i "5.1." > nul && set isinstall=no
+        )
+        if "!softexclude!"=="onlyxp" (
+            set isinstall=no
+            ver | find /i "5.0." > nul && set isinstall=yes
+            ver | find /i "5.1." > nul && set isinstall=yes
+        )
+        if "!softexclude!"=="11xp" (
+            ver | find /i "5.0." > nul && set isinstall=no
+            ver | find /i "5.1." > nul && set isinstall=no
+            ver | find /i "10.0.2" > nul && set isinstall=no
+        )
+        if "!softexclude!"=="7" (
+            ver | find /i "6.0." > nul && set isinstall=no
+            ver | find /i "6.1." > nul && set isinstall=no
+        )
+        if "!softexclude!"=="only7" (
+            set isinstall=no
+            ver | find /i "6.0." > nul && set isinstall=yes
+            ver | find /i "6.1." > nul && set isinstall=yes
+        )
+        if "!softexclude!"=="only710" (
+            set isinstall=no
+            ver | find /i "6.0." > nul && set isinstall=yes
+            ver | find /i "6.1." > nul && set isinstall=yes
+            ver | find /i "10.0." > nul && set isinstall=yes
+        )
+        if "!softexclude!"=="only10" (
+            set isinstall=no
+            ver | find /i "10.0." > nul && set isinstall=yes
+        )
+        if "!softexclude!"=="710" (
+            ver | find /i "6.0." > nul && set isinstall=no
+            ver | find /i "6.1." > nul && set isinstall=no
+            ver | find /i "10.0." > nul && set isinstall=no
+        )
+        if "!softexclude!"=="10" (
+            ver | find /i "10.0." > nul && set isinstall=no
+        )
+        if "!softexclude!"=="11" (
+            ver | find /i "10.0.2" > nul && set isinstall=no
+        )
+    )
+
+    REM 检测架构
+    if not "!softarch!"==" " (
+        if not "%PROCESSOR_ARCHITECTURE%"=="!softarch!" (
+            echo [跳过] !softname! 架构不匹配 >>Version.txt
+            set isinstall=no
+        )
+    )
+
+    REM 未联网且文件不存在则跳过
+    if not exist "!softname!" (
         if "%isoffline%"=="1" set isinstall=no
     )
+
+    REM 开始安装
     if not "!isinstall!"=="no" (
-        echo 需要安装
-        echo [OSCol]正在安装%%~nj...>"%SystemDrive%\Windows\Setup\wallname.txt"
-        if not exist "%%j" (
-            echo 不存在文件，开始下载
-            echo [notice]"%%j":file not exist once, downloading... >>Version.txt
-            %XRSYS_OSC_ARIA2_CMD% -x16 -j16 -s16 -o "%%j" "%%k"
+        echo [安装] !softname! >>Version.txt
+        echo [OSCol]正在安装!softname!...>"%SystemDrive%\Windows\Setup\wallname.txt"
+        if not exist "!softname!" (
+            echo   下载: !softurl! >>Version.txt
+            %XRSYS_OSC_ARIA2_CMD% -x16 -j16 -s16 -o "!softname!" "!softurl!"
         )
-        if not exist "%%j" (
-            echo 二次不存在文件，开始下载
-            echo [error]"%%j":file not exist twice, try to download again... >>Version.txt
-            %XRSYS_OSC_ARIA2_CMD% -x8 -o "%%j" "%%k"
+        if not exist "!softname!" (
+            echo   重试下载... >>Version.txt
+            %XRSYS_OSC_ARIA2_CMD% -x8 -o "!softname!" "!softurl!"
         )
-        if not exist "%%j" (
-            echo 三次不存在文件，开始下载
-            echo [error]"%%j":file not exist 3 times, try to download again... >>Version.txt
-            %XRSYS_OSC_ARIA2_CMD% -x1 -o "%%j" "%%k"
+        if not exist "!softname!" (
+            echo   最后尝试... >>Version.txt
+            %XRSYS_OSC_ARIA2_CMD% -x1 -o "!softname!" "!softurl!"
         )
-        if exist "%%j" (
-            echo 存在文件，运行并等待安装
-            start "" /wait "%%j" %%l >>Version.txt
-            del /f /q "%%j"
-            echo "%%j":install successfully >>Version.txt
+        if exist "!softname!" (
+            start "" /wait "!softname!" !softargs! >>Version.txt
+            del /f /q "!softname!"
+            echo   完成 >>Version.txt
         ) else (
-            echo 不存在文件
-            echo [error]"%%j":final file not exist, can not inst >>Version.txt
+            echo   失败: 文件不存在 >>Version.txt
         )
     ) else (
-        echo 不需要安装
-        echo [notice]"%%j":isinstall=no, do nothing with >>Version.txt
+        echo [跳过] !softname! >>Version.txt
     )
 )
 goto softwarefinish
+
 :softwarefinish
 echo [OSC]正在运行软件安装后的清理操作...>"%SystemDrive%\Windows\Setup\wallname.txt"
 if exist "optimize\postsoftware.bat" echo y | start "" /wait /min "optimize\postsoftware.bat"
 cd /d "%~dp0"
-echo successful %softver%>"%SystemDrive%\Windows\Setup\softwarestate.txt"
-echo successful %softver%>"%SystemDrive%\Windows\Setup\oscolstate.txt"
+echo successful>"%SystemDrive%\Windows\Setup\softwarestate.txt"
+echo successful>"%SystemDrive%\Windows\Setup\oscolstate.txt"
 exit

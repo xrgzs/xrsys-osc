@@ -1,0 +1,61 @@
+; ============================================================
+; 潇然系统 软件安装清单
+; 格式: 文件名|下载地址|运行参数|已装检测|排除版本|指定架构
+; 排除版本: xp onlyxp 7 only7 only710 only10 710 10 11 11xp
+; 架构: 空=全部 AMD64=64位 x86=32位
+; 以 ; 开头为注释行
+; 用户可将此文件放置于磁盘根目录作为 TAG 外置覆盖
+; ============================================================
+
+; --- 潇然工具 ---
+潇然常用工具.exe|https://url.xrgzs.top/xrtools|/S|潇然常用工具| |
+潇然系统设置.exe|https://url.xrgzs.top/xrsyshub|/verysilent|潇然系统设置|only10|AMD64
+Win7SP2.exe|https://url.xrgzs.top/VxKex| |VxKex|only7|AMD64
+
+; --- 压缩工具 ---
+Bandizip.exe|https://url.xrgzs.top/bandizip| |bandizip|xp|
+360压缩.exe|https://url.xrgzs.top/360yasuo| |bandizip 360压缩 好压|onlyxp|
+
+; --- 输入法 ---
+搜狗拼音输入法.exe|https://url.xrgzs.top/sogoupinyin|/S|拼音 输入法|xp|
+搜狗拼音输入法XP专用.exe|https://url.xrgzs.top/sogoupinyinxp|/S|拼音 输入法|onlyxp|
+
+; --- 浏览器 ---
+360极速浏览器X.exe|https://url.xrgzs.top/360csex| |浏览器 Browser|xp|AMD64
+360极速浏览器.exe|https://url.xrgzs.top/360cse| |浏览器 Browser|onlyxp|x86
+360安全浏览器32位.exe|https://url.xrgzs.top/360se| |浏览器 Browser|xp|x86
+
+; === 以下为默认不安装的软件，取消注释即可启用 ===
+
+; --- 办公软件 ---
+;WPS专业版.exe|https://url.xrgzs.top/wpspro| |WPS|only710|
+;WPS专业版XP专用.exe|https://url.xrgzs.top/wpsproxp| |WPS|710|
+
+; --- 文本工具 ---
+;记事本4.exe|https://url.xrgzs.top/notepad4|/S|Notepad2 Notepad3 Notepad4| |
+;记事本4XP专用.exe|https://url.xrgzs.top/notepad4xp|/S|Notepad2 Notepad3 Notepad4| |
+;BC文件比较.exe|https://url.xrgzs.top/bydcompare|/S|Compare|xp|
+
+; --- 下载工具 ---
+;InternetDownloadManager.exe|https://url.xrgzs.top/idm| | |xp|
+
+; --- 影音播放 ---
+;完美解码.exe|https://url.xrgzs.top/PureCodec| |影音 播放器 完美解码 potplayer|xp|
+;完美解码XP专用.exe|https://url.xrgzs.top/PureCodecXP| |影音 播放器 完美解码 potplayer|onlyxp|
+
+; --- 游戏娱乐 ---
+;Steam正版.exe|https://url.xrgzs.top/steam|/S|Steam|only10|AMD64
+;洛雪音乐助手64位.exe|https://url.xrgzs.top/luoxuex64| | |xp|AMD64
+;酷我音乐.exe|https://url.xrgzs.top/kuwo| |酷我音乐| |x86
+
+; --- 聊天社交 ---
+;腾讯QQNT64位.exe|https://url.xrgzs.top/qqntx64|/S| |xp|AMD64
+;腾讯QQNT32位.exe|https://url.xrgzs.top/qqntx86|/S| |xp|x86
+;腾讯QQ.exe|https://url.xrgzs.top/qqlatest|/S| |onlyxp|
+;微信64位.exe|https://url.xrgzs.top/wechatlatest|/S|微信|xp|AMD64
+;微信32位.exe|https://url.xrgzs.top/wechatx86|/S|微信|xp|x86
+;微信XP专用.exe|https://url.xrgzs.top/wechatxp|/S|微信|onlyxp|
+
+; --- 安全软件 ---
+;火绒32位.exe|https://url.xrgzs.top/huorongx86|/S|火绒| |x86
+;火绒64位.exe|https://url.xrgzs.top/huorongx64|/S|火绒| |AMD64
