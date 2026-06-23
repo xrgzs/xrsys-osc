@@ -92,13 +92,13 @@ echo [处理器架构] %PROCESSOR_ARCHITECTURE% >>Version.txt
 echo --- >>Version.txt
 
 FOR /F "eol=; tokens=1,2,3,4,5,6 delims=|" %%a in (!softlistfile!) do (
-    echo 软件:%%a 下载:%%b 参数:%%c 检测:%%d 排除:%%e 架构:%%f
+    echo 软件:%%a 下载:%%b 参数:%%c 检测:%%d 适用:%%e 架构:%%f
     set isinstall=yes
     set "softname=%%a"
     set "softurl=%%b"
     set "softargs=%%c"
     set "softdetect=%%d"
-    set "softexclude=%%e"
+    set "softtarget=%%e"
     set "softarch=%%f"
 
     REM 检测已安装
@@ -109,50 +109,61 @@ FOR /F "eol=; tokens=1,2,3,4,5,6 delims=|" %%a in (!softlistfile!) do (
         )
     )
 
-    REM 检测排除版本
-    if not "!softexclude!"==" " (
-        if "!softexclude!"=="xp" (
-            ver | find /i "5.0." > nul && set isinstall=no
-            ver | find /i "5.1." > nul && set isinstall=no
-        )
-        if "!softexclude!"=="onlyxp" (
+    REM 检测适用系统
+    if not "!softtarget!"==" " (
+        if "!softtarget!"=="xp" (
+            echo [系统要求] 仅XP
             set isinstall=no
             ver | find /i "5.0." > nul && set isinstall=yes
             ver | find /i "5.1." > nul && set isinstall=yes
         )
-        if "!softexclude!"=="11xp" (
-            ver | find /i "5.0." > nul && set isinstall=no
-            ver | find /i "5.1." > nul && set isinstall=no
+        if "!softtarget!"=="win7" (
+            echo [系统要求] Win7及以下
+            set isinstall=no
+            ver | find /i "5.0." > nul && set isinstall=yes
+            ver | find /i "5.1." > nul && set isinstall=yes
+            ver | find /i "6.0." > nul && set isinstall=yes
+            ver | find /i "6.1." > nul && set isinstall=yes
+        )
+        if "!softtarget!"=="win10+" (
+            echo [系统要求] Win10及以上
+            set isinstall=no
+            ver | find /i "10.0." > nul && set isinstall=yes
+        )
+        if "!softtarget!"=="win10" (
+            echo [系统要求] 仅Win10
+            set isinstall=no
+            ver | find /i "10.0.1" > nul && set isinstall=yes
             ver | find /i "10.0.2" > nul && set isinstall=no
         )
-        if "!softexclude!"=="7" (
-            ver | find /i "6.0." > nul && set isinstall=no
-            ver | find /i "6.1." > nul && set isinstall=no
-        )
-        if "!softexclude!"=="only7" (
+        if "!softtarget!"=="win11" (
+            echo [系统要求] 仅Win11
             set isinstall=no
-            ver | find /i "6.0." > nul && set isinstall=yes
-            ver | find /i "6.1." > nul && set isinstall=yes
+            ver | find /i "10.0.2" > nul && set isinstall=yes
         )
-        if "!softexclude!"=="only710" (
+        if "!softtarget!"=="win7-10" (
+            echo [系统要求] Win7到Win10
             set isinstall=no
             ver | find /i "6.0." > nul && set isinstall=yes
             ver | find /i "6.1." > nul && set isinstall=yes
             ver | find /i "10.0." > nul && set isinstall=yes
         )
-        if "!softexclude!"=="only10" (
-            set isinstall=no
-            ver | find /i "10.0." > nul && set isinstall=yes
+        if "!softtarget!"=="not-xp" (
+            echo [系统要求] 除XP外
+            ver | find /i "5.0." > nul && set isinstall=no
+            ver | find /i "5.1." > nul && set isinstall=no
         )
-        if "!softexclude!"=="710" (
+        if "!softtarget!"=="not-win7" (
+            echo [系统要求] 除Win7外
             ver | find /i "6.0." > nul && set isinstall=no
             ver | find /i "6.1." > nul && set isinstall=no
+        )
+        if "!softtarget!"=="not-win10" (
+            echo [系统要求] 除Win10外
             ver | find /i "10.0." > nul && set isinstall=no
         )
-        if "!softexclude!"=="10" (
-            ver | find /i "10.0." > nul && set isinstall=no
-        )
-        if "!softexclude!"=="11" (
+        if "!softtarget!"=="not-win11" (
+            echo [系统要求] 除Win11外
             ver | find /i "10.0.2" > nul && set isinstall=no
         )
     )
