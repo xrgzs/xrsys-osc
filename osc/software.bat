@@ -125,6 +125,12 @@ FOR /F "eol=; tokens=1,2,3,4,5,6 delims=|" %%a in (!softlistfile!) do (
             ver | find /i "6.0." > nul && set isinstall=yes
             ver | find /i "6.1." > nul && set isinstall=yes
         )
+        if "!softtarget!"=="win7+" (
+            echo [系统要求] Win7及以上
+            set isinstall=no
+            ver | find /i "6.1." > nul && set isinstall=yes
+            ver | find /i "10.0." > nul && set isinstall=yes
+        )
         if "!softtarget!"=="win10+" (
             echo [系统要求] Win10及以上
             set isinstall=no
