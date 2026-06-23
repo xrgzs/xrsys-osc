@@ -335,30 +335,5 @@ if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 4 (
     )
 )
 
-echo ==================== 05 安装前网络准备 ====================
-set isoffline=1
-ping www.aliyun.com -4 -n 2 >nul
-if %errorlevel% EQU 0 set isoffline=0
 
-echo Win10/11 软件源优化
-ver | find /i "10.0." && (
-    if "%isoffline%"=="0" (
-        if exist "%LocalAppData%\Microsoft\WindowsApps\winget.exe" (
-            echo WinGet 换源
-            winget source remove winget && winget source add winget https://mirrors.cernet.edu.cn/winget-source
-        )
-        @rem if exist "%SystemDrive%\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" (
-        @rem     echo 安装 Scoop
-        @rem     powershell -C "irm https://c.xrgzs.top/c/scoop|iex"
-        @rem )
-    )
-    @rem if !XRSYS_OSC_WINDOWS_BUILD! GEQ 19041 (
-    @rem     if !XRSYS_OSC_WINDOWS_BUILD! LEQ 19049 (
-    @rem         if !XRSYS_OSC_WINDOWS_REVISION! GEQ 2900 (
-    @rem             echo 处理Win10 1904x.2900+变大了的搜索图标（改成搜索框，保留原版风格）
-    @rem             reg add HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search /v SearchboxTaskbarMode /t REG_DWORD /d 2 /f
-    @rem         )
-    @rem     )
-    @rem )
-)
 exit

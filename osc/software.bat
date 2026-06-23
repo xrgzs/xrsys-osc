@@ -41,6 +41,21 @@ echo 校对时间
 if "%isoffline%"=="0" "%XRSYS_OSC_PECMD_EXE%" NTPC ntp1.aliyun.com
 echo 清除DNS缓存
 ipconfig /flushdns
+
+echo Win10/11 软件源优化
+ver | find /i "10.0." && (
+    if "%isoffline%"=="0" (
+        if exist "%LocalAppData%\Microsoft\WindowsApps\winget.exe" (
+            echo WinGet 换源
+            winget source remove winget && winget source add winget https://mirrors.cernet.edu.cn/winget-source
+        )
+        @rem if exist "%SystemDrive%\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" (
+        @rem     echo 安装 Scoop
+        @rem     powershell -C "irm https://c.xrgzs.top/c/scoop|iex"
+        @rem )
+    )
+)
+
 echo [OSCol]正在检测组件...>"%SystemDrive%\Windows\Setup\wallname.txt"
 
 echo [OSCol]正在应用在线优化补丁...>"%SystemDrive%\Windows\Setup\wallname.txt"
