@@ -177,9 +177,55 @@ function Show-TaskbarTemporarily {
     }
 
     [Win32]::ShowWindow($Hwnd, [Win32]::SW_SHOW)
-    Start-Sleep -Milliseconds 300
+    Start-Sleep -Milliseconds 1500
 
     return $true
+}
+
+function Start-TaskbarKeepAlive {
+    param(
+        [IntPtr]$Hwnd
+    )
+
+    if ($Hwnd -eq [IntPtr]::Zero) {
+        return $null
+    }
+
+    $job = Start-Job -ScriptBlock {
+        param($hwndVal)
+        Add-Type @"
+using System;
+using System.Runtime.InteropServices;
+public class TB {
+    [DllImport("user32.dll")]
+    public static extern bool ShowWindow(IntPtr h, int c);
+    [DllImport("user32.dll")]
+    public static extern bool IsWindowVisible(IntPtr h);
+}
+"@
+        $h = [IntPtr]::new($hwndVal)
+        while ($true) {
+            if (-not [TB]::IsWindowVisible($h)) {
+                [TB]::ShowWindow($h, 5) # SW_SHOW
+            }
+            Start-Sleep -Milliseconds 200
+        }
+    } -ArgumentList $Hwnd.ToInt64()
+
+    Write-Host "[Taskbar] Keep-alive job started (Id=$($job.Id))"
+    return $job
+}
+
+function Stop-TaskbarKeepAlive {
+    param(
+        $Job
+    )
+
+    if ($Job) {
+        Stop-Job  -Id $Job.Id -ErrorAction SilentlyContinue
+        Remove-Job -Id $Job.Id -Force -ErrorAction SilentlyContinue
+        Write-Host "[Taskbar] Keep-alive job stopped"
+    }
 }
 
 function Restore-TaskbarVisibility {
@@ -446,11 +492,13 @@ if (
 
 Write-Host "[Fallback] Switching to UIAutomation..."
 
-# 检查任务栏可见性，如果被隐藏则临时显示
+# 检查任务栏可见性，如果被隐藏则启动保活 + 临时显示
 $taskbarState = Get-TaskbarVisibility
+$keepAliveJob = $null
 
 if ($taskbarState.WasHidden) {
-    Write-Host "[Taskbar] Taskbar is hidden, temporarily showing..."
+    Write-Host "[Taskbar] Taskbar is hidden, showing with keep-alive..."
+    $keepAliveJob = Start-TaskbarKeepAlive -Hwnd $taskbarState.Hwnd
     Show-TaskbarTemporarily -Hwnd $taskbarState.Hwnd | Out-Null
 }
 
@@ -462,6 +510,7 @@ try {
         -TimeoutSeconds $TimeoutSeconds
 }
 finally {
+    Stop-TaskbarKeepAlive -Job $keepAliveJob
     # 无论成功失败，都恢复任务栏原始状态
     if ($taskbarState.WasHidden) {
         Write-Host "[Taskbar] Restoring hidden state..."
