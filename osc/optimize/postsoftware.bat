@@ -88,7 +88,6 @@ del /f /q "%APPDATA%\Microsoft\Internet Explorer\Quick Launch\腾讯QQ.lnk"
 echo 关闭QQ游戏自启
 sc delete QQGameService
 echo 按需清理书签
-if %softver%==onlinexrsys set zjsoftbrowser=no
 if "%softver%"=="onlineno" (
     del /f /q "%LOCALAPPDATA%\Microsoft\Edge\User Data\Default\Bookmarks"
     del /f /q "%LOCALAPPDATA%\Microsoft\Edge\User Data\Default\Bookmarks.bak"
