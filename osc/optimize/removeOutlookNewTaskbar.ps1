@@ -492,6 +492,16 @@ if (
 
 Write-Host "[Fallback] Switching to UIAutomation..."
 
+# 通知 Wall.wcs 暂停隐藏任务栏（文件标记通信）
+$uiaFlagFile = "$env:SystemDrive\Windows\Setup\uia_nohide.flag"
+try {
+    New-Item -Path $uiaFlagFile -ItemType File -Force | Out-Null
+    Write-Host "[Flag] Created $uiaFlagFile"
+} 
+catch {
+    Write-Host "[Flag] Failed to create ${uiaFlagFile}: $_"
+}
+
 # 检查任务栏可见性，如果被隐藏则启动保活 + 临时显示
 $taskbarState = Get-TaskbarVisibility
 $keepAliveJob = $null
@@ -518,6 +528,9 @@ finally {
             -Hwnd $taskbarState.Hwnd `
             -WasHidden $taskbarState.WasHidden
     }
+    # 删除标记文件，恢复 Wall.wcs 正常隐藏
+    Remove-Item -Path $uiaFlagFile -Force -ErrorAction SilentlyContinue
+    Write-Host "[Flag] Removed $uiaFlagFile"
 }
 
 if ($script:uiaResult -eq $true) {

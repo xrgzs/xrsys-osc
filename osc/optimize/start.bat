@@ -324,12 +324,19 @@ if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 2 (
     mkdir "%LocalAppData%\Microsoft\Edge\User Data"
     xcopy /E /C /I /H /R /Y "User Data" "%LocalAppData%\Microsoft\Edge\User Data"
 )
+
+if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 4 (
+    if !XRSYS_OSC_WINDOWS_BUILD! GEQ 26100 (
+        echo osc >"%SystemDrive%\Windows\Setup\uia_nohide.flag"
+    )
+)
+
 start explorer.exe
 
 if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 4 (
     echo Win10+选择应用在锁屏上显示详细状态-无
     powershell -NoLogo -NoProfile -ExecutionPolicy bypass -File "LockScreenStatus.ps1" >>"%systemdrive%\Windows\Setup\xrosc-lss.log" 2>&1
-    if !XRSYS_OSC_WINDOWS_REVISION! GEQ 26100 (
+    if !XRSYS_OSC_WINDOWS_BUILD! GEQ 26100 (
         echo Win11移除固定的新版Outlook任务栏图标
         powershell -NoLogo -NoProfile -ExecutionPolicy bypass -File "removeOutlookNewTaskbar.ps1" >>"%systemdrive%\Windows\Setup\xrosc-ront.log" 2>&1
     )
