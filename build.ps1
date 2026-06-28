@@ -111,8 +111,8 @@ else {
     Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/3380523d9ee1fbc12a84e5a5b7994890.cmd" -OutFile "osc\xrkms\KMS_VL_ALL_AIO.cmd"
     # Get-LanzouFile -Uri "https://xrgzs.lanzoum.com/iTFGY3sbsbif" -OutFile "osc\xrkms\HEU.exe"
     Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/739c3b7bdf7c2c5693c855adcd22466f.exe" -OutFile "osc\xrkms\HEU.exe"
-    # Get-LanzouFile -Uri "https://xrgzs.lanzoum.com/i1E2Q3sbtssd" -OutFile "osc\xrsoft.exe"
-    Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/e18d4af7d1a1e057ef1ee39dc445106b.exe" -OutFile "osc\xrsoft.exe"
+    # Get-LanzouFile -Uri "https://xrgzs.lanzoum.com/ioetN3tdzwzi" -OutFile "osc\xrsoft.exe"
+    Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/5ffe081048ed4848c294f6a6f721ea26.exe" -OutFile "osc\xrsoft.exe"
     Invoke-RobustRequest -Uri "https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/refs/heads/master/MAS/Separate-Files-Version/Activators/TSforge_Activation.cmd" -OutFile "osc\xrkms\TSforge_Activation.cmd"
 
     # 下载 ViVeTool
@@ -127,7 +127,7 @@ else {
 Test-SHA256 -Hashes @{
     "osc\xrkms\KMS_VL_ALL_AIO.cmd"       = "CEE80B2DE0CA33BE709C33E6725E81D28FC366565211B4E1D996951512AA0049"
     "osc\xrkms\HEU.exe"                  = "663280ECAFEEC1E7EDE1B0B669FD9F640F3836F88620C8225EBD27B1FA16239D"
-    "osc\xrsoft.exe"                     = "6E8880E0D8A0AED067051D0F47AC82AD4397D8735ED57ED8D17D9EA18724D2AF"
+    "osc\xrsoft.exe"                     = "A96DAB666AD7C9606D478F0A06539D25AF1DA4084BA0A87586541601434988CB"
     "osc\apifiles\vivetool\ViVeTool.exe" = "D3B69C982622A26AD0B37C65B8F006B5139E50AEB45FDA68734A33CA28706DEA"
 }
 
