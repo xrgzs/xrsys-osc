@@ -56,4 +56,6 @@
 
 - [q3aql/aria2-static-builds](https://gitlab.com/q3aql/aria2-static-builds)
 
+- [thebookisclosed/ViVe](https://github.com/thebookisclosed/ViVe)
+
 [![Security Status](https://www.murphysec.com/platform3/v31/badge/1777677050276757504.svg)](https://www.murphysec.com/console/report/1777677050234814464/1777677050276757504)

@@ -115,14 +115,20 @@ else {
     Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/e18d4af7d1a1e057ef1ee39dc445106b.exe" -OutFile "osc\xrsoft.exe"
     Invoke-RobustRequest -Uri "https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/refs/heads/master/MAS/Separate-Files-Version/Activators/TSforge_Activation.cmd" -OutFile "osc\xrkms\TSforge_Activation.cmd"
 
-    # 下载其他文件
+    # 下载 ViVeTool
+    $viveZip = "$env:TEMP\ViVeTool-v0.3.4-IntelAmd.zip"
+    Invoke-RobustRequest -Uri "https://github.com/thebookisclosed/ViVe/releases/download/v0.3.4/ViVeTool-v0.3.4-IntelAmd.zip" -OutFile $viveZip
+    Test-SHA256 -Hashes @{ $viveZip = "CC27F073F3FE5DD2C3D947FAF558FD4B2F8E34454F812689B0D65EE8A52E4147" }
+    Expand-Archive -Path $viveZip -DestinationPath "osc\apifiles\vivetool" -Force
+    Remove-Item $viveZip -Force
 }
 
 # 验证文件
 Test-SHA256 -Hashes @{
-    "osc\xrkms\KMS_VL_ALL_AIO.cmd" = "CEE80B2DE0CA33BE709C33E6725E81D28FC366565211B4E1D996951512AA0049"
-    "osc\xrkms\HEU.exe"            = "663280ECAFEEC1E7EDE1B0B669FD9F640F3836F88620C8225EBD27B1FA16239D"
-    "osc\xrsoft.exe"               = "6E8880E0D8A0AED067051D0F47AC82AD4397D8735ED57ED8D17D9EA18724D2AF"
+    "osc\xrkms\KMS_VL_ALL_AIO.cmd"       = "CEE80B2DE0CA33BE709C33E6725E81D28FC366565211B4E1D996951512AA0049"
+    "osc\xrkms\HEU.exe"                  = "663280ECAFEEC1E7EDE1B0B669FD9F640F3836F88620C8225EBD27B1FA16239D"
+    "osc\xrsoft.exe"                     = "6E8880E0D8A0AED067051D0F47AC82AD4397D8735ED57ED8D17D9EA18724D2AF"
+    "osc\apifiles\vivetool\ViVeTool.exe" = "D3B69C982622A26AD0B37C65B8F006B5139E50AEB45FDA68734A33CA28706DEA"
 }
 
 # 构建
