@@ -109,19 +109,17 @@ powercfg setactive SCHEME_MAX && powercfg -x -disk-timeout-ac 0
 powercfg setactive SCHEME_MIN && powercfg -x -disk-timeout-ac 0
 rem 安装驱动
 if exist wandrv.iso (
-    echo [OSC]正在应用万能驱动wandrv.iso...>"%systemdrive%\Windows\Setup\wallname.txt"
-    md wandrv
-    move /y "%~dp0wandrv.iso" "%~dp0wandrv\wandrv.iso"
-    copy /y "%~dp0apifiles\DriveCleaner.exe" "%~dp0wandrv\DriveCleaner.exe"
-    start "" /wait "%~dp0wandrv\DriveCleaner.exe" /wandrv
+    echo [OSC]正在运行万能驱动wandrv.iso...>"%systemdrive%\Windows\Setup\wallname.txt"
+    copy /y "%XRSYS_OSC_TOOLS_DIR%\RunWanDrv.exe" "%~dp0RunWanDrv.exe" >nul
+    start "" /wait "%~dp0RunWanDrv.exe" /TimeAuto
+    del /f /q "%~dp0RunWanDrv.exe"
     echo wandrv.iso>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
 )
 if exist wandrv2.iso (
-    echo [OSC]正在应用万能驱动wandrv2.iso...>"%systemdrive%\Windows\Setup\wallname.txt"
-    md wandrv2
-    move /y "%~dp0wandrv2.iso" "%~dp0wandrv2\wandrv.iso"
-    copy /y "%~dp0apifiles\DriveCleaner.exe" "%~dp0wandrv2\DriveCleaner.exe"
-    start "" /wait "%~dp0wandrv2\DriveCleaner.exe" /wandrv
+    echo [OSC]正在运行万能驱动wandrv2.iso...>"%systemdrive%\Windows\Setup\wallname.txt"
+    copy /y "%XRSYS_OSC_TOOLS_DIR%\RunWanDrv.exe" "%~dp0RunWanDrv.exe" >nul
+    start "" /wait "%~dp0RunWanDrv.exe" /TimeAuto
+    del /f /q "%~dp0RunWanDrv.exe"
     echo wandrv2.iso>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
 )
 if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
@@ -131,9 +129,10 @@ if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (
             start "" /wait "%XRSYS_OSC_DRVINDEX_EXE%" -b "%%a:\Xiaoran\OSC\DriverBackup.7z"
         )
         if exist "%%a:\Xiaoran\OSC\wandrv.iso" (
-            echo [OSC]正在应用搜到的万能驱动%%a:\~\wandrv.iso...>"%systemdrive%\Windows\Setup\wallname.txt"
-            copy /y "%~dp0apifiles\DriveCleaner.exe" "%%a:\Xiaoran\OSC\DriveCleaner.exe"
-            start "" /wait "%%a:\Xiaoran\OSC\DriveCleaner.exe" /wandrv
+            echo [OSC]正在运行搜到的万能驱动%%a:\~\wandrv.iso...>"%systemdrive%\Windows\Setup\wallname.txt"
+            copy /y "%XRSYS_OSC_TOOLS_DIR%\RunWanDrv.exe" "%%a:\Xiaoran\OSC\RunWanDrv.exe" >nul
+            start "" /wait "%%a:\Xiaoran\OSC\RunWanDrv.exe" /TimeAuto
+            del /f /q "%%a:\Xiaoran\OSC\RunWanDrv.exe" 2>nul
             echo %%a:\Xiaoran\OSC\wandrv.iso>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
         )
     )

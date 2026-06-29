@@ -14,7 +14,7 @@ set "XRSYS_OSC_COMMON_DIR=%~dp0"
 for %%I in ("%XRSYS_OSC_COMMON_DIR%..") do set "XRSYS_OSC_INSTALL_ROOT=%%~fI"
 
 if /i "%XRSYS_OSC_ENV_MODE%"=="API" (
-    if exist "%XRSYS_OSC_INSTALL_ROOT%\apifiles\DriveCleaner.exe" (
+    if exist "%XRSYS_OSC_INSTALL_ROOT%\apifiles\RunWanDrv.exe" (
         set "XRSYS_OSC_HOME=%XRSYS_OSC_INSTALL_ROOT%"
     ) else if exist "%XRSYS_OSC_INSTALL_ROOT%\api\api.bat" (
         set "XRSYS_OSC_HOME=%XRSYS_OSC_INSTALL_ROOT%\api"

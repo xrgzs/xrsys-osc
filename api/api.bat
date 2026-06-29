@@ -19,7 +19,7 @@ if exist "%~dp0common\env.bat" (
 ) else (
     call "%~dp0..\common\env.bat" API
 )
-if not exist apifiles\DriveCleaner.exe (
+if not exist apifiles\RunWanDrv.exe (
     shutdown -s -t 30 -c "系统部署文件损坏，即将关机终止部署（API）"
 )
 if exist cdrive.7z (
@@ -196,62 +196,58 @@ if exist "%SystemDrive%\WINDOWS\WinDrive\DcLoader.exe" (
     )
 ) else if exist "%SystemDrive%\WINDOWS\WinDrive\*.ini" (
     echo [API]正在应用万能驱动...>"%systemdrive%\Windows\Setup\wallname.txt"
-    copy /y "%~dp0apifiles\DriveCleaner.exe" "%SystemDrive%\WINDOWS\WinDrive\DriveCleaner.exe"
-    start "" /wait "%SystemDrive%\WINDOWS\WinDrive\DriveCleaner.exe" /wandrv
+    copy /y "%~dp0apifiles\RunWanDrv.exe" "%SystemDrive%\WINDOWS\WinDrive\RunWanDrv.exe"
+    start "" /wait "%SystemDrive%\WINDOWS\WinDrive\RunWanDrv.exe" /TimeAuto
     echo %SystemDrive%\WINDOWS\WinDrive\*.ini>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
 ) else if exist "%SystemDrive%\Sysprep\Drivers\*.ini" (
     echo [API]正在应用万能驱动...>"%systemdrive%\Windows\Setup\wallname.txt"
-    copy /y "%~dp0apifiles\DriveCleaner.exe" "%SystemDrive%\Sysprep\Drivers\DriveCleaner.exe"
-    start "" /wait "%SystemDrive%\Sysprep\Drivers\DriveCleaner.exe" /wandrv
+    copy /y "%~dp0apifiles\RunWanDrv.exe" "%SystemDrive%\Sysprep\Drivers\RunWanDrv.exe"
+    start "" /wait "%SystemDrive%\Sysprep\Drivers\RunWanDrv.exe" /TimeAuto
     echo %SystemDrive%\Sysprep\Drivers\*.ini>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
 ) else if exist "%SystemDrive%\Sysprep\drvceo.ini" (
     echo [API]正在应用驱动总裁...>"%systemdrive%\Windows\Setup\wallname.txt"
-    copy /y "%~dp0apifiles\DriveCleaner.exe" "%SystemDrive%\Sysprep\DriveCleaner.exe"
-    start "" /wait "%SystemDrive%\Sysprep\DriveCleaner.exe" /wandrv
+    copy /y "%~dp0apifiles\RunWanDrv.exe" "%SystemDrive%\Sysprep\RunWanDrv.exe"
+    start "" /wait "%SystemDrive%\Sysprep\RunWanDrv.exe" /TimeAuto
     echo %SystemDrive%\Sysprep\drvceo.ini>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
 ) else if exist "%SystemDrive%\Sysprep\wandr*.exe" (
     echo [API]正在应用万能驱动...>"%systemdrive%\Windows\Setup\wallname.txt"
     for %%a in (%SystemDrive%\Sysprep\wandr*.exe) do move /y "%%a" "%%~dpawandrv.exe"
     for %%a in (%SystemDrive%\Sysprep\wandr*.ini) do move /y "%%a" "%%~dpawandrv.ini"
-    copy /y "%~dp0apifiles\DriveCleaner.exe" "%SystemDrive%\Sysprep\DriveCleaner.exe"
-    start "" /wait "%SystemDrive%\Sysprep\DriveCleaner.exe" /wandrv
+    copy /y "%~dp0apifiles\RunWanDrv.exe" "%SystemDrive%\Sysprep\RunWanDrv.exe"
+    start "" /wait "%SystemDrive%\Sysprep\RunWanDrv.exe" /TimeAuto
     echo %SystemDrive%\Sysprep\wandr*.exe>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
 ) else if exist "%SystemDrive%\Sysprep\*wandrv6.exe" (
     echo [API]正在应用万能驱动...>"%systemdrive%\Windows\Setup\wallname.txt"
     for %%a in (%SystemDrive%\Sysprep\*wandrv6.exe) do move /y "%%a" "%%~dpawandrv.exe"
     for %%a in (%SystemDrive%\Sysprep\*wandrv6.ini) do move /y "%%a" "%%~dpawandrv.ini"
-    copy /y "%~dp0apifiles\DriveCleaner.exe" "%SystemDrive%\Sysprep\DriveCleaner.exe"
-    start "" /wait "%SystemDrive%\Sysprep\DriveCleaner.exe" /wandrv
+    copy /y "%~dp0apifiles\RunWanDrv.exe" "%SystemDrive%\Sysprep\RunWanDrv.exe"
+    start "" /wait "%SystemDrive%\Sysprep\RunWanDrv.exe" /TimeAuto
     echo %SystemDrive%\Sysprep\*wandrv6.exe>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
 ) else if exist "%SystemDrive%\Sysprep\easydr*.exe" (
     echo [API]正在应用万能驱动...>"%systemdrive%\Windows\Setup\wallname.txt"
-    copy /y "%~dp0apifiles\DriveCleaner.exe" "%SystemDrive%\Sysprep\DriveCleaner.exe"
-    start "" /wait "%SystemDrive%\Sysprep\DriveCleaner.exe" /wandrv
+    copy /y "%~dp0apifiles\RunWanDrv.exe" "%SystemDrive%\Sysprep\RunWanDrv.exe"
+    start "" /wait "%SystemDrive%\Sysprep\RunWanDrv.exe" /TimeAuto
     echo %SystemDrive%\Sysprep\easydr*.exe>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
 ) else if exist "%SystemDrive%\wandrv\wandrv.exe" (
     echo [API]正在应用万能驱动...>"%systemdrive%\Windows\Setup\wallname.txt"
-    copy /y "%~dp0apifiles\DriveCleaner.exe" "%SystemDrive%\wandrv\DriveCleaner.exe"
-    start "" /wait "%SystemDrive%\wandrv\DriveCleaner.exe" /wandrv
+    copy /y "%~dp0apifiles\RunWanDrv.exe" "%SystemDrive%\wandrv\RunWanDrv.exe"
+    start "" /wait "%SystemDrive%\wandrv\RunWanDrv.exe" /TimeAuto
     echo %SystemDrive%\wandrv\wandrv.exe>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
 )
 if exist wandrv.iso (
-    echo [API]正在应用万能驱动wandrv.iso...>"%systemdrive%\Windows\Setup\wallname.txt"
+    echo [API]正在运行万能驱动wandrv.iso...>"%systemdrive%\Windows\Setup\wallname.txt"
     rd /s /q "%SystemDrive%\WINDOWS\WinDrive\"
-    md wandrv
-    move /y "%~dp0wandrv.iso" "%~dp0wandrv\wandrv.iso"
-    copy /y "%~dp0apifiles\DriveCleaner.exe" "%~dp0wandrv\DriveCleaner.exe"
-    start "" /wait "%~dp0wandrv\DriveCleaner.exe" /wandrv
+    copy /y "%~dp0apifiles\RunWanDrv.exe" "%~dp0RunWanDrv.exe" >nul
+    start "" /wait "%~dp0RunWanDrv.exe" /TimeAuto
+    del /f /q "%~dp0RunWanDrv.exe"
     echo wandrv.iso>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
-    del /f /q "%~dp0wandrv\wandrv.iso"
 )
 if exist wandrv2.iso (
-    echo [API]正在应用万能驱动wandrv2.iso...>"%systemdrive%\Windows\Setup\wallname.txt"
-    md wandrv2
-    move /y "%~dp0wandrv2.iso" "%~dp0wandrv2\wandrv.iso"
-    copy /y "%~dp0apifiles\DriveCleaner.exe" "%~dp0wandrv2\DriveCleaner.exe"
-    start "" /wait "%~dp0wandrv2\DriveCleaner.exe" /wandrv
+    echo [API]正在运行万能驱动wandrv2.iso...>"%systemdrive%\Windows\Setup\wallname.txt"
+    copy /y "%~dp0apifiles\RunWanDrv.exe" "%~dp0RunWanDrv.exe" >nul
+    start "" /wait "%~dp0RunWanDrv.exe" /TimeAuto
+    del /f /q "%~dp0RunWanDrv.exe"
     echo wandrv2.iso>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
-    del /f /q "%~dp0wandrv\wandrv.iso"
 )
 
 rd /s /q "%~dp0wandrv"
