@@ -325,12 +325,6 @@ if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 2 (
     xcopy /E /C /I /H /R /Y "User Data" "%LocalAppData%\Microsoft\Edge\User Data"
 )
 
-if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 4 (
-    if !XRSYS_OSC_WINDOWS_BUILD! GEQ 26100 (
-        echo osc >"%SystemDrive%\Windows\Setup\uia_nohide.flag"
-    )
-)
-
 start explorer.exe
 
 if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 4 (

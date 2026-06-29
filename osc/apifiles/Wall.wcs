@@ -268,15 +268,8 @@ _SUB 刷新检测
 _END
 
 _SUB 任务栏监控
-    IFEX %SystemDrive%\Windows\Setup\uia_nohide.flag,
-    {
-        // UIA 进行中，暂停隐藏任务栏
-        CALL 显示任务栏
-    }!
-    {
-        IFEX |%任务栏%=开,CALL 显示任务栏
-        IFEX |%任务栏%=关,CALL 隐藏任务栏
-    }
+    IFEX |%任务栏%=开,CALL 显示任务栏
+    IFEX |%任务栏%=关,CALL 隐藏任务栏
 _END
 
 _SUB 隐藏任务栏
