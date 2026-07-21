@@ -10,7 +10,7 @@
 
 ; --- 潇然工具 ---
 潇然常用工具.exe|https://url.xrgzs.top/xrtools|/S|潇然常用工具| |
-潇然系统设置.exe|https://url.xrgzs.top/xrsyshub|/verysilent|潇然系统设置|win10+|AMD64
+;潇然系统设置.exe|https://url.xrgzs.top/xrsyshub|/verysilent|潇然系统设置|win10+|AMD64
 Win7兼容性模块.exe|https://url.xrgzs.top/VxKex| |VxKex|win7|AMD64
 
 ; --- 压缩工具 ---
