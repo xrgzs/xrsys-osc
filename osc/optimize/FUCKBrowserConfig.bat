@@ -7,7 +7,7 @@ REM SPDX-License-Identifier: GPL-3.0-or-later
 REM 版权所有 (C) 潇然工作室
 REM 未经作者许可，不得删除或修改此文件中的版权和许可信息
 REM ===========================================================
-set ver=FUCK Browser Config by Xiaoran Studio V2.15 (Build 2025.4.19)
+set ver=FUCK Browser Config by Xiaoran Studio V2.16 (Build 2026.7.30)
 title %ver%
 mode con:cols=64
 @rem  lines=25
@@ -75,7 +75,7 @@ goto run
 mode con:cols=64
 cls
 if "%mode%"=="1" (
-    set clean="115chrome\User Data","360Chrome\Chrome\User Data","360Chrome\User Data","360ChromeX\Chrome\User Data","360ChromeX\User Data","360se6\User Data",360se5,360se,2345chrome,2345Explorer,"Apple Computer",Baidu\BaiduBrowser,DCBrowser,"Microsoft\Edge\User Data",hao123JuziBrowser,JuziBrowser,"Google\Chrome\User Data","Google\Chrome Dev\User Data","Google\Chrome SxS\User Data","Chrome\User Data","Google Chrome",liebao,liebao7,TaoBrowser,"Tencent\QQBrowser","TheWorld7\User Data","TheWorld6\User Data",UCBrowser,YYExplorer,Maxthon6,Maxthon5,Maxthon4,Maxthon3,Maxthon,Mozilla,"Opera Software",Shouxin,"SogouExplorer\User Data","Sogou\SogouExplorer\User Data","CentBrowser\User Data","User Data",secoresdk,"IQIYI Video","Qingniao Chrome\User Data","TSBrowser\User Data","ChromeCore\User Data",CEF,"BaiBeiBrowser\User Data","Chromium\User Data","Chromium\GbrowserData","Huawei\HuaweiBrowser\User Data","Lenovo\SLBrowser\User Data","Twinkstar\User Data","xbbrowser\User Data","极速浏览器\User Data","360gt\User Data"
+    set clean="115chrome\User Data","360Chrome\Chrome\User Data","360Chrome\User Data","360ChromeX\Chrome\User Data","360ChromeX\User Data","360se6\User Data",360se5,360se,2345chrome,2345Explorer,"Apple Computer","AIDesktopBrowser\User Data",Baidu\BaiduBrowser,"Doubao\User Data",DCBrowser,"Microsoft\Edge\User Data",hao123JuziBrowser,JuziBrowser,"Google\Chrome\User Data","Google\Chrome Dev\User Data","Google\Chrome SxS\User Data","Chrome\User Data","Google Chrome",liebao,liebao7,TaoBrowser,"Tencent\QQBrowser","TheWorld7\User Data","TheWorld6\User Data",UCBrowser,YYExplorer,Maxthon6,Maxthon5,Maxthon4,Maxthon3,Maxthon,Mozilla,"Opera Software",Shouxin,"SogouExplorer\User Data","Sogou\SogouExplorer\User Data","CentBrowser\User Data","User Data",secoresdk,"IQIYI Video","Qingniao Chrome\User Data","TSBrowser\User Data","ChromeCore\User Data",CEF,"BaiBeiBrowser\User Data","Chromium\User Data","Chromium\GbrowserData","Huawei\HuaweiBrowser\User Data","Lenovo\SLBrowser\User Data","Twinkstar\User Data","xbbrowser\User Data","极速浏览器\User Data","360gt\User Data","360aibrowser\User Data","LiebaoAI\User Data","Quark/User Data","UC/User Data","xbaibrowser/User Data","JiSu/User Data"
     set "cleans=rd /s /q %clean%"
     set kill=false
     set bm=true
@@ -84,7 +84,7 @@ if "%mode%"=="1" (
     goto delete
 )
 if "%mode%"=="2" (
-    set clean=115chrome,360Chrome,360ChromeX,360se6,360se5,360se,2345chrome,2345Explorer,"Apple Computer",Baidu,DCBrowser,Microsoft\Edge,hao123JuziBrowser,JuziBrowser,google,"Google Chrome",Chrome,liebao,liebao7,TaoBrowser,"Tencent\QQBrowser",TheWorld7,TheWorld6,UCBrowser,YYExplorer,Maxthon6,Maxthon5,Maxthon4,Maxthon3,Maxthon,Mozilla,"Opera Software",Shouxin,SogouExplorer,Sogou,CentBrowser,"User Data",secoresdk,"IQIYI Video","Qingniao Chrome",TSBrowser,ChromeCore,CEF,"BaiBeiBrowser","Chromium","Huawei\HuaweiBrowser","Lenovo\SLBrowser","Twinkstar","xbbrowser","极速浏览器","360gt"
+    set clean=115chrome,360Chrome,360ChromeX,360se6,360se5,360se,2345chrome,2345Explorer,"Apple Computer","AIDesktopBrowser",Baidu,Doubao,DCBrowser,Microsoft\Edge,hao123JuziBrowser,JuziBrowser,google,"Google Chrome",Chrome,liebao,liebao7,TaoBrowser,"Tencent\QQBrowser",TheWorld7,TheWorld6,UCBrowser,YYExplorer,Maxthon6,Maxthon5,Maxthon4,Maxthon3,Maxthon,Mozilla,"Opera Software",Shouxin,SogouExplorer,Sogou,CentBrowser,"User Data",secoresdk,"IQIYI Video","Qingniao Chrome",TSBrowser,ChromeCore,CEF,"BaiBeiBrowser","Chromium","Huawei\HuaweiBrowser","Lenovo\SLBrowser","Twinkstar","xbbrowser","极速浏览器","360gt","360aibrowser","LiebaoAI","Quark","UC","xbaibrowser","JiSu"
     set "cleans=rd /s /q %clean%"
     set kill=true
     set bm=true
@@ -171,6 +171,7 @@ for %%a in ("%SystemDrive%\Program Files","%SystemDrive%\Program Files (x86)") d
     del /f /q "%%~a\Microsoft\Edge Dev\Application\*preferences"
     del /f /q "%%~a\Google\Chrome\Application\*preferences"
     del /f /q "%%~a\Google\Chrome Dev\Application\*preferences"
+    del /f /q "%%~a\DtlSoft\BaibeiBrowser\*preferences"
 )
 
 if "%reg%"=="true" (
@@ -188,15 +189,22 @@ if "%reg%"=="true" (
         del /f /q "%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\Google Chrome.lnk"
         del /f /q "%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\chrome.lnk"
     )
+    echo 清理推广软件残留入口
+    rd /s /q "%SystemDrive%\Program Files\2345Soft"
+    rd /s /q "%SystemDrive%\Program Files (x86)\2345Soft"
+    rd /s /q "%SystemDrive%\Program Files\DtlSoft"
+    rd /s /q "%SystemDrive%\Program Files (x86)\DtlSoft"
     echo 清理注册表
     REG DELETE HKCU\Software\2345.com /f
     REG DELETE HKCU\Software\2345Explorer /f
     REG DELETE HKCU\Software\360 /f
     REG DELETE HKCU\Software\360Chrome /f
     REG DELETE HKCU\Software\360ChromeX /f
+    REG DELETE HKCU\Software\360Game5 /f
     REG DELETE HKCU\Software\360se5 /f
     REG DELETE HKCU\Software\360se6 /f
     REG DELETE HKCU\Software\2345Explorer /f
+    REG DELETE HKCU\Software\DriverMaster /f
     REG DELETE HKCU\Software\Chromium /f
     REG DELETE HKCU\Software\Google\Chrome /f
     REG DELETE HKCU\Software\Mozilla /f
@@ -205,7 +213,19 @@ if "%reg%"=="true" (
     REG DELETE HKCU\Software\Microsoft\Edge /f
     REG DELETE HKCU\Software\PPStream /f
     REG DELETE HKLM\SOFTWARE\2345Explorer /f
+    REG DELETE HKLM\SOFTWARE\Wow6432Node\2345Explorer /f
+    REG DELETE HKLM\SOFTWARE\2345PCSafe /f
+    REG DELETE HKLM\SOFTWARE\Wow6432Node\2345PCSafe /f
+    REG DELETE HKLM\SOFTWARE\2345Pic /f
+    REG DELETE HKLM\SOFTWARE\Wow6432Node\2345Pic /f
+    REG DELETE HKLM\SOFTWARE\2345Pinyin /f
+    REG DELETE HKLM\SOFTWARE\Wow6432Node\2345Pinyin /f
+    REG DELETE HKLM\SOFTWARE\2345SafeCenter /f
+    REG DELETE HKLM\SOFTWARE\Wow6432Node\2345SafeCenter /f
     REG DELETE HKLM\SOFTWARE\HaoZip /f
+    REG DELETE HKLM\SOFTWARE\Wow6432Node\HaoZip /f
+    REG DELETE HKLM\SOFTWARE\HaoCompress /f
+    REG DELETE HKLM\SOFTWARE\Wow6432Node\HaoCompress /f
     REG DELETE HKLM\SOFTWARE\Google\Chrome /f
     REG DELETE HKLM\SOFTWARE\Tencent\QQBrowser /f
     REG DELETE "HKLM\SOFTWARE\Microsoft\Internet Explorer\MAIN" /v "Start Page" /f
