@@ -114,6 +114,7 @@ else {
     # Get-LanzouFile -Uri "https://xrgzs.lanzoum.com/ioetN3tdzwzi" -OutFile "osc\xrsoft.exe"
     Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/5ffe081048ed4848c294f6a6f721ea26.exe" -OutFile "osc\xrsoft.exe"
     Invoke-RobustRequest -Uri "https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/refs/heads/master/MAS/Separate-Files-Version/Activators/TSforge_Activation.cmd" -OutFile "osc\xrkms\TSforge_Activation.cmd"
+    Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/d2b1e13ec8b471cf22d394dda6037d59.exe" -OutFile "osc\apifiles\RunWanDrv.exe"
 
     # 下载 ViVeTool
     $viveZip = "$env:TEMP\ViVeTool-v0.3.4-IntelAmd.zip"
@@ -129,6 +130,7 @@ Test-SHA256 -Hashes @{
     "osc\xrkms\HEU.exe"                  = "6AD72AF453A9C4DB99A30317E97689E893A110681E84655392865C8A813E8A5C"
     "osc\xrsoft.exe"                     = "A96DAB666AD7C9606D478F0A06539D25AF1DA4084BA0A87586541601434988CB"
     "osc\apifiles\vivetool\ViVeTool.exe" = "D3B69C982622A26AD0B37C65B8F006B5139E50AEB45FDA68734A33CA28706DEA"
+    "osc\apifiles\RunWanDrv.exe"         = "69977DEAEC629858A82FFD0910D29D6524AD8277392994E1BB3D39EB95DA612F"
 }
 
 # 构建
