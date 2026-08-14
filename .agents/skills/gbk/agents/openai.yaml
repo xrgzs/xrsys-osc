@@ -1,0 +1,4 @@
+interface:
+  display_name: "GBK PowerShell Text"
+  short_description: "Read and convert GBK text with PowerShell"
+  default_prompt: "Use $gbk to read this command output or file as GBK and return readable Unicode text."
