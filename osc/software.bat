@@ -63,6 +63,7 @@ taskkill /f /im OfficeC2RClient.exe
 :software_install
 echo [OSCol]正在安装软件...>"%SystemDrive%\Windows\Setup\wallname.txt"
 echo 正在读取注册表，获取软件安装列表
+type nul >softlist.txt
 for /f "tokens=1,2*" %%i in ('reg query HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products /s /v DisplayName^|find /i "DisplayName"') do (
     echo %%k >>softlist.txt
 )
@@ -101,14 +102,6 @@ FOR /F "eol=; tokens=1,2,3,4,5,6 delims=|" %%a in (!softlistfile!) do (
     set "softtarget=%%e"
     set "softarch=%%f"
 
-    REM 检测已安装
-    if not "!softdetect!"==" " (
-        findstr /i "!softdetect!" softlist.txt && (
-            echo [跳过] !softname! 已安装 >>Version.txt
-            set isinstall=no
-        )
-    )
-
     REM 检测适用系统
     if not "!softtarget!"==" " (
         if "!softtarget!"=="xp" (
@@ -118,11 +111,8 @@ FOR /F "eol=; tokens=1,2,3,4,5,6 delims=|" %%a in (!softlistfile!) do (
             ver | find /i "5.1." > nul && set isinstall=yes
         )
         if "!softtarget!"=="win7" (
-            echo [系统要求] Win7及以下
+            echo [系统要求] 仅Win7
             set isinstall=no
-            ver | find /i "5.0." > nul && set isinstall=yes
-            ver | find /i "5.1." > nul && set isinstall=yes
-            ver | find /i "6.0." > nul && set isinstall=yes
             ver | find /i "6.1." > nul && set isinstall=yes
         )
         if "!softtarget!"=="win7+" (
@@ -175,9 +165,17 @@ FOR /F "eol=; tokens=1,2,3,4,5,6 delims=|" %%a in (!softlistfile!) do (
     )
 
     REM 检测架构
-    if not "!softarch!"==" " (
+    if defined softarch if not "!softarch!"==" " (
         if not "%PROCESSOR_ARCHITECTURE%"=="!softarch!" (
             echo [跳过] !softname! 架构不匹配 >>Version.txt
+            set isinstall=no
+        )
+    )
+
+    REM 检测已安装
+    if not "!softdetect!"==" " (
+        findstr /i "!softdetect!" softlist.txt && (
+            echo [跳过] !softname! 已安装 >>Version.txt
             set isinstall=no
         )
     )

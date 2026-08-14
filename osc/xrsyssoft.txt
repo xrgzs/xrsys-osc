@@ -2,7 +2,7 @@
 ; 潇然系统 软件安装清单
 ; 格式: 文件名|下载地址|运行参数|已装检测|适用系统|指定架构
 ; 适用系统: xp win7 win7+ win10+ win10 win11 win7-10 not-xp not-win7 not-win10 not-win11
-; xp=仅XP win7=Win7及以下 win7+=Win7及以上 win10+=Win10及以上 win7-10=Win7到Win10 not-xp=除XP外
+; xp=仅XP win7=仅Win7 win7+=Win7及以上 win10+=Win10及以上 win7-10=Win7到Win10 not-xp=除XP外
 ; 架构: 空=全部 AMD64=64位 x86=32位
 ; 以 ; 开头为注释行
 ; 用户可将此文件放置于磁盘根目录作为 TAG 外置覆盖
