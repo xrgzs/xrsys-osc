@@ -400,6 +400,7 @@ if exist "optimize\finalpower.bat" echo y | start "" /wait /min "optimize\finalp
 :endosc
 echo ²¿ÊðÍê³É
 cd /d "%~dp0"
+if exist "%~dp0apifiles\DelDrvCeo.bat" start "" /wait /min "%~dp0apifiles\DelDrvCeo.bat"
 echo successful>"%SystemDrive%\Windows\Setup\oscstate.txt"
 echo successfuldel>"%SystemDrive%\Windows\Setup\oscstate.txt"
 if not exist "%SystemDrive%\Windows\Setup\Set\api.bat" (

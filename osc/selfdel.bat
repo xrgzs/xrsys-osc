@@ -103,46 +103,6 @@ attrib -s -h -r "%SystemDrive%\Windows\_temp_heu168yyds" /D
 rd /s /q "%SystemDrive%\Windows\_temp_heu168yyds"
 if not exist "%SystemDrive%\Windows\Temp\OSFMount.sys" reg delete "HKLM\SYSTEM\CurrentControlSet\Services\OSFMount" /f
 
-rem get desktop path
-for /f "tokens=3,*" %%i in ('reg query "HKLM\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" /v "Common Desktop"') do (set desk=%%j)
-for /f "tokens=3,*" %%i in ('reg query "HKLM\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" /v "Common Programs"') do (set pro=%%j)
-
-rem remove drvceo and its protect driver
-if not exist "%systemdrive%\Program Files\SysCeo\Drvceo" (
-    del /s /q /f "%USERPROFILE%\Desktop\驱动总裁.lnk"
-    del /s /q /f "%USERPROFILE%\Desktop\驅動總裁.lnk"
-    del /s /q /f "%USERPROFILE%\Desktop\DrvCeo.lnk"
-    del /s /q /f "%USERPROFILE%\桌面\驱动总裁.lnk"
-    del /s /q /f "%USERPROFILE%\桌面\驅動總裁.lnk"
-    del /s /q /f "%USERPROFILE%\桌面\DrvCeo.lnk"
-    del /s /q /f "%desk%\驱动总裁.lnk"
-    del /s /q /f "%desk%\驅動總裁.lnk"
-    del /s /q /f "%desk%\DrvCeo.lnk"
-    rd /s /q "%pro%\驱动总裁"
-    rd /s /q "%pro%\驅動總裁"
-    rd /s /q "%pro%\DrvCeo"
-)
-del /q /f "%pro%\..\驅動下載.lnk"
-del /q /f "%pro%\..\驱动下载.lnk"
-
-echo HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\DcProtect  [1 7 17] >reg.ini
-regini.exe reg.ini
-del /f /q reg.ini
-REG DELETE "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\UFH\SHC" /f
-attrib -s -h -r "%systemroot%\Help\dcold.exe"
-del /q /f "%systemroot%\Help\dcold.exe"
-sc stop DcProtect
-sc delete DcProtect
-reg delete HKEY_LOCAL_MACHINE\system\ControlSet001\Services\DcProtect\   /f
-attrib -s -h -r "%WinDir%\System32\drivers\DcProtect_10x64.sys"
-attrib -s -h -r "%WinDir%\System32\drivers\DcProtect_10x86.sys"
-attrib -s -h -r "%WinDir%\System32\drivers\DcProtect_7x64.sys"
-attrib -s -h -r "%WinDir%\System32\drivers\DcProtect_7x86.sys"
-del /f /q "%WinDir%\System32\drivers\DcProtect_10x64.sys"
-del /f /q "%WinDir%\System32\drivers\DcProtect_10x86.sys"
-del /f /q "%WinDir%\System32\drivers\DcProtect_7x64.sys"
-del /f /q "%WinDir%\System32\drivers\DcProtect_7x86.sys"
-
 rem bcd timeout
 bcdedit /? >nul && bcdedit /timeout 3
 

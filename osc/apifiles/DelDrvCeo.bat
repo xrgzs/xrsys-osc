@@ -12,6 +12,12 @@ for /f "tokens=3,*" %%i in ('reg query "HKLM\Software\Microsoft\Windows\CurrentV
 del /q /f "%desk%\驱动总裁.lnk"
 del /q /f "%desk%\驅動總裁.lnk"
 del /q /f "%desk%\DrvCeo.lnk"
+del /q /f "%USERPROFILE%\Desktop\驱动总裁.lnk"
+del /q /f "%USERPROFILE%\Desktop\驅動總裁.lnk"
+del /q /f "%USERPROFILE%\Desktop\DrvCeo.lnk"
+del /q /f "%USERPROFILE%\桌面\驱动总裁.lnk"
+del /q /f "%USERPROFILE%\桌面\驅動總裁.lnk"
+del /q /f "%USERPROFILE%\桌面\DrvCeo.lnk"
 rd /s /q "%pro%\驱动总裁"
 rd /s /q "%pro%\驅動總裁"
 rd /s /q "%pro%\DrvCeo"
@@ -26,20 +32,20 @@ reg delete HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstal
 reg delete HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\DrvCeo  /f
 Reg Delete "HKLM\SOFTWARE\SysCeo" /f
 Reg Delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\DrvCeo2.0" /f
-Reg Delete "HKLM\SOFTWARE\SOFTWARE\Wow6432Node\SysCeo" /f
+Reg Delete "HKLM\SOFTWARE\Wow6432Node\SysCeo" /f
 Reg Delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\DrvCeo2.0" /f
 echo HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\DcProtect  [1 7 17] >"%~dp0reg.ini"
 regini.exe "%~dp0reg.ini"
 del /f /q "%~dp0reg.ini"
+sc stop DcProtect
+sc delete DcProtect
 
 REG DELETE "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\UFH\SHC" /f
 reg delete HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\DrvCeo2.0\   /f
-reg delete HKEY_LOCAL_MACHINE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\DrvCeo2.0\   /f
-reg delete HKEY_LOCAL_MACHINE\SysCeo\DrvCeo\   /f
-reg delete HKEY_LOCAL_MACHINE\Wow6432Node\SysCeo\DrvCeo\   /f
+reg delete HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\DrvCeo2.0\   /f
 reg delete HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\DrvCeo\   /f
-reg delete HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\ /v DrvCeo   /f
-reg delete HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Run\DrvCeo /v DrvCeo   /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v DrvCeo /f
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Run" /v DrvCeo /f
 reg delete HKEY_LOCAL_MACHINE\system\ControlSet001\Services\DcProtect\   /f
 
 
@@ -55,12 +61,16 @@ attrib.exe -s -h "%systemdrive%\ProgramData\Microsoft\Windows\Start Menu\Program
 attrib.exe -s -h "%systemdrive%\Users\Public\Desktop\驱动总裁.LNK" /S /D 
 attrib.exe -s -h "%systemdrive%\ProgramData\Microsoft\Windows\Start Menu\Programs\驱动总裁" /S /D 
 attrib.exe -s -h "%ALLUSERSPROFILE%\「开始」菜单\程序\驱动总裁" /S /D 
-attrib.exe -s -h "%systemroot%%\Help\dcold.exe"
-del /q /f "%systemroot%%\Help\dcold.exe"
+attrib.exe -s -h -r "%systemroot%\Help\dcold.exe"
+del /q /f "%systemroot%\Help\dcold.exe"
 del /f /q "%systemdrive%\Program Files\SysCeo\Drvceo\Drvceo.exe"
 del /f /q "%systemdrive%\Users\Public\Desktop\驱动总裁.LNK"
 del /f /q "%systemdrive%\ProgramData\Microsoft\Windows\Start Menu\Programs\驱动总裁2.0\驱动总裁.LNK"
 del /f /q "%systemdrive%\Program Files\SysCeo\Drvceo\Drvceo.exe" 
+attrib -s -h -r "%WinDir%\System32\drivers\DcProtect_10x64.sys"
+attrib -s -h -r "%WinDir%\System32\drivers\DcProtect_10x86.sys"
+attrib -s -h -r "%WinDir%\System32\drivers\DcProtect_7x64.sys"
+attrib -s -h -r "%WinDir%\System32\drivers\DcProtect_7x86.sys"
 del /f /q "%WinDir%\System32\drivers\DcProtect_10x64.sys" 
 del /f /q "%WinDir%\System32\drivers\DcProtect_10x86.sys" 
 del /f /q "%WinDir%\System32\drivers\DcProtect_7x64.sys" 
