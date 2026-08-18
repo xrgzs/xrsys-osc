@@ -438,7 +438,11 @@ if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 4 (
 )
 echo 修复双用户问题
 if /i not "%USERNAME%"=="Administrator" (
-    NET USER Administrator /ACTIVE:NO
+    if exist "%SystemDrive%\Windows\Setup\xrsysadmin.txt" (
+        NET USER Administrator /ACTIVE:YES
+    ) else (
+        NET USER Administrator /ACTIVE:NO
+    )
 )
 
 echo 修复用户密码过期问题
