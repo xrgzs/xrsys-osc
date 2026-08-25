@@ -113,13 +113,16 @@ if exist wandrv.iso (
     copy /y "%XRSYS_OSC_TOOLS_DIR%\RunWanDrv.exe" "%~dp0RunWanDrv.exe" >nul
     start "" /wait "%~dp0RunWanDrv.exe" /TimeAuto
     del /f /q "%~dp0RunWanDrv.exe"
+    del /f /q wandrv.iso
     echo wandrv.iso>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
 )
 if exist wandrv2.iso (
     echo [OSC]正在运行万能驱动wandrv2.iso...>"%systemdrive%\Windows\Setup\wallname.txt"
+    move /y wandrv2.iso "wandrv.iso"
     copy /y "%XRSYS_OSC_TOOLS_DIR%\RunWanDrv.exe" "%~dp0RunWanDrv.exe" >nul
     start "" /wait "%~dp0RunWanDrv.exe" /TimeAuto
     del /f /q "%~dp0RunWanDrv.exe"
+    del /f /q wandrv.iso
     echo wandrv2.iso>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
 )
 if exist "%SystemDrive%\Windows\Setup\xrsyssearchapi.txt" (

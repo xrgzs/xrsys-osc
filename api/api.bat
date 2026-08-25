@@ -173,11 +173,7 @@ if %XRSYS_OSC_WINDOWS_VERSION_LEVEL% GEQ 2 if exist CeoMSX.wim (
     DISM.exe /Unmount-Image /MountDir:CeoMSX /Discard
     del /f /q CeoMSX.wim
 )
-if exist "%SystemDrive%\WINDOWS\WinDrive\DcLoader.exe" (
-    echo [API]正在应用驱动总裁...>"%systemdrive%\Windows\Setup\wallname.txt"
-    start "" /wait "%SystemDrive%\WINDOWS\WinDrive\DcLoader.exe"
-    echo %SystemDrive%\WINDOWS\WinDrive\DcLoader.exe>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
-) else if exist "%SystemDrive%\WINDOWS\WinDrive\SDI*.exe" (
+if exist "%SystemDrive%\WINDOWS\WinDrive\SDI*.exe" (
     for %%a in ("%SystemDrive%\WINDOWS\WinDrive\SDI*.exe") do (
         if /i "PROCESSOR_ARCHITECTURE"=="AMD64" (
             echo %%~na | find /i "64" && (
@@ -240,13 +236,16 @@ if exist wandrv.iso (
     copy /y "%~dp0apifiles\RunWanDrv.exe" "%~dp0RunWanDrv.exe" >nul
     start "" /wait "%~dp0RunWanDrv.exe" /TimeAuto
     del /f /q "%~dp0RunWanDrv.exe"
+    del /f /q wandrv.iso
     echo wandrv.iso>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
 )
 if exist wandrv2.iso (
     echo [API]正在运行万能驱动wandrv2.iso...>"%systemdrive%\Windows\Setup\wallname.txt"
+    move /y wandrv2.iso "wandrv.iso"
     copy /y "%~dp0apifiles\RunWanDrv.exe" "%~dp0RunWanDrv.exe" >nul
     start "" /wait "%~dp0RunWanDrv.exe" /TimeAuto
     del /f /q "%~dp0RunWanDrv.exe"
+    del /f /q wandrv.iso
     echo wandrv2.iso>>"%systemdrive%\Windows\Setup\xrsysdriverdebug.log"
 )
 
