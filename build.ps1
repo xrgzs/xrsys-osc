@@ -108,13 +108,13 @@ if (Test-Path 'osc\xrsoft.exe') {
 else {
     # 下载所需文件
     # Get-LanzouFile -Uri "https://xrgzs.lanzoum.com/iy02F3ppu8mj" -OutFile "osc\xrkms\KMS_VL_ALL_AIO.cmd"
-    Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/3380523d9ee1fbc12a84e5a5b7994890.cmd" -OutFile "osc\xrkms\KMS_VL_ALL_AIO.cmd"
+    Invoke-RobustRequest -Uri "https://file.icve.com.cn/file_doc/508/225/7F1385E8B6354AD5EFDF855D2215C8B7.cmd" -OutFile "osc\xrkms\KMS_VL_ALL_AIO.cmd"
     # Get-LanzouFile -Uri "https://xrgzs.lanzoum.com/iHBP43urw1ed" -OutFile "osc\xrkms\HEU.exe"
-    Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/124c265095cf825b8162b2de94fa34d2.exe" -OutFile "osc\xrkms\HEU.exe"
+    Invoke-RobustRequest -Uri "https://file.icve.com.cn/file_doc/832/132/D02212C7FB76461347686D99CFBD25C6.exe" -OutFile "osc\xrkms\HEU.exe"
     # Get-LanzouFile -Uri "https://xrgzs.lanzoum.com/ioetN3tdzwzi" -OutFile "osc\xrsoft.exe"
-    Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/5ffe081048ed4848c294f6a6f721ea26.exe" -OutFile "osc\xrsoft.exe"
+    Invoke-RobustRequest -Uri "https://file.icve.com.cn/file_doc/574/665/8FBA67441509BFD9618F74A1283E1449.exe" -OutFile "osc\xrsoft.exe"
     Invoke-RobustRequest -Uri "https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/refs/heads/master/MAS/Separate-Files-Version/Activators/TSforge_Activation.cmd" -OutFile "osc\xrkms\TSforge_Activation.cmd"
-    Invoke-RobustRequest -Uri "https://nos.netease.com/ysf/d2b1e13ec8b471cf22d394dda6037d59.exe" -OutFile "osc\apifiles\RunWanDrv.exe"
+    Invoke-RobustRequest -Uri "https://file.icve.com.cn/file_doc/815/611/CBD98D6D0722939D3684F51339727FAF.exe" -OutFile "osc\apifiles\RunWanDrv.exe"
 
     # 下载 ViVeTool
     $viveZip = "$env:TEMP\ViVeTool-v0.3.4-IntelAmd.zip"
