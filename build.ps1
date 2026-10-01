@@ -28,8 +28,7 @@ function Test-Hashes {
         if ($actualHash -ne $expectedHash) {
             # return $false
             Write-Error "$file hash not match."
-        }
-        else {
+        } else {
             Write-Host -ForegroundColor Green "$file hash match."
         }
     }
@@ -51,8 +50,7 @@ function Invoke-RobustRequest {
         try {
             Invoke-WebRequest -Uri $Uri -OutFile $OutFile -ConnectionTimeoutSeconds 5 -AllowInsecureRedirect
             return
-        }
-        catch {
+        } catch {
             if ($retry -eq 3) {
                 throw "Failed after 3 retries! URL: '$Uri', Error: $_"
             }
@@ -77,13 +75,11 @@ function Get-LanzouFile {
     try {
         Write-Host "Using api.xrgzs.top to parse link..."
         Invoke-RobustRequest -Uri "https://api.xrgzs.top/sdlp/lanzou/?type=down&url=$Uri" -OutFile $OutFile
-    }
-    catch {
+    } catch {
         try {
             Write-Host "Using lz.qaiu.top to parse link..."
             Invoke-RobustRequest -Uri "https://lz.qaiu.top/parser?url=$Uri" -OutFile $OutFile
-        }
-        catch {
+        } catch {
             Write-Error "Failed to download $Uri. ($_)"
         }
     }
@@ -92,11 +88,9 @@ function Get-LanzouFile {
 # 检查
 if (Test-Path "$env:NSISDIR\makensis.exe") {
     $nsisDir = "$env:NSISDIR"
-}
-elseif (Test-Path "C:\Program Files (x86)\NSIS\makensis.exe") {
+} elseif (Test-Path "C:\Program Files (x86)\NSIS\makensis.exe") {
     $nsisDir = "C:\Program Files (x86)\NSIS"
-}
-else {
+} else {
     Write-Host "Cannot find nsis!"
     exit 1
 }
@@ -104,8 +98,7 @@ Write-Host "version: $env:GITHUB_WORKFLOW_VERSION"
 Write-Host "nsisDir: $nsisDir"
 if (Test-Path 'osc\xrsoft.exe') {
     Write-Host "xrsoft.exe already exists."
-}
-else {
+} else {
     # 下载所需文件
     # Get-LanzouFile -Uri "https://xrgzs.lanzoum.com/iy02F3ppu8mj" -OutFile "osc\xrkms\KMS_VL_ALL_AIO.cmd"
     Invoke-RobustRequest -Uri "https://file.icve.com.cn/file_doc/508/225/7F1385E8B6354AD5EFDF855D2215C8B7.cmd" -OutFile "osc\xrkms\KMS_VL_ALL_AIO.cmd"
@@ -114,7 +107,8 @@ else {
     # Get-LanzouFile -Uri "https://xrgzs.lanzoum.com/ioetN3tdzwzi" -OutFile "osc\xrsoft.exe"
     Invoke-RobustRequest -Uri "https://file.icve.com.cn/file_doc/574/665/8FBA67441509BFD9618F74A1283E1449.exe" -OutFile "osc\xrsoft.exe"
     Invoke-RobustRequest -Uri "https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/refs/heads/master/MAS/Separate-Files-Version/Activators/TSforge_Activation.cmd" -OutFile "osc\xrkms\TSforge_Activation.cmd"
-    Invoke-RobustRequest -Uri "https://file.icve.com.cn/file_doc/815/611/CBD98D6D0722939D3684F51339727FAF.exe" -OutFile "osc\apifiles\RunWanDrv.exe"
+    # Get-LanzouFile -Uri "https://xrgzs.lanzouc.com/iERC34am0o9a" -OutFile "osc\apifiles\RunWanDrv.exe"
+    Invoke-RobustRequest -Uri "https://file.icve.com.cn/file_doc/198/675/318A8DB1A66308D852185F39775C86DC.exe" -OutFile "osc\apifiles\RunWanDrv.exe"
 
     # 下载 ViVeTool
     $viveZip = "$env:TEMP\ViVeTool-v0.3.4-IntelAmd.zip"
@@ -130,7 +124,7 @@ Test-SHA256 -Hashes @{
     "osc\xrkms\HEU.exe"                  = "6AD72AF453A9C4DB99A30317E97689E893A110681E84655392865C8A813E8A5C"
     "osc\xrsoft.exe"                     = "A96DAB666AD7C9606D478F0A06539D25AF1DA4084BA0A87586541601434988CB"
     "osc\apifiles\vivetool\ViVeTool.exe" = "D3B69C982622A26AD0B37C65B8F006B5139E50AEB45FDA68734A33CA28706DEA"
-    "osc\apifiles\RunWanDrv.exe"         = "69977DEAEC629858A82FFD0910D29D6524AD8277392994E1BB3D39EB95DA612F"
+    "osc\apifiles\RunWanDrv.exe"         = "29A77FD56397239552EA7B8636D2F8954BD37EB40286C2692A92ECD17DEE434C"
 }
 
 # 构建
