@@ -104,7 +104,7 @@ if exist "DotNet\*.exe" (
 REM ========== PowerShell ==========
 if exist "PWSH\*.msi" (
     echo [OSC]正在安装PWSH运行库...>"%systemdrive%\Windows\Setup\wallname.txt"
-    for %%a in ("PWSH\*.msi") do start "" /wait "%XRSYS_OSC_PECMD_EXE%" EXEC -wait -timeout:300000 msiexec.exe /package "%%~fa" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ADD_FILE_CONTEXT_MENU_RUNPOWERSHELL=1 REGISTER_MANIFEST=1 USE_MU=1 ENABLE_MU=1 ADD_PATH=1
+    for %%a in ("PWSH\*.msi") do start "" /wait "%XRSYS_OSC_PECMD_EXE%" EXEC -wait -timeout:300000 msiexec.exe /package "%%~fa" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ADD_FILE_CONTEXT_MENU_RUNPOWERSHELL=1 REGISTER_MANIFEST=1 USE_MU=1 ENABLE_MU=1 ADD_PATH=1 DISABLE_TELEMETRY=1
 )
 
 REM ========== 系统增强组件 ==========
