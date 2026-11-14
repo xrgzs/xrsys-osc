@@ -102,9 +102,32 @@ if exist "DotNet\*.exe" (
 )
 
 REM ========== PowerShell ==========
-if exist "PWSH\*.msi" (
+set "XRSYS_OSC_PWSH_PACKAGE_PATTERN="
+if exist "PWSH\*.msixbundle" set "XRSYS_OSC_PWSH_PACKAGE_PATTERN=PWSH\*.msixbundle"
+if not defined XRSYS_OSC_PWSH_PACKAGE_PATTERN if exist "PWSH\*.msix" set "XRSYS_OSC_PWSH_PACKAGE_PATTERN=PWSH\*.msix"
+if defined XRSYS_OSC_PWSH_PACKAGE_PATTERN (
+    if %XRSYS_OSC_WINDOWS_BUILD% LSS 17763 (
+        echo [OSC]PowerShell 7 MSIX requires Windows 10 version 1809, build 17763 or later.>"%systemdrive%\Windows\Setup\wallname.txt"
+    ) else (
     echo [OSC]正在安装PWSH运行库...>"%systemdrive%\Windows\Setup\wallname.txt"
-    for %%a in ("PWSH\*.msi") do start "" /wait "%XRSYS_OSC_PECMD_EXE%" EXEC -wait -timeout:300000 msiexec.exe /package "%%~fa" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ADD_FILE_CONTEXT_MENU_RUNPOWERSHELL=1 REGISTER_MANIFEST=1 USE_MU=1 ENABLE_MU=1 ADD_PATH=1 DISABLE_TELEMETRY=1
+        set "XRSYS_OSC_PWSH_POLICY_ERROR="
+        if %XRSYS_OSC_WINDOWS_BUILD% LSS 19041 (
+            reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Appx" /v AllowAllTrustedApps /t REG_DWORD /d 1 /f >nul
+            if errorlevel 1 set "XRSYS_OSC_PWSH_POLICY_ERROR=1"
+        )
+        if defined XRSYS_OSC_PWSH_POLICY_ERROR (
+            echo [OSC]PowerShell 7 MSIX sideload policy setup failed.>"%systemdrive%\Windows\Setup\wallname.txt"
+        ) else (
+            for %%a in ("%XRSYS_OSC_PWSH_PACKAGE_PATTERN%") do (
+                start "" /wait "%XRSYS_OSC_PECMD_EXE%" EXEC -wait -timeout:300000 dism.exe /Online /Add-ProvisionedAppxPackage /PackagePath:"%%~fa" /SkipLicense /Region:all
+                if errorlevel 1 (
+                    echo [OSC]PowerShell 7 MSIX provisioning failed. Check the DISM log.>"%systemdrive%\Windows\Setup\wallname.txt"
+                ) else (
+                    echo [OSC]PowerShell 7 MSIX provisioned.>"%systemdrive%\Windows\Setup\wallname.txt"
+                )
+            )
+        )
+    )
 )
 
 REM ========== 系统增强组件 ==========
